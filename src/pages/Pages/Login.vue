@@ -4,38 +4,40 @@
       <form @submit.prevent="login">
         <card class="card-login card-white text-left">
           <template slot="header">
-            <img src="img/card-primary.png" class="card-img" alt="" />
+            <img src="img/card-primary.png" class="card-img" alt=""/>
             <h1 class="card-title">Log in</h1>
           </template>
 
           <div>
             <base-input
-              v-validate="'required|email'"
-              name="email"
-              v-model="model.email"
-              placeholder="Email"
-              addon-left-icon="tim-icons icon-email-85"
+                v-validate="'required|email'"
+                name="email"
+                v-model="model.email"
+                placeholder="Email"
+                addon-left-icon="tim-icons icon-email-85"
             >
             </base-input>
+            <validation-error :errors="apiValidationErrors.email"/>
 
             <base-input
-              v-validate="'required|min:5'"
-              name="password"
-              v-model="model.password"
-              type="password"
-              placeholder="Password"
-              addon-left-icon="tim-icons icon-lock-circle"
+                v-validate="'required|min:5'"
+                name="password"
+                v-model="model.password"
+                type="password"
+                placeholder="Password"
+                addon-left-icon="tim-icons icon-lock-circle"
             >
             </base-input>
+            <validation-error :errors="apiValidationErrors.password"/>
           </div>
 
           <div slot="footer">
             <base-button
-              native-type="submit"
-              type="primary"
-              class="mb-3"
-              size="lg"
-              block
+                native-type="submit"
+                type="primary"
+                class="mb-3"
+                size="lg"
+                block
             >
               Get Started
             </base-button>
@@ -57,12 +59,17 @@
   </div>
 </template>
 <script>
-import { Card, BaseInput } from "@/components/index";
+import {Card, BaseInput} from "@/components/index";
+import formMixin from "@/mixins/form-mixin";
+import ValidationError from "@/components/ValidationError.vue";
+import router from "@/router";
 
 export default {
+  mixins: [formMixin],
   components: {
     Card,
-    BaseInput
+    BaseInput,
+    ValidationError
   },
   data() {
     return {
@@ -73,11 +80,28 @@ export default {
       }
     };
   },
+  mounted() {
+    this.test();
+  },
   methods: {
+    test() {
+      router.push({path: "/pricing"});
+    },
     async login() {
-      let isValidForm = await this.$validator.validateAll();
-      if (isValidForm) {
-        // TIP use this.model to send it to api and perform login call
+      const user = {
+        email: this.model.email,
+        password: this.model.password
+      }
+
+      try {
+        await this.$store.dispatch("auth/login", user)
+      } catch (e) {
+        this.$notify({
+          message: 'Invalid credentials!',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+        this.setApiValidation(e.response.data.errors)
       }
     }
   }

@@ -33,26 +33,25 @@ import i18n from "./i18n";
 import SideBar from "@/components/SidebarPlugin";
 import Element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+import './registerServiceWorker'
+import VueMeta from 'vue-meta'
 
 // element ui language configuration
 import lang from "element-ui/lib/locale/lang/en";
 import locale from "element-ui/lib/locale";
+import store from "./store";
+import RouterPrefetch from 'vue-router-prefetch'
+
 locale.use(lang);
 
 Vue.config.productionTip = false;
 
-// router setup
-import routes from "./router";
-
-// configure router
-const router = new VueRouter({
-  routes, // short for routes: routes
-  linkExactActiveClass: "active"
-});
+import router from "./router/index";
 
 Vue.use(Element);
 
 Vue.use(VueRouter);
+// Vue.use(RouterPrefetch);
 Vue.use(SocialSharing);
 Vue.use(VueGitHubButtons, { useCache: true });
 Vue.use(GlobalComponents);
@@ -60,8 +59,10 @@ Vue.use(GlobalDirectives);
 Vue.use(RTLPlugin);
 Vue.use(SideBar);
 Vue.use(Notify);
+Vue.use(VueMeta, { keyName: 'head' })
 
 new Vue({
+  store: store,
   router,
   i18n,
   render: h => h(App)

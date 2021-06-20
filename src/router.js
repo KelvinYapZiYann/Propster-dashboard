@@ -1,5 +1,6 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import AuthLayout from "@/pages/Pages/AuthLayout.vue";
+import auth from "@/middleware/auth";
 
 const Dashboard = () =>
   import(/* webpackChunkName: "dashboard" */ "@/pages/Dashboard.vue");
@@ -158,7 +159,8 @@ let componentsMenu = {
       name: "Typography",
       components: { default: Typography }
     }
-  ]
+  ],
+  meta: { middleware: auth }
 };
 
 let formsMenu = {
