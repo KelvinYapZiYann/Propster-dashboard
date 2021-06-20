@@ -1,5 +1,5 @@
 import AuthService from "../services/auth-service";
-import router from "@/router";
+import router from "@/routers";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const state = user
@@ -33,14 +33,11 @@ const mutations = {
 
 const actions = {
   login({ commit }, user) {
-    router.push({path: "/pricing"});
-
     return AuthService.login(user).then(
         (user) => {
           commit("loginSuccess", user);
-          // return router.push({path: "/dashboard"});
-
-          // return Promise.resolve(user);
+          router.push({path: "/dashboard"});
+          return Promise.resolve(user);
         },
         (error) => {
           console.log(error);
@@ -52,11 +49,13 @@ const actions = {
   logout({ commit }) {
     AuthService.logout();
     commit("logout");
+    router.push({name: "Login"});
   },
   register({ commit }, user) {
     return AuthService.register(user).then(
         (response) => {
           commit("registerSuccess");
+          router.push({path: "/dashboard"});
           return Promise.resolve(response.data);
         },
         (error) => {

@@ -80,13 +80,7 @@ export default {
       }
     };
   },
-  mounted() {
-    this.test();
-  },
   methods: {
-    test() {
-      router.push({path: "/pricing"});
-    },
     async login() {
       const user = {
         email: this.model.email,
