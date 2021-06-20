@@ -30,6 +30,7 @@ import Breadcrumb from "./Breadcrumb/Breadcrumb.vue";
 import BreadcrumbItem from "./Breadcrumb/BreadcrumbItem.vue";
 import RouteBreadCrumb from "./Breadcrumb/RouteBreadcrumb.vue";
 import Badge from "./Badge";
+import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
 
 export {
   Card,
@@ -63,5 +64,6 @@ export {
   Breadcrumb,
   BreadcrumbItem,
   RouteBreadCrumb,
-  Badge
+  Badge,
+  BaseSelectorInput
 };

@@ -1,0 +1,80 @@
+<template>
+  <form @submit.prevent>
+    <h5 slot="header" class="title">Generate Report</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <base-selector-input label="Report Type"
+                               placeholder="Report Type"
+                               v-model="model.report_type"
+                               :options="reportTypes"
+          >
+          </base-selector-input>
+          <validation-error :errors="apiValidationErrors.report_type"/>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-6">
+        <base-input label="Start Date"
+                    type="date"
+                    placeholder="Start Date"
+                    v-model="model.start_date">
+        </base-input>
+        <validation-error :errors="apiValidationErrors.start_date"/>
+      </div>
+      <div class="col-md-6">
+        <base-input label="End Date"
+                    type="date"
+                    placeholder="End Date"
+                    v-model="model.end_date">
+        </base-input>
+        <validation-error :errors="apiValidationErrors.end_date"/>
+      </div>
+    </div>
+    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Generate Report</base-button>
+  </form>
+</template>
+<script>
+import formMixin from "@/mixins/form-mixin";
+import ValidationError from "@/components/ValidationError.vue";
+import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+
+export default {
+  mixins: [formMixin],
+  components: {
+    // AssetForm,
+    ValidationError,
+    BaseSelectorInput
+  },
+  data() {
+    return {
+      model: {
+        report_type: null,
+        start_date: null,
+        end_date: null,
+      }
+    }
+  },
+  props: {
+    apiValidationErrors: {
+      type: Object
+    },
+    reportTypes: {
+      type: Object
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      this.$emit('requestReport', this.translateModel())
+    },
+    translateModel() {
+      return {
+        report_type: this.model.report_type,
+        start_date: this.model.start_date,
+        end_date: this.model.end_date
+      }
+    }
+  }
+}
+</script>
+<style>
+</style>
