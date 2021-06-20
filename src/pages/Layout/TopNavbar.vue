@@ -123,7 +123,7 @@
               </li>
               <li class="dropdown-divider"></li>
               <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
+                <a href="javascript:void(0)" @click="logout" class="nav-item dropdown-item"
                   >Log out</a
                 >
               </li>
@@ -158,7 +158,17 @@ export default {
     },
     toggleMenu() {
       this.showMenu = !this.showMenu;
-    }
+    },
+    async logout() {
+      try {
+        this.$store.dispatch("logout");
+      } catch (error) {
+        this.$notify({
+          type: "danger",
+          message: "Oops, something went wrong!",
+        });
+      }
+    },
   },
   computed: {
     isRTL() {

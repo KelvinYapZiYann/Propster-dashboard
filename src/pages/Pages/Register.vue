@@ -7,11 +7,7 @@
             <i class="tim-icons icon-wifi"></i>
           </div>
           <div class="description">
-            <h3 class="info-title">Marketing</h3>
-            <p class="description">
-              We've created the marketing campaign of the website. It was a very
-              interesting collaboration.
-            </p>
+            <h3 class="info-title">By register, you will experience how this tool can help you manage your property effectively.</h3>
           </div>
         </div>
         <div class="info-area info-horizontal">
@@ -19,11 +15,7 @@
             <i class="tim-icons icon-triangle-right-17"></i>
           </div>
           <div class="description">
-            <h3 class="info-title">Fully Coded in HTML5</h3>
-            <p class="description">
-              We've developed the website with HTML5 and CSS3. The client has
-              access to the code using GitHub.
-            </p>
+            <h3 class="info-title">Free To Use If you're just started to manage your property</h3>
           </div>
         </div>
         <div class="info-area info-horizontal">
@@ -31,11 +23,7 @@
             <i class="tim-icons icon-trophy"></i>
           </div>
           <div class="description">
-            <h3 class="info-title">Built Audience</h3>
-            <p class="description">
-              There is also a Fully Customizable CMS Admin Dashboard for this
-              product.
-            </p>
+            <h3 class="info-title">We will be helping you as much as needed to familiar and be productive in Propster.</h3>
           </div>
         </div>
       </div>
@@ -53,47 +41,61 @@
             </template>
 
             <base-input
-              v-validate="'required'"
-              v-model="model.fullName"
-              name="Full Name"
-              placeholder="Full Name"
-              addon-left-icon="tim-icons icon-single-02"
-            >
+                v-model="mobile_number"
+                placeholder="Mobile Number"
+                addon-left-icon="tim-icons icon-mobile"
+                type="text">
             </base-input>
+            <validation-error :errors="apiValidationErrors.mobile_number" />
 
             <base-input
-              v-validate="'required|email'"
-              v-model="model.email"
-              name="email"
-              placeholder="Email"
-              addon-left-icon="tim-icons icon-email-85"
-            >
+                v-model="email"
+                placeholder="Email"
+                addon-left-icon="tim-icons icon-email-85"
+                type="email">
             </base-input>
+            <validation-error :errors="apiValidationErrors.email" />
 
             <base-input
-              v-validate="'required|min:5'"
-              v-model="model.password"
-              name="password"
-              type="password"
-              placeholder="Password"
-              addon-left-icon="tim-icons icon-lock-circle"
-            >
+                v-model="password"
+                placeholder="Password"
+                addon-left-icon="tim-icons icon-lock-circle"
+                type="password">
             </base-input>
+            <validation-error :errors="apiValidationErrors.password" />
 
-            <base-checkbox class="text-left">
+            <base-input
+                placeholder="Confirm Password"
+                type="password"
+                name="Password confirmation"
+                v-model="password_confirmation"
+                addon-left-icon="tim-icons icon-lock-circle">
+            </base-input>
+            <validation-error :errors="apiValidationErrors.password_confirmation" />
+
+            <base-checkbox v-model="boolean" class="text-left">
               I agree to the <a href="#something">terms and conditions</a>.
             </base-checkbox>
 
-            <base-button
-              native-type="submit"
-              slot="footer"
-              type="primary"
-              round
-              block
-              size="lg"
-            >
-              Get Started
-            </base-button>
+            <div slot="footer">
+              <base-button
+                  native-type="submit"
+                  slot="footer"
+                  type="primary"
+                  round
+                  block
+                  size="lg"
+              >
+                Get Started
+              </base-button>
+              <div class="pull-left text-left">
+                <h6>
+                  <router-link class="link footer-link" to="/login">
+                    Already have an account? Login
+                  </router-link>
+                </h6>
+              </div>
+            </div>
           </card>
         </form>
       </div>
@@ -102,27 +104,65 @@
 </template>
 <script>
 import { BaseCheckbox, Card, BaseInput } from "@/components/index";
+import ValidationError from "@/components/ValidationError.vue";
+import formMixin from "@/mixins/form-mixin";
 
 export default {
   components: {
     BaseCheckbox,
     Card,
-    BaseInput
+    BaseInput,
+    ValidationError
   },
+  mixins: [formMixin],
   data() {
     return {
-      model: {
-        email: "",
-        fullName: "",
-        password: ""
-      }
+      mobile_number: null,
+      boolean: false,
+      email: null,
+      password: null,
+      password_confirmation: null,
     };
   },
   methods: {
     async register() {
-      let isValidForm = await this.$validator.validateAll();
-      if (isValidForm) {
-        // TIP use this.model to send it to api and perform register call
+      if (!this.boolean) {
+        await this.$notify({
+          type: 'danger',
+          message: 'You need to agree with our terms and conditions.',
+          icon: 'tim-icons icon-bell-55',
+        })
+        return;
+      }
+
+      const user = {
+        mobile_number: this.mobile_number,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.password_confirmation,
+      };
+
+      const requestOptions = {
+        headers: {
+          Accept: "application/vnd.api+json",
+          "Content-Type": "application/vnd.api+json",
+        },
+      };
+
+      try {
+        await this.$store.dispatch("register", { user, requestOptions });
+        this.$notify({
+          type: 'succes',
+          message: 'Successfully registered.',
+          icon: 'tim-icons icon-bell-55',
+        })
+      } catch (error) {
+        this.$notify({
+          type: 'danger',
+          message: 'Oops, something went wrong!',
+          icon: 'tim-icons icon-bell-55',
+        })
+        this.setApiValidation(error.response.data.errors);
       }
     }
   }
