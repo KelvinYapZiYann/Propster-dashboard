@@ -87,8 +87,15 @@ export default {
         password: this.model.password
       }
 
+      const requestOptions = {
+        headers: {
+          'Accept': 'application/vnd.api+json',
+          'Content-Type': 'application/vnd.api+json',
+        }
+      }
+
       try {
-        await this.$store.dispatch("auth/login", user)
+        await this.$store.dispatch("login", {user, requestOptions})
       } catch (e) {
         this.$notify({
           message: 'Invalid credentials!',

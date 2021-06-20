@@ -90,7 +90,7 @@ let resources = {
       path: "assets",
       name: "Assets",
       components: { default: Assets },
-      // meta: { middleware: auth }
+      meta: { middleware: auth }
     },
     {
       path: "assets/add",
@@ -247,7 +247,6 @@ let componentsMenu = {
       path: "buttons",
       name: "Buttons",
       components: { default: Buttons },
-      meta: { middleware: auth }
     },
     {
       path: "grid-system",

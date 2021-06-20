@@ -1,77 +1,61 @@
-import AuthService from "../services/auth-service";
+import Vue from "vue";
 import router from "@/routers";
+import { VueAuthenticate } from "vue-authenticate";
 
-const user = JSON.parse(localStorage.getItem("user"));
-const state = user
-    ? { status: { loggedIn: true }, user }
-    : { status: { loggedIn: false }, user: null };
+import axios from "axios";
+import VueAxios from "vue-axios";
+Vue.use(VueAxios, axios);
 
-const getters = {
-  isAuthenticated: state => state.status.loggedIn
-};
+const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
+  baseUrl: process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : 'http://propster-nova.hs/api/dashboard',
+  tokenName: "access_token",
+  loginUrl: "/login",
+  registerUrl: "/register"
+});
 
-const mutations = {
-  loginSuccess(state, user) {
-    state.status.loggedIn = true;
-    state.user = user;
+export default {
+  state: {
+    isAuthenticated: localStorage.getItem("vue-authenticate.vueauth_access_token") !== null
   },
-  loginFailure(state) {
-    state.status.loggedIn = false;
-    state.user = null;
-  },
-  logout(state) {
-    state.status.loggedIn = false;
-    state.user = null;
-  },
-  registerSuccess(state) {
-    state.status.loggedIn = false;
-  },
-  registerFailure(state) {
-    state.status.loggedIn = false;
-  },
-}
 
-const actions = {
-  login({ commit }, user) {
-    return AuthService.login(user).then(
-        (user) => {
-          commit("loginSuccess", user);
-          router.push({path: "/dashboard"});
-          return Promise.resolve(user);
-        },
-        (error) => {
-          console.log(error);
-          commit("loginFailure");
-          return Promise.reject(error);
-        }
-    );
+  getters: {
+    isAuthenticated(state) {
+      return state.isAuthenticated;
+    }
   },
-  logout({ commit }) {
-    AuthService.logout();
-    commit("logout");
-    router.push({name: "Login"});
+
+  mutations: {
+    isAuthenticated(state, payload) {
+      state.isAuthenticated = payload.isAuthenticated;
+    }
   },
-  register({ commit }, user) {
-    return AuthService.register(user).then(
-        (response) => {
-          commit("registerSuccess");
-          router.push({path: "/dashboard"});
-          return Promise.resolve(response.data);
-        },
-        (error) => {
-          commit("registerFailure");
-          return Promise.reject(error);
-        }
-    );
+
+  actions: {
+    login(context, payload) {
+      return vueAuth.login(payload.user, payload.requestOptions).then(response => {
+        context.commit("isAuthenticated", {
+          isAuthenticated: vueAuth.isAuthenticated()
+        });
+        router.push({path: "/dashboard"});
+      });
+    },
+
+    register(context, payload) {
+      return vueAuth.register(payload.user, payload.requestOptions).then(response => {
+        context.commit("isAuthenticated", {
+          isAuthenticated: vueAuth.isAuthenticated()
+        });
+        router.push({path: "/dashboard"});
+      });
+    },
+
+    logout(context, payload) {
+      return vueAuth.logout().then(response => {
+        context.commit("isAuthenticated", {
+          isAuthenticated: vueAuth.isAuthenticated()
+        });
+        router.push({name: "Login"});
+      });
+    }
   }
-}
-
-const auth = {
-  namespaced: true,
-  state,
-  actions,
-  mutations,
-  getters
 };
-
-export default auth;
