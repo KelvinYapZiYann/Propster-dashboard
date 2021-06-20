@@ -195,6 +195,35 @@
       <div class="col-lg-12">
         <country-map-card></country-map-card>
       </div>
+      <div class="col-lg-6">
+        <card class="card-chart card-chart-pie">
+          <h5 slot="header" class="card-category text-left">
+            INCOME
+          </h5>
+
+          <div class="row">
+            <div class="col-6">
+              <div class="chart-area">
+                <pie-chart
+                  :chart-data="pieChart1.chartData"
+                  :extra-options="pieChart1.extraOptions"
+                  :height="120"
+                >
+                </pie-chart>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <h4 class="card-title text-left">
+                <i class="tim-icons  icon-trophy text-success"></i> 400 MYR
+              </h4>
+              <h4 class="card-title text-left">
+                <i class="tim-icons  icon-trophy text-success"></i> 2,400 MYR
+              </h4>
+            </div>
+          </div>
+        </card>
+      </div>
     </div>
   </div>
 </template>
@@ -209,6 +238,8 @@ import UserTable from "./Dashboard/UserTable";
 import CountryMapCard from "./Dashboard/CountryMapCard";
 import config from "@/config";
 import StatsCard from "@/components/Cards/StatsCard";
+import StatsCard_v2 from "@/components/Cards/StatsCard_v2";
+import PieChart from "@/components/Charts/PieChart";
 
 export default {
   components: {
@@ -218,7 +249,9 @@ export default {
     BarChart,
     TaskList,
     UserTable,
-    CountryMapCard
+    CountryMapCard,
+    StatsCard_v2,
+    PieChart
   },
   data() {
     return {
@@ -251,6 +284,34 @@ export default {
           icon: "tim-icons icon-molecule-40",
           footer: '<i class="tim-icons icon-watch-time"></i> In the last hours'
         }
+      ],
+      statsCards_income: [
+        {
+          title: "MYR 2,400.00",
+          subTitle: "Overdue Income",
+          type: "warning",
+          icon: "tim-icons icon-chat-33",
+        },
+        {
+          title: "MYR 2,400.00",
+          subTitle: "Upcoming Income",
+          type: "warning",
+          icon: "tim-icons icon-chat-33",
+        },
+      ],
+      statsCards_expense: [
+        {
+          title: "MYR 2,400.00",
+          subTitle: "Overdue Expenses",
+          type: "warning",
+          icon: "tim-icons icon-chat-33",
+        },
+        {
+          title: "MYR 2,400.00",
+          subTitle: "Upcoming Expenses",
+          type: "warning",
+          icon: "tim-icons icon-chat-33",
+        },
       ],
       bigLineChartCategories: ["Accounts", "Purchases", "Sessions"],
       bigLineChartCategoriesAr: ["حسابات", "المشتريات", "جلسات"],
@@ -341,7 +402,23 @@ export default {
           "rgba(66,134,121,0)"
         ],
         gradientStops: [1, 0.4, 0]
-      }
+      },
+      pieChart1: {
+        chartData: {
+          labels: ["Upcoming", "Overdue"],
+          datasets: [
+            {
+              label: "Income",
+              pointRadius: 0,
+              pointHoverRadius: 0,
+              backgroundColor: ["#00c09d", "#ff0051"],
+              borderWidth: 0,
+              data: [2400, 400]
+            }
+          ]
+        },
+        extraOptions: chartConfigs.pieChartOptions
+      },
     };
   },
   computed: {
