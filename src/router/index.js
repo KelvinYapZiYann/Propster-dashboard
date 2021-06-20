@@ -146,6 +146,30 @@ let formsMenu = {
   ],
 };
 
+let resources = {
+  path: "/resource",
+  component: DashboardLayout,
+  redirect: "/",
+  name: "Resources",
+  children: [
+    {
+      path: "assets",
+      name: "Asset Resources",
+      components: { default: FormElements },
+    },
+    // {
+    //   path: "components",
+    //   name: "Forms Components",
+    //   components: { default: FormComponents },
+    // },
+    // {
+    //   path: "validation",
+    //   name: "Forms Validation",
+    //   components: { default: FormValidation },
+    // },
+  ],
+};
+
 const routes = [
   {
     path: "/",
@@ -224,6 +248,7 @@ const routes = [
   tablesMenu,
   mapsMenu,
   formsMenu,
+  resources
 ];
 
 const router = createRouter({
