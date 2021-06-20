@@ -69,6 +69,8 @@ const TimeLine = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Pages/TimeLinePage.vue");
 const Login = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Login.vue");
+const ForgotPassword = () =>
+    import(/* webpackChunkName: "pages" */ "@/pages/Pages/ForgotPassword.vue");
 const Register = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Register.vue");
 const RTL = () =>
@@ -223,6 +225,11 @@ let authPages = {
       path: "login",
       name: "login",
       component: Login
+    },
+    {
+      path: "forgot-password",
+      name: "Forgot Password",
+      component: ForgotPassword
     },
     {
       path: "register",

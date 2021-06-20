@@ -1,11 +1,10 @@
 <template>
   <div class="container">
     <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-      <form @submit.prevent="login">
+      <form @submit.prevent="forgotPassword">
         <card class="card-login card-white text-left">
           <template slot="header">
-            <img src="img/card-primary.png" class="card-img" alt=""/>
-            <h1 class="card-title">Log in</h1>
+            <h1 class="card-title">Forgot Password</h1>
           </template>
 
           <div>
@@ -18,17 +17,6 @@
             >
             </base-input>
             <validation-error :errors="apiValidationErrors.email"/>
-
-            <base-input
-                v-validate="'required|min:5'"
-                name="password"
-                v-model="model.password"
-                type="password"
-                placeholder="Password"
-                addon-left-icon="tim-icons icon-lock-circle"
-            >
-            </base-input>
-            <validation-error :errors="apiValidationErrors.password"/>
           </div>
 
           <div slot="footer">
@@ -39,19 +27,12 @@
                 size="lg"
                 block
             >
-              Login
+              Send Email Verification
             </base-button>
             <div class="pull-left">
               <h6>
-                <router-link class="link footer-link" to="/register">
-                  Create Account
-                </router-link>
-              </h6>
-            </div>
-            <div class="pull-right">
-              <h6>
-                <router-link class="link footer-link" to="/forgot-password">
-                  Forgot Password
+                <router-link class="link footer-link" to="/login">
+                  Log in
                 </router-link>
               </h6>
             </div>
@@ -66,6 +47,7 @@ import {Card, BaseInput} from "@/components/index";
 import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
 import router from "@/routers";
+import swal from "sweetalert2";
 
 export default {
   mixins: [formMixin],
@@ -78,27 +60,23 @@ export default {
     return {
       model: {
         email: "",
-        password: "",
-        subscribe: true
       }
     };
   },
   methods: {
-    async login() {
-      const user = {
-        email: this.model.email,
-        password: this.model.password
-      }
-
-      const requestOptions = {
-        headers: {
-          'Accept': 'application/vnd.api+json',
-          'Content-Type': 'application/vnd.api+json',
-        }
-      }
-
+    async forgotPassword() {
       try {
-        await this.$store.dispatch("login", {user, requestOptions})
+        await this.$store.dispatch("forgotPassword", this.model.email)
+
+        swal({
+          title: `Success!`,
+          text: "We have emailed your password reset link!",
+          buttonsStyling: false,
+          confirmButtonClass: "btn btn-success btn-fill",
+          type: "success"
+        });
+
+        router.push({ path: "/login" });
       } catch (e) {
         this.$notify({
           message: 'Invalid credentials!',
