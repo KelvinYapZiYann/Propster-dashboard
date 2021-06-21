@@ -46,7 +46,7 @@ locale.use(lang);
 
 Vue.config.productionTip = false;
 
-import router from "./routers/index";
+import router from "./router/index";
 
 Vue.use(Element);
 

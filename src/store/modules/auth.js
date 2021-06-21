@@ -1,5 +1,5 @@
 import Vue from "vue";
-import router from "@/routers";
+import router from "@/router";
 import { VueAuthenticate } from "vue-authenticate";
 import axios from "axios";
 import VueAxios from "vue-axios";
