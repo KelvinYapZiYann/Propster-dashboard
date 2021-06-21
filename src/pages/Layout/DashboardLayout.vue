@@ -13,7 +13,30 @@
           }"
         >
         </sidebar-link>
-        <sidebar-link
+
+          <sidebar-link
+            :link="{ name: $t('sidebar.assets'), path: '/assets', icon: 'fas fa-home fa-2x'}"
+          ></sidebar-link>
+          <sidebar-link
+            :link="{ name: $t('sidebar.tenants'), path: '/tenants', icon: 'fas fa-child fa-2x'}"
+          ></sidebar-link>
+          <sidebar-link
+            :link="{ name: $t('sidebar.assetExpenses'), path: '/assasset-expensests', icon: 'fas fa-dollar-sign fa-2x'}"
+          ></sidebar-link>
+          <sidebar-link
+            :link="{ name: $t('sidebar.paymentRecords'), path: '/payment-records', icon: 'fas fa-history fa-2x'}"
+          ></sidebar-link>
+          <sidebar-link
+            :link="{ name: $t('sidebar.tenureContracts'), path: '/tenure-contracts', icon: 'fas fa-file fa-2x'}"
+          ></sidebar-link>
+          <sidebar-link
+            :link="{ name: $t('sidebar.userProfile'), path: '/profile', icon: 'tim-icons icon-single-02'}"
+          ></sidebar-link>
+          <sidebar-link
+            :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog fa-2x'}"
+          ></sidebar-link>
+
+        <!-- <sidebar-link
           :link="{
             name: $t('sidebar.pages'),
             icon: 'tim-icons icon-image-02'
@@ -176,7 +199,7 @@
             icon: 'tim-icons icon-time-alarm',
             path: '/calendar'
           }"
-        ></sidebar-link>
+        ></sidebar-link> -->
       </template>
     </side-bar>
     <sidebar-share :background-color.sync="backgroundColor"></sidebar-share>

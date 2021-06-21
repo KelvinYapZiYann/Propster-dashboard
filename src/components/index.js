@@ -4,6 +4,8 @@ import SidebarPlugin from "./SidebarPlugin/index";
 import BaseAlert from "./BaseAlert";
 import BaseButton from "./BaseButton";
 import BaseCheckbox from "./BaseCheckbox";
+import BaseDetailList from "./BaseDetailList.vue";
+import BaseDropdown from "./BaseDropdown.vue";
 import BasePagination from "./BasePagination";
 import BaseSwitch from "./BaseSwitch";
 import BaseRadio from "./BaseRadio";
@@ -13,6 +15,7 @@ import BaseNav from "./BaseNav";
 import Modal from "./Modal";
 import CloseButton from "./CloseButton";
 import DropDown from "./Dropdown.vue";
+import DropZone from "./DropZone.vue";
 import Notifications from "./NotificationPlugin/index";
 import AsyncWorldMap from "./WorldMap/AsyncWorldMap.vue";
 import TimeLine from "./Timeline/TimeLine.vue";
@@ -39,6 +42,8 @@ export {
   BaseAlert,
   BaseButton,
   BaseCheckbox,
+  BaseDetailList,
+  BaseDropdown,
   BaseProgress,
   BasePagination,
   BaseRadio,
@@ -48,6 +53,7 @@ export {
   Modal,
   CloseButton,
   DropDown,
+  DropZone,
   Notifications,
   AsyncWorldMap,
   TimeLine,

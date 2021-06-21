@@ -78,10 +78,29 @@ const RTL = () =>
 const Lock = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Lock.vue");
 
+
+// Resources
 const Assets = () => import("@/pages/Resources/Assets/Assets");
 const AssetDetail = () => import("@/pages/Resources/Assets/AssetDetail");
 const AssetEdit = () => import("@/pages/Resources/Assets/AssetEdit");
 const AssetAdd = () => import("@/pages/Resources/Assets/AssetAdd");
+
+const Tenants = () => import("@/pages/Resources/Tenants/Tenants");
+const TenantDetail = () => import("@/pages/Resources/Tenants/TenantDetail");
+const TenantEdit = () => import("@/pages/Resources/Tenants/TenantEdit");
+const TenantAdd = () => import("@/pages/Resources/Tenants/TenantAdd");
+
+const TenureContracts = () => import("@/pages/Resources/TenureContracts/TenureContracts");
+const TenureContractDetail = () => import("@/pages/Resources/TenureContracts/TenureContractDetail");
+const TenureContractEdit = () => import("@/pages/Resources/TenureContracts/TenureContractEdit");
+const TenureContractAdd = () => import("@/pages/Resources/TenureContracts/TenureContractAdd");
+
+const AssetExpenses = () => import("@/pages/Resources/AssetExpenses/AssetExpenses");
+const AssetExpensesDetail = () => import("@/pages/Resources/AssetExpenses/AssetExpensesDetail");
+
+const PaymentRecords = () => import("@/pages/Resources/PaymentRecords/PaymentRecords");
+const PaymentRecordsDetail = () => import("@/pages/Resources/PaymentRecords/PaymentRecordsDetail");
+const PaymentRecordsAdd = () => import("@/pages/Resources/PaymentRecords/PaymentRecordsAdd");
 
 let resources = {
   path: "/",
@@ -112,84 +131,84 @@ let resources = {
       components: { default: AssetEdit },
       meta: { middleware: auth }
     },
-    // {
-    //   path: "tenants",
-    //   name: "Tenants",
-    //   components: { default: Tenants },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "tenants/add",
-    //   name: "Add Tenant",
-    //   components: { default: TenantAdd },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "tenants/:tenantId",
-    //   name: "Tenant Detail",
-    //   components: { default: TenantDetail },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "tenants/:tenantId/edit",
-    //   name: "Edit Tenant",
-    //   components: { default: TenantEdit },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "tenure-contracts",
-    //   name: "Tenure Contracts",
-    //   components: { default: TenureContracts },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "tenure-contracts/:tenureContractId",
-    //   name: "Tenure Contract Detail",
-    //   components: { default: TenureContractDetail },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "tenure-contracts/add",
-    //   name: "Add Tenure Contract",
-    //   components: { default: TenureContractAdd },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "tenure-contracts/:tenureContractId/edit",
-    //   name: "Edit Tenure Contract",
-    //   components: { default: TenureContractEdit },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "asset-expenses",
-    //   name: "Asset Expenses",
-    //   components: { default: AssetExpenses },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "asset-expenses/:assetExpensesId",
-    //   name: "Asset Expenses Detail",
-    //   components: { default: AssetExpensesDetail },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "payment-records",
-    //   name: "Payment Record",
-    //   components: { default: PaymentRecords },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "payment-records/add",
-    //   name: "Add Payment Record",
-    //   components: { default: PaymentRecordsAdd },
-    //   meta: { middleware: auth }
-    // },
-    // {
-    //   path: "payment-records/:paymentRecordsId",
-    //   name: "Payment Record Detail",
-    //   components: { default: PaymentRecordsDetail },
-    //   meta: { middleware: auth }
-    // },
+    {
+      path: "tenants",
+      name: "Tenants",
+      components: { default: Tenants },
+      meta: { middleware: auth }
+    },
+    {
+      path: "tenants/add",
+      name: "Add Tenant",
+      components: { default: TenantAdd },
+      meta: { middleware: auth }
+    },
+    {
+      path: "tenants/:tenantId",
+      name: "Tenant Detail",
+      components: { default: TenantDetail },
+      meta: { middleware: auth }
+    },
+    {
+      path: "tenants/:tenantId/edit",
+      name: "Edit Tenant",
+      components: { default: TenantEdit },
+      meta: { middleware: auth }
+    },
+    {
+      path: "tenure-contracts",
+      name: "Tenure Contracts",
+      components: { default: TenureContracts },
+      meta: { middleware: auth }
+    },
+    {
+      path: "tenure-contracts/:tenureContractId",
+      name: "Tenure Contract Detail",
+      components: { default: TenureContractDetail },
+      meta: { middleware: auth }
+    },
+    {
+      path: "tenure-contracts/add",
+      name: "Add Tenure Contract",
+      components: { default: TenureContractAdd },
+      meta: { middleware: auth }
+    },
+    {
+      path: "tenure-contracts/:tenureContractId/edit",
+      name: "Edit Tenure Contract",
+      components: { default: TenureContractEdit },
+      meta: { middleware: auth }
+    },
+    {
+      path: "asset-expenses",
+      name: "Asset Expenses",
+      components: { default: AssetExpenses },
+      meta: { middleware: auth }
+    },
+    {
+      path: "asset-expenses/:assetExpensesId",
+      name: "Asset Expenses Detail",
+      components: { default: AssetExpensesDetail },
+      meta: { middleware: auth }
+    },
+    {
+      path: "payment-records",
+      name: "Payment Record",
+      components: { default: PaymentRecords },
+      meta: { middleware: auth }
+    },
+    {
+      path: "payment-records/add",
+      name: "Add Payment Record",
+      components: { default: PaymentRecordsAdd },
+      meta: { middleware: auth }
+    },
+    {
+      path: "payment-records/:paymentRecordsId",
+      name: "Payment Record Detail",
+      components: { default: PaymentRecordsDetail },
+      meta: { middleware: auth }
+    }
   ]
 };
 
