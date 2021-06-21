@@ -40,12 +40,12 @@ export default {
   props: {
     abv: {
       type: String,
-      default: "CT",
+      default: "PS",
       description: "Sidebar short title"
     },
     title: {
       type: String,
-      default: "Creative Tim",
+      default: "Propster",
       description: "Sidebar title"
     },
     backgroundColor: {
