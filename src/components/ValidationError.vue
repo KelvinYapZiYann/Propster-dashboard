@@ -8,10 +8,10 @@
   export default {
     name: "validation-error",
     props: {
-      errors: {
-        type: Array,
-        default: () => ([])
-      }
+      // errors: {
+      //   type: Array,
+      //   default: () => ([])
+      // }
     }
   }
 </script>

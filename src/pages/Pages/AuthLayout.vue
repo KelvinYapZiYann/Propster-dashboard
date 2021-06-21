@@ -7,15 +7,8 @@
         </div>
         <footer class="footer">
           <div class="container-fluid">
-            <div class="copyright">
-              &copy; 2021, made with
-              <i class="tim-icons icon-heart-2"></i> by
-              <a
-                href="https://propster.io/"
-                target="_blank"
-                rel="noopener"
-                >propster.io</a>
-            </div>
+            <copyright-ink>
+            </copyright-ink>
           </div>
         </footer>
       </div>
@@ -24,9 +17,11 @@
 </template>
 <script>
 import BaseNav from "@/components/BaseNav";
+import CopyrightInk from "@/components/CopyrightInk";
 export default {
   components: {
-    BaseNav
+    BaseNav,
+    CopyrightInk
   },
   data() {
     return {
