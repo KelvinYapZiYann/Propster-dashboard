@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// const url = process.env.VUE_APP_API_BASE_URL;
-const url = 'http://propster-nova.hs/api/dashboard';
+const url = process.env.VUE_APP_API_BASE_URL;
 const baseEndpoint = 'payment-records';
 
 function get() {
