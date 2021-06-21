@@ -1,10 +1,11 @@
 import Vue from "vue";
-import router from "@/routers";
+import router from "@/router";
 import { VueAuthenticate } from "vue-authenticate";
-
 import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
+const API_URL = 'http://propster-nova.hs/api/dashboard/';
+
 
 const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
   baseUrl: process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : 'http://propster-nova.hs/api/dashboard',
@@ -56,6 +57,23 @@ export default {
         });
         router.push({name: "login"});
       });
+    },
+
+    forgotPassword(context, email) {
+      const config = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      };
+
+      return axios
+          .post(API_URL + 'password/email', {
+            email: email,
+          }, config)
+          .then(response => {
+            return response.data;
+          });
     }
   }
 };

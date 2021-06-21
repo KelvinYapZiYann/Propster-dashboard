@@ -147,6 +147,12 @@
     "vectorMaps": "Vector Maps",
     "widgets": "Widgets",
     "charts": "Charts",
-    "calendar": "Calendar"
+    "calendar": "Calendar",
+    "assetExpenses": "Asset Expenses",
+    "assets": "Assets",
+    "paymentRecords":  "Payment Records",
+    "tenants": "Tenants",
+    "tenureContracts":  "Tenure Contracts",
+    "settings":  "Settings"
   }
 }
