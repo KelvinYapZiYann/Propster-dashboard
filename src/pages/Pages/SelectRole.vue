@@ -34,7 +34,7 @@
 
           <div slot="footer">
             <base-button
-                native-type="submit"
+                @click="submitRole"
                 slot="footer"
                 type="primary"
                 round
@@ -60,6 +60,7 @@ import {Card} from "@/components/index";
 import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
 import { BaseCheckbox, BaseInput } from "@/components/index";
+import router from "@/router";
 
 import {
   TabPane,
@@ -79,12 +80,29 @@ export default {
   data() {
     return {
       rememberSetting: false,
-      selectedRole: null,
+      selectedRole: 'LANDLORD',
     };
   },
   methods: {
     selectRole(selectedRole) {
       this.selectedRole = selectedRole;
+    },
+    async submitRole() {
+      try {
+        let data = {
+          "role": this.selectedRole,
+          "remember_role": this.rememberSetting
+        };
+
+        await this.$store.dispatch('selectRole/submit', data)
+        router.push({ path: "/dashboard" });
+      } catch (e) {
+        this.$notify({
+          message: 'Server error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      }
     }
   }
 };

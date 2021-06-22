@@ -10,7 +10,7 @@ import tenant from "./modules/resources/tenants-module"
 import tenureContract from "./modules/resources/tenure-contracts-module"
 import assetExpenses from "./modules/resources/asset-expenses-module"
 import paymentRecords from "./modules/resources/payment-records-module"
-
+import selectRole from "./modules/select-role-module"
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -23,6 +23,7 @@ export default new Vuex.Store({
     tenant,
     assetExpenses,
     paymentRecords,
-    tenureContract
+    tenureContract,
+    selectRole
   }
 });

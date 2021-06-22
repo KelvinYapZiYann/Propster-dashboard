@@ -398,7 +398,8 @@ let middlewarePages = {
     {
       path: "select-role",
       name: "Select Role",
-      components: { default: SelectRole }
+      components: { default: SelectRole },
+      meta: { middleware: auth }
     },
   //   {
   //     path: "full-screen",
