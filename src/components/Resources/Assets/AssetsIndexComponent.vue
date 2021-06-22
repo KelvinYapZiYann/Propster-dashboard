@@ -1,17 +1,18 @@
 <template>
-  <div class="row">
+  <div class="content">
     <div class="col-12">
-      <div class="pro-feature alert alert-danger">
+      <!-- <div class="pro-feature alert alert-danger">
         <strong>
-          You can only add ONE {{table.title}} with free tier. Get
+          You can only add ONE {{table.title}} with free tier. Get 
           <a
             href="https://www.creative-tim.com/live/vue-black-dashboard-pro-laravel"
             target="_blank"
           >PRO</a>
           version to add more {{ table.title }} !
         </strong>
-      </div>
-      <card :title="table.title">
+      </div> -->
+      <card>
+        <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
@@ -30,13 +31,19 @@
             v-on:delete-details="deleteDetails"
           >
           </base-table>
+          <base-pagination
+            class="pagination-no-border"
+            v-model="pagination.currentPage"
+            :total="50"
+          >
+          </base-pagination>
         </div>
       </card>
     </div>
   </div>
 </template>
 <script>
-import {BaseTable} from "@/components";
+import {BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
@@ -60,7 +67,9 @@ const tableDefaultData = [
 
 export default {
   components: {
-    BaseTable
+    BaseTable,
+    BasePagination,
+    Card
   },
   data() {
     return {
@@ -68,6 +77,9 @@ export default {
         title: "Assets",
         columns: {...tableColumns},
         data: [...tableDefaultData]
+      },
+      pagination: {
+        currentPage: 1
       }
     };
   },
@@ -85,7 +97,7 @@ export default {
     },
     query: {
       type: Object,
-      default: {},
+      // default: {},
     }
   },
   methods: {

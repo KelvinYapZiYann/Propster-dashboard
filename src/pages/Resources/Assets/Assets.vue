@@ -25,7 +25,7 @@ export default {
     async getResource() {
       try {
         await this.$store.dispatch('asset/get', {}).then(() => {
-          this.resource.models = Object.assign({}, this.$store.getters["asset/models"])
+          this.resource.models = this.$store.getters["asset/models"]
           this.resource.data = Object.assign({}, this.$store.getters["asset/data"])
         })
       } catch (e) {

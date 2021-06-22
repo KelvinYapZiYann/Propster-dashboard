@@ -2,31 +2,32 @@
   <footer class="footer">
     <div class="container-fluid">
       <ul class="nav">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="javascript:void(0)" class="nav-link">
             Creative Tim
           </a>
-        </li>
+        </li> -->
         <li class="nav-item">
-          <a href="javascript:void(0)" class="nav-link">
+          <a href="https://propster.io/about-us" target="_blank" rel="noopener" class="nav-link">
             About Us
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="javascript:void(0)" class="nav-link">
             Blog
           </a>
-        </li>
+        </li> -->
       </ul>
-      <div class="copyright">
-        &copy;
-        {{ new Date().getFullYear() }} made with
-        <i class="tim-icons icon-heart-2"></i> by
-        <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a
-        better web.
-      </div>
+      <copyright-ink></copyright-ink>
     </div>
   </footer>
 </template>
-<script></script>
+<script>
+import CopyrightInk from "@/components/CopyrightInk";
+export default {
+  components: {
+    CopyrightInk
+  }
+};
+</script>
 <style></style>

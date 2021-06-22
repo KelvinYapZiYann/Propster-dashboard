@@ -7,7 +7,7 @@ Vue.use(VueAxios, axios);
 const API_URL = process.env.VUE_APP_API_BASE_URL;
 
 const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
-  baseUrl: process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : 'http://propster-nova.hs/api/dashboard',
+  baseUrl: process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : API_URL,
   tokenName: "access_token",
   loginUrl: "/login",
   registerUrl: "/register"

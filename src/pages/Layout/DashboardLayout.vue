@@ -36,6 +36,13 @@
             :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog fa-2x'}"
           ></sidebar-link>
 
+          <sidebar-link
+            :link="{
+              name: $t('sidebar.paginatedTables'),
+              path: '/table-list/paginated'
+            }"
+          ></sidebar-link>
+
         <!-- <sidebar-link
           :link="{
             name: $t('sidebar.pages'),
