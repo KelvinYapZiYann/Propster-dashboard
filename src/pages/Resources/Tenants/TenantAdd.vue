@@ -62,6 +62,7 @@ export default {
             type: 'success'
           });
           this.resetApiValidation();
+          router.go(-1);
           // router.push({path: "/tenants"});
         } catch (e) {
           this.$notify({

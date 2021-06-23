@@ -66,7 +66,8 @@ export default {
             type: 'success'
           });
           this.resetApiValidation()
-          router.push({path: "/tenants"});
+          router.go(-1);
+          // router.push({path: "/tenants"});
         } catch (e) {
           this.$notify({
             message:'Server error',
