@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <tenure-contract-index-component
       :resource="resource"
     ></tenure-contract-index-component>
@@ -29,7 +29,7 @@ export default {
     async getResource() {
       try {
         await this.$store.dispatch('tenureContract/get', {}).then(() => {
-          this.resource.models = Object.assign({}, this.$store.getters["tenureContract/models"])
+          this.resource.models = this.$store.getters["tenureContract/models"]
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
         })
       } catch (e) {

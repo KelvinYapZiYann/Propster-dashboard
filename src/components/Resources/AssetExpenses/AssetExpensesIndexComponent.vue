@@ -1,7 +1,8 @@
 <template>
   <div class="content">
     <div class="col-12">
-      <card :title="table.title">
+      <card>
+        <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
         <div class="table-responsive">
           <base-table
             :disableEdit="true"
