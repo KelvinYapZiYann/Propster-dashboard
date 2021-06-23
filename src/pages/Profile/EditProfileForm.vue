@@ -1,96 +1,58 @@
 <template>
   <card>
     <template slot="header">
-      <h5 class="title">Edit Profile</h5>
+      <h5 class="title">Profile</h5>
     </template>
     <div class="row">
-      <div class="col-md-5 pr-md-1 text-left">
-        <base-input
-          label="Company (disabled)"
-          placeholder="Company"
-          v-model="model.company"
-          disabled
-        >
+      <div class="col-md-6 ">
+        <base-input label="First Name"
+                    placeholder="First Name"
+                    v-model="model.first_name">
         </base-input>
+        <validation-error :errors="apiValidationErrors.first_name"/>
       </div>
-      <div class="col-md-3 px-md-1 text-left">
-        <base-input
-          label="Username"
-          placeholder="Username"
-          v-model="model.username"
-        >
+      <div class="col-md-6">
+        <base-input label="Last Name"
+                    placeholder="Last Name"
+                    v-model="model.last_name">
         </base-input>
-      </div>
-      <div class="col-md-4 pl-md-1 text-left">
-        <base-input
-          label="Email address"
-          type="email"
-          placeholder="mike@email.com"
-        >
-        </base-input>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 pr-md-1 text-left">
-        <base-input
-          label="First Name"
-          v-model="model.firstName"
-          placeholder="First Name"
-        >
-        </base-input>
-      </div>
-      <div class="col-md-6 pl-md-1 text-left">
-        <base-input
-          label="Last Name"
-          v-model="model.lastName"
-          placeholder="Last Name"
-        >
-        </base-input>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12 text-left">
-        <base-input
-          label="Address"
-          v-model="model.address"
-          placeholder="Home Address"
-        >
-        </base-input>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4 pr-md-1 text-left">
-        <base-input label="City" v-model="model.city" placeholder="City">
-        </base-input>
-      </div>
-      <div class="col-md-4 px-md-1 text-left">
-        <base-input
-          label="Country"
-          v-model="model.country"
-          placeholder="Country"
-        >
-        </base-input>
-      </div>
-      <div class="col-md-4 pl-md-1 text-left">
-        <base-input label="Postal Code" placeholder="ZIP Code"> </base-input>
+        <validation-error :errors="apiValidationErrors.last_name"/>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8 text-left">
-        <base-input>
-          <label>About Me</label>
-          <textarea
-            rows="4"
-            cols="80"
-            class="form-control"
-            placeholder="Here can be your description"
-            v-model="model.about"
-          >
-          </textarea>
+      <div class="col-md-6">
+        <base-input label="Email address"
+                    type="email"
+                    disabled="true"
+                    placeholder="email"
+                    v-model="model.email">
         </base-input>
+        <validation-error :errors="apiValidationErrors.email"/>
+      </div>
+      <div class="col-md-6">
+        <base-input label="Phone Number"
+                    type="text"
+                    placeholder="Phone Number"
+                    v-model="model.phone_number">
+        </base-input>
+        <validation-error :errors="apiValidationErrors.phone_number"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <base-input label="Date Of Birth"
+                    type="date"
+                    v-model="model.date_of_birth">
+        </base-input>
+        <validation-error :errors="apiValidationErrors.date_of_birth"/>
+      </div>
+      <div class="col-md-6 pr-md-1">
+        <base-input label="Is Business?"
+                    type="checkbox"
+                    v-model="model.is_business"
+        >
+        </base-input>
+        <validation-error :errors="apiValidationErrors.is_business"/>
       </div>
     </div>
     <template slot="footer">
@@ -100,20 +62,70 @@
 </template>
 <script>
 import { Card, BaseInput } from "@/components/index";
-
+import formMixin from "@/mixins/form-mixin";
+import ValidationError from "@/components/ValidationError.vue";
 import BaseButton from "@/components/BaseButton";
 
 export default {
+  mixins: [formMixin],
   components: {
     Card,
     BaseInput,
-    BaseButton
+    BaseButton,
+    ValidationError
   },
   props: {
     model: {
       type: Object,
       default: () => {
         return {};
+      }
+    },
+    userId: {
+      type: String,
+      default: () => {
+        return null;
+      }
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      const userId = this.model.id
+
+      if (userId == null) {
+        this.$notify({
+          message:'Server Error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+        return;
+      }
+
+      const data = {
+        first_name: this.model.first_name,
+        last_name: this.model.last_name,
+        phone_number: this.model.phone_number,
+        date_of_birth: this.model.date_of_birth,
+        is_business: this.model.is_business,
+        gender: this.model.gender,
+      }
+
+      try {
+        await this.$store.dispatch('users/update', {'userId': userId, 'data': data})
+        this.$notify({
+          message:'Successfully Updated',
+          icon: 'tim-icons icon-bell-55',
+          type: 'success'
+        });
+        this.resetApiValidation()
+      } catch (e) {
+        console.log(e.response.data.errors);
+        this.$notify({
+          message:'Server error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+        this.setApiValidation(e.response.data.errors)
       }
     }
   }
