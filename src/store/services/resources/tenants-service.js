@@ -113,7 +113,7 @@ function getTenureContracts(Id) {
     });
 }
 
-function getAssets(Id) {
+function getAssets(params) {
   const config = {
     headers: {
       'Accept': 'application/json',
@@ -121,10 +121,25 @@ function getAssets(Id) {
     }
   };
 
-  return axios.get(`${url}/tenants/${Id}/assets`, config)
-    .then(response => {
-      return response.data;
-    });
+  if (params && (typeof params == "number" || typeof params == "string")) {
+    return axios.get(`${url}/tenants/${params}/assets`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else if (typeof params == "object") {
+    if (params.pageId) {
+      return axios.get(`${url}/tenants/${params.id}/assets?page=${params.pageId}`, config)
+        .then(response => {
+          return response.data;
+        });
+    } else {
+      return axios.get(`${url}/tenants/${params.id}/assets`, config)
+        .then(response => {
+          return response.data;
+        });
+    }
+  }
+  
 }
 
 function getReceivingPayments(Id) {

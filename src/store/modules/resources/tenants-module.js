@@ -153,8 +153,8 @@ const actions = {
       .then((response) => {});
   },
 
-  getAssets({commit, dispatch}, Id) {
-    return  service.getAssets(Id)
+  getAssets({commit, dispatch}, params) {
+    return  service.getAssets(params)
       .then((response) => {
         commit('SET_ASSET_RESOURCES', response);
       });

@@ -11,7 +11,8 @@
           version to add more {{ table.title }} !
         </strong>
       </div>
-      <card :title="table.title">
+      <card>
+        <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
