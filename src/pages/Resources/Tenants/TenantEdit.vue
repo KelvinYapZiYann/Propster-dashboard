@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <tenant-add-or-edit
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
