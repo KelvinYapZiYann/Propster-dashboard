@@ -29,6 +29,13 @@ const mutations = {
     })
     state.data = {
       'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+      'links': response.meta.links,
+      // 'meta': response.meta
     }
   },
   SET_RESOURCE: (state, response) => {
@@ -73,6 +80,13 @@ const mutations = {
     })
     state.assetExpenseData = {
       'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+      'links': response.meta.links,
+      // 'meta': response.meta
     }
   },
   SET_TENANT_RESOURCES: (state, response) => {
@@ -90,6 +104,13 @@ const mutations = {
     })
     state.tenantData = {
       'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+      'links': response.meta.links,
+      // 'meta': response.meta
     }
   },
   SET_TENURE_CONTRACT_RESOURCES: (state, response) => {
@@ -107,13 +128,20 @@ const mutations = {
     })
     state.tenureContractData = {
       'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+      'links': response.meta.links,
+      // 'meta': response.meta
     }
   },
 };
 
 const actions = {
   get({commit, dispatch}, params) {
-    return service.get()
+    return service.get(params)
       .then((response) => {
         commit('SET_RESOURCES', response);
       });
@@ -136,8 +164,8 @@ const actions = {
         commit('SET_ASSET_EXPENSE_RESOURCES', response2);
       });
   },
-  getTenants({commit, dispatch}, Id) {
-    return  service.getTenants(Id)
+  getTenants({commit, dispatch}, params) {
+    return  service.getTenants(params)
       .then((response) => {
         commit('SET_TENANT_RESOURCES', response);
       });

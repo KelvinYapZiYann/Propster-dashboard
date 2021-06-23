@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="content">
     <card>
       <div class="card-header mb-3">
         <h5 class="card-category">{{ category }}</h5>
         <h3 class="card-title">{{ title }}</h3>
       </div>
       <div class="card-body">
-        <div class="row" v-for="(value, key) in model">
+        <div class="row" v-for="(value, key) in model" :key="key">
           <div class="col-sm-3 mb-3" v-if="hasValue(headers, key)">
             <h6 class="mb-0">{{ headers[key] }}</h6>
           </div>
@@ -19,7 +19,11 @@
   </div>
 </template>
 <script>
+  import {Card} from "@/components";
   export default {
+    components: {
+      Card
+    },
     name: 'base-table',
     props: {
       category: {
@@ -33,13 +37,13 @@
         description: "Detail Title"
       },
       model: {
-        type: Array,
-        default: () => [],
+        type: Object,
+        default: () => {},
         description: "Table data"
       },
       headers: {
-        type: Array,
-        default: () => [],
+        type: Object,
+        default: () => {},
         description: "Table data"
       },
     },

@@ -12,7 +12,8 @@
       <slot :row="item">
         <td v-for="(column, index) in columns"
             :key="index"
-            v-if="hasValue(item, index)">
+            >
+            <!-- v-if="hasValue(item, index)" -->
           {{itemValue(item, index)}}
         </td>
       </slot>

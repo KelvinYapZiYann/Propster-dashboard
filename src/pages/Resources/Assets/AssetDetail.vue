@@ -1,69 +1,69 @@
 <template>
-  <div>
-<!--    <base-detail-list-->
-<!--      :category="resource.data.category"-->
-<!--      :title="resource.model.asset_nickname"-->
-<!--      :model="resource.model"-->
-<!--      :headers="table.detailHeaders"-->
-<!--      thead-classes="text-primary"-->
-<!--    ></base-detail-list>-->
+  <div class="content">
+   <base-detail-list
+     :category="resource.data.category"
+     :title="resource.model.asset_nickname"
+     :model="resource.model"
+     :headers="table.detailHeaders"
+     thead-classes="text-primary"
+   ></base-detail-list>
 
-<!--    <base-detail-list-->
-<!--      :category="'Location Details'"-->
-<!--      :model="resource.model.location_details"-->
-<!--      :headers="table.locationDetailHeaders"-->
-<!--      thead-classes="text-primary"-->
-<!--    ></base-detail-list>-->
+   <base-detail-list
+     :category="'Location Details'"
+     :model="resource.model.location_details"
+     :headers="table.locationDetailHeaders"
+     thead-classes="text-primary"
+   ></base-detail-list>
 
-<!--    <base-detail-list-->
-<!--      :category="'Financial Details'"-->
-<!--      :model="resource.model.financial_details"-->
-<!--      :headers="table.financialDetailHeaders"-->
-<!--      thead-classes="text-primary"-->
-<!--    ></base-detail-list>-->
+   <base-detail-list
+     :category="'Financial Details'"
+     :model="resource.model.financial_details"
+     :headers="table.financialDetailHeaders"
+     thead-classes="text-primary"
+   ></base-detail-list>
 
-<!--    <asset-expenses-index-component-->
-<!--      :resource="assetExpensesResource"-->
-<!--      :table="table"-->
-<!--      :query='{-->
-<!--            modelType: "asset_id",-->
-<!--            modelId: `${modelId}`-->
-<!--          }'-->
-<!--    ></asset-expenses-index-component>-->
+   <!-- <asset-expenses-index-component
+     :resource="assetExpensesResource"
+     :table="table"
+     :query='{
+           modelType: "asset_id",
+           modelId: `${modelId}`
+         }'
+   ></asset-expenses-index-component> -->
 
-<!--    <tenants-index-component-->
-<!--      :resource="tenantResource"-->
-<!--      :table="table"-->
-<!--      :query='{-->
-<!--            modelType: "asset_id",-->
-<!--            modelId: `${modelId}`-->
-<!--          }'-->
-<!--    ></tenants-index-component>-->
+   <tenants-index-component
+     :resource="tenantResource"
+     :table="table"
+     :query='{
+           modelType: "asset_id",
+           modelId: `${modelId}`
+         }'
+   ></tenants-index-component>
 
-<!--    <fab-->
-<!--      :position="position"-->
-<!--      :bg-color="bgColor"-->
-<!--      :actions="fabActions"-->
-<!--      @generateReport="reportModalVisible = true"-->
-<!--    ></fab>-->
+   <!-- <fab
+     :position="position"
+     :bg-color="bgColor"
+     :actions="fabActions"
+     @generateReport="reportModalVisible = true"
+   ></fab>
 
-<!--    <modal :show.sync="reportModalVisible"-->
-<!--           class="modal-search"-->
-<!--           id="searchModal"-->
-<!--           :centered="false"-->
-<!--           :show-close="true">-->
-<!--        <generate-report-form-->
-<!--          :reportTypes="reportTypes"-->
-<!--          :apiValidationErrors="apiValidationErrors"-->
-<!--          @requestReport="requestReport"-->
-<!--        ></generate-report-form>-->
-<!--    </modal>-->
+   <modal :show.sync="reportModalVisible"
+          class="modal-search"
+          id="searchModal"
+          :centered="false"
+          :show-close="true">
+       <generate-report-form
+         :reportTypes="reportTypes"
+         :apiValidationErrors="apiValidationErrors"
+         @requestReport="requestReport"
+       ></generate-report-form>
+   </modal> -->
   </div>
 </template>
 <script>
-// import { BaseDetailList } from "@/components";
-// import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/AssetExpensesIndexComponent";
-// import TenantsIndexComponent from "@/components/Resources/Tenants/TenantsIndexComponent";
+import { BaseDetailList } from "@/components";
+import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/AssetExpensesIndexComponent";
+import TenantsIndexComponent from "@/components/Resources/Tenants/TenantsIndexComponent";
 import fab from "vue-fab";
 import Modal from "@/components/Modal";
 import GenerateReportForm from "@/components/Resources/Assets/GenerateReportForm";
@@ -73,10 +73,10 @@ import ValidationError from "@/components/ValidationError.vue";
 let detailHeaders = {
   asset_nickname: "Asset Nickname",
   asset_ownership_type: "Ownership Type",
-  asset_size: "Size",
+  asset_size: "Size (sq. ft)",
   currently_occupied: "Currently Occupied",
   is_multi_unit: "Is Multi Unit",
-  asset_type: "Is Multi Unit",
+  asset_type: "Asset Type",
 };
 
 let locationDetailHeaders = {
@@ -89,13 +89,13 @@ let locationDetailHeaders = {
 };
 
 let financialDetailHeaders = {
-  asset_purchased_value: "Purchased Value",
+  asset_purchased_value: "Purchased Value (RM)",
   asset_purchased_tax: "Purchased Tax",
-  asset_current_value: "Current Value",
+  asset_current_value: "Current Value (RM)",
   purchased_date: "Date",
   loan_is_active: "Loan Is Active",
-  loan_interest_rate: "Interest Rate",
-  loan_outstanding_amount: "Outstanding Amount",
+  loan_interest_rate: "Interest Rate (%)",
+  loan_outstanding_amount: "Outstanding Amount (RM)",
   loan_remaining_year: "Remaining Years",
   loan_total_year: "Total Loan Years",
 
@@ -104,9 +104,9 @@ let financialDetailHeaders = {
 export default {
   mixins: [formMixin],
   components: {
-    // BaseDetailList,
-    // AssetExpensesIndexComponent,
-    // TenantsIndexComponent,
+    BaseDetailList,
+    AssetExpensesIndexComponent,
+    TenantsIndexComponent,
     fab,
     Modal,
     GenerateReportForm,
@@ -127,10 +127,10 @@ export default {
         models: [{}],
         data: {}
       },
-      tenureContractResource: {
-        models: [{}],
-        data: {}
-      },
+      // tenureContractResource: {
+      //   models: [{}],
+      //   data: {}
+      // },
       table: {
         title: "Assets",
         detailHeaders: {...detailHeaders},
@@ -165,9 +165,9 @@ export default {
         this.resource.model = await this.$store.getters["asset/model"]
         this.resource.data = await this.$store.getters["asset/data"]
 
-        await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
-        this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
-        this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
+        // await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
+        // this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
+        // this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
 
         await this.$store.dispatch('asset/getTenants', this.$route.params.assetId)
         this.tenantResource.models = await this.$store.getters["asset/tenantModels"]

@@ -31,12 +31,24 @@
             v-on:delete-details="deleteDetails"
           >
           </base-table>
-          <base-pagination
-            class="pagination-no-border"
-            v-model="pagination.currentPage"
-            :total="50"
+          <div
+            slot="footer"
+            class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
           >
-          </base-pagination>
+            <div class="">
+              <p class="card-category">
+                Showing {{ resource.data.from }} to {{ resource.data.to }} of {{ resource.data.total }} entries
+              </p>
+            </div>
+            <base-pagination
+              class="pagination-no-border"
+              v-model="resource.data.currentPage"
+              :per-page="resource.data.perPage"
+              :total="resource.data.total"
+              @input="handlePagination"
+            >
+            </base-pagination>
+          </div>
         </div>
       </card>
     </div>
@@ -77,9 +89,6 @@ export default {
         title: "Assets",
         columns: {...tableColumns},
         data: [...tableDefaultData]
-      },
-      pagination: {
-        currentPage: 1
       }
     };
   },
@@ -90,7 +99,13 @@ export default {
       default: {
         models: [{}],
         data: {
-          canAdd: false
+          canAdd: false,
+          currentPage: 1,
+          total: 0,
+          from: 0,
+          to: 0,
+          perPage: 10,
+          links: []
         }
       },
       description: "Resource info"
@@ -134,6 +149,20 @@ export default {
     },
     addModel() {
       router.push({path: "/assets/add"});
+    },
+    async handlePagination(pageId) {
+      try {
+        await this.$store.dispatch('asset/get', pageId).then(() => {
+          this.resource.models = this.$store.getters["asset/models"];
+          this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+        });
+      } catch (e) {
+        this.$notify({
+          message:'Server error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      }
     }
   }
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="content">
     <div class="col-12">
       <card :title="table.title">
         <div class="table-responsive">
@@ -12,13 +12,31 @@
             v-on:show-details="showDetails"
           >
           </base-table>
+          <div
+            slot="footer"
+            class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
+          >
+            <div class="">
+              <p class="card-category">
+                Showing {{ resource.data.from }} to {{ resource.data.to }} of {{ resource.data.total }} entries
+              </p>
+            </div>
+            <base-pagination
+              class="pagination-no-border"
+              v-model="resource.data.currentPage"
+              :per-page="resource.data.perPage"
+              :total="resource.data.total"
+              @input="handlePagination"
+            >
+            </base-pagination>
+          </div>
         </div>
       </card>
     </div>
   </div>
 </template>
 <script>
-import {BaseTable} from "@/components";
+import {BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
@@ -31,7 +49,8 @@ let tableColumns = {
 export default {
   components: {
     BaseTable,
-    BasePaginator
+    BasePagination,
+    Card
   },
   data() {
     return {
@@ -48,7 +67,13 @@ export default {
       default: {
         models: [{}],
         data: {
-          canAdd: false
+          canAdd: false,
+          currentPage: 1,
+          total: 0,
+          from: 0,
+          to: 0,
+          perPage: 10,
+          links: []
         }
       },
       description: "Resource info"
@@ -62,6 +87,21 @@ export default {
     showDetails(id) {
       router.push({path: "/asset-expenses/" + id});
     },
+    async handlePagination(pageId) {
+      try {
+        console.log(this.props.query);
+        await this.$store.dispatch('assetExpenses/get', pageId).then(() => {
+          this.resource.models = this.$store.getters["assetExpenses/models"];
+          this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
+        });
+      } catch (e) {
+        this.$notify({
+          message:'Server error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      }
+    }
   }
 };
 </script>

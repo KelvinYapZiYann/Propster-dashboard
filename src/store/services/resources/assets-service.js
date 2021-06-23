@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const url = process.env.VUE_APP_API_BASE_URL;
 
-function get() {
+function get(pageId) {
   const config = {
     headers: {
       'Accept': 'application/json',
@@ -10,10 +10,17 @@ function get() {
     }
   };
 
-  return axios.get(`${url}/assets`, config)
-    .then(response => {
-      return response.data;
-    });
+  if (pageId && typeof pageId == "number") {
+    return axios.get(`${url}/assets?page=${pageId}`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else {
+    return axios.get(`${url}/assets`, config)
+      .then(response => {
+        return response.data;
+      });
+  }
 }
 
 function getById(Id) {
@@ -106,18 +113,31 @@ function getAssetExpenses(Id) {
     });
 }
 
-function getTenants(Id) {
+function getTenants(params) {
   const config = {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     }
   };
-
-  return axios.get(`${url}/assets/${Id}/tenants`, config)
-    .then(response => {
-      return response.data;
-    });
+  if (params && (typeof params == "number" || typeof params == "string")) {
+    return axios.get(`${url}/assets/${params}/tenants`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else if (typeof params == "object") {
+    if (params.pageId) {
+      return axios.get(`${url}/assets/${params.id}/tenants?page=${params.pageId}`, config)
+        .then(response => {
+          return response.data;
+        });
+    } else {
+      return axios.get(`${url}/assets/${params.id}/tenants`, config)
+        .then(response => {
+          return response.data;
+        });
+    }
+  }
 }
 
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const url = process.env.VUE_APP_API_BASE_URL;
 
-function get() {
+function get(pageId) {
   const config = {
     headers: {
       'Accept': 'application/json',
@@ -10,10 +10,17 @@ function get() {
     }
   };
 
-  return axios.get(`${url}/asset-expenses`, config)
-    .then(response => {
-      return response.data;
-    });
+  if (pageId && typeof pageId == "number") {
+    return axios.get(`${url}/asset-expenses?page=${pageId}`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else {
+    return axios.get(`${url}/asset-expenses`, config)
+      .then(response => {
+        return response.data;
+      });
+  }
 }
 
 function getById(Id) {
