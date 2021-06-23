@@ -9,7 +9,7 @@
     name: "validation-error",
     props: {
       // errors: {
-      //   type: Array,
+      //   type: String,
       //   default: () => ([])
       // }
     }

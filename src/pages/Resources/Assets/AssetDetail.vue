@@ -38,6 +38,7 @@
            modelType: "asset_id",
            modelId: `${modelId}`
          }'
+     :showAll="showAll"
    ></tenants-index-component>
 
    <!-- <fab
@@ -149,6 +150,7 @@ export default {
         { "id": "CASHFLOW_STATEMENT", "name": "Cashflow Statement" },
       ],
       reportModalVisible: false,
+      showAll: false
     };
   },
   mounted() {

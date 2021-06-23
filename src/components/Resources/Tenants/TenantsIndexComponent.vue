@@ -18,7 +18,7 @@
             @click="addModel"
             class="mt-3"
             type="primary"
-            v-bind:disabled="!resource.data.canAdd"
+            v-bind:disabled="!resource.data.canAdd || showAll"
           >Add {{table.title}}</base-button>
         </div>
         <div class="table-responsive">
@@ -108,6 +108,11 @@ export default {
     query: {
       type: Object,
       // default: {},
+    },
+    showAll: {
+      type: Boolean,
+      required: true,
+      default: false
     }
   },
   methods: {

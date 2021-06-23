@@ -86,7 +86,9 @@ export default {
     options: {
       type: Array,
       required: true,
-      default: [],
+      default: function() {
+        return []
+      },
       note: 'Options of dropdown. An array of options with id and name',
     },
     placeholder: {

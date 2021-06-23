@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">Edit/Add Tenant</h5>
+      <h5 slot="header" class="title">{{addOrEdit}} Tenant</h5>
       <div class="row">
         <div class="col-md-6 ">
           <base-input label="First Name"
@@ -69,19 +69,20 @@
       </div>
     </card>
 
-    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Save</base-button>
+    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
-import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     ValidationError,
-    BaseSelectorInput
+    BaseInput,
+    BaseSelectorInput,
+    Card
   },
   data() {
     return {
@@ -97,13 +98,18 @@ export default {
       default: {
         model: {},
         data: {},
-        selector: {}
+        selector: []
       },
-      description: "Resource info"
+      description: "Resource info",
     },
-    apiValidationErrors: {
-      type: Object
+    addOrEdit: {
+      type: String,
+      required: true,
+      default: "Add"
     }
+    // apiValidationErrors: {
+    //   type: Object
+    // }
   },
   created() {
     this.parentModelId = this.$route.query.modelId

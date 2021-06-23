@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="content">
     <tenant-add-or-edit
       :resource="resource"
       :apiValidationErrors="apiValidationErrors"
+      :addOrEdit="addOrEdit"
       @submit="handleSubmit"
     >
     </tenant-add-or-edit>
@@ -27,6 +28,7 @@ export default {
         data: {},
         selector: {}
       },
+      addOrEdit: "Add"
     };
   },
   mounted() {
@@ -59,8 +61,8 @@ export default {
             icon: 'tim-icons icon-bell-55',
             type: 'success'
           });
-          this.resetApiValidation()
-          router.push({path: "/tenants"});
+          this.resetApiValidation();
+          // router.push({path: "/tenants"});
         } catch (e) {
           this.$notify({
             message:'Server error',

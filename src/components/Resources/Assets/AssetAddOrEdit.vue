@@ -82,8 +82,6 @@
           <base-input label="Unit Number"
                       placeholder="Unit Number"
                       v-model="resource.model.location_details.asset_unit_no">
-                      <!-- v-model="asd.location_details.asset_unit_no"> -->
-                      <!-- v-model="resource.model.location_details.asset_unit_no ? resource.model.location_details.asset_unit_no : 0"> -->
           </base-input>
           <validation-error :errors="apiValidationErrors.asset_unit_no"/>
         </div>
@@ -193,8 +191,6 @@
 <script>
 // import AssetForm from "@/pages/Resources/Assets/Form/AssetForm";
 import formMixin from "@/mixins/form-mixin";
-// import ValidationError from "@/components/ValidationError.vue";
-// import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
 
 import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
 
