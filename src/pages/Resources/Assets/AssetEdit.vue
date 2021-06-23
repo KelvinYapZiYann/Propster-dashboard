@@ -70,8 +70,9 @@ export default {
             icon: 'tim-icons icon-bell-55',
             type: 'success'
           });
-          this.resetApiValidation()
-          router.push({path: "/assets"});
+          this.resetApiValidation();
+          router.go(-1);
+          // router.push({path: "/assets"});
         } catch (e) {
           this.$notify({
             message:'Server error',
