@@ -142,10 +142,9 @@ export default {
     },
     async handlePagination(pageId) {
       try {
-        console.log(this.props.query);
-        await this.$store.dispatch('tenureContracts/get', pageId).then(() => {
-          this.resource.models = this.$store.getters["tenureContracts/models"];
-          this.resource.data = Object.assign({}, this.$store.getters["tenureContracts/data"]);
+        await this.$store.dispatch('tenureContract/get', pageId).then(() => {
+          this.resource.models = this.$store.getters["tenureContract/models"];
+          this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"]);
         });
       } catch (e) {
         this.$notify({

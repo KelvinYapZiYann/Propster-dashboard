@@ -101,9 +101,9 @@ export default {
       },
       description: "Resource info"
     },
-    apiValidationErrors: {
-      type: Object
-    }
+    // apiValidationErrors: {
+    //   type: Object
+    // }
   },
   created() {
     this.parentModelId = this.$route.query.modelId
