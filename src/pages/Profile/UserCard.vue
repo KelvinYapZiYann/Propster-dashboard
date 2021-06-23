@@ -5,27 +5,21 @@
       <div class="block block-two"></div>
       <div class="block block-three"></div>
       <div class="block block-four"></div>
-      <a href="#">
-        <img class="avatar" src="../../assets/img/anime6.png" alt="..." />
-        <h5 class="title">{{ user.fullName }}</h5>
-      </a>
+      <img v-if="this.model.gender == 'MALE'" class="avatar" src="../../assets/img/anime3.png" alt="...">
+      <img v-else-if="this.model.gender == 'FEMALE'" class="avatar" src="../../assets/img/anime6.png" alt="...">
+      <div v-else></div>
+
+      <h1 v-if="this.model.gender == 'MALE'">Mr. {{model.full_name}}</h1>
+      <h1 v-else-if="this.model.gender == 'FEMALE'">Ms. {{model.full_name}}</h1>
+      <div v-else></div>
+
+      <h5 class="title"></h5>
       <p class="description">
-        {{ user.title }}
+        Tier: {{model.tier}}
       </p>
-    </div>
-    <p class="card-description">
-      {{ user.description }}
-    </p>
-    <div slot="footer" class="button-container">
-      <base-button icon round class="btn-facebook">
-        <i class="fab fa-facebook"></i>
-      </base-button>
-      <base-button icon round class="btn-twitter">
-        <i class="fab fa-twitter"></i>
-      </base-button>
-      <base-button icon round class="btn-google">
-        <i class="fab fa-google-plus"></i>
-      </base-button>
+      <p class="description">
+        Current Role: {{model.selected_role}}
+      </p>
     </div>
   </card>
 </template>
@@ -41,6 +35,12 @@ export default {
   },
   props: {
     user: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    },
+    model: {
       type: Object,
       default: () => {
         return {};
