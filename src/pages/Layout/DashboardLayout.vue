@@ -21,7 +21,7 @@
             :link="{ name: $t('sidebar.tenants'), path: '/tenants', icon: 'fas fa-child fa-2x'}"
           ></sidebar-link>
           <sidebar-link
-            :link="{ name: $t('sidebar.assetExpenses'), path: '/assasset-expensests', icon: 'fas fa-dollar-sign fa-2x'}"
+            :link="{ name: $t('sidebar.assetExpenses'), path: '/asset-expenses', icon: 'fas fa-dollar-sign fa-2x'}"
           ></sidebar-link>
           <sidebar-link
             :link="{ name: $t('sidebar.paymentRecords'), path: '/payment-records', icon: 'fas fa-history fa-2x'}"

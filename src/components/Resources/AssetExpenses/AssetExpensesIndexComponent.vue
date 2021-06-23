@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       table: {
-        title: "Payment Records",
+        title: "Asset Expenses",
         columns: {...tableColumns},
       }
     };
@@ -81,7 +81,7 @@ export default {
     },
     query: {
       type: Object,
-      default: {},
+      // default: {},
     }
   },
   methods: {

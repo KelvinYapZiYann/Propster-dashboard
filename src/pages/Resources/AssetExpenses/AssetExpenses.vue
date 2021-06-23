@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <asset-expenses-index-component
       :resource="resource"
     ></asset-expenses-index-component>
