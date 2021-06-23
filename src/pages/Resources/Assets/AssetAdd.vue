@@ -3,6 +3,7 @@
     <asset-add-or-edit
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
+      :addOrEdit="addOrEdit"
       @submit="handleSubmit"
     >
     </asset-add-or-edit>
@@ -27,7 +28,8 @@ export default {
         model: {},
         data: {},
         selector: {}
-      }
+      },
+      addOrEdit: "Add"
     };
   },
   mounted() {

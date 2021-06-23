@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">Edit/Add Asset</h5>
+      <h5 slot="header" class="title">{{addOrEdit}} Asset</h5>
       <div class="row">
         <div class="col-md-6 ">
           <base-input label="Asset Name"
@@ -185,7 +185,7 @@
         </div>
       </div>
     </card>
-    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Save</base-button>
+    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>
 <script>
@@ -220,6 +220,11 @@ export default {
       default: function() {
         return {};
       }
+    },
+    addOrEdit: {
+      type: String,
+      required: true,
+      default: "Add"
     }
   },
   methods: {
