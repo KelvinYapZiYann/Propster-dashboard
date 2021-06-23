@@ -16,7 +16,6 @@
       </span>
     </slot>
     <slot>
-
         <el-select
             class="select-primary"
             size="large"
@@ -87,11 +86,6 @@ export default {
   model: {
     prop: 'value',
     event: 'selected'
-  },
-  methods: {
-    handleOptionClick(value) {
-      this.$emit('selected', value);
-    },
   }
 };
 </script>
