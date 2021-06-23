@@ -62,8 +62,9 @@ const PaginatedTables = () =>
     import(/* webpackChunkName: "tables" */ "@/pages/Tables/PaginatedTables.vue");
 
 // Pages
-const UserProfile = () =>
-    import(/* webpackChunkName: "pages" */ "@/pages/Pages/UserProfile.vue");
+const Profile = () =>
+    import(/* webpackChunkName: "pages" */ "@/pages/Profile/Profile.vue");
+
 const Pricing = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Pricing.vue");
 const TimeLine = () =>
@@ -442,9 +443,9 @@ const routes = [
         component: Dashboard
       },
       {
-        path: "user",
+        path: "profile",
         name: "User Profile",
-        component: UserProfile
+        component: Profile
       },
       {
         path: "Calendar",
