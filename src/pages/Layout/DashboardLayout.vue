@@ -36,14 +36,7 @@
             :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog fa-2x'}"
           ></sidebar-link>
 
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.paginatedTables'),
-              path: '/table-list/paginated'
-            }"
-          ></sidebar-link>
-
-        <!-- <sidebar-link
+        <sidebar-link
           :link="{
             name: $t('sidebar.pages'),
             icon: 'tim-icons icon-image-02'
@@ -206,7 +199,7 @@
             icon: 'tim-icons icon-time-alarm',
             path: '/calendar'
           }"
-        ></sidebar-link> -->
+        ></sidebar-link> 
       </template>
     </side-bar>
     <sidebar-share :background-color.sync="backgroundColor"></sidebar-share>
