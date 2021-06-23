@@ -14,7 +14,6 @@
           <base-selector-input label="Asset Type"
                                placeholder="Asset Type"
                                v-model="resource.model.asset_type"
-                               :initialValue="resource.model.asset_type"
                                :options="resource.selector.asset_type"
           >
           </base-selector-input>
@@ -26,7 +25,6 @@
           <base-selector-input label="Ownership Type"
                                placeholder="Ownership Type"
                                v-model="resource.model.asset_ownership_type"
-                               :initialValue="resource.model.asset_ownership_type"
                                :options="resource.selector.asset_ownership_type"
           >
           </base-selector-input>
@@ -125,7 +123,6 @@
           <base-selector-input label="Country"
                                placeholder="Country"
                                v-model="resource.model.location_details.asset_country"
-                               :initialValue="resource.model.location_details.asset_country"
                                :options="resource.selector.asset_country"
           >
           </base-selector-input>
@@ -191,17 +188,12 @@
   </form>
 </template>
 <script>
-// import AssetForm from "@/pages/Resources/Assets/Form/AssetForm";
 import formMixin from "@/mixins/form-mixin";
-// import ValidationError from "@/components/ValidationError.vue";
-// import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
-
 import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
-    // AssetForm,
     BaseInput,
     BaseSelectorInput,
     Card,
@@ -218,9 +210,6 @@ export default {
       },
       description: "Resource info"
     }
-    // apiValidationErrors: {
-    //   type: Object
-    // }
   },
   methods: {
     async handleSubmit() {
@@ -253,5 +242,3 @@ export default {
   }
 }
 </script>
-<style>
-</style>

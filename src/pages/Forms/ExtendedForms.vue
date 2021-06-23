@@ -269,7 +269,7 @@ export default {
       selects: {
         simple: "",
         countries: [
-          { value: "Bahasa Indonesia", label: "Bahasa Indonesia" },
+          { value: "BAHASA_INDONESIA", label: "Bahasa Indonesia" },
           { value: "Bahasa Melayu", label: "Bahasa Melayu" },
           { value: "Català", label: "Català" },
           { value: "Dansk", label: "Dansk" },
@@ -307,6 +307,9 @@ export default {
     };
   },
   methods: {
+    handleOptionClick(value) {
+      alert(value)
+    },
     onImageChange(file) {
       this.images.regular = file;
     },

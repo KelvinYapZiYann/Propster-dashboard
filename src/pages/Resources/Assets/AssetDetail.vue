@@ -40,7 +40,7 @@
          }'
    ></tenants-index-component>
 
-   <!-- <fab
+   <fab
      :position="position"
      :bg-color="bgColor"
      :actions="fabActions"
@@ -57,7 +57,7 @@
          :apiValidationErrors="apiValidationErrors"
          @requestReport="requestReport"
        ></generate-report-form>
-   </modal> -->
+   </modal>
   </div>
 </template>
 <script>
@@ -127,10 +127,6 @@ export default {
         models: [{}],
         data: {}
       },
-      // tenureContractResource: {
-      //   models: [{}],
-      //   data: {}
-      // },
       table: {
         title: "Assets",
         detailHeaders: {...detailHeaders},
