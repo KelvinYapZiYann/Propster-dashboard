@@ -106,7 +106,15 @@ export default {
       return item[column.toLowerCase()] !== "undefined";
     },
     itemValue(item, column) {
-      return item[column.toLowerCase()] ? item[column.toLowerCase()] : "-";
+      if (typeof item[column.toLowerCase()] == 'boolean') {
+        return item[column.toLowerCase()];
+      } else if (typeof item[column.toLowerCase()] == 'number') {
+        return item[column.toLowerCase()];
+      } else if (typeof item[column.toLowerCase()] == 'string') {
+        return item[column.toLowerCase()];
+      } else {
+        return '-';
+      }
     },
     showDetails: function (id) {
       this.$emit('show-details', id)

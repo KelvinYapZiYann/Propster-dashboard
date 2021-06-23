@@ -32,6 +32,7 @@
         <div class="col-md-6">
           <base-input label="Is Business?"
                       type="checkbox"
+                      :checked="typeof resource.model.is_business == 'boolean' ? resource.model.is_business : (typeof resource.model.is_business == 'string' ? resource.model.is_business == 'true' : false)"
                       v-model="resource.model.is_business">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.is_business"/>
@@ -129,7 +130,7 @@ export default {
         first_name: this.resource.model.first_name,
         last_name: this.resource.model.last_name,
         gender: this.resource.model.gender,
-        is_business: this.resource.model.is_business == null ? false : true,
+        is_business: this.resource.model.is_business == null ? false : this.resource.model.is_business,
         date_of_birth: this.resource.model.date_of_birth,
         reputation: this.resource.model.reputation,
         salary_range: this.resource.model.salary_range
