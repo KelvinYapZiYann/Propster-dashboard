@@ -1,6 +1,7 @@
 <template>
     <assets-index-component
       :resource="resource"
+      @getResource="getResource"
     ></assets-index-component>
 </template>
 <script>

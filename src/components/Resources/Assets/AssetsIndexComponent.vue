@@ -125,7 +125,7 @@ export default {
     deleteDetails(id) {
       if (id == null) {
         this.$notify({
-          message:'Server error',
+          message:'Server error del id == null',
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
@@ -139,8 +139,9 @@ export default {
           });
           this.getResource();
         } catch (e) {
+          console.error(e);
           this.$notify({
-            message:'Server error',
+            message:'Server error when del',
             icon: 'tim-icons icon-bell-55',
             type: 'danger'
           });
@@ -149,6 +150,9 @@ export default {
     },
     addModel() {
       router.push({path: "/assets/add"});
+    },
+    getResource() {
+      this.$emit('getResource')
     },
     async handlePagination(pageId) {
       try {
