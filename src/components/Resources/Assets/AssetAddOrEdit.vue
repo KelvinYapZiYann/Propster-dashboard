@@ -62,6 +62,7 @@
         <div class="col-md-6 pr-md-1">
           <base-input label="Is Multi Unit?"
                       type="checkbox"
+                      :checked="typeof resource.model.is_multi_unit == 'boolean' ? resource.model.is_multi_unit : (typeof resource.model.is_multi_unit == 'string' ? resource.model.is_multi_unit == 'true' : false)"
                       v-model="resource.model.is_multi_unit">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.is_multi_unit"/>
@@ -69,6 +70,7 @@
         <div class="col-md-6">
           <base-input label="Is Occupied?"
                       type="checkbox"
+                      :checked="typeof resource.model.is_occupied == 'boolean' ? resource.model.is_occupied : (typeof resource.model.is_occupied == 'string' ? resource.model.is_occupied == 'true' : false)"
                       v-model="resource.model.is_occupied">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.is_occupied"/>
@@ -229,7 +231,7 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      this.$emit('submit', this.translateModel(this.resource.model))
+      this.$emit('submit', this.translateModel(this.resource.model));
     },
     translateModel(model) {
       return {
@@ -239,8 +241,8 @@ export default {
         asset_size: this.resource.model.asset_size,
         number_of_rooms: this.resource.model.number_of_rooms,
         number_of_bathrooms: this.resource.model.number_of_bathrooms,
-        is_multi_unit: this.resource.model.is_multi_unit == null ? false : true,
-        is_occupied: this.resource.model.is_occupied == null ? false : true,
+        is_multi_unit: this.resource.model.is_multi_unit == null ? false : this.resource.model.is_multi_unit,
+        is_occupied: this.resource.model.is_occupied == null ? false : this.resource.model.is_occupied,
         asset_unit_no: this.resource.model.location_details.asset_unit_no,
         asset_address_line: this.resource.model.location_details.asset_address_line,
         asset_city: this.resource.model.location_details.asset_city,

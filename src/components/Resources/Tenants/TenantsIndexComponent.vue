@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="pro-feature alert alert-danger">
         <strong>
-          You can only add 3 {{table.title}} per property with free tier. Get
+          You can only add 3 {{table.title}} per asset with free tier. Get
           <a
             href="https://www.propster.io"
             target="_blank"

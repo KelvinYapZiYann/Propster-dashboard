@@ -4,6 +4,7 @@
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
+      :addOrEdit="addOrEdit"
       ></tenant-add-or-edit>
   </div>
 </template>
@@ -28,6 +29,7 @@ export default {
         data: {},
         selector: {}
       },
+      addOrEdit: "Edit"
     };
   },
   mounted() {

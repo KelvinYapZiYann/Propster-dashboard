@@ -23,6 +23,7 @@
           :value="value"
           v-bind="$attrs"
           v-on="listeners"
+          :checked="checked"
           class="form-control"
           aria-describedby="addon-right addon-left"
         />
@@ -66,6 +67,10 @@ export default {
     addonLeftIcon: {
       type: String,
       description: "Input icon on the left"
+    },
+    checked: {
+      type: Boolean,
+      description: "Input checkbox value"
     }
   },
   model: {
@@ -104,7 +109,11 @@ export default {
       if (!this.touched) {
         this.touched = true;
       }
-      this.$emit("input", evt.target.value);
+      if (evt.target.type == 'checkbox') {
+        this.$emit("input", evt.target.checked);
+      } else {
+        this.$emit("input", evt.target.value);
+      }
     },
     onFocus(evt) {
       this.focused = true;

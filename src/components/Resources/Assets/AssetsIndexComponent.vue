@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="col-12">
-      <!-- <div class="pro-feature alert alert-danger">
+      <div class="pro-feature alert alert-danger">
         <strong>
           You can only add ONE {{table.title}} with free tier. Get 
           <a
@@ -10,7 +10,7 @@
           >PRO</a>
           version to add more {{ table.title }} !
         </strong>
-      </div> -->
+      </div>
       <card>
         <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
         <div class="text-right mb-3">
