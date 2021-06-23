@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <asset-add-or-edit
       :resource="resource"
       :apiValidationErrors="apiValidationErrors"

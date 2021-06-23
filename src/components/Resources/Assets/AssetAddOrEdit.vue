@@ -33,8 +33,8 @@
           <validation-error :errors="apiValidationErrors.asset_ownership_type"/>
         </div>
         <div class="col-md-6">
-          <base-input label="Asset Size"
-                      placeholder="Asset Size"
+          <base-input label="Asset Size (sq. ft)"
+                      placeholder="Asset Size (sq. ft)"
                       v-model="resource.model.asset_size">
           </base-input>
           <validation-error :errors="apiValidationErrors.asset_size"/>
@@ -82,6 +82,8 @@
           <base-input label="Unit Number"
                       placeholder="Unit Number"
                       v-model="resource.model.location_details.asset_unit_no">
+                      <!-- v-model="asd.location_details.asset_unit_no"> -->
+                      <!-- v-model="resource.model.location_details.asset_unit_no ? resource.model.location_details.asset_unit_no : 0"> -->
           </base-input>
           <validation-error :errors="apiValidationErrors.asset_unit_no"/>
         </div>
@@ -103,8 +105,8 @@
           <validation-error :errors="apiValidationErrors.asset_city"/>
         </div>
         <div class="col-md-4">
-          <base-input label="Asset State"
-                      placeholder="Asset State"
+          <base-input label="State"
+                      placeholder="State"
                       v-model="resource.model.location_details.asset_state">
           </base-input>
           <validation-error :errors="apiValidationErrors.asset_state"/>
@@ -191,15 +193,19 @@
 <script>
 // import AssetForm from "@/pages/Resources/Assets/Form/AssetForm";
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
-import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+// import ValidationError from "@/components/ValidationError.vue";
+// import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+
+import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     // AssetForm,
-    ValidationError,
-    BaseSelectorInput
+    BaseInput,
+    BaseSelectorInput,
+    Card,
+    ValidationError
   },
   props: {
     resource: {
@@ -211,10 +217,10 @@ export default {
         selector: {}
       },
       description: "Resource info"
-    },
-    apiValidationErrors: {
-      type: Object
     }
+    // apiValidationErrors: {
+    //   type: Object
+    // }
   },
   methods: {
     async handleSubmit() {

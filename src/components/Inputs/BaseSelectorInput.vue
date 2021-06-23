@@ -114,6 +114,7 @@ export default {
   },
   data() {
     return {
+      hasIcon: false,
       focused: false,
       selected: {},
       optionsShown: false,
