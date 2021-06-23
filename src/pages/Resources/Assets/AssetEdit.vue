@@ -2,7 +2,7 @@
   <div class="content">
     <asset-add-or-edit
       :resource="resource"
-      :apiValidationErrors="apiValidationErrors"
+      :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
     >
     </asset-add-or-edit>
