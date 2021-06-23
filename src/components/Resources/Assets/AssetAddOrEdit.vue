@@ -8,7 +8,7 @@
                       placeholder="Asset Name"
                       v-model="resource.model.asset_nickname">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_nickname"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_nickname"/>
         </div>
         <div class="col-md-6">
           <base-selector-input label="Asset Type"
@@ -18,7 +18,7 @@
                                :options="resource.selector.asset_type"
           >
           </base-selector-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_type"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_type"/>
         </div>
       </div>
       <div class="row">
@@ -30,14 +30,14 @@
                                :options="resource.selector.asset_ownership_type"
           >
           </base-selector-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_ownership_type"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_ownership_type"/>
         </div>
         <div class="col-md-6">
           <base-input label="Asset Size (sq. ft)"
                       placeholder="Asset Size (sq. ft)"
                       v-model="resource.model.asset_size">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_size"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_size"/>
         </div>
       </div>
 
@@ -47,14 +47,14 @@
                       placeholder="Number Of Rooms"
                       v-model="resource.model.number_of_rooms">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.number_of_rooms"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.number_of_rooms"/>
         </div>
         <div class="col-md-6">
           <base-input label="Number Of Bathrooms"
                       placeholder="Number Of Bathrooms"
                       v-model="resource.model.number_of_bathrooms">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.number_of_bathrooms"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.number_of_bathrooms"/>
         </div>
       </div>
 
@@ -64,14 +64,14 @@
                       type="checkbox"
                       v-model="resource.model.is_multi_unit">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.is_multi_unit"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.is_multi_unit"/>
         </div>
         <div class="col-md-6">
           <base-input label="Is Occupied?"
                       type="checkbox"
                       v-model="resource.model.is_occupied">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.is_occupied"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.is_occupied"/>
         </div>
       </div>
     </card>
@@ -83,14 +83,14 @@
                       placeholder="Unit Number"
                       v-model="resource.model.location_details.asset_unit_no">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_unit_no"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_unit_no"/>
         </div>
         <div class="col-md-10">
           <base-input label="Address Line"
                       placeholder="Address Line"
                       v-model="resource.model.location_details.asset_address_line">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_address_line"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_address_line"/>
         </div>
       </div>
 
@@ -100,21 +100,21 @@
                       placeholder="City"
                       v-model="resource.model.location_details.asset_city">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_city"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_city"/>
         </div>
         <div class="col-md-4">
           <base-input label="State"
                       placeholder="State"
                       v-model="resource.model.location_details.asset_state">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_state"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_state"/>
         </div>
         <div class="col-md-4">
           <base-input label="Postcode"
                       placeholder="Postcode"
                       v-model="resource.model.location_details.asset_postal_code">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_postal_code"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_postal_code"/>
         </div>
       </div>
 
@@ -127,7 +127,7 @@
                                :options="resource.selector.asset_country"
           >
           </base-selector-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_country"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_country"/>
         </div>
       </div>
     </card>
@@ -140,14 +140,14 @@
                       placeholder="Purchased Value"
                       v-model="resource.model.financial_details.asset_purchased_value">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_purchased_value"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_purchased_value"/>
         </div>
         <div class="col-md-6">
           <base-input label="Taxable Amount"
                       placeholder="Taxable Amount"
                       v-model="resource.model.financial_details.asset_purchased_tax">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.asset_purchased_tax"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_purchased_tax"/>
         </div>
       </div>
 
@@ -157,14 +157,14 @@
                       placeholder="Remaining Loan"
                       v-model="resource.model.financial_details.loan_outstanding_amount">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.loan_outstanding_amount"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.loan_outstanding_amount"/>
         </div>
         <div class="col-md-6">
           <base-input label="Purchased Date"
                       type="date"
                       v-model="resource.model.financial_details.purchased_date">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.purchased_date"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.purchased_date"/>
         </div>
       </div>
 
@@ -174,14 +174,14 @@
                       placeholder="Loan Interest Rate"
                       v-model="resource.model.financial_details.loan_interest_rate">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.loan_interest_rate"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.loan_interest_rate"/>
         </div>
         <div class="col-md-6">
           <base-input label="Loan Duration"
                       placeholder="Loan Duration"
                       v-model="resource.model.financial_details.loan_total_year">
           </base-input>
-          <validation-error :errors="tmpApiValidationErrors.loan_total_year"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.loan_total_year"/>
         </div>
       </div>
     </card>

@@ -1,6 +1,6 @@
 <template>
-  <span v-if="errors && errors.length">
-    <small class="error" v-text="errors[0]"/>
+  <span v-if="errorsArray && errorsArray.length">
+    <small class="error" v-text="errorsArray[0]"/>
   </span>
 </template>
 
@@ -8,9 +8,11 @@
   export default {
     name: "validation-error",
     props: {
-      errors: {
+      errorsArray: {
         type: Array,
-        default: () => ([])
+        default: function() {
+          return [];
+        }
       }
     }
   }

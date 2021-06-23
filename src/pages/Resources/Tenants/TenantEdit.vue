@@ -2,7 +2,7 @@
   <div>
     <tenant-add-or-edit
       :resource="resource"
-      :apiValidationErrors="apiValidationErrors"
+      :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
       ></tenant-add-or-edit>
   </div>

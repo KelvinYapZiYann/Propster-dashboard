@@ -8,14 +8,14 @@
                       placeholder="First Name"
                       v-model="resource.model.first_name">
           </base-input>
-          <validation-error :errors="apiValidationErrors.first_name"/>
+          <validation-error :errors="tmpApiValidationErrors.first_name"/>
         </div>
         <div class="col-md-6">
           <base-input label="Last Name"
                       placeholder="Last Name"
                       v-model="resource.model.last_name">
           </base-input>
-          <validation-error :errors="apiValidationErrors.last_name"/>
+          <validation-error :errors="tmpApiValidationErrors.last_name"/>
         </div>
       </div>
       <div class="row">
@@ -27,14 +27,14 @@
                                :options="resource.selector.gender"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.gender"/>
+          <validation-error :errors="tmpApiValidationErrors.gender"/>
         </div>
         <div class="col-md-6">
           <base-input label="Is Business?"
                       type="checkbox"
                       v-model="resource.model.is_business">
           </base-input>
-          <validation-error :errors="apiValidationErrors.is_business"/>
+          <validation-error :errors="tmpApiValidationErrors.is_business"/>
         </div>
       </div>
 
@@ -44,14 +44,14 @@
                       type="date"
                       v-model="resource.model.date_of_birth">
           </base-input>
-          <validation-error :errors="apiValidationErrors.date_of_birth"/>
+          <validation-error :errors="tmpApiValidationErrors.date_of_birth"/>
         </div>
         <div class="col-md-6 pr-md-1">
           <base-input label="Reputation"
                       placeholder="Reputation"
                       v-model="resource.model.reputation">
           </base-input>
-          <validation-error :errors="apiValidationErrors.reputation"/>
+          <validation-error :errors="tmpApiValidationErrors.reputation"/>
         </div>
       </div>
 
@@ -64,7 +64,7 @@
                                :options="resource.selector.salary_range"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.is_occupied"/>
+          <validation-error :errors="tmpApiValidationErrors.is_occupied"/>
         </div>
       </div>
     </card>
@@ -106,10 +106,14 @@ export default {
       type: String,
       required: true,
       default: "Add"
+    },
+    tmpApiValidationErrors: {
+      type: Object,
+      required: true,
+      default: function() {
+        return {};
+      }
     }
-    // apiValidationErrors: {
-    //   type: Object
-    // }
   },
   created() {
     this.parentModelId = this.$route.query.modelId
