@@ -121,6 +121,11 @@
                   >Settings</a
                 >
               </li>
+              <li class="nav-link">
+                <a href="/select-role" class="nav-item dropdown-item"
+                >Change Role</a
+                >
+              </li>
               <li class="dropdown-divider"></li>
               <li class="nav-link">
                 <a href="javascript:void(0)" @click="logout" class="nav-item dropdown-item"
