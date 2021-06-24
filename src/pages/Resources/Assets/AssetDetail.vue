@@ -54,7 +54,6 @@
           :centered="false"
           :show-close="true">
        <generate-report-form
-         :reportTypes="reportTypes"
          :apiValidationErrors="apiValidationErrors"
          @requestReport="requestReport"
        ></generate-report-form>
@@ -142,9 +141,6 @@ export default {
       ],
       bgColor: '#778899',
       position: 'bottom-right',
-      reportTypes: [
-        { "id": "CASHFLOW_STATEMENT", "name": "Cashflow Statement" },
-      ],
       reportModalVisible: false,
       showAll: false
     };
@@ -153,9 +149,21 @@ export default {
     this.getResource();
   },
   methods: {
-    requestReport() {
-
-      alert('test');
+    requestReport(value) {
+      // axios({
+      //   url: 'http://localhost:8000/api/get-file',
+      //   method: 'GET',
+      //   responseType: 'blob',
+      // }).then((response) => {
+      //   var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+      //   var fileLink = document.createElement('a');
+      //
+      //   fileLink.href = fileURL;
+      //   fileLink.setAttribute('download', 'file.pdf');
+      //   document.body.appendChild(fileLink);
+      //
+      //   fileLink.click();
+      // });
     },
     async getResource() {
       try {
