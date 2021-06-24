@@ -1,7 +1,6 @@
 <template>
   <tenants-index-component
     :resource="resource"
-    :showAll="showAll"
   ></tenants-index-component>
 </template>
 <script>
@@ -18,8 +17,8 @@ export default {
       resource: {
         models: [{}],
         data: {}
-      },
-      showAll: true
+      }
+      // showAll: true
     };
   },
   mounted() {
