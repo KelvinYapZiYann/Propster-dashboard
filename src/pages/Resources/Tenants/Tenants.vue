@@ -1,6 +1,7 @@
 <template>
   <tenants-index-component
     :resource="resource"
+    @getResource="getResource"
   ></tenants-index-component>
 </template>
 <script>
@@ -18,7 +19,6 @@ export default {
         models: [{}],
         data: {}
       }
-      // showAll: true
     };
   },
   mounted() {

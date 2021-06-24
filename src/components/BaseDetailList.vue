@@ -11,8 +11,8 @@
             <h6 class="mb-0">{{ headers[key] }}</h6>
           </div>
           <span class="col-sm-9 mb-3" v-if="hasValue(headers, key)">
-          {{ value }}
-        </span>
+            {{ value }}
+          </span>
         </div>
       </div>
     </card>

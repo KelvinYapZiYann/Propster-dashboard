@@ -107,7 +107,7 @@ export default {
       router.push({path: "/tenure-contracts/" + id});
     },
     editDetails(id) {
-      router.push({path: "/tenure-contracts/" + id + "/edit"});
+      router.push({path: "/tenure-contracts/" + id + "/edit", query: this.query});
     },
     deleteDetails(id) {
       if (id == null) {
@@ -118,7 +118,7 @@ export default {
         });
       } else {
         try {
-          this.$store.dispatch('tenure-contracts/remove', id)
+          this.$store.dispatch('tenureContract/remove', id)
           this.$notify({
             message: 'Successfully Deleted',
             icon: 'tim-icons icon-bell-55',
@@ -140,12 +140,33 @@ export default {
         query: this.query
       });
     },
+    getResource() {
+      this.$emit('getResource')
+    },
     async handlePagination(pageId) {
       try {
-        await this.$store.dispatch('tenureContract/get', pageId).then(() => {
-          this.resource.models = this.$store.getters["tenureContract/models"];
-          this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"]);
-        });
+        if (this.$props.query) {
+          if (this.$props.query.modelType === 'tenant_id') {
+            var param = {
+              id: this.$props.query.modelId,
+              pageId: pageId
+            }
+            await this.$store.dispatch('tenant/getTenureContracts', param).then(() => {
+              this.resource.models = this.$store.getters["tenant/tenureContractModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"]);
+            });
+          } else {
+            await this.$store.dispatch('tenureContract/get', pageId).then(() => {
+              this.resource.models = this.$store.getters["tenureContract/models"];
+              this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"]);
+            });
+          }
+        } else {
+          await this.$store.dispatch('tenureContract/get', pageId).then(() => {
+            this.resource.models = this.$store.getters["tenureContract/models"];
+            this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"]);
+          });
+        }
       } catch (e) {
         this.$notify({
           message:'Server error',

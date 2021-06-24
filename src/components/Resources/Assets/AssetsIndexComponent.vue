@@ -139,7 +139,6 @@ export default {
           });
           this.getResource();
         } catch (e) {
-          console.error(e);
           this.$notify({
             message:'Server error when del',
             icon: 'tim-icons icon-bell-55',

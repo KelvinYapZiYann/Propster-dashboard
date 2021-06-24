@@ -153,6 +153,9 @@ export default {
         query: this.query
       });
     },
+    getResource() {
+      this.$emit('getResource')
+    },
     async handlePagination(pageId) {
       try {
         if (this.$props.query) {

@@ -16,6 +16,7 @@
                      id="dropzone"
                      :options="dropzoneOptions"
           >
+          <!-- :disable="disableDropZone" -->
           </drop-zone>
         </card>
       </div>
@@ -24,6 +25,8 @@
 import { BaseDetailList, Card, DropZone } from "@/components";
 
 let detailHeaders = {
+  asset_nickname: "Asset Nickname",
+  tenant_name: "Tenant Name",
   contract_name: "Contract Name",
   monthly_rental_amount: "Monthly Rental Amount",
   tenure_start_date: "Tenure Start Date",
@@ -59,6 +62,7 @@ export default {
   },
   mounted() {
     this.getResource();
+    this.disableDropZone();
   },
   methods: {
     async getResource() {
@@ -85,6 +89,9 @@ export default {
         this.$refs.myVueDropzone.removeEventListeners()
         this.$refs.myVueDropzone.setupEventListeners()
       }
+    },
+    disableDropZone() {
+      return true;
     }
   }
 };

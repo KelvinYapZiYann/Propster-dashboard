@@ -99,7 +99,7 @@ function store(payload) {
 }
 
 
-function getTenureContracts(Id) {
+function getTenureContracts(params) {
   const config = {
     headers: {
       'Accept': 'application/json',
@@ -107,10 +107,24 @@ function getTenureContracts(Id) {
     }
   };
 
-  return axios.get(`${url}/tenants/${Id}/tenure-contracts`, config)
-    .then(response => {
-      return response.data;
-    });
+  if (params && (typeof params == "number" || typeof params == "string")) {
+    return axios.get(`${url}/tenants/${params}/tenure-contracts`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else if (typeof params == "object") {
+    if (params.pageId) {
+      return axios.get(`${url}/tenants/${params.id}/tenure-contracts?page=${params.pageId}`, config)
+        .then(response => {
+          return response.data;
+        });
+    } else {
+      return axios.get(`${url}/tenants/${params.id}/tenure-contracts`, config)
+        .then(response => {
+          return response.data;
+        });
+    }
+  }
 }
 
 function getAssets(params) {

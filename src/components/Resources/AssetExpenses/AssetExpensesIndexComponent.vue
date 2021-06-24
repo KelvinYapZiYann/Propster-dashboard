@@ -101,13 +101,13 @@ export default {
               this.resource.data = Object.assign({}, this.$store.getters["asset/assetExpenseData"]);
             });
           } else {
-            await this.$store.dispatch('assetExpenses/get', param).then(() => {
+            await this.$store.dispatch('assetExpenses/get', pageId).then(() => {
               this.resource.models = this.$store.getters["assetExpenses/models"];
               this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
             });
           }
         } else {
-          await this.$store.dispatch('assetExpenses/get', param).then(() => {
+          await this.$store.dispatch('assetExpenses/get', pageId).then(() => {
             this.resource.models = this.$store.getters["assetExpenses/models"];
             this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
           });

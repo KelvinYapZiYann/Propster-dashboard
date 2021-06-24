@@ -1,30 +1,30 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">Edit/Add TenureContract</h5>
+      <h5 slot="header" class="title">{{addOrEdit}} TenureContract</h5>
       <div class="row">
         <div class="col-md-6 ">
           <base-input label="Contract Name"
                       placeholder="Contract Name"
                       v-model="resource.model.contract_name">
           </base-input>
-          <validation-error :errors="apiValidationErrors.contract_name"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.contract_name"/>
         </div>
         <div class="col-md-6">
           <base-input label="Contract Description"
                       placeholder="Contract Description"
                       v-model="resource.model.contract_description">
           </base-input>
-          <validation-error :errors="apiValidationErrors.contract_description"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.contract_description"/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Monthly Rental Amount"
-                      placeholder="Monthly Rental Amount"
+          <base-input label="Monthly Rental Amoun (RM)"
+                      placeholder="Monthly Rental Amount (RM)"
                       v-model="resource.model.monthly_rental_amount">
           </base-input>
-          <validation-error :errors="apiValidationErrors.monthly_rental_amount"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.monthly_rental_amount"/>
         </div>
       </div>
 
@@ -34,14 +34,14 @@
                       type="date"
                       v-model="resource.model.tenure_start_date">
           </base-input>
-          <validation-error :errors="apiValidationErrors.tenure_start_date"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.tenure_start_date"/>
         </div>
         <div class="col-md-6 pr-md-1">
           <base-input label="Contract End Date"
                       type="date"
                       v-model="resource.model.tenure_end_date">
           </base-input>
-          <validation-error :errors="apiValidationErrors.tenure_end_date"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.tenure_end_date"/>
         </div>
       </div>
     </card>
@@ -56,25 +56,25 @@
                      v-on:vdropzone-sending="sendingFile"
           >
           </drop-zone>
-          <validation-error :errors="apiValidationErrors.file"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.file"/>
         </div>
       </div>
     </card>
-    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Save</base-button>
+    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
-import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
-import DropZone from "@/components/DropZone";
+import { BaseInput, BaseSelectorInput, Card, DropZone, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
-    ValidationError,
+    BaseInput,
     BaseSelectorInput,
-    DropZone
+    Card,
+    DropZone,
+    ValidationError
   },
   data() {
     return {
@@ -101,9 +101,18 @@ export default {
       },
       description: "Resource info"
     },
-    // apiValidationErrors: {
-    //   type: Object
-    // }
+    tmpApiValidationErrors: {
+      type: Object,
+      required: true,
+      default: function() {
+        return {};
+      }
+    },
+    addOrEdit: {
+      type: String,
+      required: true,
+      default: "Add"
+    }
   },
   created() {
     this.parentModelId = this.$route.query.modelId

@@ -33,10 +33,10 @@ export default {
     };
   },
   mounted() {
-    this.getAsset();
+    this.getTenant();
   },
   methods: {
-    async getAsset() {
+    async getTenant() {
       try {
         await this.$store.dispatch('tenant/getById', this.$route.params.tenantId).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenant/model"])

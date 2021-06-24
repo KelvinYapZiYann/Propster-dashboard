@@ -2,7 +2,8 @@
   <div class="content">
     <tenure-contract-add-or-edit
       :resource="resource"
-      :apiValidationErrors="apiValidationErrors"
+      :tmpApiValidationErrors="apiValidationErrors"
+      :addOrEdit="addOrEdit"
       @submit="handleSubmit"
     >
     </tenure-contract-add-or-edit>
@@ -27,13 +28,14 @@ export default {
         data: {},
         selector: {}
       },
+      addOrEdit: "Add"
     };
   },
   mounted() {
-    this.getResource();
+    this.getTenureContract();
   },
   methods: {
-    async getResource() {
+    async getTenureContract() {
       try {
         await this.$store.dispatch('tenureContract/create').then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
@@ -59,8 +61,9 @@ export default {
             icon: 'tim-icons icon-bell-55',
             type: 'success'
           });
-          this.resetApiValidation()
-          router.push({path: "/tenure-contracts"});
+          this.resetApiValidation();
+          router.go(-1);
+          // router.push({path: "/tenure-contracts"});
         } catch (e) {
           this.$notify({
             message:'Server error',

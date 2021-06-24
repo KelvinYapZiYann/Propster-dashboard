@@ -1,17 +1,16 @@
 <template>
-  <div class="content">
-    <tenure-contract-index-component
-      :resource="resource"
-    ></tenure-contract-index-component>
-  </div>
+  <tenure-contract-index-component
+    :resource="resource"
+    @getResource="getResource"
+  ></tenure-contract-index-component>
 </template>
 <script>
-import { BaseTable } from "@/components";
+// import { BaseTable } from "@/components";
 import TenureContractIndexComponent from "@/components/Resources/TenureContracts/TenureContractIndexComponent";
 
 export default {
   components: {
-    BaseTable,
+    // BaseTable,
     TenureContractIndexComponent
   },
   data() {

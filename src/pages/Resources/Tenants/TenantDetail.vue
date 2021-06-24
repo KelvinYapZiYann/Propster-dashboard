@@ -110,7 +110,7 @@ export default {
           type: 'danger'
         });
       }
-    },
+    }
   }
 };
 </script>
