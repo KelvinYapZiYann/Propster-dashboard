@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <payment-record-index-component
-      :resource="resource"
-    ></payment-record-index-component>
-  </div>
+  <payment-record-index-component
+    :resource="resource"
+    @getResource="getResource"
+  ></payment-record-index-component>
 </template>
 <script>
 import PaymentRecordIndexComponent from "@/components/Resources/PaymentRecords/PaymentRecordIndexComponent";
@@ -26,9 +25,13 @@ export default {
   methods: {
     async getResource() {
       try {
-        await this.$store.dispatch('paymentRecords/get', {})
-        this.resource.models = await this.$store.getters["paymentRecords/models"]
-        this.resource.data = await this.$store.getters["paymentRecords/data"]
+        // await this.$store.dispatch('paymentRecords/get', {})
+        // this.resource.models = await this.$store.getters["paymentRecords/models"]
+        // this.resource.data = await this.$store.getters["paymentRecords/data"]
+        await this.$store.dispatch('paymentRecords/get', {}).then(() => {
+          this.resource.models = this.$store.getters["paymentRecords/models"]
+          this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"])
+        })
       } catch (e) {
         this.$notify({
           message: 'Server error',

@@ -8,14 +8,14 @@
                       placeholder="Payment Description"
                       v-model="resource.model.payment_description">
           </base-input>
-          <validation-error :errors="apiValidationErrors.payment_description"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.payment_description"/>
         </div>
         <div class="col-md-6">
           <base-input label="Amount(RM)"
                       placeholder="Amount"
                       v-model="resource.model.amount">
           </base-input>
-          <validation-error :errors="apiValidationErrors.amount"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.amount"/>
         </div>
       </div>
       <div class="row">
@@ -27,7 +27,7 @@
                                :options="resource.selector.payment_method"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.payment_method"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.payment_method"/>
         </div>
         <div class="col-md-6">
           <base-selector-input label="Payment Type"
@@ -37,7 +37,7 @@
                                :options="resource.selector.payment_type"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.payment_type"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.payment_type"/>
         </div>
       </div>
 
@@ -47,7 +47,7 @@
                       type="checkbox"
                       v-model="resource.model.is_reference_only">
           </base-input>
-          <validation-error :errors="apiValidationErrors.is_reference_only"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.is_reference_only"/>
         </div>
       </div>
     </card>
@@ -77,9 +77,13 @@ export default {
       },
       description: "Resource info"
     },
-    apiValidationErrors: {
-      type: Object
-    }
+    tmpApiValidationErrors: {
+      type: Object,
+      required: true,
+      default: function() {
+        return {};
+      }
+    },
   },
   methods: {
     async handleSubmit() {

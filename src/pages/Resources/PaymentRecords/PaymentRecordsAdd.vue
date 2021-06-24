@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <payment-page
       :model="resource.model"
       :asset="resource.model.asset"
@@ -8,24 +8,24 @@
     ></payment-page>
     <payment-record-add-or-edit
       :resource="resource"
-      :apiValidationErrors="apiValidationErrors"
+      :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
     ></payment-record-add-or-edit>
   </div>
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
 import router from "@/router";
-import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
-import PaymentPage from "@/components/Resources/PaymentRecords/PaymentPage";
+// import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+// import PaymentPage from "@/components/Resources/PaymentRecords/PaymentPage";
 import PaymentRecordAddOrEdit from "@/components/Resources/PaymentRecords/PaymentRecordAddOrEdit";
+// import ValidationError from "@/components/ValidationError.vue";
+import { PaymentPage, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     ValidationError,
-    BaseSelectorInput,
     PaymentPage,
     PaymentRecordAddOrEdit
   },

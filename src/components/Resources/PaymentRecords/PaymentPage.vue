@@ -89,7 +89,7 @@
 </template>
 <script>
 import router from "@/router";
-import BaseDetailList from "@/components/BaseDetailList";
+import { BaseDetailList, Card } from "@/components";
 
 let assetHeaders = {
   asset_nickname: "Asset Nickname",
@@ -97,7 +97,8 @@ let assetHeaders = {
 
 export default {
   components: {
-    BaseDetailList
+    BaseDetailList,
+    Card
   },
   data() {
     return {
@@ -116,22 +117,28 @@ export default {
     asset: {
       type: Object,
       required: true,
-      default: {},
+      default: function() {
+        return {};
+      },
     },
     recipient: {
       type: Object,
       required: true,
-      default: {},
+      default: function() {
+        return {};
+      },
     },
     sender: {
       type: Object,
       required: true,
-      default: {},
+      default: function() {
+        return {};
+      },
     },
     query: {
       type: Object,
-      default: {},
-    }
+      // default: {},
+    },
   },
   methods: {
     showDetails(id) {

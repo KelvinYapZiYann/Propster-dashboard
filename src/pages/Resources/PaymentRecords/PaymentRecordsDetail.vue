@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <payment-page
       :model="resource.model"
       :asset="resource.model.asset"
@@ -16,8 +16,7 @@
   </div>
 </template>
 <script>
-import PaymentPage from "@/components/Resources/PaymentRecords/PaymentPage";
-import { BaseDetailList } from "@/components";
+import { BaseDetailList, PaymentPage } from "@/components";
 
 let detailHeaders = {
   payment_description: "Payment Description",

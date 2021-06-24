@@ -24,6 +24,12 @@ const mutations = {
     })
     state.data = {
       'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+      'links': response.meta.links,
     }
   },
   SET_RESOURCE: (state, response) => {

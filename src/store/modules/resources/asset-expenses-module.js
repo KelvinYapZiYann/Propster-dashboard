@@ -28,6 +28,7 @@ const mutations = {
       'to': response.meta.to,
       'total': response.meta.total,
       'perPage': response.meta.per_page,
+      'links': response.meta.links,
     }
   },
   SET_RESOURCE: (state, response) => {
