@@ -158,8 +158,8 @@ const actions = {
         commit('SET_RESOURCE', response);
       });
   },
-  getAssetExpenses({commit, dispatch}, Id) {
-    return  service.getAssetExpenses(Id)
+  getAssetExpenses({commit, dispatch}, params) {
+    return  service.getAssetExpenses(params)
       .then((response2) => {
         commit('SET_ASSET_EXPENSE_RESOURCES', response2);
       });

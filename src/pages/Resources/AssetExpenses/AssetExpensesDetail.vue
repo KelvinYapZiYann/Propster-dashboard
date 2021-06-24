@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <payment-page
       :model="resource.model"
       :asset="resource.model.asset"

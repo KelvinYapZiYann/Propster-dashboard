@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <tenure-contract-add-or-edit
       :resource="resource"
       :apiValidationErrors="apiValidationErrors"

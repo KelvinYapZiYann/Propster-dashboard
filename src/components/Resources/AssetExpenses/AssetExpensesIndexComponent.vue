@@ -90,11 +90,28 @@ export default {
     },
     async handlePagination(pageId) {
       try {
-        console.log(this.props.query);
-        await this.$store.dispatch('assetExpenses/get', pageId).then(() => {
-          this.resource.models = this.$store.getters["assetExpenses/models"];
-          this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
-        });
+        if (this.$props.query) {
+          if (this.$props.query.modelType === 'asset_id') {
+            var param = {
+              id: this.$props.query.modelId,
+              pageId: pageId
+            }
+            await this.$store.dispatch('asset/getAssetExpenses', param).then(() => {
+              this.resource.models = this.$store.getters["asset/assetExpenseModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["asset/assetExpenseData"]);
+            });
+          } else {
+            await this.$store.dispatch('assetExpenses/get', param).then(() => {
+              this.resource.models = this.$store.getters["assetExpenses/models"];
+              this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
+            });
+          }
+        } else {
+          await this.$store.dispatch('assetExpenses/get', param).then(() => {
+            this.resource.models = this.$store.getters["assetExpenses/models"];
+            this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
+          });
+        }
       } catch (e) {
         this.$notify({
           message:'Server error',

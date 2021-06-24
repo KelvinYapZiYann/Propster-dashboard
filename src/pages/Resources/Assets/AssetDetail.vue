@@ -22,14 +22,14 @@
      thead-classes="text-primary"
    ></base-detail-list>
 
-   <!-- <asset-expenses-index-component
+   <asset-expenses-index-component
      :resource="assetExpensesResource"
      :table="table"
      :query='{
            modelType: "asset_id",
            modelId: `${modelId}`
          }'
-   ></asset-expenses-index-component> -->
+   ></asset-expenses-index-component>
 
    <tenants-index-component
      :resource="tenantResource"
@@ -40,7 +40,7 @@
          }'
    ></tenants-index-component>
 
-   <fab
+   <!-- <fab
      :position="position"
      :bg-color="bgColor"
      :actions="fabActions"
@@ -57,7 +57,7 @@
          :apiValidationErrors="apiValidationErrors"
          @requestReport="requestReport"
        ></generate-report-form>
-   </modal>
+   </modal> -->
   </div>
 </template>
 <script>
@@ -162,9 +162,9 @@ export default {
         this.resource.model = await this.$store.getters["asset/model"]
         this.resource.data = await this.$store.getters["asset/data"]
 
-        // await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
-        // this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
-        // this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
+        await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
+        this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
+        this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
 
         await this.$store.dispatch('asset/getTenants', this.$route.params.assetId)
         this.tenantResource.models = await this.$store.getters["asset/tenantModels"]

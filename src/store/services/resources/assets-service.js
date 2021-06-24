@@ -99,7 +99,7 @@ function store(payload) {
 }
 
 
-function getAssetExpenses(Id) {
+function getAssetExpenses(params) {
   const config = {
     headers: {
       'Accept': 'application/json',
@@ -107,10 +107,26 @@ function getAssetExpenses(Id) {
     }
   };
 
-  return axios.get(`${url}/assets/${Id}/asset-expenses`, config)
-    .then(response => {
-      return response.data;
-    });
+  if (params && (typeof params == "number" || typeof params == "string")) {
+    return axios.get(`${url}/assets/${params}/asset-expenses`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else if (typeof params == "object") {
+    if (params.pageId) {
+      return axios.get(`${url}/assets/${params.id}/asset-expenses?page=${params.pageId}`, config)
+        .then(response => {
+          return response.data;
+        });
+    } else {
+      return axios.get(`${url}/assets/${params.id}/asset-expenses`, config)
+        .then(response => {
+          return response.data;
+        });
+    }
+  }
+
+  
 }
 
 function getTenants(params) {
