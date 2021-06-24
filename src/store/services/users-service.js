@@ -10,9 +10,9 @@ function get() {
     }
   };
 
-  return axios.get(`http://propster-nova.hs/api/dashboard/users`, config)
+  return axios.get(`${url}/users`, config)
     .then(response => {
-      return response.data.data;
+      return response.data;
     });
 }
 
@@ -27,9 +27,9 @@ function update(params) {
     }
   };
 
-  return axios.put(`http://propster-nova.hs/api/dashboard/users/${userId}`, payload, config)
+  return axios.put(`${url}/users/${userId}`, payload, config)
     .then(response => {
-      return response.data.data;
+      return response.data;
     });
 }
 

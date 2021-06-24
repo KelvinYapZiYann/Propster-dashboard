@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-// const url = process.env.VUE_APP_API_BASE_URL;
-const url = 'http://propster-nova.hs/api/dashboard';
-function get() {
+const url = process.env.VUE_APP_API_BASE_URL;
+function get(pageId) {
   const config = {
     headers: {
       'Accept': 'application/json',
@@ -10,10 +9,18 @@ function get() {
     }
   };
 
-  return axios.get(`${url}/tenants`, config)
-    .then(response => {
-      return response.data;
-    });
+  if (pageId && typeof pageId == "number") {
+    return axios.get(`${url}/tenants?page=${pageId}`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else {
+    return axios.get(`${url}/tenants`, config)
+      .then(response => {
+        return response.data;
+      });
+  }
+  
 }
 
 function getById(Id) {
@@ -106,7 +113,7 @@ function getTenureContracts(Id) {
     });
 }
 
-function getAssets(Id) {
+function getAssets(params) {
   const config = {
     headers: {
       'Accept': 'application/json',
@@ -114,10 +121,25 @@ function getAssets(Id) {
     }
   };
 
-  return axios.get(`${url}/tenants/${Id}/assets`, config)
-    .then(response => {
-      return response.data;
-    });
+  if (params && (typeof params == "number" || typeof params == "string")) {
+    return axios.get(`${url}/tenants/${params}/assets`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else if (typeof params == "object") {
+    if (params.pageId) {
+      return axios.get(`${url}/tenants/${params.id}/assets?page=${params.pageId}`, config)
+        .then(response => {
+          return response.data;
+        });
+    } else {
+      return axios.get(`${url}/tenants/${params.id}/assets`, config)
+        .then(response => {
+          return response.data;
+        });
+    }
+  }
+  
 }
 
 function getReceivingPayments(Id) {

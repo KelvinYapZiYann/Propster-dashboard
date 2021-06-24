@@ -1,5 +1,5 @@
 <template>
-      <div>
+      <div class="content">
         <base-detail-list
           :category="`Personal Details`"
           :title="''"
@@ -12,7 +12,7 @@
           :resource="assetResource"
           :table="table"
           :query='{
-            modelType: "asset_id",
+            modelType: "tenant_id",
             modelId: `${modelId}`
           }'
         ></assets-index-component>
@@ -28,7 +28,7 @@
       </div>
 </template>
 <script>
-import { BaseDetailList } from "@/components";
+import { BaseDetailList, Card } from "@/components";
 import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/AssetExpensesIndexComponent";
 import AssetsIndexComponent from "@/components/Resources/Assets/AssetsIndexComponent";
 import TenureContractIndexComponent from "@/components/Resources/TenureContracts/TenureContractIndexComponent";
@@ -48,7 +48,8 @@ export default {
     AssetsIndexComponent,
     BaseDetailList,
     AssetExpensesIndexComponent,
-    TenureContractIndexComponent
+    TenureContractIndexComponent,
+    Card
   },
   data() {
     return {
@@ -85,12 +86,12 @@ export default {
         })
 
         await this.$store.dispatch('tenant/getAssets',  this.modelId).then(() => {
-          this.assetResource.models = Object.assign({}, this.$store.getters["tenant/assetModels"])
+          this.assetResource.models = this.$store.getters["tenant/assetModels"]
           this.assetResource.data = Object.assign({}, this.$store.getters["tenant/assetData"])
         })
 
         await this.$store.dispatch('tenant/getTenureContracts',  this.modelId).then(() => {
-          this.tenureContractResource.models = Object.assign({}, this.$store.getters["tenant/tenureContractModels"])
+          this.tenureContractResource.models = this.$store.getters["tenant/tenureContractModels"]
           this.tenureContractResource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"])
         })
 

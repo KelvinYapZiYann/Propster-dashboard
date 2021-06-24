@@ -14,6 +14,7 @@ import BaseProgress from "./BaseProgress";
 import BaseNav from "./BaseNav";
 import Modal from "./Modal";
 import CloseButton from "./CloseButton";
+import CopyrightInk from "./CopyrightInk";
 import DropDown from "./Dropdown.vue";
 import DropZone from "./DropZone.vue";
 import Notifications from "./NotificationPlugin/index";
@@ -34,6 +35,7 @@ import BreadcrumbItem from "./Breadcrumb/BreadcrumbItem.vue";
 import RouteBreadCrumb from "./Breadcrumb/RouteBreadcrumb.vue";
 import Badge from "./Badge";
 import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+import ValidationError from "@/components/ValidationError";
 
 export {
   Card,
@@ -52,6 +54,7 @@ export {
   BaseNav,
   Modal,
   CloseButton,
+  CopyrightInk,
   DropDown,
   DropZone,
   Notifications,
@@ -71,5 +74,6 @@ export {
   BreadcrumbItem,
   RouteBreadCrumb,
   Badge,
-  BaseSelectorInput
+  BaseSelectorInput,
+  ValidationError
 };

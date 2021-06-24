@@ -1,23 +1,24 @@
 <template>
-  <div class="row">
+  <div class="content">
     <div class="col-12">
       <div class="pro-feature alert alert-danger">
         <strong>
-          You can only add 3 {{table.title}} per property with free tier. Get
+          You can only add 3 {{table.title}} per asset with free tier. Get
           <a
-            href="https://www.creative-tim.com/live/vue-black-dashboard-pro-laravel"
+            href="https://www.propster.io"
             target="_blank"
           >PRO</a>
           version to add more {{ table.title }} !
         </strong>
       </div>
-      <card :title="table.title">
+      <card>
+        <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
             class="mt-3"
             type="primary"
-            v-bind:disabled="!resource.data.canAdd"
+            v-bind:disabled="!resource.data.canAdd || showAll"
           >Add {{table.title}}</base-button>
         </div>
         <div class="table-responsive">
@@ -31,17 +32,30 @@
           >
           </base-table>
         </div>
-        <base-paginator
-          :links="resource.data.links"
-          @selectedPageURL="handleSelectedPageURL"
+        <div
+          slot="footer"
+          class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
         >
-        </base-paginator>
+          <div class="">
+            <p class="card-category">
+              Showing {{ resource.data.from }} to {{ resource.data.to }} of {{ resource.data.total }} entries
+            </p>
+          </div>
+          <base-pagination
+            class="pagination-no-border"
+            v-model="resource.data.currentPage"
+            :per-page="resource.data.perPage"
+            :total="resource.data.total"
+            @input="handlePagination"
+          >
+          </base-pagination>
+        </div>
       </card>
     </div>
   </div>
 </template>
 <script>
-import {BaseTable, BasePaginator} from "@/components";
+import {BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
@@ -61,7 +75,8 @@ const tableDefaultData = [
 export default {
   components: {
     BaseTable,
-    BasePaginator
+    BasePagination,
+    Card
   },
   data() {
     return {
@@ -79,7 +94,13 @@ export default {
       default: {
         models: [{}],
         data: {
-          canAdd: false
+          canAdd: false,
+          currentPage: 1,
+          total: 0,
+          from: 0,
+          to: 0,
+          perPage: 10,
+          links: []
         }
       },
       description: "Resource info"
@@ -87,6 +108,11 @@ export default {
     query: {
       type: Object,
       // default: {},
+    },
+    showAll: {
+      type: Boolean,
+      required: true,
+      default: false
     }
   },
   methods: {
@@ -127,12 +153,30 @@ export default {
         query: this.query
       });
     },
-    async handleSelectedPageURL(url) {
+    async handlePagination(pageId) {
       try {
-        await this.$store.dispatch('tenant/get', parseInt(url.substring(url.indexOf('page=') + 5, url.length))).then(() => {
-          this.resource.models = this.$store.getters["tenant/models"];
-          this.resource.data = Object.assign({}, this.$store.getters["tenant/data"]);
-        });
+        if (this.$props.query) {
+          if (this.$props.query.modelType === 'asset_id') {
+            var param = {
+              id: this.$props.query.modelId,
+              pageId: pageId
+            }
+            await this.$store.dispatch('asset/getTenants', param).then(() => {
+              this.resource.models = this.$store.getters["asset/tenantModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["asset/tenantData"]);
+            });
+          } else {
+            await this.$store.dispatch('tenant/get', pageId).then(() => {
+              this.resource.models = this.$store.getters["tenant/models"];
+              this.resource.data = Object.assign({}, this.$store.getters["tenant/data"]);
+            });
+          }
+        } else {
+          await this.$store.dispatch('tenant/get', pageId).then(() => {
+            this.resource.models = this.$store.getters["tenant/models"];
+            this.resource.data = Object.assign({}, this.$store.getters["tenant/data"]);
+          });
+        }
       } catch (e) {
         this.$notify({
           message:'Server error',

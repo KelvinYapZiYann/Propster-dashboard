@@ -1,5 +1,5 @@
 <template>
-      <div>
+      <div class="content">
         <base-detail-list
           :category="`Tenure Contract Details`"
           :title="''"
@@ -21,7 +21,7 @@
       </div>
 </template>
 <script>
-import { BaseDetailList } from "@/components";
+import { BaseDetailList, Card, DropZone } from "@/components";
 
 let detailHeaders = {
   contract_name: "Contract Name",
@@ -33,6 +33,8 @@ let detailHeaders = {
 export default {
   components: {
     BaseDetailList,
+    Card,
+    DropZone
   },
   data() {
     return {
@@ -52,6 +54,7 @@ export default {
         addRemoveLinks: true,
         maxFiles: 1
       },
+      showMedia: false,
     };
   },
   mounted() {

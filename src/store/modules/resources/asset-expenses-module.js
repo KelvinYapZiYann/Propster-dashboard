@@ -23,6 +23,11 @@ const mutations = {
     })
     state.data = {
       'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
     }
   },
   SET_RESOURCE: (state, response) => {
@@ -55,7 +60,7 @@ const mutations = {
 
 const actions = {
   get({commit, dispatch}, params) {
-    return service.get()
+    return service.get(params)
       .then((response) => {
         commit('SET_RESOURCES', response);
       });

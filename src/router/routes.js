@@ -5,6 +5,7 @@ import NotFound from "@/pages/NotFoundPage.vue";
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import AuthLayout from "@/pages/Pages/AuthLayout.vue";
 import auth from "@/middleware/auth";
+import SelectRole from "@/pages/Pages/SelectRole";
 
 const Dashboard = () =>
     import(/* webpackChunkName: "dashboard" */ "@/pages/Dashboard.vue");
@@ -61,8 +62,9 @@ const PaginatedTables = () =>
     import(/* webpackChunkName: "tables" */ "@/pages/Tables/PaginatedTables.vue");
 
 // Pages
-const UserProfile = () =>
-    import(/* webpackChunkName: "pages" */ "@/pages/Pages/UserProfile.vue");
+const Profile = () =>
+    import(/* webpackChunkName: "pages" */ "@/pages/Profile/Profile.vue");
+
 const Pricing = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Pricing.vue");
 const TimeLine = () =>
@@ -388,6 +390,34 @@ let mapsMenu = {
   ]
 };
 
+let middlewarePages = {
+  path: "/",
+  component: AuthLayout,
+  name: "Middleware Pages",
+  redirect: "/",
+  children: [
+    {
+      path: "select-role",
+      name: "Select Role",
+      components: { default: SelectRole },
+      meta: { middleware: auth }
+    },
+  //   {
+  //     path: "full-screen",
+  //     name: "Full Screen Map",
+  //     meta: {
+  //       hideContent: true,
+  //       hideFooter: true
+  //     },
+  //     components: { default: FullScreenMap }
+  //   },
+  //   {
+  //     path: "vector-map",
+  //     name: "Vector Map",
+  //     components: { default: VectorMaps }
+  //   }
+  ]
+};
 
 const routes = [
   {
@@ -397,6 +427,7 @@ const routes = [
   },
   pagesMenu,
   authPages,
+  middlewarePages,
   componentsMenu,
   formsMenu,
   tablesMenu,
@@ -412,9 +443,9 @@ const routes = [
         component: Dashboard
       },
       {
-        path: "user",
+        path: "profile",
         name: "User Profile",
-        component: UserProfile
+        component: Profile
       },
       {
         path: "Calendar",

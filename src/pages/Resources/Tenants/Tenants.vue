@@ -1,6 +1,7 @@
 <template>
   <tenants-index-component
     :resource="resource"
+    :showAll="showAll"
   ></tenants-index-component>
 </template>
 <script>
@@ -18,6 +19,7 @@ export default {
         models: [{}],
         data: {}
       },
+      showAll: true
     };
   },
   mounted() {
@@ -27,7 +29,7 @@ export default {
     async getResource() {
       try {
         await this.$store.dispatch('tenant/get', {}).then(() => {
-          this.resource.models = Object.assign({}, this.$store.getters["tenant/models"])
+          this.resource.models = this.$store.getters["tenant/models"]
           this.resource.data = Object.assign({}, this.$store.getters["tenant/data"])
         })
       } catch (e) {

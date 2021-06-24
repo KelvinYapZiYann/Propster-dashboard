@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="content">
     <tenant-add-or-edit
       :resource="resource"
-      :apiValidationErrors="apiValidationErrors"
+      :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
+      :addOrEdit="addOrEdit"
       ></tenant-add-or-edit>
   </div>
 </template>
@@ -28,6 +29,7 @@ export default {
         data: {},
         selector: {}
       },
+      addOrEdit: "Edit"
     };
   },
   mounted() {
@@ -66,7 +68,8 @@ export default {
             type: 'success'
           });
           this.resetApiValidation()
-          router.push({path: "/tenants"});
+          router.go(-1);
+          // router.push({path: "/tenants"});
         } catch (e) {
           this.$notify({
             message:'Server error',

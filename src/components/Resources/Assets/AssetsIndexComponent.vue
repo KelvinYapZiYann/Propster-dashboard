@@ -1,9 +1,9 @@
 <template>
-  <div class="row">
+  <div class="content">
     <div class="col-12">
       <div class="pro-feature alert alert-danger">
         <strong>
-          You can only add ONE {{table.title}} with free tier. Get
+          You can only add ONE {{table.title}} with free tier. Get 
           <a
             href="https://www.creative-tim.com/live/vue-black-dashboard-pro-laravel"
             target="_blank"
@@ -11,7 +11,8 @@
           version to add more {{ table.title }} !
         </strong>
       </div>
-      <card :title="table.title">
+      <card>
+        <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
@@ -30,13 +31,31 @@
             v-on:delete-details="deleteDetails"
           >
           </base-table>
+          <div
+            slot="footer"
+            class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
+          >
+            <div class="">
+              <p class="card-category">
+                Showing {{ resource.data.from }} to {{ resource.data.to }} of {{ resource.data.total }} entries
+              </p>
+            </div>
+            <base-pagination
+              class="pagination-no-border"
+              v-model="resource.data.currentPage"
+              :per-page="resource.data.perPage"
+              :total="resource.data.total"
+              @input="handlePagination"
+            >
+            </base-pagination>
+          </div>
         </div>
       </card>
     </div>
   </div>
 </template>
 <script>
-import {BaseTable} from "@/components";
+import {BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
@@ -60,7 +79,9 @@ const tableDefaultData = [
 
 export default {
   components: {
-    BaseTable
+    BaseTable,
+    BasePagination,
+    Card
   },
   data() {
     return {
@@ -78,14 +99,20 @@ export default {
       default: {
         models: [{}],
         data: {
-          canAdd: false
+          canAdd: false,
+          currentPage: 1,
+          total: 0,
+          from: 0,
+          to: 0,
+          perPage: 10,
+          links: []
         }
       },
       description: "Resource info"
     },
     query: {
       type: Object,
-      default: {},
+      // default: {},
     }
   },
   methods: {
@@ -98,7 +125,7 @@ export default {
     deleteDetails(id) {
       if (id == null) {
         this.$notify({
-          message:'Server error',
+          message:'Server error del id == null',
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
@@ -112,8 +139,9 @@ export default {
           });
           this.getResource();
         } catch (e) {
+          console.error(e);
           this.$notify({
-            message:'Server error',
+            message:'Server error when del',
             icon: 'tim-icons icon-bell-55',
             type: 'danger'
           });
@@ -122,6 +150,41 @@ export default {
     },
     addModel() {
       router.push({path: "/assets/add"});
+    },
+    getResource() {
+      this.$emit('getResource')
+    },
+    async handlePagination(pageId) {
+      try {
+        if (this.$props.query) {
+          if (this.$props.query.modelType === 'tenant_id') {
+            var param = {
+              id: this.$props.query.modelId,
+              pageId: pageId
+            }
+            await this.$store.dispatch('tenant/getAssets', param).then(() => {
+              this.resource.models = this.$store.getters["tenant/assetModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["tenant/assetData"]);
+            });
+          } else {
+            await this.$store.dispatch('asset/get', pageId).then(() => {
+              this.resource.models = this.$store.getters["asset/models"];
+              this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+            });
+          }
+        } else {
+          await this.$store.dispatch('asset/get', pageId).then(() => {
+            this.resource.models = this.$store.getters["asset/models"];
+            this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+          });
+        }
+      } catch (e) {
+        this.$notify({
+          message:'Server error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      }
     }
   }
 };

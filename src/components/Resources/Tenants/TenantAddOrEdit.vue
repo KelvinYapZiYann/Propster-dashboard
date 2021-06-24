@@ -1,21 +1,21 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">Edit/Add Tenant</h5>
+      <h5 slot="header" class="title">{{addOrEdit}} Tenant</h5>
       <div class="row">
         <div class="col-md-6 ">
           <base-input label="First Name"
                       placeholder="First Name"
                       v-model="resource.model.first_name">
           </base-input>
-          <validation-error :errors="apiValidationErrors.first_name"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.first_name"/>
         </div>
         <div class="col-md-6">
           <base-input label="Last Name"
                       placeholder="Last Name"
                       v-model="resource.model.last_name">
           </base-input>
-          <validation-error :errors="apiValidationErrors.last_name"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.last_name"/>
         </div>
       </div>
       <div class="row">
@@ -27,14 +27,15 @@
                                :options="resource.selector.gender"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.gender"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.gender"/>
         </div>
         <div class="col-md-6">
           <base-input label="Is Business?"
                       type="checkbox"
+                      :checked="typeof resource.model.is_business == 'boolean' ? resource.model.is_business : (typeof resource.model.is_business == 'string' ? resource.model.is_business == 'true' : false)"
                       v-model="resource.model.is_business">
           </base-input>
-          <validation-error :errors="apiValidationErrors.is_business"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.is_business"/>
         </div>
       </div>
 
@@ -44,14 +45,14 @@
                       type="date"
                       v-model="resource.model.date_of_birth">
           </base-input>
-          <validation-error :errors="apiValidationErrors.date_of_birth"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/>
         </div>
         <div class="col-md-6 pr-md-1">
           <base-input label="Reputation"
                       placeholder="Reputation"
                       v-model="resource.model.reputation">
           </base-input>
-          <validation-error :errors="apiValidationErrors.reputation"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.reputation"/>
         </div>
       </div>
 
@@ -64,24 +65,25 @@
                                :options="resource.selector.salary_range"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.is_occupied"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.salary_range"/>
         </div>
       </div>
     </card>
 
-    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Save</base-button>
+    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
-import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     ValidationError,
-    BaseSelectorInput
+    BaseInput,
+    BaseSelectorInput,
+    Card
   },
   data() {
     return {
@@ -97,12 +99,21 @@ export default {
       default: {
         model: {},
         data: {},
-        selector: {}
+        selector: []
       },
-      description: "Resource info"
+      description: "Resource info",
     },
-    apiValidationErrors: {
-      type: Object
+    addOrEdit: {
+      type: String,
+      required: true,
+      default: "Add"
+    },
+    tmpApiValidationErrors: {
+      type: Object,
+      required: true,
+      default: function() {
+        return {};
+      }
     }
   },
   created() {
@@ -119,7 +130,7 @@ export default {
         first_name: this.resource.model.first_name,
         last_name: this.resource.model.last_name,
         gender: this.resource.model.gender,
-        is_business: this.resource.model.is_business == null ? false : true,
+        is_business: this.resource.model.is_business == null ? false : this.resource.model.is_business,
         date_of_birth: this.resource.model.date_of_birth,
         reputation: this.resource.model.reputation,
         salary_range: this.resource.model.salary_range
