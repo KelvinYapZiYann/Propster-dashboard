@@ -173,7 +173,10 @@ let resources = {
       path: "tenure-contracts/add",
       name: "Add Tenure Contract",
       components: { default: TenureContractAdd },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenure-contracts/:tenureContractId/edit",

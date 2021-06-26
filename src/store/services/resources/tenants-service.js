@@ -114,6 +114,8 @@ function getTenureContracts(params) {
       });
   } else if (typeof params == "object") {
     if (params.pageId) {
+      console.log('here');
+      console.log(params);
       return axios.get(`${url}/tenants/${params.id}/tenure-contracts?page=${params.pageId}`, config)
         .then(response => {
           return response.data;

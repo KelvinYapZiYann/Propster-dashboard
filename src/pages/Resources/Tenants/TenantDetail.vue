@@ -26,7 +26,7 @@
           }'
         ></tenure-contract-index-component>
 
-        <payment-record-index-component
+        <!-- <payment-record-index-component
           :resource="receivingPaymentRecordResource"
           :table="table"
           :query='{
@@ -44,7 +44,7 @@
             modelId: `${modelId}`
           }'
           :paymentRecordType="sendingPaymentRecordType"
-        ></payment-record-index-component>
+        ></payment-record-index-component> -->
       </div>
 </template>
 <script>

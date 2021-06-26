@@ -9,6 +9,7 @@
             class="mt-3"
             type="primary"
             v-bind:disabled="!resource.data.canAdd"
+            v-if="resource.data.canAdd"
           >Add {{table.title}}</base-button>
         </div>
         <div class="table-responsive">
@@ -137,7 +138,10 @@ export default {
     addModel() {
       this.$router.push({
         name: 'Add Tenure Contract',
-        query: this.query
+        query: this.query,
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
+        }
       });
     },
     getResource() {
@@ -154,6 +158,8 @@ export default {
             await this.$store.dispatch('tenant/getTenureContracts', param).then(() => {
               this.resource.models = this.$store.getters["tenant/tenureContractModels"];
               this.resource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"]);
+              console.log(this.$store.getters["tenant/tenureContractModels"]);
+              console.log(Object.assign({}, this.$store.getters["tenant/tenureContractData"]));
             });
           } else {
             await this.$store.dispatch('tenureContract/get', pageId).then(() => {

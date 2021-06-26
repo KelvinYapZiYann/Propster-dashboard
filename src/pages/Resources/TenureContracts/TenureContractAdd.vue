@@ -31,6 +31,14 @@ export default {
       addOrEdit: "Add"
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: true,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getTenureContract();
   },
@@ -38,7 +46,7 @@ export default {
     async getTenureContract() {
       try {
         await this.$store.dispatch('tenureContract/create').then(() => {
-          this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
+          this.resource.model = Object.assign({}, this.$store.getters["tenureContract/models"])
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
         })
@@ -53,7 +61,7 @@ export default {
     async handleSubmit(formData) {
         try {
           await this.$store.dispatch('tenureContract/store', {'model': formData}).then(() => {
-            this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
+            this.resource.model = Object.assign({}, this.$store.getters["tenureContract/models"])
             this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           })
           this.$notify({
@@ -62,7 +70,8 @@ export default {
             type: 'success'
           });
           this.resetApiValidation();
-          router.go(-1);
+          // router.go(-1);
+          router.push({path: this.previousRoute});
           // router.push({path: "/tenure-contracts"});
         } catch (e) {
           this.$notify({

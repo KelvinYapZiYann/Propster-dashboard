@@ -8,7 +8,14 @@ const state = {
   assetModels: [],
   assetData: {},
 
-  // tenureContractModels: [],
+  tenureContractModels: [],
+  tenureContractData: {},
+  receivingPaymentRecordModels: [],
+  receivingPaymentRecordData: {},
+  sendingPaymentRecordModels: [],
+  sendingPaymentRecordData: {}
+
+
   // assetExpenseModels: [],
   // assetExpenseData: {},
   // tenureContractData: {},
@@ -35,6 +42,7 @@ const mutations = {
       'to': response.meta.to,
       'total': response.meta.total,
       'perPage': response.meta.per_page,
+      'links': response.meta.links,
     }
   },
   SET_RESOURCE: (state, response) => {
@@ -78,6 +86,7 @@ const mutations = {
       'to': response.meta.to,
       'total': response.meta.total,
       'perPage': response.meta.per_page,
+      'links': response.meta.links,
     }
   },
   SET_TENURE_CONTRACT_RESOURCES: (state, response) => {
@@ -93,6 +102,7 @@ const mutations = {
       state.tenureContractModels.push(obj);
       obj.id = item.id;
     })
+    console.log(state.tenureContractModels);
     state.tenureContractData = {
       'canAdd': response.meta.canAdd,
       'currentPage': response.meta.current_page,
@@ -100,7 +110,10 @@ const mutations = {
       'to': response.meta.to,
       'total': response.meta.total,
       'perPage': response.meta.per_page,
+      'links': response.meta.links,
+      // 'meta': response.meta
     }
+    console.log(state.tenureContractData);
   },
   SET_RECEIVING_PAYMENT_RECORD_RESOURCES: (state, response) => {
     let data = response.data;
@@ -122,6 +135,7 @@ const mutations = {
       'to': response.meta.to,
       'total': response.meta.total,
       'perPage': response.meta.per_page,
+      'links': response.meta.links,
     }
   },
   SET_SENDING_PAYMENT_RECORD_RESOURCES: (state, response) => {
@@ -144,6 +158,7 @@ const mutations = {
       'to': response.meta.to,
       'total': response.meta.total,
       'perPage': response.meta.per_page,
+      'links': response.meta.links,
     }
   },
   // SET_ASSET_EXPENSE_RESOURCES: (state, response) => {
@@ -207,6 +222,7 @@ const actions = {
   getTenureContracts({commit, dispatch}, params) {
     return  service.getTenureContracts(params)
       .then((response) => {
+        console.log(response);
         commit('SET_TENURE_CONTRACT_RESOURCES', response);
       });
   },
@@ -250,7 +266,9 @@ const getters = {
   tenureContractModels: state => state.tenureContractModels,
   tenureContractData: state => state.tenureContractData,
   receivingPaymentRecordModels: state => state.receivingPaymentRecordModels,
+  receivingPaymentRecordData: state => state.receivingPaymentRecordData,
   sendingPaymentRecordModels: state => state.sendingPaymentRecordModels,
+  sendingPaymentRecordData: state => state.sendingPaymentRecordData,
   // assetExpenseModels: state => state.assetExpenseModels,
   // assetExpenseData: state => state.assetExpenseData,
 };
