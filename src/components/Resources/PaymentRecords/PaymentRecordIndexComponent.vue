@@ -14,13 +14,13 @@
       <card>
         <h4 slot="header" class="card-title text-left">{{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{table.title}}</h4>
         <div class="text-right mb-3">
-          <base-button
+          <!-- <base-button
             @click="addModel"
             class="mt-3"
             type="primary"
             v-bind:disabled="!resource.data.canAdd"
           >Add {{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{ table.title }}
-          </base-button>
+          </base-button> -->
         </div>
         <div class="table-responsive">
           <base-table

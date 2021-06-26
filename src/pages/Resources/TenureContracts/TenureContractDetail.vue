@@ -28,7 +28,7 @@ let detailHeaders = {
   asset_nickname: "Asset Nickname",
   tenant_name: "Tenant Name",
   contract_name: "Contract Name",
-  monthly_rental_amount: "Monthly Rental Amount",
+  monthly_rental_amount: "Monthly Rental Amount (RM)",
   tenure_start_date: "Tenure Start Date",
   tenure_end_date: "Tenure End Date",
 };
