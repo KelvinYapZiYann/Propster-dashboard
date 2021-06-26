@@ -65,7 +65,7 @@ function update(payload) {
     }
   };
 
-  return axios.put(`${url}/${baseEndpoint}/${modelId}`, model, config)
+  return axios.post(`${url}/${baseEndpoint}/${modelId}/update`, model, config)
     .then(response => {
       return response.data;
     });

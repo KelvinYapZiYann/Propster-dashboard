@@ -48,7 +48,7 @@ function update(payload) {
     }
   };
 
-  return axios.put(`${url}/asset-expenses/${modelId}`, model, config)
+  return axios.post(`${url}/asset-expenses/${modelId}/update`, model, config)
     .then(response => {
       return response.data;
     });

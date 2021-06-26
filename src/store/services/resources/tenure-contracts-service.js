@@ -62,7 +62,7 @@ function update(payload) {
     }
   };
 
-  return axios.put(`${url}/tenure-contracts/${modelId}`, model, config)
+  return axios.post(`${url}/tenure-contracts/${modelId}/update`, model, config)
     .then(response => {
       return response.data;
     });

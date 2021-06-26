@@ -62,7 +62,7 @@ function update(payload) {
     }
   };
 
-  return axios.put(`${url}/tenants/${modelId}`, model, config)
+  return axios.post(`${url}/tenants/${modelId}/update`, model, config)
     .then(response => {
       return response.data;
     });
