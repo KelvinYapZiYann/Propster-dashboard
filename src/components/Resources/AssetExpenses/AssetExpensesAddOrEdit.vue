@@ -90,7 +90,9 @@ export default {
       // }
 
       for (const [key, value] of Object.entries(this.translateModel())) {
-        formData.append(key, value);
+        if (value) {
+          formData.append(key, value);
+        }
       }
 
       this.$emit('submit', formData)

@@ -85,6 +85,13 @@ export default {
       }
     },
   },
+  mounted() {
+    console.log('mounted');
+    console.log(this.resource.model);
+    console.log(this.resource.model.payment_description);
+    console.log(this.resource.data);
+    console.log(this.resource.selector);
+  },
   methods: {
     async handleSubmit() {
       let formData = new FormData();

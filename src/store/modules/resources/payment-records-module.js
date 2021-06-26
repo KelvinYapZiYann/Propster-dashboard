@@ -62,7 +62,7 @@ const mutations = {
 
 const actions = {
   get({commit, dispatch}, params) {
-    return service.get()
+    return service.get(params)
       .then((response) => {
         commit('SET_RESOURCES', response);
       });

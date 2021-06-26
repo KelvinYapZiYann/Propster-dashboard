@@ -25,6 +25,26 @@
             modelId: `${modelId}`
           }'
         ></tenure-contract-index-component>
+
+        <payment-record-index-component
+          :resource="receivingPaymentRecordResource"
+          :table="table"
+          :query='{
+            modelType: "tenant_id",
+            modelId: `${modelId}`
+          }'
+          :paymentRecordType="receivingPaymentRecordType"
+        ></payment-record-index-component>
+        
+        <payment-record-index-component
+          :resource="sendingPaymentRecordResource"
+          :table="table"
+          :query='{
+            modelType: "tenant_id",
+            modelId: `${modelId}`
+          }'
+          :paymentRecordType="sendingPaymentRecordType"
+        ></payment-record-index-component>
       </div>
 </template>
 <script>
@@ -32,6 +52,7 @@ import { BaseDetailList, Card } from "@/components";
 import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/AssetExpensesIndexComponent";
 import AssetsIndexComponent from "@/components/Resources/Assets/AssetsIndexComponent";
 import TenureContractIndexComponent from "@/components/Resources/TenureContracts/TenureContractIndexComponent";
+import PaymentRecordIndexComponent from "@/components/Resources/PaymentRecords/PaymentRecordIndexComponent";
 
 let detailHeaders = {
     first_name: "First Name",
@@ -49,6 +70,7 @@ export default {
     BaseDetailList,
     AssetExpensesIndexComponent,
     TenureContractIndexComponent,
+    PaymentRecordIndexComponent,
     Card
   },
   data() {
@@ -67,10 +89,20 @@ export default {
         models: [{}],
         data: {}
       },
+      receivingPaymentRecordResource: {
+        models: [{}],
+        data: {}
+      },
+      sendingPaymentRecordResource: {
+        models: [{}],
+        data: {}
+      },
       table: {
         title: "Tenants",
         detailHeaders: {...detailHeaders},
       },
+      receivingPaymentRecordType: "Receiving",
+      sendingPaymentRecordType: "Sending",
     };
   },
   mounted() {
@@ -95,6 +127,15 @@ export default {
           this.tenureContractResource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"])
         })
 
+        await this.$store.dispatch('tenant/getReceivingPaymentRecords',  this.modelId).then(() => {
+          this.receivingPaymentRecordResource.models = this.$store.getters["tenant/receivingPaymentRecordModels"]
+          this.receivingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/receivingPaymentRecordData"])
+        })
+
+        await this.$store.dispatch('tenant/getSendingPaymentRecords',  this.modelId).then(() => {
+          this.sendingPaymentRecordResource.models = this.$store.getters["tenant/sendingPaymentRecordModels"]
+          this.sendingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/sendingPaymentRecordData"])
+        })
 
         // await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
         // this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]

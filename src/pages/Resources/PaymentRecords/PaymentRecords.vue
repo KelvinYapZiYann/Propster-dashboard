@@ -2,6 +2,7 @@
   <payment-record-index-component
     :resource="resource"
     @getResource="getResource"
+    :paymentRecordType="allPaymentRecordType"
   ></payment-record-index-component>
 </template>
 <script>
@@ -17,6 +18,7 @@ export default {
         models: [{}],
         data: {}
       },
+      allPaymentRecordType: "All"
     };
   },
   mounted() {

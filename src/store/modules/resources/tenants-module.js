@@ -102,6 +102,50 @@ const mutations = {
       'perPage': response.meta.per_page,
     }
   },
+  SET_RECEIVING_PAYMENT_RECORD_RESOURCES: (state, response) => {
+    let data = response.data;
+    state.receivingPaymentRecordModels = [];
+    data.forEach(function (item, index) {
+      let fields = item.fields;
+      let obj = {};
+      for (let key in fields) {
+        obj[key] = fields[key];
+      }
+
+      state.receivingPaymentRecordModels.push(obj);
+      obj.id = item.id;
+    })
+    state.receivingPaymentRecordData = {
+      'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+    }
+  },
+  SET_SENDING_PAYMENT_RECORD_RESOURCES: (state, response) => {
+    let data = response.data;
+    state.sendingPaymentRecordModels = [];
+    data.forEach(function (item, index) {
+      let fields = item.fields;
+      let obj = {};
+      for (let key in fields) {
+        obj[key] = fields[key];
+      }
+
+      state.sendingPaymentRecordModels.push(obj);
+      obj.id = item.id;
+    })
+    state.sendingPaymentRecordData = {
+      'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+    }
+  },
   // SET_ASSET_EXPENSE_RESOURCES: (state, response) => {
   //   let data = response.data;
   //   state.assetExpenseModels = [];
@@ -160,10 +204,24 @@ const actions = {
       });
   },
 
-  getTenureContracts({commit, dispatch}, Id) {
-    return  service.getTenureContracts(Id)
+  getTenureContracts({commit, dispatch}, params) {
+    return  service.getTenureContracts(params)
       .then((response) => {
         commit('SET_TENURE_CONTRACT_RESOURCES', response);
+      });
+  },
+
+  getReceivingPaymentRecords({commit, dispatch}, params) {
+    return  service.getReceivingPaymentRecords(params)
+      .then((response) => {
+        commit('SET_RECEIVING_PAYMENT_RECORD_RESOURCES', response);
+      });
+  },
+
+  getSendingPaymentRecords({commit, dispatch}, params) {
+    return  service.getSendingPaymentRecords(params)
+      .then((response) => {
+        commit('SET_SENDING_PAYMENT_RECORD_RESOURCES', response);
       });
   },
 
@@ -191,6 +249,8 @@ const getters = {
   assetData: state => state.assetData,
   tenureContractModels: state => state.tenureContractModels,
   tenureContractData: state => state.tenureContractData,
+  receivingPaymentRecordModels: state => state.receivingPaymentRecordModels,
+  sendingPaymentRecordModels: state => state.sendingPaymentRecordModels,
   // assetExpenseModels: state => state.assetExpenseModels,
   // assetExpenseData: state => state.assetExpenseData,
 };

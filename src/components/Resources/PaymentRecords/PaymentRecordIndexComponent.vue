@@ -12,14 +12,14 @@
         </strong>
       </div> -->
       <card>
-        <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
+        <h4 slot="header" class="card-title text-left">{{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{table.title}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
             class="mt-3"
             type="primary"
             v-bind:disabled="!resource.data.canAdd"
-          >Add {{ table.title }}
+          >Add {{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{ table.title }}
           </base-button>
         </div>
         <div class="table-responsive">
@@ -103,6 +103,13 @@ export default {
     query: {
       type: Object,
       // default: {},
+    },
+    paymentRecordType: {
+      type: String,
+      required: true,
+      default: function() {
+        return "";
+      }
     }
   },
   methods: {

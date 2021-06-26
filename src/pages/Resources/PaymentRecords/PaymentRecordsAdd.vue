@@ -6,11 +6,11 @@
       :recipient="resource.model.recipient"
       :sender="resource.model.sender"
     ></payment-page>
-    <payment-record-add-or-edit
+    <!-- <payment-record-add-or-edit
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
-    ></payment-record-add-or-edit>
+    ></payment-record-add-or-edit> -->
   </div>
 </template>
 <script>
@@ -46,6 +46,8 @@ export default {
   },
   mounted() {
     this.getPaymentRecordDetail();
+    console.log(this.resource.model);
+    console.log(this.$route.query);
   },
   methods: {
     async getPaymentRecordDetail() {
