@@ -12,7 +12,7 @@
           </base-selector-input>
           <base-input label="Asset Nickname"
                       v-if="addOrEdit != 'Add'" 
-                      :value="resource.model.asset.asset_nickname"
+                      :value="resource.model.asset ? (resource.model.asset.asset_nickname ? resource.model.asset.asset_nickname : '') : ''"
                       :disabled="true">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/>
@@ -35,7 +35,7 @@
           </div>
           <base-input label="Tenant Name"
                       v-if="addOrEdit != 'Add'" 
-                      :value="resource.model.tenant.first_name + ' ' + resource.model.tenant.last_name"
+                      :value="resource.model.tenant ? (resource.model.tenant.first_name + ' ' + resource.model.tenant.last_name) : ''"
                       :disabled="true">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.tenant_id"/>

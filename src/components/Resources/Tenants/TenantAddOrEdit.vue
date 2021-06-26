@@ -3,6 +3,29 @@
     <card>
       <h5 slot="header" class="title">{{addOrEdit}} Tenant</h5>
       <div class="row">
+        <div class="col-md-6">
+          <div v-for="asset in resource.selector.asset_id" v-bind:key="asset.id">
+              <base-input label="Residing In"
+                        v-if="asset.id == parentModelId && addOrEdit == 'Add'" 
+                        :value="asset.name"
+                        :disabled="true">
+              </base-input>
+          </div>
+          <base-input label="Residing In"
+                      v-if="addOrEdit != 'Add'" 
+                      :value="resource.model.assets ? (resource.model.assets[0] ? resource.model.assets[0].asset_nickname : '') : ''"
+                      :disabled="true">
+          </base-input>
+          <!-- <div v-for="asset in resource.selector.asset_id" v-bind:key="asset.id">
+            <base-input label="Residing In"
+                      v-if="asset.id == parentModelId" 
+                      :value="asset.name"
+                      :disabled="true">
+            </base-input>
+          </div> -->
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6 ">
           <base-input label="First Name"
                       placeholder="First Name"
