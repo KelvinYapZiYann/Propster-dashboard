@@ -7,8 +7,14 @@
           <base-selector-input label="Asset Nickname"
                       placeholder="Asset Nickname"
                       v-model="resource.model.asset_id"
-                      :options="resource.selector.asset_id">
+                      :options="resource.selector.asset_id"
+                      v-if="addOrEdit == 'Add'">
           </base-selector-input>
+          <base-input label="Asset Nickname"
+                      v-if="addOrEdit != 'Add'" 
+                      :value="resource.model.asset.asset_nickname"
+                      :disabled="true">
+          </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/>
         </div>
         <div class="col-md-6">
@@ -22,12 +28,16 @@
           </base-selector-input> -->
           <div v-for="tenant in resource.selector.tenant_id" v-bind:key="tenant.id">
               <base-input label="Tenant Name"
-                        placeholder="Tenant Name"
-                        v-if="tenant.id == parentModelId" 
+                        v-if="tenant.id == parentModelId && addOrEdit == 'Add'" 
                         :value="tenant.name"
                         :disabled="true">
               </base-input>
           </div>
+          <base-input label="Tenant Name"
+                      v-if="addOrEdit != 'Add'" 
+                      :value="resource.model.tenant.first_name + ' ' + resource.model.tenant.last_name"
+                      :disabled="true">
+          </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.tenant_id"/>
         </div>
       </div>
