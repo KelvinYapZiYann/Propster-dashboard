@@ -35,15 +35,15 @@
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
-import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     // AssetForm,
     ValidationError,
-    BaseSelectorInput
+    BaseSelectorInput,
+    BaseInput
   },
   data() {
     return {
@@ -51,16 +51,16 @@ export default {
         report_type: null,
         start_date: null,
         end_date: null,
-      }
+      },
+      reportTypes: [
+        { "id": "CASHFLOW_STATEMENT", "name": "Cashflow Statement" },
+      ],
     }
   },
   props: {
     apiValidationErrors: {
       type: Object
     },
-    reportTypes: {
-      type: Object
-    }
   },
   methods: {
     async handleSubmit() {

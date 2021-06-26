@@ -53,7 +53,6 @@
           :centered="false"
           :show-close="true">
        <generate-report-form
-         :reportTypes="reportTypes"
          :apiValidationErrors="apiValidationErrors"
          @requestReport="requestReport"
        ></generate-report-form>
@@ -69,6 +68,7 @@ import Modal from "@/components/Modal";
 import GenerateReportForm from "@/components/Resources/Assets/GenerateReportForm";
 import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
+import axios from 'axios';
 
 let detailHeaders = {
   asset_nickname: "Asset Nickname",
@@ -141,9 +141,6 @@ export default {
       ],
       bgColor: '#778899',
       position: 'bottom-right',
-      reportTypes: [
-        { "id": "CASHFLOW_STATEMENT", "name": "Cashflow Statement" },
-      ],
       reportModalVisible: false,
       // showAll: false
     };
@@ -152,9 +149,28 @@ export default {
     this.getResource();
   },
   methods: {
-    requestReport() {
+    requestReport(data) {
+      const url = process.env.VUE_APP_API_BASE_URL;
+      let fileName = data.report_type + '-' + data.start_date + '-' + data.end_date + '.csv';
+      axios({
+        url: `${url}/assets/reports/generate-report`,
+        method: 'GET',
+        responseType: 'blob',
+        params: {
+          'report_type': data.report_type,
+          'start_date': data.start_date,
+          'end_date': data.end_date
+        }
+      }).then((response) => {
+        let fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        let fileLink = document.createElement('a');
 
-      alert('test');
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', fileName);
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+      });
     },
     async getResource() {
       try {
