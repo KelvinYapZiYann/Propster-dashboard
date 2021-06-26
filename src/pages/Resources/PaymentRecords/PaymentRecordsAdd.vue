@@ -46,8 +46,6 @@ export default {
   },
   mounted() {
     this.getPaymentRecordDetail();
-    console.log(this.resource.model);
-    console.log(this.$route.query);
   },
   methods: {
     async getPaymentRecordDetail() {

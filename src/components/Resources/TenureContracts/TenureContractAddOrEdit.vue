@@ -4,6 +4,36 @@
       <h5 slot="header" class="title">{{addOrEdit}} TenureContract</h5>
       <div class="row">
         <div class="col-md-6 ">
+          <base-selector-input label="Asset Nickname"
+                      placeholder="Asset Nickname"
+                      v-model="resource.model.asset_id"
+                      :options="resource.selector.asset_id">
+          </base-selector-input>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/>
+        </div>
+        <div class="col-md-6">
+          <!-- <base-selector-input label="Tenant Name"
+                      placeholder="Tenant Name"
+                      v-model="resource.model.tenant_id"
+                      :options="resource.selector.tenant_id"
+                      :defaultValue="parentModelId"
+                      :disabled="true"
+                      > 
+          </base-selector-input> -->
+          <div v-for="tenant in resource.selector.tenant_id" v-bind:key="tenant.id">
+              <base-input label="Tenant Name"
+                        placeholder="Tenant Name"
+                        v-if="tenant.id == parentModelId" 
+                        :value="tenant.name"
+                        :disabled="true">
+              </base-input>
+          </div>
+          <validation-error :errorsArray="tmpApiValidationErrors.tenant_id"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 ">
           <base-input label="Contract Name"
                       placeholder="Contract Name"
                       v-model="resource.model.contract_name">
@@ -137,6 +167,7 @@ export default {
     translateModel() {
       return {
         tenant_id: this.parentModelId && this.parentModelType === 'tenant_id' ? this.parentModelId : null,
+        asset_id: this.resource.model.asset_id,
         contract_name: this.resource.model.contract_name,
         contract_description: this.resource.model.contract_description,
         monthly_rental_amount: this.resource.model.monthly_rental_amount,

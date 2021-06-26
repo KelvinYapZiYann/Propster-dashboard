@@ -102,7 +102,6 @@ const mutations = {
       state.tenureContractModels.push(obj);
       obj.id = item.id;
     })
-    console.log(state.tenureContractModels);
     state.tenureContractData = {
       'canAdd': response.meta.canAdd,
       'currentPage': response.meta.current_page,
@@ -113,7 +112,6 @@ const mutations = {
       'links': response.meta.links,
       // 'meta': response.meta
     }
-    console.log(state.tenureContractData);
   },
   SET_RECEIVING_PAYMENT_RECORD_RESOURCES: (state, response) => {
     let data = response.data;
@@ -222,7 +220,6 @@ const actions = {
   getTenureContracts({commit, dispatch}, params) {
     return  service.getTenureContracts(params)
       .then((response) => {
-        console.log(response);
         commit('SET_TENURE_CONTRACT_RESOURCES', response);
       });
   },

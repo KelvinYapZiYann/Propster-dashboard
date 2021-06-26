@@ -22,15 +22,17 @@
         <el-select
             class="select-primary"
             size="large"
-            v-model="value"
+            v-model="changeValue"
+            :disabled="disabled"
         >
           <el-option
               v-for="option in options"
               class="select-primary"
               :value="option.id"
               :label="option.name"
-              :key="option.name"
+              :key="option.id"
           >
+          <!-- :selected="value === option.id" -->
           </el-option>
         </el-select>
       </slot>
@@ -78,6 +80,16 @@ export default {
       type: Boolean,
       description: "Input checkbox value"
     },
+    disabled: {
+      type: Boolean,
+      description: "Input disabled",
+      default: false
+    },
+    // defaultValue: {
+    //   type: [String, Number, Boolean],
+    //   description: "Input default value",
+    //   default: undefined
+    // },
     options: {
       type: Array,
       required: true,
@@ -90,6 +102,9 @@ export default {
   model: {
     prop: "value",
     event: "input"
+  },
+  mounted() {
+    // this.setDefaultValue();
   },
   data() {
     return {
@@ -109,6 +124,23 @@ export default {
       const { addonRight } = this.$slots;
       return addonRight !== undefined || this.addonRightIcon !== undefined;
     },
+    changeValue: {
+        get: function() {
+          return this.value
+        },
+        set: function(newVal) {
+          this.$emit("input", newVal);
+        }
+    }
+  },
+  methods: {
+    // setDefaultValue() {
+    //   if (this.defaultValue) {
+    //     // console.log(this.changeValue);
+    //     // this.changeValue.set(this.defaultValue);
+    //     this.$emit("input", this.defaultValue);
+    //   }
+    // }
   },
   watch: {
     value: function(newVal, oldVal) { // watch it

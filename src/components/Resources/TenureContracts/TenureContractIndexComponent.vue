@@ -158,8 +158,6 @@ export default {
             await this.$store.dispatch('tenant/getTenureContracts', param).then(() => {
               this.resource.models = this.$store.getters["tenant/tenureContractModels"];
               this.resource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"]);
-              console.log(this.$store.getters["tenant/tenureContractModels"]);
-              console.log(Object.assign({}, this.$store.getters["tenant/tenureContractData"]));
             });
           } else {
             await this.$store.dispatch('tenureContract/get', pageId).then(() => {
