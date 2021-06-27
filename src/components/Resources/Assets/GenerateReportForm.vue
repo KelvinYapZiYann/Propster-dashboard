@@ -9,7 +9,7 @@
                                :options="reportTypes"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.report_type"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.report_type"/>
         </div>
       </div>
     <div class="row">
@@ -19,7 +19,7 @@
                     placeholder="Start Date"
                     v-model="model.start_date">
         </base-input>
-        <validation-error :errors="apiValidationErrors.start_date"/>
+        <validation-error :errorsArray="tmpApiValidationErrors.start_date"/>
       </div>
       <div class="col-md-6">
         <base-input label="End Date"
@@ -27,7 +27,7 @@
                     placeholder="End Date"
                     v-model="model.end_date">
         </base-input>
-        <validation-error :errors="apiValidationErrors.end_date"/>
+        <validation-error :errorsArray="tmpApiValidationErrors.end_date"/>
       </div>
     </div>
     <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Generate Report</base-button>
@@ -58,8 +58,12 @@ export default {
     }
   },
   props: {
-    apiValidationErrors: {
-      type: Object
+    tmpApiValidationErrors: {
+      type: Object,
+      required: true,
+      default: function() {
+        return {};
+      }
     },
   },
   methods: {

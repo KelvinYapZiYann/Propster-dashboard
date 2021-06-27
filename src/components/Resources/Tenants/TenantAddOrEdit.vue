@@ -149,7 +149,8 @@ export default {
     },
     translateModel(model) {
       return {
-        asset_id: this.parentModelId && this.parentModelType === 'asset_id' ? this.parentModelId : null,
+        asset_id: this.addOrEdit != 'Add' ? (this.resource.model.assets ? (this.resource.model.assets[0] ? this.resource.model.assets[0].id : null) : null) : 
+          (this.parentModelId && this.parentModelType === 'asset_id' ? this.parentModelId : null),
         first_name: this.resource.model.first_name,
         last_name: this.resource.model.last_name,
         gender: this.resource.model.gender,

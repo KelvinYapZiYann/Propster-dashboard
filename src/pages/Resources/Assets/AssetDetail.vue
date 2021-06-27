@@ -53,7 +53,7 @@
           :centered="false"
           :show-close="true">
        <generate-report-form
-         :apiValidationErrors="apiValidationErrors"
+         :tmpApiValidationErrors="apiValidationErrors"
          @requestReport="requestReport"
        ></generate-report-form>
    </modal>
