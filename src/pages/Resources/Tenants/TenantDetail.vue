@@ -45,6 +45,15 @@
           }'
           :paymentRecordType="sendingPaymentRecordType"
         ></payment-record-index-component>
+
+        <fab
+          :position="position"
+          :bg-color="bgColor"
+          :actions="fabActions"
+          :fixed-tooltip="fixedTooltip"
+          @tenantPayment="addPaymentRecord"
+        ></fab>
+
       </div>
 </template>
 <script>
@@ -53,6 +62,7 @@ import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/As
 import AssetsIndexComponent from "@/components/Resources/Assets/AssetsIndexComponent";
 import TenureContractIndexComponent from "@/components/Resources/TenureContracts/TenureContractIndexComponent";
 import PaymentRecordIndexComponent from "@/components/Resources/PaymentRecords/PaymentRecordIndexComponent";
+import fab from "vue-fab";
 
 let detailHeaders = {
     first_name: "First Name",
@@ -71,7 +81,8 @@ export default {
     AssetExpensesIndexComponent,
     TenureContractIndexComponent,
     PaymentRecordIndexComponent,
-    Card
+    Card,
+    fab
   },
   data() {
     return {
@@ -101,8 +112,19 @@ export default {
         title: "Tenants",
         detailHeaders: {...detailHeaders},
       },
+      fabActions: [
+        {
+          name: 'tenantPayment',
+          icon: 'payment',
+          tooltip: 'Record Tenant Payment'
+        }
+      ],
       receivingPaymentRecordType: "Receiving",
       sendingPaymentRecordType: "Sending",
+      bgColor: '#778899',
+      fixedTooltip: true,
+      position: 'bottom-right',
+      tenantPaymentModalVisible: false,
     };
   },
   mounted() {
@@ -151,6 +173,16 @@ export default {
           type: 'danger'
         });
       }
+    },
+    addPaymentRecord() {
+      console.log('addPaymentRecord');
+      this.$router.push({
+        name: 'Add Payment Record',
+        query: {
+          modelType: "tenant_id",
+          modelId: `${this.modelId}`
+        }
+      });
     }
   }
 };

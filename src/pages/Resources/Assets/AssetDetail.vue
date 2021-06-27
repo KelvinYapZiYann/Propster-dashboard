@@ -44,6 +44,7 @@
      :position="position"
      :bg-color="bgColor"
      :actions="fabActions"
+     :fixed-tooltip="fixedTooltip"
      @generateReport="reportModalVisible = true"
    ></fab>
 
@@ -136,10 +137,12 @@ export default {
       fabActions: [
         {
           name: 'generateReport',
-          icon: 'insert_chart_outlined'
+          icon: 'insert_chart_outlined',
+          tooltip: 'Generate Report'
         }
       ],
       bgColor: '#778899',
+      fixedTooltip: true,
       position: 'bottom-right',
       reportModalVisible: false,
       // showAll: false
