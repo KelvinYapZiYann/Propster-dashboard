@@ -24,6 +24,7 @@
             class="remove btn-link"
             type="danger"
             size="sm"
+            title="View"
             icon
         >
           <i class="fa fa-eye" aria-hidden="true"></i>
@@ -34,6 +35,7 @@
             class="edit btn-link"
             type="warning"
             size="sm"
+            title="Edit"
             icon
         >
           <i class="tim-icons icon-pencil"></i>
@@ -44,6 +46,7 @@
             class="remove btn-link"
             type="danger"
             size="sm"
+            title="Delete"
             icon
         >
           <i class="tim-icons icon-simple-remove"></i>

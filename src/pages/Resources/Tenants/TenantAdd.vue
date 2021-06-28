@@ -7,6 +7,8 @@
       @submit="handleSubmit"
     >
     </tenant-add-or-edit>
+    <!-- <tenure-contract-add-or-edit>
+    </tenure-contract-add-or-edit> -->
   </div>
 </template>
 <script>
@@ -14,12 +16,14 @@ import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
 import router from "@/router";
 import TenantAddOrEdit from "@/components/Resources/Tenants/TenantAddOrEdit";
+// import TenureContractAddOrEdit from "@/components/Resources/TenureContracts/TenureContractAddOrEdit";
 
 export default {
   mixins: [formMixin],
   components: {
     ValidationError,
-    TenantAddOrEdit
+    TenantAddOrEdit,
+    // TenureContractAddOrEdit
   },
   data() {
     return {
@@ -62,7 +66,14 @@ export default {
             type: 'success'
           });
           this.resetApiValidation();
-          router.go(-1);
+          // router.go(-1);
+          router.push({
+            name: "Add Tenure Contract",
+            query: this.query,
+            params: {
+              previousRoute: this.$router.currentRoute.fullPath
+            }
+          });
           // router.push({path: "/tenants"});
         } catch (e) {
           this.$notify({

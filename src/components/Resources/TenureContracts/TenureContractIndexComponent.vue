@@ -4,13 +4,13 @@
       <card>
         <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
         <div class="text-right mb-3">
-          <base-button
+          <!-- <base-button
             @click="addModel"
             class="mt-3"
             type="primary"
             v-bind:disabled="!resource.data.canAdd"
             v-if="resource.data.canAdd"
-          >Add {{table.title}}</base-button>
+          >Add {{table.title}}</base-button> -->
         </div>
         <div class="table-responsive">
           <base-table
@@ -19,8 +19,9 @@
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
-            v-on:delete-details="deleteDetails"
+            :disableDelete="true"
           >
+          <!-- v-on:delete-details="deleteDetails" -->
           </base-table>
           <div
             slot="footer"
@@ -110,31 +111,31 @@ export default {
     editDetails(id) {
       router.push({path: "/tenure-contracts/" + id + "/edit", query: this.query});
     },
-    deleteDetails(id) {
-      if (id == null) {
-        this.$notify({
-          message: 'Server error',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
-      } else {
-        try {
-          this.$store.dispatch('tenureContract/remove', id)
-          this.$notify({
-            message: 'Successfully Deleted',
-            icon: 'tim-icons icon-bell-55',
-            type: 'success'
-          });
-          this.getResource();
-        } catch (e) {
-          this.$notify({
-            message: 'Server error',
-            icon: 'tim-icons icon-bell-55',
-            type: 'danger'
-          });
-        }
-      }
-    },
+    // deleteDetails(id) {
+    //   if (id == null) {
+    //     this.$notify({
+    //       message: 'Server error',
+    //       icon: 'tim-icons icon-bell-55',
+    //       type: 'danger'
+    //     });
+    //   } else {
+    //     try {
+    //       this.$store.dispatch('tenureContract/remove', id)
+    //       this.$notify({
+    //         message: 'Successfully Deleted',
+    //         icon: 'tim-icons icon-bell-55',
+    //         type: 'success'
+    //       });
+    //       this.getResource();
+    //     } catch (e) {
+    //       this.$notify({
+    //         message: 'Server error',
+    //         icon: 'tim-icons icon-bell-55',
+    //         type: 'danger'
+    //       });
+    //     }
+    //   }
+    // },
     addModel() {
       this.$router.push({
         name: 'Add Tenure Contract',

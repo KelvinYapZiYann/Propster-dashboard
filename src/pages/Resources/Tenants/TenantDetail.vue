@@ -176,13 +176,19 @@ export default {
     },
     addPaymentRecord() {
       console.log('addPaymentRecord');
-      this.$router.push({
-        name: 'Add Payment Record',
-        query: {
-          modelType: "tenant_id",
-          modelId: `${this.modelId}`
-        }
-      });
+      // console.log(this.$store);
+      // console.log(this.$store.state);
+      // console.log(this.$store.getters["users/model"]);
+      // console.log(this.$store.getters["users/state"]);
+      // this.$router.push({
+      //   name: 'Add Payment Record',
+      //   query: {
+      //     senderType: "tenant",
+      //     senderId: `${this.modelId}`,
+      //     recipientType: "landlord",
+      //     modelId: `${this.modelId}`
+      //   }
+      // });
     }
   }
 };
