@@ -51,6 +51,8 @@ import {BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
+  asset_nickname: "Asset Nickname",
+  last_name: "Tenant Last Name",
   contract_name: "Contract Name",
   monthly_rental_amount: "Monthly Rental Amount",
   tenure_start_date: "Tenure Start Date",
@@ -59,6 +61,8 @@ let tableColumns = {
 
 const tableDefaultData = [
   {
+    asset_nickname: "",
+    last_name: "",
     contract_name: "",
     monthly_rental_amount: "",
     tenure_start_date: "",

@@ -116,6 +116,17 @@ export default {
       } else if (typeof item[column.toLowerCase()] == 'string') {
         return item[column.toLowerCase()];
       } else {
+        for (const [objectKey, objectValue] of Object.entries(item)) {
+          if (typeof objectValue == 'object') {
+            if (typeof objectValue[column.toLowerCase()] == 'boolean') {
+              return objectValue[column.toLowerCase()];
+            } else if (typeof objectValue[column.toLowerCase()] == 'number') {
+              return objectValue[column.toLowerCase()];
+            } else if (typeof objectValue[column.toLowerCase()] == 'string') {
+              return objectValue[column.toLowerCase()];
+            }
+          }
+        }
         return '-';
       }
     },
