@@ -116,7 +116,7 @@ export default {
       } else if (typeof item[column.toLowerCase()] == 'string') {
         return item[column.toLowerCase()];
       } else {
-        for (const [objectKey, objectValue] of Object.entries(item)) {
+        for (const objectValue of Object.values(item)) {
           if (typeof objectValue == 'object') {
             if (typeof objectValue[column.toLowerCase()] == 'boolean') {
               return objectValue[column.toLowerCase()];
