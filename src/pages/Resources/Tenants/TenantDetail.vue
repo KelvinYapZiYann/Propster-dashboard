@@ -188,10 +188,6 @@ export default {
     addPaymentRecord() {
       console.log('addPaymentRecord');
       console.log(this.assetResource);
-      // console.log(this.$store);
-      // console.log(this.$store.state);
-      // console.log(this.$store.getters["users/model"]);
-      // console.log(this.$store.getters["users/state"]);
       // this.$router.push({
       //   name: 'Add Payment Record',
       //   query: {

@@ -77,13 +77,15 @@
           return item[column.toLowerCase()];
         } else {
           for (const objectValue of Object.values(item)) {
-            if (typeof objectValue == 'object') {
-              if (typeof objectValue[column.toLowerCase()] == 'boolean') {
-                return objectValue[column.toLowerCase()];
-              } else if (typeof objectValue[column.toLowerCase()] == 'number') {
-                return objectValue[column.toLowerCase()];
-              } else if (typeof objectValue[column.toLowerCase()] == 'string') {
-                return objectValue[column.toLowerCase()];
+            if (objectValue) {
+              if (typeof objectValue == 'object') {
+                if (typeof objectValue[column.toLowerCase()] == 'boolean') {
+                  return objectValue[column.toLowerCase()];
+                } else if (typeof objectValue[column.toLowerCase()] == 'number') {
+                  return objectValue[column.toLowerCase()];
+                } else if (typeof objectValue[column.toLowerCase()] == 'string') {
+                  return objectValue[column.toLowerCase()];
+                }
               }
             }
           }
