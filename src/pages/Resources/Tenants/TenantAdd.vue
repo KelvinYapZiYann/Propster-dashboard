@@ -66,14 +66,14 @@ export default {
             type: 'success'
           });
           this.resetApiValidation();
-          // router.go(-1);
-          router.push({
-            name: "Add Tenure Contract",
-            query: this.query,
-            params: {
-              previousRoute: this.$router.currentRoute.fullPath
-            }
-          });
+          router.go(-1);
+          // router.push({
+          //   name: "Add Tenure Contract",
+          //   query: this.query,
+          //   params: {
+          //     previousRoute: this.$router.currentRoute.fullPath
+          //   }
+          // });
           // router.push({path: "/tenants"});
         } catch (e) {
           this.$notify({

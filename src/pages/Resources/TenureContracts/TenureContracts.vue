@@ -1,7 +1,9 @@
 <template>
   <tenure-contract-index-component
     :resource="resource"
+    :tenantId="tenantId"
     @getResource="getResource"
+    @tenantIdChange="tenantIdChange"
   ></tenure-contract-index-component>
 </template>
 <script>
@@ -17,8 +19,10 @@ export default {
     return {
       resource: {
         models: [{}],
-        data: {}
+        data: {},
+        selector: {}
       },
+      tenantId: null 
     };
   },
   mounted() {
@@ -31,6 +35,10 @@ export default {
           this.resource.models = this.$store.getters["tenureContract/models"]
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
         })
+
+        await this.$store.dispatch('tenureContract/create', {}).then(() => {
+          this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
+        });
       } catch (e) {
         this.$notify({
           message:'Server error',
@@ -38,6 +46,9 @@ export default {
           type: 'danger'
         });
       }
+    },
+    tenantIdChange(value) {
+      this.tenantId = value;
     }
   }
 };

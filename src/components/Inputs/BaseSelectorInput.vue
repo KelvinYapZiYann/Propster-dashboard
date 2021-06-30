@@ -143,9 +143,9 @@ export default {
     // }
   },
   watch: {
-    value: function(newVal, oldVal) { // watch it
-      this.$emit("input", newVal);
-    }
+    // value: function(newVal, oldVal) { // watch it
+    //   this.$emit("input", newVal);
+    // }
   },
 };
 </script>

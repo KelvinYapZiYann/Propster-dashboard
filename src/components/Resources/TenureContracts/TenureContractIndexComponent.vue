@@ -4,13 +4,33 @@
       <card>
         <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
         <div class="text-right mb-3">
-          <!-- <base-button
+          <base-button
             @click="addModel"
             class="mt-3"
             type="primary"
             v-bind:disabled="!resource.data.canAdd"
             v-if="resource.data.canAdd"
-          >Add {{table.title}}</base-button> -->
+          >Add {{table.title}}</base-button>
+        </div>
+        <div class="row">
+          <div class="col-md-6 ">
+            <base-selector-input label="Asset Nickname"
+                        placeholder="Asset Nickname"
+                        v-model="assetId"
+                        :options="resource.selector.asset_id"
+                        @input="filterAssetId"
+                        >
+            </base-selector-input>
+          </div>
+          <div class="col-md-6 ">
+            <base-selector-input label="Tenant Name"
+                        placeholder="Tenant Name"
+                        v-model="tenantIdComp"
+                        :options="resource.selector.tenant_id"
+                        @input="filterTenantId"
+                        >
+            </base-selector-input>
+          </div>
         </div>
         <div class="table-responsive">
           <base-table
@@ -47,12 +67,12 @@
   </div>
 </template>
 <script>
-import {BaseTable, BasePagination, Card} from "@/components";
+import {BaseTable, BasePagination, BaseSelectorInput, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
   asset_nickname: "Asset Nickname",
-  last_name: "Tenant Last Name",
+  first_name: "Tenant First Name",
   contract_name: "Contract Name",
   monthly_rental_amount: "Monthly Rental Amount",
   tenure_start_date: "Tenure Start Date",
@@ -62,7 +82,7 @@ let tableColumns = {
 const tableDefaultData = [
   {
     asset_nickname: "",
-    last_name: "",
+    first_name: "",
     contract_name: "",
     monthly_rental_amount: "",
     tenure_start_date: "",
@@ -74,6 +94,7 @@ export default {
   components: {
     BaseTable,
     BasePagination,
+    BaseSelectorInput,
     Card
   },
   data() {
@@ -82,7 +103,8 @@ export default {
         title: "Tenure Contract",
         columns: {...tableColumns},
         data: [...tableDefaultData]
-      }
+      },
+      assetId: null
     };
   },
   props: {
@@ -99,13 +121,29 @@ export default {
           to: 0,
           perPage: 10,
           links: []
-        }
+        },
+        selector: {}
       },
       description: "Resource info"
     },
     query: {
       type: Object,
       // default: {},
+    },
+    tenantId: {
+      type: Number | Object,
+      required: true,
+      default: null
+    }
+  },
+  computed: {
+    tenantIdComp: {
+      get: function() {
+        return this.tenantId;
+      },
+      set: function(value) {
+        this.$emit('tenantIdChange', value);
+      }
     }
   },
   methods: {
@@ -176,6 +214,9 @@ export default {
             this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"]);
           });
         }
+        // await this.$store.dispatch('tenureContract/create', pageId).then(() => {
+        //   this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
+        // });
       } catch (e) {
         this.$notify({
           message:'Server error',
@@ -183,6 +224,14 @@ export default {
           type: 'danger'
         });
       }
+    },
+    filterAssetId(value) {
+      console.log('filtering by asset id');
+      console.log(`asset id = ${this.assetId}, tenant id = ${this.tenantIdComp}`);
+    },
+    filterTenantId(value) {
+      console.log('filtering by tenant id');
+      console.log(`asset id = ${this.assetId}, tenant id = ${value}`);
     }
   }
 };

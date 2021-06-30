@@ -24,6 +24,8 @@
             modelType: "tenant_id",
             modelId: `${modelId}`
           }'
+          :tenantId="`${tenantId}`"
+          @tenantIdChange="tenantIdChange"
         ></tenure-contract-index-component>
 
         <payment-record-index-component
@@ -98,7 +100,8 @@ export default {
       },
       tenureContractResource: {
         models: [{}],
-        data: {}
+        data: {},
+        selector: {}
       },
       receivingPaymentRecordResource: {
         models: [{}],
@@ -125,6 +128,7 @@ export default {
       fixedTooltip: true,
       position: 'bottom-right',
       tenantPaymentModalVisible: false,
+      tenantId: this.$route.params.tenantId
     };
   },
   mounted() {
@@ -159,6 +163,10 @@ export default {
           this.sendingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/sendingPaymentRecordData"])
         })
 
+        await this.$store.dispatch('tenureContract/create', {}).then(() => {
+          this.tenureContractResource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
+        });
+
         // await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
         // this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
         // this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
@@ -189,6 +197,9 @@ export default {
       //     modelId: `${this.modelId}`
       //   }
       // });
+    },
+    tenantIdChange(value) {
+      this.tenantId = value;
     }
   }
 };
