@@ -69,6 +69,9 @@
         return false;
       },
       itemValue(item, column) {
+        if (!item) {
+          return '-';
+        }
         if (typeof item[column.toLowerCase()] == 'boolean') {
           return item[column.toLowerCase()];
         } else if (typeof item[column.toLowerCase()] == 'number') {

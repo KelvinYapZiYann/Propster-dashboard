@@ -188,15 +188,15 @@ export default {
     addPaymentRecord() {
       console.log('addPaymentRecord');
       console.log(this.assetResource);
-      // this.$router.push({
-      //   name: 'Add Payment Record',
-      //   query: {
-      //     senderType: "tenant",
-      //     senderId: `${this.modelId}`,
-      //     recipientType: "landlord",
-      //     modelId: `${this.modelId}`
-      //   }
-      // });
+      this.$router.push({
+        name: 'Add Payment Record',
+        query: {
+          senderType: "tenant",
+          senderId: `${this.modelId}`,
+          recipientType: "landlord",
+          modelId: `${this.modelId}`
+        }
+      });
     },
     assetIdChange(value) {
       this.assetId = value;
