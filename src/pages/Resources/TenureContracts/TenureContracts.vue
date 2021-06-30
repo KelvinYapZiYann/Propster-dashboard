@@ -2,6 +2,7 @@
   <tenure-contract-index-component
     :resource="resource"
     :tenantId="tenantId"
+    :assetId="assetId"
     @getResource="getResource"
     @assetIdChange="assetIdChange"
     @tenantIdChange="tenantIdChange"
@@ -23,8 +24,8 @@ export default {
         data: {},
         selector: {}
       },
-      tenantId: null,
       assetId: null,
+      tenantId: null,
     };
   },
   mounted() {

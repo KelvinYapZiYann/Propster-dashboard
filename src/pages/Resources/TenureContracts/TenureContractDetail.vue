@@ -26,7 +26,7 @@ import { BaseDetailList, Card, DropZone } from "@/components";
 
 let detailHeaders = {
   asset_nickname: "Asset Nickname",
-  tenant_name: "Tenant Name",
+  first_name: "Tenant First Name",
   contract_name: "Contract Name",
   monthly_rental_amount: "Monthly Rental Amount (RM)",
   tenure_start_date: "Tenure Start Date",
