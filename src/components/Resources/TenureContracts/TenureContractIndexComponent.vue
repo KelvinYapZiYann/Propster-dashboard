@@ -16,7 +16,7 @@
           <div class="col-md-6 ">
             <base-selector-input label="Asset Nickname"
                         placeholder="Asset Nickname"
-                        v-model="assetId"
+                        v-model="assetIdComp"
                         :options="resource.selector.asset_id"
                         @input="filterAssetId"
                         >
@@ -103,8 +103,7 @@ export default {
         title: "Tenure Contract",
         columns: {...tableColumns},
         data: [...tableDefaultData]
-      },
-      assetId: null
+      }
     };
   },
   props: {
@@ -130,6 +129,11 @@ export default {
       type: Object,
       // default: {},
     },
+    assetId: {
+      type: Number | Object,
+      required: true,
+      default: null
+    },
     tenantId: {
       type: Number | Object,
       required: true,
@@ -137,6 +141,14 @@ export default {
     }
   },
   computed: {
+    assetIdComp: {
+      get: function() {
+        return this.assetId;
+      },
+      set: function(value) {
+        this.$emit('assetIdChange', value);
+      }
+    },
     tenantIdComp: {
       get: function() {
         return this.tenantId;

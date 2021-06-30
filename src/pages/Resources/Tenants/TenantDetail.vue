@@ -24,7 +24,9 @@
             modelType: "tenant_id",
             modelId: `${modelId}`
           }'
-          :tenantId="`${tenantId}`"
+          :assetId="assetId"
+          :tenantId="tenantId"
+          @assetIdChange="assetIdChange"
           @tenantIdChange="tenantIdChange"
         ></tenure-contract-index-component>
 
@@ -128,7 +130,8 @@ export default {
       fixedTooltip: true,
       position: 'bottom-right',
       tenantPaymentModalVisible: false,
-      tenantId: this.$route.params.tenantId
+      tenantId: this.$route.params.tenantId,
+      assetId: this.$route.query ? (this.$route.query.modelType ? (this.$route.query.modelType == "asset_id" ? this.$route.query.modelId : null) : null) : null
     };
   },
   mounted() {
@@ -184,6 +187,7 @@ export default {
     },
     addPaymentRecord() {
       console.log('addPaymentRecord');
+      console.log(this.assetResource);
       // console.log(this.$store);
       // console.log(this.$store.state);
       // console.log(this.$store.getters["users/model"]);
@@ -197,6 +201,9 @@ export default {
       //     modelId: `${this.modelId}`
       //   }
       // });
+    },
+    assetIdChange(value) {
+      this.assetId = value;
     },
     tenantIdChange(value) {
       this.tenantId = value;

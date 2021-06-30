@@ -3,6 +3,7 @@
     :resource="resource"
     :tenantId="tenantId"
     @getResource="getResource"
+    @assetIdChange="assetIdChange"
     @tenantIdChange="tenantIdChange"
   ></tenure-contract-index-component>
 </template>
@@ -22,7 +23,8 @@ export default {
         data: {},
         selector: {}
       },
-      tenantId: null 
+      tenantId: null,
+      assetId: null,
     };
   },
   mounted() {
@@ -46,6 +48,9 @@ export default {
           type: 'danger'
         });
       }
+    },
+    assetIdChange(value) {
+      this.assetId = value;
     },
     tenantIdChange(value) {
       this.tenantId = value;

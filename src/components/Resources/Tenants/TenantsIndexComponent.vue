@@ -109,6 +109,10 @@ export default {
       type: Object,
       // default: {},
     },
+    assetId: {
+      type: Number | Object,
+      default: null
+    }
     // showAll: {
     //   type: Boolean,
     //   required: true,
@@ -117,7 +121,14 @@ export default {
   },
   methods: {
     showDetails(id) {
-      router.push({path: "/tenants/" + id});
+      if (this.assetId) {
+        router.push({path: "/tenants/" + id, query: {
+            modelType: "asset_id",
+            modelId: `${this.assetId}`
+          }});
+      } else {
+        router.push({path: "/tenants/" + id});
+      }
     },
     editDetails(id) {
       router.push({path: "/tenants/" + id + "/edit"});

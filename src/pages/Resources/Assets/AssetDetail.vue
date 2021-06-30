@@ -38,6 +38,7 @@
            modelType: "asset_id",
            modelId: `${modelId}`
          }'
+      :assetId="modelId"
    ></tenants-index-component>
 
    <fab
