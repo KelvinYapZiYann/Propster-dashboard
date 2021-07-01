@@ -34,6 +34,14 @@ export default {
       addOrEdit: "Edit"
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: true,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getTenureContract();
   },
@@ -69,7 +77,8 @@ export default {
             type: 'success'
           });
           this.resetApiValidation();
-          router.go(-1);
+          router.push({path: this.previousRoute});
+          // router.go(-1);
           // router.push({path: "/tenants"});
         } catch (e) {
           this.$notify({

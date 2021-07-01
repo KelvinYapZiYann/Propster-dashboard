@@ -119,7 +119,10 @@ export default {
     addModel() {
       this.$router.push({
         name: 'Add Payment Record',
-        query: this.query
+        query: this.query,
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
+        }
       });
     },
     async handlePagination(pageId) {

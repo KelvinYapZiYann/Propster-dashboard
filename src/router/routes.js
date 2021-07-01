@@ -119,7 +119,10 @@ let resources = {
       path: "assets/add",
       name: "Add Assets",
       components: { default: AssetAdd },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "assets/:assetId",
@@ -131,7 +134,10 @@ let resources = {
       path: "assets/:assetId/edit",
       name: "Edit Assets",
       components: { default: AssetEdit },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenants",
@@ -143,7 +149,10 @@ let resources = {
       path: "tenants/add",
       name: "Add Tenant",
       components: { default: TenantAdd },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenants/:tenantId",
@@ -155,7 +164,10 @@ let resources = {
       path: "tenants/:tenantId/edit",
       name: "Edit Tenant",
       components: { default: TenantEdit },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenure-contracts",
@@ -182,7 +194,10 @@ let resources = {
       path: "tenure-contracts/:tenureContractId/edit",
       name: "Edit Tenure Contract",
       components: { default: TenureContractEdit },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "asset-expenses",
@@ -206,7 +221,10 @@ let resources = {
       path: "payment-records/add",
       name: "Add Payment Record",
       components: { default: PaymentRecordsAdd },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "payment-records/:paymentRecordsId",

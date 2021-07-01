@@ -218,6 +218,12 @@ export default {
       }
     },
     getAssetNicknameByAssetIdFromSelector() {
+      if (!this.resource.selector) {
+        return "-";
+      }
+      if (!this.resource.selector.asset_id) {
+        return "-";
+      }
       for (var i = 0; i < this.resource.selector.asset_id.length; i++) {
         if (this.resource.selector.asset_id[i].id == this.assetId) {
           return this.resource.selector.asset_id[i].name;

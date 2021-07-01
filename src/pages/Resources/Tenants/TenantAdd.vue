@@ -35,6 +35,14 @@ export default {
       addOrEdit: "Add"
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: true,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getResource();
   },
@@ -66,7 +74,8 @@ export default {
             type: 'success'
           });
           this.resetApiValidation();
-          router.go(-1);
+          router.push({path: this.previousRoute});
+          // router.go(-1);
           // router.push({
           //   name: "Add Tenure Contract",
           //   query: this.query,

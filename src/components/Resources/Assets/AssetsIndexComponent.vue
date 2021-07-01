@@ -117,10 +117,18 @@ export default {
   },
   methods: {
     showDetails(id) {
-      router.push({path: "/assets/" + id});
+      router.push({
+        path: "/assets/" + id
+      });
     },
     editDetails(id) {
-      router.push({path: "/assets/" + id + "/edit"});
+      router.push({
+        name: "Edit Assets",
+        params: {
+          assetId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     deleteDetails(id) {
       if (id == null) {
@@ -148,7 +156,12 @@ export default {
       }
     },
     addModel() {
-      router.push({path: "/assets/add"});
+      router.push({
+        name: "Add Assets",
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     getResource() {
       this.$emit('getResource')

@@ -32,6 +32,14 @@ export default {
       addOrEdit: "Add"
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: true,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getAsset();
   },
@@ -63,7 +71,8 @@ export default {
             type: 'success'
           });
           this.resetApiValidation();
-          router.go(-1);
+          router.push({path: this.previousRoute});
+          // router.go(-1);
           // router.push({path: "/assets"});
         } catch (e) {
           this.$notify({

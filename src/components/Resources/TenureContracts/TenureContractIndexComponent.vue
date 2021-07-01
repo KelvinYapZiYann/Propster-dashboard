@@ -160,10 +160,22 @@ export default {
   },
   methods: {
     showDetails(id) {
-      router.push({path: "/tenure-contracts/" + id});
+      router.push({
+        path: "/tenure-contracts/" + id,
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     editDetails(id) {
-      router.push({path: "/tenure-contracts/" + id + "/edit", query: this.query});
+      router.push({
+        name: "Edit Tenure Contract",
+        query: this.query,
+        params: {
+          tenureContractId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     // deleteDetails(id) {
     //   if (id == null) {

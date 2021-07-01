@@ -40,11 +40,19 @@ export default {
       },
     };
   },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.prevRoute = from
-    })
+  props: {
+    previousRoute: {
+      type: String,
+      required: true,
+      default: "",
+      description: "Previous Route"
+    }
   },
+  // beforeRouteEnter(to, from, next) {
+  //   next(vm => {
+  //     vm.prevRoute = from
+  //   })
+  // },
   mounted() {
     this.getPaymentRecordDetail();
   },
@@ -82,7 +90,8 @@ export default {
           type: 'success'
         });
         this.resetApiValidation()
-        router.push({path: "/payment-records"});
+        // router.push({path: "/payment-records"});
+        router.push({path: this.previousRoute});
       } catch (e) {
         this.$notify({
           message:'Server error',

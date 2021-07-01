@@ -202,8 +202,10 @@ export default {
           senderId: `${this.tenantId}`,
           recipientType: "LANDLORD",
           recipientId: `${this.userResource.model.landlord_ids[0]}`,
-          initiatedBy: "RECEIVER",
           assetId: `${this.assetId}`,
+        },
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
         }
       });
     },

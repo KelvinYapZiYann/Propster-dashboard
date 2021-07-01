@@ -134,7 +134,13 @@ export default {
       }
     },
     editDetails(id) {
-      router.push({path: "/tenants/" + id + "/edit"});
+      router.push({
+        name: "Edit Tenant",
+        params: {
+          tenantId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     deleteDetails(id) {
       if (id == null) {
@@ -164,7 +170,10 @@ export default {
     addModel() {
       this.$router.push({
         name: 'Add Tenant',
-        query: this.query
+        query: this.query,
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
+        }
       });
     },
     getResource() {
