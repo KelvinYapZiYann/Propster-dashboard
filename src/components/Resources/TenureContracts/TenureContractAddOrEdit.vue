@@ -8,8 +8,13 @@
                       placeholder="Asset Nickname"
                       v-model="resource.model.asset_id"
                       :options="resource.selector.asset_id"
-                      v-if="addOrEdit == 'Add'">
+                      v-if="addOrEdit == 'Add' && !assetId">
           </base-selector-input>
+          <base-input label="Asset Nickname"
+                      v-if="addOrEdit == 'Add' && assetId" 
+                      :value="getAssetNicknameByAssetIdFromSelector()"
+                      :disabled="true">
+          </base-input>
           <base-input label="Asset Nickname"
                       v-if="addOrEdit != 'Add'" 
                       :value="resource.model.asset ? (resource.model.asset.asset_nickname ? resource.model.asset.asset_nickname : '') : ''"
@@ -119,6 +124,7 @@ export default {
   data() {
     return {
       fileCount: 0,
+      assetId: null,
       tenantId: null,
       prevRoute: null,
       dropzoneOptions: {
@@ -154,7 +160,8 @@ export default {
     }
   },
   created() {
-    this.tenantId = this.$route.query.tenantId
+    this.assetId = this.$route.query.assetId;
+    this.tenantId = this.$route.query.tenantId;
   },
   methods: {
     async handleSubmit() {
@@ -173,14 +180,24 @@ export default {
       this.$emit('submit', formData)
     },
     translateModel() {
-      return {
-        tenant_id: this.tenantId ? this.tenantId : null,
-        asset_id: this.resource.model.asset_id,
-        contract_name: this.resource.model.contract_name,
-        contract_description: this.resource.model.contract_description,
-        monthly_rental_amount: this.resource.model.monthly_rental_amount,
-        tenure_start_date: this.resource.model.tenure_start_date,
-        tenure_end_date: this.resource.model.tenure_end_date
+      if (this.addOrEdit == 'Add') {
+        return {
+          tenant_id: this.tenantId ? this.tenantId : null,
+          asset_id: this.assetId ? this.assetId : this.resource.model.asset_id,
+          contract_name: this.resource.model.contract_name,
+          contract_description: this.resource.model.contract_description,
+          monthly_rental_amount: this.resource.model.monthly_rental_amount,
+          tenure_start_date: this.resource.model.tenure_start_date,
+          tenure_end_date: this.resource.model.tenure_end_date
+        }
+      } else {
+        return {
+          contract_name: this.resource.model.contract_name,
+          contract_description: this.resource.model.contract_description,
+          monthly_rental_amount: this.resource.model.monthly_rental_amount,
+          tenure_start_date: this.resource.model.tenure_start_date,
+          tenure_end_date: this.resource.model.tenure_end_date
+        }
       }
     },
     sendingFile(file, xhr, formData) {
@@ -200,6 +217,14 @@ export default {
         this.fileCount = 0;
       }
     },
+    getAssetNicknameByAssetIdFromSelector() {
+      for (var i = 0; i < this.resource.selector.asset_id.length; i++) {
+        if (this.resource.selector.asset_id[i].id == this.assetId) {
+          return this.resource.selector.asset_id[i].name;
+        }
+      }
+      return "-";
+    }
   }
 }
 </script>
