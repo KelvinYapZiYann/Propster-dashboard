@@ -56,15 +56,16 @@
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
-import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     // AssetForm,
     ValidationError,
-    BaseSelectorInput
+    BaseInput,
+    BaseSelectorInput,
+    Card
   },
   props: {
     resource: {

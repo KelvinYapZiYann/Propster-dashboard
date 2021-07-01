@@ -113,6 +113,9 @@ export default {
         models: [{}],
         data: {}
       },
+      userResource: {
+        model: {},
+      },
       table: {
         title: "Tenants",
         detailHeaders: {...detailHeaders},
@@ -170,6 +173,12 @@ export default {
           this.tenureContractResource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
         });
 
+        await this.$store.dispatch('users/get', {}).then(() => {
+          this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+          // this.userResource.data = Object.assign({}, this.$store.getters["users/data"])
+          // this.userResource.selector = Object.assign({}, this.$store.getters["users/selector"])
+        })
+
         // await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
         // this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
         // this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
@@ -186,17 +195,17 @@ export default {
       }
     },
     addPaymentRecord() {
-      console.log('addPaymentRecord');
-      console.log(this.assetResource);
-      // this.$router.push({
-      //   name: 'Add Payment Record',
-      //   query: {
-      //     senderType: "tenant",
-      //     senderId: `${this.modelId}`,
-      //     recipientType: "landlord",
-      //     modelId: `${this.modelId}`
-      //   }
-      // });
+      this.$router.push({
+        name: 'Add Payment Record',
+        query: {
+          senderType: "TENANT",
+          senderId: `${this.tenantId}`,
+          recipientType: "LANDLORD",
+          recipientId: `${this.userResource.model.landlord_ids[0]}`,
+          initiatedBy: "RECEIVER",
+          assetId: `${this.assetId}`,
+        }
+      });
     },
     assetIdChange(value) {
       this.assetId = value;

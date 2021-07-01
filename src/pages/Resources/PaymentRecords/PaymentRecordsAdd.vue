@@ -6,11 +6,12 @@
       :recipient="resource.model.recipient"
       :sender="resource.model.sender"
     ></payment-page>
-    <!-- <payment-record-add-or-edit
+    {{resource}}
+    <payment-record-add-or-edit
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
-    ></payment-record-add-or-edit> -->
+    ></payment-record-add-or-edit>
   </div>
 </template>
 <script>
@@ -51,8 +52,11 @@ export default {
     async getPaymentRecordDetail() {
       try {
         await this.$store.dispatch('paymentRecords/add', {
-          'recipient_type': this.$route.query.modelType,
-          'recipient_id': this.$route.query.modelId
+          'sender_type': this.$route.query.senderType,
+          'sender_id': this.$route.query.senderId,
+          'recipient_type': this.$route.query.recipientType,
+          'recipient_id': this.$route.query.recipientId,
+          'asset_id': this.$route.query.assetId,
         }).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["paymentRecords/model"])
           this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"])

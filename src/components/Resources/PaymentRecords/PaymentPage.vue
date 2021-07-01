@@ -141,43 +141,43 @@ export default {
     },
   },
   methods: {
-    showDetails(id) {
-      router.push({path: "/payment-records/" + id});
-    },
-    editDetails(id) {
-      router.push({path: "/payment-records/" + id + "/edit"});
-    },
-    deleteDetails(id) {
-      if (id == null) {
-        this.$notify({
-          message: 'Server error',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
-      } else {
-        try {
-          this.$store.dispatch('paymentRecords/remove', id)
-          this.$notify({
-            message: 'Successfully Deleted',
-            icon: 'tim-icons icon-bell-55',
-            type: 'success'
-          });
-          this.getResource();
-        } catch (e) {
-          this.$notify({
-            message: 'Server error',
-            icon: 'tim-icons icon-bell-55',
-            type: 'danger'
-          });
-        }
-      }
-    },
-    addModel() {
-      this.$router.push({
-        name: 'Add Payment Record',
-        query: this.query
-      });
-    }
+    // showDetails(id) {
+    //   router.push({path: "/payment-records/" + id});
+    // },
+    // editDetails(id) {
+    //   router.push({path: "/payment-records/" + id + "/edit"});
+    // },
+    // deleteDetails(id) {
+    //   if (id == null) {
+    //     this.$notify({
+    //       message: 'Server error',
+    //       icon: 'tim-icons icon-bell-55',
+    //       type: 'danger'
+    //     });
+    //   } else {
+    //     try {
+    //       this.$store.dispatch('paymentRecords/remove', id)
+    //       this.$notify({
+    //         message: 'Successfully Deleted',
+    //         icon: 'tim-icons icon-bell-55',
+    //         type: 'success'
+    //       });
+    //       this.getResource();
+    //     } catch (e) {
+    //       this.$notify({
+    //         message: 'Server error',
+    //         icon: 'tim-icons icon-bell-55',
+    //         type: 'danger'
+    //       });
+    //     }
+    //   }
+    // },
+    // addModel() {
+    //   this.$router.push({
+    //     name: 'Add Payment Record',
+    //     query: this.query
+    //   });
+    // }
   }
 };
 </script>
