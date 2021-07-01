@@ -11,19 +11,19 @@
         <assets-index-component
           :resource="assetResource"
           :table="table"
-          :query='{
-            modelType: "tenant_id",
-            modelId: `${modelId}`
-          }'
+          :query="{
+            tenantId: this.tenantId,
+            assetId: this.assetId,
+          }"
         ></assets-index-component>
 
         <tenure-contract-index-component
           :resource="tenureContractResource"
           :table="table"
-          :query='{
-            modelType: "tenant_id",
-            modelId: `${modelId}`
-          }'
+          :query="{
+            tenantId: this.tenantId,
+            assetId: this.assetId,
+          }"
           :assetId="assetId"
           :tenantId="tenantId"
           @assetIdChange="assetIdChange"
@@ -33,20 +33,20 @@
         <payment-record-index-component
           :resource="receivingPaymentRecordResource"
           :table="table"
-          :query='{
-            modelType: "tenant_id",
-            modelId: `${modelId}`
-          }'
+          :query="{
+            tenantId: this.tenantId,
+            assetId: this.assetId,
+          }"
           :paymentRecordType="receivingPaymentRecordType"
         ></payment-record-index-component>
         
         <payment-record-index-component
           :resource="sendingPaymentRecordResource"
           :table="table"
-          :query='{
-            modelType: "tenant_id",
-            modelId: `${modelId}`
-          }'
+          :query="{
+            tenantId: this.tenantId,
+            assetId: this.assetId,
+          }"
           :paymentRecordType="sendingPaymentRecordType"
         ></payment-record-index-component>
 
@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       allowAddUser: false,
-      modelId: this.$route.params.tenantId,
+      // modelId: this.$route.params.tenantId,
       resource: {
         model: {},
         data: {}
@@ -131,7 +131,7 @@ export default {
       position: 'bottom-right',
       tenantPaymentModalVisible: false,
       tenantId: this.$route.params.tenantId,
-      assetId: this.$route.query ? (this.$route.query.modelType ? (this.$route.query.modelType == "asset_id" ? this.$route.query.modelId : null) : null) : null
+      assetId: this.$route.query ? (this.$route.query.assetId ? this.$route.query.assetId : null) : null,
     };
   },
   mounted() {
@@ -140,28 +140,28 @@ export default {
   methods: {
     async getResource() {
       try {
-        await this.$store.dispatch('tenant/getById',  this.modelId).then(() => {
+        await this.$store.dispatch('tenant/getById',  this.tenantId).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenant/model"])
           this.resource.data = Object.assign({}, this.$store.getters["tenant/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenant/selector"])
         })
 
-        await this.$store.dispatch('tenant/getAssets',  this.modelId).then(() => {
+        await this.$store.dispatch('tenant/getAssets',  this.tenantId).then(() => {
           this.assetResource.models = this.$store.getters["tenant/assetModels"]
           this.assetResource.data = Object.assign({}, this.$store.getters["tenant/assetData"])
         })
 
-        await this.$store.dispatch('tenant/getTenureContracts',  this.modelId).then(() => {
+        await this.$store.dispatch('tenant/getTenureContracts',  this.tenantId).then(() => {
           this.tenureContractResource.models = this.$store.getters["tenant/tenureContractModels"]
           this.tenureContractResource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"])
         })
 
-        await this.$store.dispatch('tenant/getReceivingPaymentRecords',  this.modelId).then(() => {
+        await this.$store.dispatch('tenant/getReceivingPaymentRecords',  this.tenantId).then(() => {
           this.receivingPaymentRecordResource.models = this.$store.getters["tenant/receivingPaymentRecordModels"]
           this.receivingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/receivingPaymentRecordData"])
         })
 
-        await this.$store.dispatch('tenant/getSendingPaymentRecords',  this.modelId).then(() => {
+        await this.$store.dispatch('tenant/getSendingPaymentRecords',  this.tenantId).then(() => {
           this.sendingPaymentRecordResource.models = this.$store.getters["tenant/sendingPaymentRecordModels"]
           this.sendingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/sendingPaymentRecordData"])
         })
@@ -188,15 +188,15 @@ export default {
     addPaymentRecord() {
       console.log('addPaymentRecord');
       console.log(this.assetResource);
-      this.$router.push({
-        name: 'Add Payment Record',
-        query: {
-          senderType: "tenant",
-          senderId: `${this.modelId}`,
-          recipientType: "landlord",
-          modelId: `${this.modelId}`
-        }
-      });
+      // this.$router.push({
+      //   name: 'Add Payment Record',
+      //   query: {
+      //     senderType: "tenant",
+      //     senderId: `${this.modelId}`,
+      //     recipientType: "landlord",
+      //     modelId: `${this.modelId}`
+      //   }
+      // });
     },
     assetIdChange(value) {
       this.assetId = value;

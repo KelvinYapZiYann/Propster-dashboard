@@ -52,7 +52,7 @@ function create() {
 }
 
 function update(payload) {
-  const modelId = payload.modelId;
+  const tenantId = payload.tenantId;
   const model = payload.model;
 
   const config = {
@@ -62,7 +62,7 @@ function update(payload) {
     }
   };
 
-  return axios.post(`${url}/tenants/${modelId}/update`, model, config)
+  return axios.post(`${url}/tenants/${tenantId}/update`, model, config)
     .then(response => {
       return response.data;
     });

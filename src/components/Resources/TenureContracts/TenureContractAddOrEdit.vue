@@ -22,13 +22,13 @@
                       placeholder="Tenant Name"
                       v-model="resource.model.tenant_id"
                       :options="resource.selector.tenant_id"
-                      :defaultValue="parentModelId"
+                      :defaultValue="tenantId"
                       :disabled="true"
                       > 
           </base-selector-input> -->
           <div v-for="tenant in resource.selector.tenant_id" v-bind:key="tenant.id">
               <base-input label="Tenant Name"
-                        v-if="tenant.id == parentModelId && addOrEdit == 'Add'" 
+                        v-if="tenant.id == tenantId && addOrEdit == 'Add'" 
                         :value="tenant.name"
                         :disabled="true">
               </base-input>
@@ -119,8 +119,7 @@ export default {
   data() {
     return {
       fileCount: 0,
-      parentModelId: null,
-      parentModelType: null,
+      tenantId: null,
       prevRoute: null,
       dropzoneOptions: {
         url: 'https://httpbin.org/post',
@@ -155,8 +154,7 @@ export default {
     }
   },
   created() {
-    this.parentModelId = this.$route.query.modelId
-    this.parentModelType = this.$route.query.modelType
+    this.tenantId = this.$route.query.tenantId
   },
   methods: {
     async handleSubmit() {
@@ -176,7 +174,7 @@ export default {
     },
     translateModel() {
       return {
-        tenant_id: this.parentModelId && this.parentModelType === 'tenant_id' ? this.parentModelId : null,
+        tenant_id: this.tenantId ? this.tenantId : null,
         asset_id: this.resource.model.asset_id,
         contract_name: this.resource.model.contract_name,
         contract_description: this.resource.model.contract_description,

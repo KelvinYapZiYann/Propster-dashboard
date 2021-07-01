@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       allowAddUser: false,
-      modelId: this.$route.params.tenureContractId,
+      tenureContractId: this.$route.params.tenureContractId,
       resource: {
         model: {},
         data: {}
@@ -67,7 +67,7 @@ export default {
   methods: {
     async getResource() {
       try {
-        await this.$store.dispatch('tenureContract/getById',  this.modelId).then(() => {
+        await this.$store.dispatch('tenureContract/getById',  this.tenureContractId).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])

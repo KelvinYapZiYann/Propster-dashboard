@@ -26,8 +26,7 @@
      :resource="assetExpensesResource"
      :table="table"
      :query='{
-           modelType: "asset_id",
-           modelId: `${modelId}`
+           assetId: `${assetId}`
          }'
    ></asset-expenses-index-component>
 
@@ -35,10 +34,8 @@
      :resource="tenantResource"
      :table="table"
      :query='{
-           modelType: "asset_id",
-           modelId: `${modelId}`
+           assetId: `${assetId}`
          }'
-      :assetId="modelId"
    ></tenants-index-component>
 
    <fab
@@ -116,7 +113,7 @@ export default {
   },
   data() {
     return {
-      modelId: this.$route.params.assetId,
+      assetId: this.$route.params.assetId,
       resource: {
         model: {},
         data: {}
@@ -178,19 +175,19 @@ export default {
     },
     async getResource() {
       try {
-        await this.$store.dispatch('asset/getById', this.modelId)
+        await this.$store.dispatch('asset/getById', this.assetId)
         this.resource.model = await this.$store.getters["asset/model"]
         this.resource.data = await this.$store.getters["asset/data"]
 
-        await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
+        await this.$store.dispatch('asset/getAssetExpenses', this.assetId)
         this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
         this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
 
-        await this.$store.dispatch('asset/getTenants', this.$route.params.assetId)
+        await this.$store.dispatch('asset/getTenants', this.assetId)
         this.tenantResource.models = await this.$store.getters["asset/tenantModels"]
         this.tenantResource.data = await this.$store.getters["asset/tenantData"]
 
-        // await this.$store.dispatch('asset/getTenureContracts', this.$route.params.assetId)
+        // await this.$store.dispatch('asset/getTenureContracts', this.assetId)
         // this.tenureContractResource.models = await this.$store.getters["asset/tenureContractModels"]
         // this.tenureContractResource.data = await this.$store.getters["asset/tenureContractData"]
       } catch (e) {

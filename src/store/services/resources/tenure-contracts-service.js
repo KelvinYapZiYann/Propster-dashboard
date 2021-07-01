@@ -52,7 +52,7 @@ function create() {
 }
 
 function update(payload) {
-  const modelId = payload.modelId;
+  const tenureContractId = payload.tenureContractId;
   const model = payload.model;
 
   const config = {
@@ -62,7 +62,7 @@ function update(payload) {
     }
   };
 
-  return axios.post(`${url}/tenure-contracts/${modelId}/update`, model, config)
+  return axios.post(`${url}/tenure-contracts/${tenureContractId}/update`, model, config)
     .then(response => {
       return response.data;
     });

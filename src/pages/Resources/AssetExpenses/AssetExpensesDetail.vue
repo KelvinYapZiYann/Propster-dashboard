@@ -70,7 +70,7 @@ export default {
   methods: {
     async getResource() {
       try {
-        await this.$store.dispatch('assetExpenses/getById', this.$route.params.assetExpensesId)
+        await this.$store.dispatch('assetExpenses/getById', this.$route.params.assetExpenseId)
         this.resource.model = await this.$store.getters["assetExpenses/model"]
         this.resource.data = await this.$store.getters["assetExpenses/data"]
         this.loadAttachment();

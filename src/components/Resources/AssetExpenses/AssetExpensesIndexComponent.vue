@@ -91,9 +91,9 @@ export default {
     async handlePagination(pageId) {
       try {
         if (this.$props.query) {
-          if (this.$props.query.modelType === 'asset_id') {
+          if (this.$props.query.assetId) {
             var param = {
-              id: this.$props.query.modelId,
+              id: this.$props.query.assetId,
               pageId: pageId
             }
             await this.$store.dispatch('asset/getAssetExpenses', param).then(() => {

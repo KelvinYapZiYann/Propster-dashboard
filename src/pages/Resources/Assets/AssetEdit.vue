@@ -55,8 +55,8 @@ export default {
       }
     },
     async handleSubmit(model) {
-      const modelId = this.resource.data.id
-      if (modelId == null) {
+      const assetId = this.resource.data.id
+      if (assetId == null) {
         this.$notify({
           message:'Server error',
           icon: 'tim-icons icon-bell-55',
@@ -64,7 +64,7 @@ export default {
         });
       } else {
         try {
-          await this.$store.dispatch('asset/update', {'modelId': modelId, 'model': model})
+          await this.$store.dispatch('asset/update', {'assetId': assetId, 'model': model})
           this.$notify({
             message:'Successfully Updated',
             icon: 'tim-icons icon-bell-55',

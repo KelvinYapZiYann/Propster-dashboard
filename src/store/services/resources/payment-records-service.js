@@ -55,7 +55,7 @@ function add(param) {
 }
 
 function update(payload) {
-  const modelId = payload.modelId;
+  const paymentRecordId = payload.paymentRecordsId;
   const model = payload.model;
 
   const config = {
@@ -65,7 +65,7 @@ function update(payload) {
     }
   };
 
-  return axios.post(`${url}/${baseEndpoint}/${modelId}/update`, model, config)
+  return axios.post(`${url}/${baseEndpoint}/${paymentRecordId}/update`, model, config)
     .then(response => {
       return response.data;
     });

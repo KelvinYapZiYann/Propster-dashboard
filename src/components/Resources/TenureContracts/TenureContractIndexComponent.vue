@@ -205,9 +205,9 @@ export default {
     async handlePagination(pageId) {
       try {
         if (this.$props.query) {
-          if (this.$props.query.modelType === 'tenant_id') {
+          if (this.$props.query.tenantId) {
             var param = {
-              id: this.$props.query.modelId,
+              id: this.$props.query.tenantId,
               pageId: pageId
             }
             await this.$store.dispatch('tenant/getTenureContracts', param).then(() => {

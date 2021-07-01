@@ -38,7 +38,7 @@ function getById(Id) {
 }
 
 function update(payload) {
-  const modelId = payload.modelId;
+  const assetExpenseId = payload.assetExpenseId;
   const model = payload.model;
 
   const config = {
@@ -48,7 +48,7 @@ function update(payload) {
     }
   };
 
-  return axios.post(`${url}/asset-expenses/${modelId}/update`, model, config)
+  return axios.post(`${url}/asset-expenses/${assetExpenseId}/update`, model, config)
     .then(response => {
       return response.data;
     });

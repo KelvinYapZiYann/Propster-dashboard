@@ -191,7 +191,7 @@ let resources = {
       meta: { middleware: auth }
     },
     {
-      path: "asset-expenses/:assetExpensesId",
+      path: "asset-expenses/:assetExpenseId",
       name: "Asset Expenses Detail",
       components: { default: AssetExpensesDetail },
       meta: { middleware: auth }

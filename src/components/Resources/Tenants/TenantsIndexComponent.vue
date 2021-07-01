@@ -109,10 +109,10 @@ export default {
       type: Object,
       // default: {},
     },
-    assetId: {
-      type: Number | Object,
-      default: null
-    }
+    // assetId: {
+    //   type: Number | Object,
+    //   default: null
+    // }
     // showAll: {
     //   type: Boolean,
     //   required: true,
@@ -121,11 +121,14 @@ export default {
   },
   methods: {
     showDetails(id) {
-      if (this.assetId) {
-        router.push({path: "/tenants/" + id, query: {
-            modelType: "asset_id",
-            modelId: `${this.assetId}`
-          }});
+      if (this.$props.query) {
+        if (this.$props.query.assetId) {
+          router.push({path: "/tenants/" + id, query: {
+              assetId: `${this.$props.query.assetId}`
+            }});
+        } else {
+          router.push({path: "/tenants/" + id});
+        }
       } else {
         router.push({path: "/tenants/" + id});
       }
@@ -170,9 +173,9 @@ export default {
     async handlePagination(pageId) {
       try {
         if (this.$props.query) {
-          if (this.$props.query.modelType === 'asset_id') {
+          if (this.$props.query.assetId) {
             var param = {
-              id: this.$props.query.modelId,
+              id: this.$props.query.assetId,
               pageId: pageId
             }
             await this.$store.dispatch('asset/getTenants', param).then(() => {

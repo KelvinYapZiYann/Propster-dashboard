@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      modelId: this.$route.params.tenureContractId,
+      tenureContractId: this.$route.params.tenureContractId,
       resource: {
         model: {},
         data: {},
@@ -40,7 +40,7 @@ export default {
   methods: {
     async getTenureContract() {
       try {
-        await this.$store.dispatch('tenureContract/getById', this.modelId).then(() => {
+        await this.$store.dispatch('tenureContract/getById', this.tenureContractId).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
@@ -54,7 +54,7 @@ export default {
       }
     },
     async handleSubmit(model) {
-      if (this.modelId == null) {
+      if (this.tenureContractId == null) {
         this.$notify({
           message:'Server error',
           icon: 'tim-icons icon-bell-55',
@@ -62,7 +62,7 @@ export default {
         });
       } else {
         try {
-          await this.$store.dispatch('tenureContract/update', {'modelId': this.modelId, 'model': model})
+          await this.$store.dispatch('tenureContract/update', {'tenureContractId': this.tenureContractId, 'model': model})
           this.$notify({
             message:'Successfully Updated',
             icon: 'tim-icons icon-bell-55',

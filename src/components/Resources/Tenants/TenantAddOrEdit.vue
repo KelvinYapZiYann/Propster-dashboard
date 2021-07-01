@@ -6,7 +6,7 @@
         <div class="col-md-6">
           <div v-for="asset in resource.selector.asset_id" v-bind:key="asset.id">
               <base-input label="Residing In"
-                        v-if="asset.id == parentModelId && addOrEdit == 'Add'" 
+                        v-if="asset.id == assetId && addOrEdit == 'Add'" 
                         :value="asset.name"
                         :disabled="true">
               </base-input>
@@ -18,7 +18,7 @@
           </base-input>
           <!-- <div v-for="asset in resource.selector.asset_id" v-bind:key="asset.id">
             <base-input label="Residing In"
-                      v-if="asset.id == parentModelId" 
+                      v-if="asset.id == assetId" 
                       :value="asset.name"
                       :disabled="true">
             </base-input>
@@ -111,8 +111,7 @@ export default {
   data() {
     return {
       fileCount: 0,
-      parentModelId: null,
-      parentModelType: null,
+      assetId: null,
     }
   },
   props: {
@@ -140,8 +139,7 @@ export default {
     }
   },
   created() {
-    this.parentModelId = this.$route.query.modelId
-    this.parentModelType = this.$route.query.modelType
+    this.assetId = this.$route.query.assetId
   },
   methods: {
     async handleSubmit() {
@@ -150,7 +148,7 @@ export default {
     translateModel(model) {
       return {
         asset_id: this.addOrEdit != 'Add' ? (this.resource.model.assets ? (this.resource.model.assets[0] ? this.resource.model.assets[0].id : null) : null) : 
-          (this.parentModelId && this.parentModelType === 'asset_id' ? this.parentModelId : null),
+          (this.assetId ? this.assetId : null),
         first_name: this.resource.model.first_name,
         last_name: this.resource.model.last_name,
         gender: this.resource.model.gender,
