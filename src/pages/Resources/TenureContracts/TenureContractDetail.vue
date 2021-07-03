@@ -65,7 +65,7 @@ export default {
   props: {
     previousRoute: {
       type: String,
-      required: true,
+      required: false,
       default: "",
       description: "Previous Route"
     }
@@ -104,7 +104,11 @@ export default {
       return true;
     },
     async handleBack() {
-      this.$router.push({path: this.previousRoute});
+      if (this.previousRoute) {
+        this.$router.push({path: this.previousRoute});
+      } else {
+        this.$router.go(-1);
+      }
     }
   }
 };
