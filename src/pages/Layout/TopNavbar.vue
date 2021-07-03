@@ -60,7 +60,7 @@
               placeholder="SEARCH"
             />
           </modal>
-          <drop-down>
+          <!-- <drop-down>
             <a
               href="javascript:void(0)"
               data-toggle="dropdown"
@@ -99,7 +99,7 @@
                 >
               </li>
             </ul>
-          </drop-down>
+          </drop-down> -->
           <drop-down>
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <div class="photo">
@@ -112,15 +112,15 @@
             </a>
             <ul class="dropdown-menu dropdown-navbar">
               <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
+                <a href="javascript:void(0)" @click="profile" class="nav-item dropdown-item"
                   >Profile</a
                 >
               </li>
-              <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
+              <!-- <li class="nav-link">
+                <a href="/settings" class="nav-item dropdown-item"
                   >Settings</a
                 >
-              </li>
+              </li> -->
               <li class="nav-link">
                 <a href="/select-role" class="nav-item dropdown-item"
                 >Change Role</a
@@ -167,6 +167,16 @@ export default {
     async logout() {
       try {
         this.$store.dispatch("logout");
+      } catch (error) {
+        this.$notify({
+          type: "danger",
+          message: "Oops, something went wrong!",
+        });
+      }
+    },
+    async profile() {
+      try {
+        this.$router.push({name: "User Profile"});
       } catch (error) {
         this.$notify({
           type: "danger",

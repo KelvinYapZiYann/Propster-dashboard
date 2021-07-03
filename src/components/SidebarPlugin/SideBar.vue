@@ -2,11 +2,11 @@
   <div class="sidebar" :data="backgroundColor">
     <div class="sidebar-wrapper text-left">
       <div class="logo">
-        <a href="javascript:void(0)" class="simple-text logo-mini">
+        <a href="javascript:void(0)" @click="dashboard" class="simple-text logo-mini">
           {{ abv }}
         </a>
 
-        <a href="javascript:void(0)" class="simple-text logo-normal">
+        <a href="javascript:void(0)" @click="dashboard" class="simple-text logo-normal">
           {{ title }}
         </a>
       </div>
@@ -75,7 +75,17 @@ export default {
           this.activeLinkIndex = index;
         }
       });
-    }
+    },
+    async dashboard() {
+      try {
+        this.$router.push({name: "Home"});
+      } catch (error) {
+        this.$notify({
+          type: "danger",
+          message: "Oops, something went wrong!",
+        });
+      }
+    },
   }
 };
 </script>

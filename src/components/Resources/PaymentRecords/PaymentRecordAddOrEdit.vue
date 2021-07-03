@@ -45,6 +45,7 @@
         <div class="col-md-6">
           <base-input label="Reference Payment?"
                       type="checkbox"
+                      :checked="typeof resource.model.is_reference_only == 'boolean' ? resource.model.is_reference_only : (typeof resource.model.is_reference_only == 'string' ? resource.model.is_reference_only == 'true' : false)"
                       v-model="resource.model.is_reference_only">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.is_reference_only"/>
@@ -89,9 +90,9 @@ export default {
   mounted() {
     console.log('mounted');
     console.log(this.resource.model);
-    console.log(this.resource.model.payment_description);
-    console.log(this.resource.data);
-    console.log(this.resource.selector);
+    // console.log(this.resource.model.payment_description);
+    // console.log(this.resource.data);
+    // console.log(this.resource.selector);
   },
   methods: {
     async handleSubmit() {
@@ -102,7 +103,9 @@ export default {
       // }
 
       for (const [key, value] of Object.entries(this.translateModel())) {
-        formData.append(key, value);
+        if (value) {
+          formData.append(key, value);
+        }
       }
 
       this.$emit('submit', formData)
@@ -116,7 +119,7 @@ export default {
         payment_method: this.resource.model.payment_method,
         payment_type: this.resource.model.payment_type,
         amount: this.resource.model.amount,
-        is_reference_only: this.resource.model.is_reference_only == null ? false : true,
+        is_reference_only: this.resource.model.is_reference_only == null ? false : this.resource.model.is_reference_only,
       }
     }
   }

@@ -22,7 +22,6 @@
           >Add {{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{ table.title }}
           </base-button> -->
         </div>
-        {{resource.models}}
         <div class="table-responsive">
           <base-table
             :disableEdit="true"
