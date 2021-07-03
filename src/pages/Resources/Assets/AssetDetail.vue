@@ -56,17 +56,19 @@
          @requestReport="requestReport"
        ></generate-report-form>
    </modal>
+
+   <base-button slot="footer" type="primary"  @click="handleBack()" fill>Back</base-button>
   </div>
 </template>
 <script>
-import { BaseDetailList } from "@/components";
+import { BaseDetailList, Modal, ValidationError } from "@/components";
 import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/AssetExpensesIndexComponent";
 import TenantsIndexComponent from "@/components/Resources/Tenants/TenantsIndexComponent";
 import fab from "vue-fab";
-import Modal from "@/components/Modal";
+// import Modal from "@/components/Modal";
 import GenerateReportForm from "@/components/Resources/Assets/GenerateReportForm";
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
+// import ValidationError from "@/components/ValidationError.vue";
 import axios from 'axios';
 
 let detailHeaders = {
@@ -146,6 +148,14 @@ export default {
       // showAll: false
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: true,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getResource();
   },
@@ -198,6 +208,9 @@ export default {
         });
       }
     },
+    async handleBack() {
+      this.$router.push({path: this.previousRoute});
+    }
   }
 };
 </script>

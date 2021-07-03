@@ -128,7 +128,10 @@ let resources = {
       path: "assets/:assetId",
       name: "Asset Detail",
       components: { default: AssetDetail },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "assets/:assetId/edit",
@@ -158,7 +161,10 @@ let resources = {
       path: "tenants/:tenantId",
       name: "Tenant Detail",
       components: { default: TenantDetail },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenants/:tenantId/edit",
@@ -179,7 +185,10 @@ let resources = {
       path: "tenure-contracts/:tenureContractId",
       name: "Tenure Contract Detail",
       components: { default: TenureContractDetail },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenure-contracts/add",
@@ -209,7 +218,10 @@ let resources = {
       path: "asset-expenses/:assetExpenseId",
       name: "Asset Expenses Detail",
       components: { default: AssetExpensesDetail },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "payment-records",
@@ -230,7 +242,10 @@ let resources = {
       path: "payment-records/:paymentRecordsId",
       name: "Payment Record Detail",
       components: { default: PaymentRecordsDetail },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     }
   ]
 };

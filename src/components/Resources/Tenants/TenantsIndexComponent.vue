@@ -123,14 +123,33 @@ export default {
     showDetails(id) {
       if (this.$props.query) {
         if (this.$props.query.assetId) {
-          router.push({path: "/tenants/" + id, query: {
-              assetId: `${this.$props.query.assetId}`
-            }});
+          router.push({
+            name: "Tenant Detail", 
+            query: {
+              assetId: `${this.$props.query.assetId}`,
+            },
+            params: {
+              tenantId: id,
+              previousRoute: this.$router.currentRoute.fullPath
+            }
+          });
         } else {
-          router.push({path: "/tenants/" + id});
+          router.push({
+            name: "Tenant Detail", 
+            params: {
+              tenantId: id,
+              previousRoute: this.$router.currentRoute.fullPath
+            }
+          });
         }
       } else {
-        router.push({path: "/tenants/" + id});
+        router.push({
+          name: "Tenant Detail", 
+          params: {
+            tenantId: id,
+            previousRoute: this.$router.currentRoute.fullPath
+          }
+        });
       }
     },
     editDetails(id) {

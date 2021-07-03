@@ -86,7 +86,13 @@ export default {
   },
   methods: {
     showDetails(id) {
-      router.push({path: "/asset-expenses/" + id});
+      router.push({
+        path: "Asset Expenses Detail",
+        params: {
+          assetExpenseId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     async handlePagination(pageId) {
       try {

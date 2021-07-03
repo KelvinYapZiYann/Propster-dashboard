@@ -19,6 +19,8 @@
           <!-- :disable="disableDropZone" -->
           </drop-zone>
         </card>
+
+        <base-button slot="footer" type="primary"  @click="handleBack()" fill>Back</base-button>
       </div>
 </template>
 <script>
@@ -60,6 +62,14 @@ export default {
       showMedia: false,
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: true,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getResource();
     this.disableDropZone();
@@ -92,6 +102,9 @@ export default {
     },
     disableDropZone() {
       return true;
+    },
+    async handleBack() {
+      this.$router.push({path: this.previousRoute});
     }
   }
 };

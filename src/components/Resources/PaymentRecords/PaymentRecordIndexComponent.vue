@@ -117,7 +117,13 @@ export default {
   },
   methods: {
     showDetails(id) {
-      router.push({path: "/payment-records/" + id});
+      router.push({
+        name: "Payment Record Detail",
+        params: {
+          paymentRecordsId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     addModel() {
       this.$router.push({

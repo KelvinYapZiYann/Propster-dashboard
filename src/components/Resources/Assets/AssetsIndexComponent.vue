@@ -118,7 +118,11 @@ export default {
   methods: {
     showDetails(id) {
       router.push({
-        path: "/assets/" + id
+        name: "Asset Detail",
+        params: {
+          assetId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
       });
     },
     editDetails(id) {

@@ -161,8 +161,9 @@ export default {
   methods: {
     showDetails(id) {
       router.push({
-        path: "/tenure-contracts/" + id,
+        name: "Tenure Contract Detail",
         params: {
+          tenureContractId: id,
           previousRoute: this.$router.currentRoute.fullPath
         }
       });

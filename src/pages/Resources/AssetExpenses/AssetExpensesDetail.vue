@@ -23,6 +23,8 @@
         >
         </drop-zone>
     </card>
+
+    <base-button slot="footer" type="primary"  @click="handleBack()" fill>Back</base-button>
   </div>
 </template>
 <script>
@@ -64,6 +66,14 @@ export default {
       },
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: true,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getResource();
   },
@@ -90,6 +100,9 @@ export default {
         this.$refs.myVueDropzone.removeEventListeners()
         this.$refs.myVueDropzone.setupEventListeners()
       }
+    },
+    async handleBack() {
+      this.$router.push({path: this.previousRoute});
     }
   }
 };

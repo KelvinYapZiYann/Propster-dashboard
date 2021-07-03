@@ -58,6 +58,7 @@
           @tenantPayment="addPaymentRecord"
         ></fab>
 
+        <base-button slot="footer" type="primary"  @click="handleBack()" fill>Back</base-button>
       </div>
 </template>
 <script>
@@ -137,6 +138,14 @@ export default {
       assetId: this.$route.query ? (this.$route.query.assetId ? this.$route.query.assetId : null) : null,
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: true,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getResource();
   },
@@ -214,6 +223,9 @@ export default {
     },
     tenantIdChange(value) {
       this.tenantId = value;
+    },
+    async handleBack() {
+      this.$router.push({path: this.previousRoute});
     }
   }
 };
