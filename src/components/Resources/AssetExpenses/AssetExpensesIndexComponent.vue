@@ -43,7 +43,7 @@ import router from "@/router";
 let tableColumns = {
   payment_description: "Payment Description",
   amount: "Amount (RM)",
-  cash_flow_direction: "Cash flow",
+  status: "Status",
   payment_method: "Payment Method"
 };
 

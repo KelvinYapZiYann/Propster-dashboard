@@ -109,26 +109,34 @@ export default {
       return item[column.toLowerCase()] !== "undefined";
     },
     itemValue(item, column) {
-      if (typeof item[column.toLowerCase()] == 'boolean') {
-        return item[column.toLowerCase()];
-      } else if (typeof item[column.toLowerCase()] == 'number') {
-        return item[column.toLowerCase()];
-      } else if (typeof item[column.toLowerCase()] == 'string') {
-        return item[column.toLowerCase()];
+      if (item[column.toLowerCase()]) {
+        if (typeof item[column.toLowerCase()] == 'boolean') {
+          return item[column.toLowerCase()];
+        } else if (typeof item[column.toLowerCase()] == 'number') {
+          return item[column.toLowerCase()];
+        } else if (typeof item[column.toLowerCase()] == 'string') {
+          return item[column.toLowerCase()];
+        } else {
+          return '-';
+        }
       } else {
         for (const objectValue of Object.values(item)) {
           if (typeof objectValue == 'object') {
-            if (typeof objectValue[column.toLowerCase()] == 'boolean') {
-              return objectValue[column.toLowerCase()];
-            } else if (typeof objectValue[column.toLowerCase()] == 'number') {
-              return objectValue[column.toLowerCase()];
-            } else if (typeof objectValue[column.toLowerCase()] == 'string') {
-              return objectValue[column.toLowerCase()];
+            if (objectValue) {
+              if (objectValue[column.toLowerCase()]) {
+                if (typeof objectValue[column.toLowerCase()] == 'boolean') {
+                  return objectValue[column.toLowerCase()];
+                } else if (typeof objectValue[column.toLowerCase()] == 'number') {
+                  return objectValue[column.toLowerCase()];
+                } else if (typeof objectValue[column.toLowerCase()] == 'string') {
+                  return objectValue[column.toLowerCase()];
+                }
+              }
             }
           }
         }
-        return '-';
       }
+      return '-';
     },
     showDetails: function (id) {
       this.$emit('show-details', id)

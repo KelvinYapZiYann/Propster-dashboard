@@ -22,6 +22,7 @@
           >Add {{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{ table.title }}
           </base-button> -->
         </div>
+        {{resource.models}}
         <div class="table-responsive">
           <base-table
             :disableEdit="true"
@@ -62,9 +63,12 @@ import {BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
+  sender_name: "Sender",
+  recipient_name: "Recipient",
+  asset_nickname: "Asset",
   payment_description: "Payment Description",
   amount: "Amount (RM)",
-  cash_flow_direction: "Cash flow",
+  status: "Status",
   payment_method: "Payment Method"
 };
 
