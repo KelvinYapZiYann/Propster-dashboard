@@ -4,6 +4,7 @@
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
+      @cancel="handleCancel"
       :addOrEdit="addOrEdit"
       ></tenant-add-or-edit>
   </div>
@@ -88,6 +89,9 @@ export default {
           this.setApiValidation(e.response.data.errors)
         }
       }
+    },
+    async handleCancel() {
+      router.push({path: this.previousRoute});
     }
   }
 }

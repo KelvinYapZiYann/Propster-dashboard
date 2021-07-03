@@ -5,6 +5,7 @@
       :tmpApiValidationErrors="apiValidationErrors"
       :addOrEdit="addOrEdit"
       @submit="handleSubmit"
+      @cancel="handleCancel"
     >
     </tenant-add-or-edit>
     <!-- <tenure-contract-add-or-edit>
@@ -92,6 +93,9 @@ export default {
           });
           this.setApiValidation(e.response.data.errors)
         }
+    },
+    async handleCancel() {
+      router.push({path: this.previousRoute});
     }
   }
 }

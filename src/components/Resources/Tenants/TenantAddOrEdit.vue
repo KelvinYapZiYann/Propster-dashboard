@@ -92,7 +92,7 @@
         </div>
       </div>
     </card>
-
+    <base-button slot="footer" type="primary"  @click="handleCancel()" fill>Cancel</base-button>
     <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>
@@ -144,6 +144,9 @@ export default {
   methods: {
     async handleSubmit() {
       this.$emit('submit', this.translateModel(this.resource.model))
+    },
+    async handleCancel() {
+      this.$emit('cancel')
     },
     translateModel(model) {
       return {

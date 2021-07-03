@@ -5,6 +5,7 @@
       :tmpApiValidationErrors="apiValidationErrors"
       :addOrEdit="addOrEdit"
       @submit="handleSubmit"
+      @cancel="handleCancel"
     >
     </asset-add-or-edit>
   </div>
@@ -82,6 +83,9 @@ export default {
           });
           this.setApiValidation(e.response.data.errors)
         }
+    },
+    async handleCancel() {
+      router.push({path: this.previousRoute});
     }
   }
 }
