@@ -43,7 +43,7 @@ export default {
   props: {
     previousRoute: {
       type: String,
-      required: true,
+      required: false,
       default: "",
       description: "Previous Route"
     }
@@ -91,7 +91,11 @@ export default {
         });
         this.resetApiValidation()
         // router.push({path: "/payment-records"});
-        router.push({path: this.previousRoute});
+        if (this.previousRoute) {
+          router.push({path: this.previousRoute});
+        } else {
+          router.go(-1);
+        }
       } catch (e) {
         this.$notify({
           message:'Server error',

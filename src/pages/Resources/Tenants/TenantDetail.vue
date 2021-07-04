@@ -72,6 +72,8 @@ import fab from "vue-fab";
 let detailHeaders = {
     first_name: "First Name",
     last_name: "Last Name",
+    email: "Email",
+    phone_number: "Phone Number",
     gender: "Gender",
     is_business: "Is Business",
     date_of_birth: "Date Of Birth",
@@ -141,7 +143,7 @@ export default {
   props: {
     previousRoute: {
       type: String,
-      required: true,
+      required: false,
       default: "",
       description: "Previous Route"
     }
@@ -225,7 +227,11 @@ export default {
       this.tenantId = value;
     },
     async handleBack() {
-      this.$router.push({path: this.previousRoute});
+      if (this.previousRoute) {
+        this.$router.push({path: this.previousRoute});
+      } else {
+        this.$router.go(-1);
+      }
     }
   }
 };
