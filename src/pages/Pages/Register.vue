@@ -46,7 +46,7 @@
                 addon-left-icon="tim-icons icon-mobile"
                 type="text">
             </base-input>
-            <validation-error :errors="apiValidationErrors.mobile_number" />
+            <validation-error :errorsArray="apiValidationErrors.mobile_number" />
 
             <base-input
                 v-model="email"
@@ -54,7 +54,7 @@
                 addon-left-icon="tim-icons icon-email-85"
                 type="email">
             </base-input>
-            <validation-error :errors="apiValidationErrors.email" />
+            <validation-error :errorsArray="apiValidationErrors.email" />
 
             <base-input
                 v-model="password"
@@ -62,7 +62,7 @@
                 addon-left-icon="tim-icons icon-lock-circle"
                 type="password">
             </base-input>
-            <validation-error :errors="apiValidationErrors.password" />
+            <validation-error :errorsArray="apiValidationErrors.password"/>
 
             <base-input
                 placeholder="Confirm Password"
@@ -71,11 +71,11 @@
                 v-model="password_confirmation"
                 addon-left-icon="tim-icons icon-lock-circle">
             </base-input>
-            <validation-error :errors="apiValidationErrors.password_confirmation" />
+            <validation-error :errorsArray="apiValidationErrors.password_confirmation" />
 
-            <base-checkbox v-model="boolean" class="text-left">
+            <!-- <base-checkbox v-model="boolean" class="text-left">
               I agree to the <a href="#something">terms and conditions</a>.
-            </base-checkbox>
+            </base-checkbox> -->
 
             <div slot="footer">
               <base-button
@@ -100,11 +100,35 @@
         </form>
       </div>
     </div>
+    <modal
+      :show.sync="registerSuccessful"
+      footerClasses="justify-content-center"
+      type="notice"
+    >
+      <div class="instruction">
+        <p class="description">
+          Register Successfully
+        </p>
+        <p class="description">
+          Please verify the email before logging in.
+        </p>
+      </div>
+      <p class="text-left">
+        If you have more questions, don't hesitate to contact us. We're here to help!
+      </p>
+      <div slot="footer" class="justify-content-center">
+        <base-button
+          type="info"
+          round
+          @click="backToLoginPage"
+          >OK
+        </base-button>
+      </div>
+    </modal>
   </div>
 </template>
 <script>
-import { BaseCheckbox, Card, BaseInput } from "@/components/index";
-import ValidationError from "@/components/ValidationError.vue";
+import { BaseCheckbox, Card, BaseInput, ValidationError, Modal } from "@/components";
 import formMixin from "@/mixins/form-mixin";
 
 export default {
@@ -112,7 +136,8 @@ export default {
     BaseCheckbox,
     Card,
     BaseInput,
-    ValidationError
+    ValidationError,
+    Modal
   },
   mixins: [formMixin],
   data() {
@@ -122,18 +147,19 @@ export default {
       email: null,
       password: null,
       password_confirmation: null,
+      registerSuccessful: false,
     };
   },
   methods: {
     async register() {
-      if (!this.boolean) {
-        await this.$notify({
-          type: 'danger',
-          message: 'You need to agree with our terms and conditions.',
-          icon: 'tim-icons icon-bell-55',
-        })
-        return;
-      }
+      // if (!this.boolean) {
+      //   await this.$notify({
+      //     type: 'danger',
+      //     message: 'You need to agree with our terms and conditions.',
+      //     icon: 'tim-icons icon-bell-55',
+      //   })
+      //   return;
+      // }
 
       const user = {
         mobile_number: this.mobile_number,
@@ -151,11 +177,13 @@ export default {
 
       try {
         await this.$store.dispatch("register", { user, requestOptions });
-        this.$notify({
-          type: 'succes',
-          message: 'Successfully registered.',
-          icon: 'tim-icons icon-bell-55',
-        })
+        this.registerSuccessful = true;
+        // this.$notify({
+        //   type: 'succes',
+        //   message: 'Successfully registered.',
+        //   icon: 'tim-icons icon-bell-55',
+        // })
+        // this.$router.push({name: "login"});
       } catch (error) {
         this.$notify({
           type: 'danger',
@@ -164,6 +192,9 @@ export default {
         })
         this.setApiValidation(error.response.data.errors);
       }
+    },
+    async backToLoginPage() {
+      this.$router.push({name: "login"});
     }
   }
 };

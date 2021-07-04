@@ -17,7 +17,7 @@
                 addon-left-icon="tim-icons icon-email-85"
             >
             </base-input>
-            <validation-error :errors="apiValidationErrors.email"/>
+            <validation-error :errorsArray="apiValidationErrors.email"/>
 
             <base-input
                 v-validate="'required|min:5'"
@@ -28,7 +28,7 @@
                 addon-left-icon="tim-icons icon-lock-circle"
             >
             </base-input>
-            <validation-error :errors="apiValidationErrors.password"/>
+            <validation-error :errorsArray="apiValidationErrors.password"/>
           </div>
 
           <div slot="footer">
