@@ -5,7 +5,7 @@
         <card class="card-login card-white text-left">
           <template slot="header">
             <img src="img/card-primary.png" class="card-img" alt=""/>
-            <h1 class="card-title">Log in</h1>
+            <h1 class="card-title">LOGIN</h1>
           </template>
 
           <div>
