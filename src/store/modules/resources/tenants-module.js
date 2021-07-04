@@ -1,4 +1,5 @@
 import service from '@/store/services/resources/tenants-service';
+import errorHandlingService from '@/store/services/error-handling-service';
 
 const state = {
   models: [],
@@ -183,37 +184,86 @@ const actions = {
     return service.get(params)
       .then((response) => {
         commit('SET_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   getById({commit, dispatch}, Id) {
     return service.getById(Id)
       .then((response) => {
         commit('SET_RESOURCE', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   create({commit, dispatch}) {
     return service.create()
       .then((response) => {
         commit('SET_RESOURCE', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   update({commit, dispatch}, payload) {
     return service.update(payload)
-      .then((response) => {});
+      .then((response) => {})
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
   },
   store({commit, dispatch}, payload) {
     return service.store(payload)
-      .then((response) => {});
+      .then((response) => {})
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
   },
   remove({commit, dispatch}, Id) {
     return service.remove(Id)
-      .then((response) => {});
+      .then((response) => {})
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
   },
 
   getAssets({commit, dispatch}, params) {
     return  service.getAssets(params)
       .then((response) => {
         commit('SET_ASSET_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
 
@@ -221,6 +271,13 @@ const actions = {
     return  service.getTenureContracts(params)
       .then((response) => {
         commit('SET_TENURE_CONTRACT_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
 
@@ -228,6 +285,13 @@ const actions = {
     return  service.getReceivingPaymentRecords(params)
       .then((response) => {
         commit('SET_RECEIVING_PAYMENT_RECORD_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
 
@@ -235,6 +299,13 @@ const actions = {
     return  service.getSendingPaymentRecords(params)
       .then((response) => {
         commit('SET_SENDING_PAYMENT_RECORD_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
 
