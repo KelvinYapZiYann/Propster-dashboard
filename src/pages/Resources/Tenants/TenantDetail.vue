@@ -59,6 +59,7 @@
         ></fab>
 
         <base-button slot="footer" type="primary"  @click="handleBack()" fill>Back</base-button>
+        <base-button slot="footer" type="primary"  @click="handleEdit()" fill>Edit Tenant</base-button>
       </div>
 </template>
 <script>
@@ -232,6 +233,15 @@ export default {
       } else {
         this.$router.go(-1);
       }
+    },
+    async handleEdit() {
+      this.$router.push({
+        name: "Edit Tenant",
+        params: {
+          tenantId: this.tenantId,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     }
   }
 };

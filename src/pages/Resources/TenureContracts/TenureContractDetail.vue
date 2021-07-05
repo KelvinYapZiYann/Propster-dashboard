@@ -21,6 +21,7 @@
         </card>
 
         <base-button slot="footer" type="primary"  @click="handleBack()" fill>Back</base-button>
+        <base-button slot="footer" type="primary"  @click="handleEdit()" fill>Edit Tenure Contract</base-button>
       </div>
 </template>
 <script>
@@ -109,6 +110,15 @@ export default {
       } else {
         this.$router.go(-1);
       }
+    },
+    async handleEdit() {
+      this.$router.push({
+        name: "Edit Tenure Contract",
+        params: {
+          tenureContractId: this.tenureContractId,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     }
   }
 };
