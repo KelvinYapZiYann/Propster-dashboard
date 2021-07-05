@@ -1,4 +1,5 @@
 import service from '@/store/services/resources/assets-service';
+import errorHandlingService from '@/store/services/error-handling-service';
 
 const state = {
   models: [],
@@ -144,49 +145,112 @@ const actions = {
     return service.get(params)
       .then((response) => {
         commit('SET_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   getById({commit, dispatch}, Id) {
     return service.getById(Id)
       .then((response) => {
         commit('SET_RESOURCE', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   create({commit, dispatch}) {
     return service.create()
       .then((response) => {
         commit('SET_RESOURCE', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   getAssetExpenses({commit, dispatch}, params) {
     return  service.getAssetExpenses(params)
       .then((response2) => {
         commit('SET_ASSET_EXPENSE_RESOURCES', response2);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   getTenants({commit, dispatch}, params) {
     return  service.getTenants(params)
       .then((response) => {
         commit('SET_TENANT_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   getTenureContracts({commit, dispatch}, Id) {
     return  service.getAssetExpenses(Id)
       .then((response2) => {
         commit('SET_TENURE_CONTRACT_RESOURCES', response2);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   update({commit, dispatch}, payload) {
     return service.update(payload)
-      .then((response) => {});
+      .then((response) => {})
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
   },
   store({commit, dispatch}, payload) {
     return service.store(payload)
-      .then((response) => {});
+      .then((response) => {})
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
   },
   remove({commit, dispatch}, Id) {
     return service.remove(Id)
-      .then((response) => {});
+      .then((response) => {})
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
   }
 };
 

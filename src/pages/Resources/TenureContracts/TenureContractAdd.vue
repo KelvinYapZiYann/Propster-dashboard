@@ -35,7 +35,7 @@ export default {
   props: {
     previousRoute: {
       type: String,
-      required: true,
+      required: false,
       default: "",
       description: "Previous Route"
     }
@@ -72,7 +72,11 @@ export default {
           });
           this.resetApiValidation();
           // router.go(-1);
-          router.push({path: this.previousRoute});
+          if (this.previousRoute) {
+            router.push({path: this.previousRoute});
+          } else {
+            router.go(-1);
+          }
           // router.push({path: "/tenure-contracts"});
         } catch (e) {
           this.$notify({
@@ -84,7 +88,11 @@ export default {
         }
     },
     async handleCancel() {
-      router.push({path: this.previousRoute});
+      if (this.previousRoute) {
+        router.push({path: this.previousRoute});
+      } else {
+        router.go(-1);
+      }
     }
   }
 }

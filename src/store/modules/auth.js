@@ -45,7 +45,6 @@ export default {
         context.commit("isAuthenticated", {
           isAuthenticated: vueAuth.isAuthenticated()
         });
-        router.push({path: "/dashboard"});
       });
     },
 

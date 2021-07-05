@@ -59,6 +59,7 @@
         ></fab>
 
         <base-button slot="footer" type="primary"  @click="handleBack()" fill>Back</base-button>
+        <base-button slot="footer" type="primary"  @click="handleEdit()" fill>Edit Tenant</base-button>
       </div>
 </template>
 <script>
@@ -72,6 +73,8 @@ import fab from "vue-fab";
 let detailHeaders = {
     first_name: "First Name",
     last_name: "Last Name",
+    email: "Email",
+    phone_number: "Phone Number",
     gender: "Gender",
     is_business: "Is Business",
     date_of_birth: "Date Of Birth",
@@ -211,7 +214,7 @@ export default {
           senderId: `${this.tenantId}`,
           recipientType: "LANDLORD",
           recipientId: `${this.userResource.model.landlord_ids[0]}`,
-          assetId: `${this.assetId}`,
+          assetId: this.assetId,
         },
         params: {
           previousRoute: this.$router.currentRoute.fullPath
@@ -230,6 +233,15 @@ export default {
       } else {
         this.$router.go(-1);
       }
+    },
+    async handleEdit() {
+      this.$router.push({
+        name: "Edit Tenant",
+        params: {
+          tenantId: this.tenantId,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     }
   }
 };

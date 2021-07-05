@@ -4,6 +4,7 @@
       <form @submit.prevent="forgotPassword">
         <card class="card-login card-white text-left">
           <template slot="header">
+            <!-- <img src="img/card-primary.png" class="card-img" alt=""/> -->
             <h1 class="card-title">Forgot Password</h1>
           </template>
 
@@ -16,7 +17,7 @@
                 addon-left-icon="tim-icons icon-email-85"
             >
             </base-input>
-            <validation-error :errors="apiValidationErrors.email"/>
+            <validation-error :errorsArray="apiValidationErrors.email"/>
           </div>
 
           <div slot="footer">
@@ -32,7 +33,7 @@
             <div class="pull-left">
               <h6>
                 <router-link class="link footer-link" to="/login">
-                  Log in
+                  Back to Login
                 </router-link>
               </h6>
             </div>

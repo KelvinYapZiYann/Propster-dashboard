@@ -36,7 +36,7 @@ export default {
   props: {
     previousRoute: {
       type: String,
-      required: true,
+      required: false,
       default: "",
       description: "Previous Route"
     }
@@ -77,7 +77,11 @@ export default {
             type: 'success'
           });
           this.resetApiValidation()
-          router.push({path: this.previousRoute});
+          if (this.previousRoute) {
+            router.push({path: this.previousRoute});
+          } else {
+            router.go(-1);
+          }
           // router.go(-1);
           // router.push({path: "/tenants"});
         } catch (e) {
@@ -91,7 +95,11 @@ export default {
       }
     },
     async handleCancel() {
-      router.push({path: this.previousRoute});
+      if (this.previousRoute) {
+        router.push({path: this.previousRoute});
+      } else {
+        router.go(-1);
+      }
     }
   }
 }

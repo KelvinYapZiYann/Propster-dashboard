@@ -5,7 +5,7 @@
         <card class="card-login card-white text-left">
           <template slot="header">
             <img src="img/card-primary.png" class="card-img" alt=""/>
-            <h1 class="card-title">Log in</h1>
+            <h1 class="card-title">LOGIN</h1>
           </template>
 
           <div>
@@ -17,7 +17,7 @@
                 addon-left-icon="tim-icons icon-email-85"
             >
             </base-input>
-            <validation-error :errors="apiValidationErrors.email"/>
+            <validation-error :errorsArray="apiValidationErrors.email"/>
 
             <base-input
                 v-validate="'required|min:5'"
@@ -28,7 +28,7 @@
                 addon-left-icon="tim-icons icon-lock-circle"
             >
             </base-input>
-            <validation-error :errors="apiValidationErrors.password"/>
+            <validation-error :errorsArray="apiValidationErrors.password"/>
           </div>
 
           <div slot="footer">

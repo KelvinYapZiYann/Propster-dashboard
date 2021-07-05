@@ -61,14 +61,18 @@ import router from "@/router";
 let tableColumns = {
   first_name: "First Name",
   last_name: "Last Name",
-  is_business: "Is Business",
+  // is_business: "Is Business",
+  email: "Email",
+  phone_number: "Phone Number",
 };
 
 const tableDefaultData = [
   {
     first_name: "",
     last_name: "",
-    is_business: "",
+    // is_business: "",
+    email: "",
+    phone_number: "",
   }
 ];
 

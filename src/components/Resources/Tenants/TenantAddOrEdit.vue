@@ -42,6 +42,34 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-md-6 ">
+          <base-input label="Email"
+                      placeholder="Email"
+                      v-model="resource.model.email">
+          </base-input>
+          <validation-error :errorsArray="tmpApiValidationErrors.email"/>
+        </div>
+        <div class="col-md-6">
+          <VuePhoneNumberInput 
+                      v-model="resource.model.phone_number" 
+                      class="mt-4"
+                      :default-country-code="phoneCountryCodeInput"
+                      @update="updatePhoneNumber"
+                      :no-example="false"
+                      color="#e14eca"
+                      valid-color="#e14eca"
+                      error-color="#e14eca"
+                      :show-code-on-list="true"
+                      :only-countries="['MY']"
+                      />
+          <!-- <base-input label="Phone Number"
+                      placeholder="Phone Number"
+                      v-model="resource.model.phone_number">
+          </base-input> -->
+          <validation-error :errorsArray="tmpApiValidationErrors.phone_number"/>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6">
           <base-selector-input label="Gender"
                                placeholder="Gender"
@@ -99,6 +127,8 @@
 <script>
 import formMixin from "@/mixins/form-mixin";
 import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
+import VuePhoneNumberInput from 'vue-phone-number-input';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 
 export default {
   mixins: [formMixin],
@@ -106,12 +136,17 @@ export default {
     ValidationError,
     BaseInput,
     BaseSelectorInput,
-    Card
+    Card,
+    VuePhoneNumberInput
   },
   data() {
     return {
       fileCount: 0,
       assetId: null,
+      // phoneCountryCode: this.resource.model.phone_country_code,
+      phoneCountryCodeInput: "MY",
+      // phoneNumber: this.resource.model.phone_number,
+      // phoneNumber: this.resource.model.phone_number
     }
   },
   props: {
@@ -139,7 +174,11 @@ export default {
     }
   },
   created() {
-    this.assetId = this.$route.query.assetId
+    this.assetId = this.$route.query.assetId;
+  },
+  mounted() {
+    this.phoneCountryCodeInput = "MY";
+    // this.resource = "SG";
   },
   methods: {
     async handleSubmit() {
@@ -154,12 +193,18 @@ export default {
           (this.assetId ? this.assetId : null),
         first_name: this.resource.model.first_name,
         last_name: this.resource.model.last_name,
+        email: this.resource.model.email,
+        phone_number: this.resource.model.phone_number,
+        phone_country_code: this.resource.model.phone_country_code,
         gender: this.resource.model.gender,
         is_business: this.resource.model.is_business == null ? false : this.resource.model.is_business,
         date_of_birth: this.resource.model.date_of_birth,
         reputation: this.resource.model.reputation,
         salary_range: this.resource.model.salary_range
       }
+    },
+    updatePhoneNumber(event) {
+      this.resource.model.phone_country_code = event.countryCallingCode;
     }
   }
 }
