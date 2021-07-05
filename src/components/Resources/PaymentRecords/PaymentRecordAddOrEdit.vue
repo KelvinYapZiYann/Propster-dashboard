@@ -4,6 +4,23 @@
       <h5 slot="header" class="title">Create New Payment</h5>
       <div class="row">
         <div class="col-md-6 ">
+          <base-selector-input label="Asset"
+                               placeholder="Asset"
+                               v-model="resource.model.asset.id"
+                               :options="resource.selector.assets"
+                               v-if="addOrEdit == 'Add' && (query ? !query.assetId : true)"
+          >
+          </base-selector-input>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/>
+          <base-input label="Asset"
+                      v-if="addOrEdit != 'Add' || (query ? query.assetId : false)" 
+                      :value="resource.model.asset ? resource.model.asset.asset_nickname : ''"
+                      :disabled="true">
+          </base-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 ">
           <base-input label="Payment Description"
                       placeholder="Payment Description"
                       v-model="resource.model.payment_description">
@@ -86,10 +103,19 @@ export default {
         return {};
       }
     },
+    addOrEdit: {
+      type: String,
+      required: false,
+      default: "Add"
+    },
+    query: {
+      type: Object,
+      // default: {},
+    },
   },
   mounted() {
-    console.log('mounted');
-    console.log(this.resource.model);
+    // console.log('mounted');
+    // console.log(this.resource);
     // console.log(this.resource.model.payment_description);
     // console.log(this.resource.data);
     // console.log(this.resource.selector);
@@ -105,15 +131,24 @@ export default {
       for (const [key, value] of Object.entries(this.translateModel())) {
         if (value) {
           formData.append(key, value);
+          continue;
+        }
+        if (key == "is_reference_only") {
+          formData.append(key, value);
         }
       }
 
       this.$emit('submit', formData)
     },
     translateModel() {
+      console.log(this.resource);
       return {
-        recipient_type: this.resource.model.recipient.recipient_type,
+        // recipient_type: this.resource.model.recipient.recipient_type,
+        recipient_type: "LANDLORD",
         recipient_id: this.resource.model.recipient.id,
+        // sender_type: this.resource.model.sender.sender_type,
+        sender_type: "TENANT",
+        sender_id: this.resource.model.sender.id,
         asset_id: this.resource.model.asset.id,
         payment_description: this.resource.model.payment_description,
         payment_method: this.resource.model.payment_method,

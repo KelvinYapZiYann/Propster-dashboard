@@ -7,7 +7,10 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <edit-profile-form :model="resource.model"></edit-profile-form>
+        <edit-profile-form 
+          :model="resource.model"
+          >
+        </edit-profile-form>
       </div>
     </div>
   </div>

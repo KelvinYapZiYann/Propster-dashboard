@@ -1,11 +1,12 @@
 <template>
   <div class="content">
     <payment-page
-      :model="resource.model"
+      :resource="resource"
+    ></payment-page>
+      <!-- :model="resource.model"
       :asset="resource.model.asset"
       :recipient="resource.model.recipient"
-      :sender="resource.model.sender"
-    ></payment-page>
+      :sender="resource.model.sender" -->
     <base-detail-list
       :category="'Payment Details'"
       :title="''"

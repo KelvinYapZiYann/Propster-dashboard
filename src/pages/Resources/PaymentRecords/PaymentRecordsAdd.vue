@@ -1,16 +1,19 @@
 <template>
   <div class="content">
     <payment-page
-      :model="resource.model"
+      :resource="resource"
+    ></payment-page>
+    <!-- :model="resource.model"
       :asset="resource.model.asset"
       :recipient="resource.model.recipient"
-      :sender="resource.model.sender"
-    ></payment-page>
-    {{resource}}
+      :sender="resource.model.sender" -->
+    <!-- {{resource}} -->
     <payment-record-add-or-edit
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
+      addOrEdit="Add"
+      :query="this.$route.query"
     ></payment-record-add-or-edit>
   </div>
 </template>
@@ -35,8 +38,13 @@ export default {
       fileCount: 0,
       prevRoute: null,
       resource: {
-        model: {},
-        data: {}
+        model: {
+          asset: {
+            id: -1
+          }
+        },
+        data: {},
+        selector: {}
       },
     };
   },
@@ -59,13 +67,21 @@ export default {
   methods: {
     async getPaymentRecordDetail() {
       try {
-        await this.$store.dispatch('paymentRecords/add', {
+        var paymentRecordsAddParam = this.$route.query.assetId ?
+        {
           'sender_type': this.$route.query.senderType,
           'sender_id': this.$route.query.senderId,
           'recipient_type': this.$route.query.recipientType,
           'recipient_id': this.$route.query.recipientId,
           'asset_id': this.$route.query.assetId,
-        }).then(() => {
+        } : 
+        {
+          'sender_type': this.$route.query.senderType,
+          'sender_id': this.$route.query.senderId,
+          'recipient_type': this.$route.query.recipientType,
+          'recipient_id': this.$route.query.recipientId,
+        };
+        await this.$store.dispatch('paymentRecords/add', paymentRecordsAddParam).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["paymentRecords/model"])
           this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["paymentRecords/selector"])
