@@ -106,7 +106,7 @@ export default {
       if (this.previousRoute) {
         this.$router.push({path: this.previousRoute});
       } else {
-        this.$router.go(-1);;
+        this.$router.go(-1);
       }
     }
   }

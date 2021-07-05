@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="row">
-      <div class="col-12">
+      <!-- <div class="col-12">
         <card type="chart">
           <template slot="header">
             <div class="row">
@@ -70,7 +70,7 @@
           >
           </line-chart>
         </card>
-      </div>
+      </div> -->
       <div
         class="col-lg-3 col-md-6"
         v-for="card in statsCards"
@@ -87,6 +87,38 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-md-12 mr-auto">
+        <card class="card-chart card-chart-pie">
+          <h5 slot="header" class="card-category text-left">
+            Rent
+          </h5>
+
+          <div class="row">
+            <div class="col-6">
+              <div class="chart-area">
+                <pie-chart
+                  :chart-data="pieChart2.chartData"
+                  :extra-options="pieChart2.extraOptions"
+                  :height="120"
+                >
+                </pie-chart>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> Collected Rent <br/>RM{{pieChart2.chartData.datasets[0].data[0]}}</p>
+              <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> Overdue Rent <br/>RM{{pieChart2.chartData.datasets[0].data[1]}}</p>
+              <p class="category text-left"><i class="tim-icons icon-tag text-light"></i> Upcoming Rent <br/>RM{{pieChart2.chartData.datasets[0].data[2]}}</p>
+            </div>
+          </div>
+        </card>
+      </div>
+    </div>
+    <overdue-tenants-index-component
+      :resource="resource"
+      @getResource="getResource"
+    ></overdue-tenants-index-component>
+    <!-- <div class="row">
       <div class="col-lg-4" :class="{ 'text-right': isRTL }">
         <card type="chart" cardCol>
           <template slot="header">
@@ -148,8 +180,8 @@
           </line-chart>
         </card>
       </div>
-    </div>
-    <div class="row">
+    </div> -->
+    <!-- <div class="row">
       <div class="col-lg-6 col-md-12">
         <card type="tasks" headerClasses="text-left">
           <template slot="header">
@@ -195,153 +227,173 @@
       <div class="col-lg-12">
         <country-map-card></country-map-card>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
 import { Card } from "@/components/index";
 
-import LineChart from "@/components/Charts/LineChart";
-import BarChart from "@/components/Charts/BarChart";
+// import LineChart from "@/components/Charts/LineChart";
+// import BarChart from "@/components/Charts/BarChart";
 import * as chartConfigs from "@/components/Charts/config";
-import TaskList from "./Dashboard/TaskList";
-import UserTable from "./Dashboard/UserTable";
-import CountryMapCard from "./Dashboard/CountryMapCard";
-import config from "@/config";
+// import TaskList from "./Dashboard/TaskList";
+// import UserTable from "./Dashboard/UserTable";
+// import CountryMapCard from "./Dashboard/CountryMapCard";
+// import config from "@/config";
 import StatsCard from "@/components/Cards/StatsCard";
+import PieChart from "@/components/Charts/PieChart";
+import OverdueTenantsIndexComponent from "@/components/Resources/Tenants/OverdueTenantsIndexComponent";
 
 export default {
   components: {
     Card,
     StatsCard,
-    LineChart,
-    BarChart,
-    TaskList,
-    UserTable,
-    CountryMapCard
+    // LineChart,
+    // BarChart,
+    // TaskList,
+    // UserTable,
+    // CountryMapCard,
+    PieChart,
+    OverdueTenantsIndexComponent
   },
   data() {
     return {
+      resource: {
+        models: [{}],
+        data: {}
+      },
       statsCards: [
         {
-          title: "150GB",
-          subTitle: "Number",
+          title: "RM15,000.00",
+          subTitle: "Overdue Rent",
           type: "warning",
-          icon: "tim-icons icon-chat-33",
-          footer: '<i class="tim-icons icon-refresh-01"></i> Update Now'
+          icon: "tim-icons icon-chat-33"
         },
         {
-          title: "+45K",
-          subTitle: "Followers",
+          title: "RM22,000.00",
+          subTitle: "Upcoming Rent",
           type: "primary",
-          icon: "tim-icons icon-shape-star",
-          footer: '<i class="tim-icons icon-sound-wave"></i></i> Last Research'
+          icon: "tim-icons icon-shape-star"
         },
         {
-          title: "150,000",
-          subTitle: "Users",
-          type: "info",
-          icon: "tim-icons icon-single-02",
-          footer: '<i class="tim-icons icon-trophy"></i> Customer feedback'
+          title: "RM8,000.00",
+          subTitle: "Overdue Expenses",
+          type: "warning",
+          icon: "tim-icons icon-single-02"
         },
         {
-          title: "23",
-          subTitle: "Errors",
-          type: "danger",
-          icon: "tim-icons icon-molecule-40",
-          footer: '<i class="tim-icons icon-watch-time"></i> In the last hours'
+          title: "RM5,000.00",
+          subTitle: "Upcoming Expenses",
+          type: "primary",
+          icon: "tim-icons icon-molecule-40"
         }
       ],
-      bigLineChartCategories: ["Accounts", "Purchases", "Sessions"],
-      bigLineChartCategoriesAr: ["حسابات", "المشتريات", "جلسات"],
-      bigLineChart: {
-        allData: [
-          [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
-          [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
-          [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
-        ],
-        activeIndex: 0,
-        chartData: { datasets: [{}] },
-        extraOptions: chartConfigs.purpleChartOptions,
-        gradientColors: config.colors.primaryGradient,
-        gradientStops: [1, 0.4, 0],
-        categories: []
-      },
-      greenLineChart: {
-        extraOptions: chartConfigs.greenChartOptions,
+      pieChart2: {
         chartData: {
-          labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+          labels: [1, 2, 3],
           datasets: [
             {
-              label: "Data",
-              fill: true,
-              borderColor: config.colors.primary,
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: config.colors.primary,
-              pointBorderColor: "rgba(255,255,255,0)",
-              pointHoverBackgroundColor: config.colors.primary,
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              data: [80, 100, 70, 80, 120, 80]
+              label: "Rent",
+              pointRadius: 0,
+              pointHoverRadius: 0,
+              backgroundColor: ["#ff8779", "#2a84e9", "#e2e2e2"],
+              borderWidth: 0,
+              data: [37000, 15000, 22000]
             }
           ]
         },
-        gradientColors: config.colors.primaryGradient,
-        gradientStops: [1, 0.2, 0]
-      },
-      blueBarChart: {
-        extraOptions: chartConfigs.barChartOptions,
-        chartData: {
-          labels: ["USA", "GER", "AUS", "UK", "RO", "BR"],
-          datasets: [
-            {
-              label: "Countries",
-              fill: true,
-              borderColor: config.colors.info,
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              data: [53, 20, 10, 80, 100, 45]
-            }
-          ]
-        },
-        gradientColors: config.colors.primaryGradient,
-        gradientStops: [1, 0.4, 0]
-      },
-      purpleLineChart: {
-        extraOptions: chartConfigs.purpleChartOptions,
-        chartData: {
-          labels: ["JUL", "AUG", "SEP", "OCT", "NOV"],
-          datasets: [
-            {
-              label: "My First dataset",
-              fill: true,
-              borderColor: config.colors.danger,
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: config.colors.danger,
-              pointBorderColor: "rgba(255,255,255,0)",
-              pointHoverBackgroundColor: config.colors.danger,
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              data: [90, 27, 60, 12, 80]
-            }
-          ]
-        },
-        gradientColors: [
-          "rgba(66,134,121,0.15)",
-          "rgba(66,134,121,0.0)",
-          "rgba(66,134,121,0)"
-        ],
-        gradientStops: [1, 0.4, 0]
+        extraOptions: chartConfigs.pieChartOptions
       }
+      // bigLineChartCategories: ["Accounts", "Purchases", "Sessions"],
+      // bigLineChartCategoriesAr: ["حسابات", "المشتريات", "جلسات"],
+      // bigLineChart: {
+      //   allData: [
+      //     [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
+      //     [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
+      //     [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
+      //   ],
+      //   activeIndex: 0,
+      //   chartData: { datasets: [{}] },
+      //   extraOptions: chartConfigs.purpleChartOptions,
+      //   gradientColors: config.colors.primaryGradient,
+      //   gradientStops: [1, 0.4, 0],
+      //   categories: []
+      // },
+      // greenLineChart: {
+      //   extraOptions: chartConfigs.greenChartOptions,
+      //   chartData: {
+      //     labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+      //     datasets: [
+      //       {
+      //         label: "Data",
+      //         fill: true,
+      //         borderColor: config.colors.primary,
+      //         borderWidth: 2,
+      //         borderDash: [],
+      //         borderDashOffset: 0.0,
+      //         pointBackgroundColor: config.colors.primary,
+      //         pointBorderColor: "rgba(255,255,255,0)",
+      //         pointHoverBackgroundColor: config.colors.primary,
+      //         pointBorderWidth: 20,
+      //         pointHoverRadius: 4,
+      //         pointHoverBorderWidth: 15,
+      //         pointRadius: 4,
+      //         data: [80, 100, 70, 80, 120, 80]
+      //       }
+      //     ]
+      //   },
+      //   gradientColors: config.colors.primaryGradient,
+      //   gradientStops: [1, 0.2, 0]
+      // },
+      // blueBarChart: {
+      //   extraOptions: chartConfigs.barChartOptions,
+      //   chartData: {
+      //     labels: ["USA", "GER", "AUS", "UK", "RO", "BR"],
+      //     datasets: [
+      //       {
+      //         label: "Countries",
+      //         fill: true,
+      //         borderColor: config.colors.info,
+      //         borderWidth: 2,
+      //         borderDash: [],
+      //         borderDashOffset: 0.0,
+      //         data: [53, 20, 10, 80, 100, 45]
+      //       }
+      //     ]
+      //   },
+      //   gradientColors: config.colors.primaryGradient,
+      //   gradientStops: [1, 0.4, 0]
+      // },
+      // purpleLineChart: {
+      //   extraOptions: chartConfigs.purpleChartOptions,
+      //   chartData: {
+      //     labels: ["JUL", "AUG", "SEP", "OCT", "NOV"],
+      //     datasets: [
+      //       {
+      //         label: "My First dataset",
+      //         fill: true,
+      //         borderColor: config.colors.danger,
+      //         borderWidth: 2,
+      //         borderDash: [],
+      //         borderDashOffset: 0.0,
+      //         pointBackgroundColor: config.colors.danger,
+      //         pointBorderColor: "rgba(255,255,255,0)",
+      //         pointHoverBackgroundColor: config.colors.danger,
+      //         pointBorderWidth: 20,
+      //         pointHoverRadius: 4,
+      //         pointHoverBorderWidth: 15,
+      //         pointRadius: 4,
+      //         data: [90, 27, 60, 12, 80]
+      //       }
+      //     ]
+      //   },
+      //   gradientColors: [
+      //     "rgba(66,134,121,0.15)",
+      //     "rgba(66,134,121,0.0)",
+      //     "rgba(66,134,121,0)"
+      //   ],
+      //   gradientStops: [1, 0.4, 0]
+      // }
     };
   },
   computed: {
@@ -353,58 +405,73 @@ export default {
     }
   },
   methods: {
-    initBigChart(index) {
-      let chartData = {
-        datasets: [
-          {
-            fill: true,
-            borderColor: config.colors.primary,
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: config.colors.primary,
-            pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: config.colors.primary,
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: this.bigLineChart.allData[index]
-          }
-        ],
-        labels: [
-          "JAN",
-          "FEB",
-          "MAR",
-          "APR",
-          "MAY",
-          "JUN",
-          "JUL",
-          "AUG",
-          "SEP",
-          "OCT",
-          "NOV",
-          "DEC"
-        ]
-      };
-      this.$refs.bigChart.updateGradients(chartData);
-      this.bigLineChart.chartData = chartData;
-      this.bigLineChart.activeIndex = index;
-    }
+    async getResource() {
+      try {
+        await this.$store.dispatch('tenant/get', {}).then(() => {
+          this.resource.models = this.$store.getters["tenant/models"]
+          this.resource.data = Object.assign({}, this.$store.getters["tenant/data"])
+        })
+      } catch (e) {
+        this.$notify({
+          message:'Server error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      }
+    },
+    // initBigChart(index) {
+    //   let chartData = {
+    //     datasets: [
+    //       {
+    //         fill: true,
+    //         borderColor: config.colors.primary,
+    //         borderWidth: 2,
+    //         borderDash: [],
+    //         borderDashOffset: 0.0,
+    //         pointBackgroundColor: config.colors.primary,
+    //         pointBorderColor: "rgba(255,255,255,0)",
+    //         pointHoverBackgroundColor: config.colors.primary,
+    //         pointBorderWidth: 20,
+    //         pointHoverRadius: 4,
+    //         pointHoverBorderWidth: 15,
+    //         pointRadius: 4,
+    //         data: this.bigLineChart.allData[index]
+    //       }
+    //     ],
+    //     labels: [
+    //       "JAN",
+    //       "FEB",
+    //       "MAR",
+    //       "APR",
+    //       "MAY",
+    //       "JUN",
+    //       "JUL",
+    //       "AUG",
+    //       "SEP",
+    //       "OCT",
+    //       "NOV",
+    //       "DEC"
+    //     ]
+    //   };
+    //   this.$refs.bigChart.updateGradients(chartData);
+    //   this.bigLineChart.chartData = chartData;
+    //   this.bigLineChart.activeIndex = index;
+    // }
   },
   mounted() {
-    this.i18n = this.$i18n;
-    if (this.enableRTL) {
-      this.i18n.locale = "ar";
-      this.$rtl.enableRTL();
-    }
-    this.initBigChart(0);
+    // this.i18n = this.$i18n;
+    // if (this.enableRTL) {
+    //   this.i18n.locale = "ar";
+    //   this.$rtl.enableRTL();
+    // }
+    // this.initBigChart(0);
+    this.getResource();
   },
   beforeDestroy() {
-    if (this.$rtl.isRTL) {
-      this.i18n.locale = "en";
-      this.$rtl.disableRTL();
-    }
+    // if (this.$rtl.isRTL) {
+    //   this.i18n.locale = "en";
+    //   this.$rtl.disableRTL();
+    // }
   }
 };
 </script>
