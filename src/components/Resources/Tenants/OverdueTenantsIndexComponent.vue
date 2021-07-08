@@ -29,6 +29,7 @@
             :per-page="resource.data.perPage"
             :total="resource.data.total"
             @input="handlePagination"
+            type="info"
           >
           </base-pagination>
         </div>

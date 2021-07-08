@@ -7,7 +7,7 @@
           <base-button
             @click="addModel"
             class="mt-3"
-            type="primary"
+            type="info"
             v-bind:disabled="!resource.data.canAdd"
             v-if="resource.data.canAdd"
           >Add {{table.title}}</base-button>
@@ -58,6 +58,7 @@
               :per-page="resource.data.perPage"
               :total="resource.data.total"
               @input="handlePagination"
+              type="info"
             >
             </base-pagination>
           </div>

@@ -33,7 +33,7 @@
       </button>
       <div class="collapse navbar-collapse show text-left" v-show="showMenu">
         <ul class="navbar-nav" :class="$rtl.isRTL ? 'mr-auto' : 'ml-auto'">
-          <li class="search-bar input-group" @click="searchModalVisible = true">
+          <!-- <li class="search-bar input-group" @click="searchModalVisible = true">
             <button
               class="btn btn-link"
               id="search-button"
@@ -43,7 +43,7 @@
               <i class="tim-icons icon-zoom-split"></i>
               <span class="d-lg-none d-md-block">Search</span>
             </button>
-          </li>
+          </li> -->
           <modal
             :show.sync="searchModalVisible"
             class="modal-search"

@@ -5,7 +5,7 @@
         <strong>
           You can only add ONE {{ table.title }} with free tier. Get
           <a
-            href="https://www.creative-tim.com/live/vue-black-dashboard-pro-laravel"
+            href="https://www.propster.io"
             target="_blank"
           >PRO</a>
           version to add more {{ table.title }} !
@@ -17,7 +17,7 @@
           <!-- <base-button
             @click="addModel"
             class="mt-3"
-            type="primary"
+            type="info"
             v-bind:disabled="!resource.data.canAdd"
           >Add {{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{ table.title }}
           </base-button> -->
@@ -49,6 +49,7 @@
               :per-page="resource.data.perPage"
               :total="resource.data.total"
               @input="handlePagination"
+              type="info"
             >
             </base-pagination>
           </div>

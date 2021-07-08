@@ -105,8 +105,8 @@
         </div>
       </div>
     </card>
-    <base-button slot="footer" type="primary" @click="handleCancel()" fill>Cancel</base-button>
-    <base-button slot="footer" native-type="submit" type="primary" @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
+    <base-button slot="footer" type="info" @click="handleCancel()" fill>Cancel</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>
 <script>

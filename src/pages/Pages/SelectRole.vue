@@ -36,7 +36,7 @@
             <base-button
                 @click="submitRole"
                 slot="footer"
-                type="primary"
+                type="info"
                 round
                 block
                 size="lg"

@@ -30,7 +30,7 @@
         <validation-error :errorsArray="tmpApiValidationErrors.end_date"/>
       </div>
     </div>
-    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Generate Report</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Generate Report</base-button>
   </form>
 </template>
 <script>

@@ -32,11 +32,11 @@
           <sidebar-link
             :link="{ name: $t('sidebar.userProfile'), path: '/profile', icon: 'tim-icons icon-single-02'}"
           ></sidebar-link>
-          <sidebar-link
+          <!-- <sidebar-link
             :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog fa-2x'}"
-          ></sidebar-link>
+          ></sidebar-link> -->
 
-        <sidebar-link
+        <!-- <sidebar-link
           :link="{
             name: $t('sidebar.pages'),
             icon: 'tim-icons icon-image-02'
@@ -63,8 +63,8 @@
           <sidebar-link
             :link="{ name: $t('sidebar.userProfile'), path: '/user' }"
           ></sidebar-link>
-        </sidebar-link>
-        <sidebar-link
+        </sidebar-link> -->
+        <!-- <sidebar-link
           :link="{
             name: $t('sidebar.components'),
             icon: 'tim-icons icon-molecule-40'
@@ -178,31 +178,31 @@
           <sidebar-link
             :link="{ name: $t('sidebar.vectorMaps'), path: '/maps/vector-map' }"
           ></sidebar-link>
-        </sidebar-link>
-        <sidebar-link
+        </sidebar-link> -->
+        <!-- <sidebar-link
           :link="{
             name: $t('sidebar.widgets'),
             icon: 'tim-icons icon-settings',
             path: '/widgets'
           }"
-        ></sidebar-link>
-        <sidebar-link
+        ></sidebar-link> -->
+        <!-- <sidebar-link
           :link="{
             name: $t('sidebar.charts'),
             icon: 'tim-icons icon-chart-bar-32',
             path: '/charts'
           }"
-        ></sidebar-link>
-        <sidebar-link
+        ></sidebar-link> -->
+        <!-- <sidebar-link
           :link="{
             name: $t('sidebar.calendar'),
             icon: 'tim-icons icon-time-alarm',
             path: '/calendar'
           }"
-        ></sidebar-link> 
+        ></sidebar-link>  -->
       </template>
     </side-bar>
-    <sidebar-share :background-color.sync="backgroundColor"></sidebar-share>
+    <!-- <sidebar-share :background-color.sync="backgroundColor"></sidebar-share> -->
 
     <div class="main-panel" :data="backgroundColor">
       <top-navbar></top-navbar>
@@ -235,7 +235,7 @@ export default {
   },
   data() {
     return {
-      backgroundColor: "green"
+      backgroundColor: "blue"
     };
   },
   computed: {

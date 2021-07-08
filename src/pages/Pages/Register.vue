@@ -81,7 +81,7 @@
               <base-button
                   native-type="submit"
                   slot="footer"
-                  type="primary"
+                  type="info"
                   round
                   block
                   size="lg"

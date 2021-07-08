@@ -3,7 +3,8 @@
     <div class="sidebar-wrapper text-left">
       <div class="logo">
         <a href="javascript:void(0)" @click="dashboard" class="simple-text logo-mini">
-          {{ abv }}
+          <!-- {{ abv }} -->
+          <img src="img/main_propster_white_icon.png" alt="PS">
         </a>
 
         <a href="javascript:void(0)" @click="dashboard" class="simple-text logo-normal">
@@ -38,11 +39,11 @@ export default {
     SidebarLink
   },
   props: {
-    abv: {
-      type: String,
-      default: "PS",
-      description: "Sidebar short title"
-    },
+    // abv: {
+    //   type: String,
+    //   default: "",
+    //   description: "Sidebar short title"
+    // },
     title: {
       type: String,
       default: "Propster",
@@ -50,7 +51,7 @@ export default {
     },
     backgroundColor: {
       type: String,
-      default: "green",
+      default: "blue",
       description: "Sidebar background color (blue|green|orange|red|primary)"
     },
     sidebarLinks: {

@@ -22,7 +22,7 @@
             v-if="!disableView"
             @click="showDetails(item.id)"
             class="remove btn-link"
-            type="danger"
+            type="info"
             size="sm"
             title="View"
             icon
@@ -33,7 +33,7 @@
             v-if="!disableEdit"
             @click="editDetails(item.id)"
             class="edit btn-link"
-            type="warning"
+            type="info"
             size="sm"
             title="Edit"
             icon

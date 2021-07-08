@@ -25,7 +25,7 @@
         </drop-zone>
     </card>
 
-    <base-button slot="footer" type="primary"  @click="handleBack()" fill>Back</base-button>
+    <base-button slot="footer" type="info"  @click="handleBack()" fill>Back</base-button>
   </div>
 </template>
 <script>

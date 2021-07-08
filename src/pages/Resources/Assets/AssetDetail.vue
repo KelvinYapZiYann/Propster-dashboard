@@ -57,8 +57,8 @@
        ></generate-report-form>
    </modal>
 
-   <base-button slot="footer" type="primary"  @click="handleBack()" fill>Back</base-button>
-   <base-button slot="footer" type="primary"  @click="handleEdit()" fill>Edit Asset</base-button>
+   <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
+   <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Asset</base-button>
   </div>
 </template>
 <script>

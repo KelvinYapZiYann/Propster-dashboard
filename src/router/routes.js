@@ -226,7 +226,7 @@ let resources = {
     },
     {
       path: "payment-records",
-      name: "Payment Record",
+      name: "Payment Records",
       components: { default: PaymentRecords },
       meta: { middleware: auth }
     },

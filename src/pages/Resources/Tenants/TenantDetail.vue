@@ -58,8 +58,8 @@
           @tenantPayment="addPaymentRecord"
         ></fab>
 
-        <base-button slot="footer" type="primary"  @click="handleBack()" fill>Back</base-button>
-        <base-button slot="footer" type="primary"  @click="handleEdit()" fill>Edit Tenant</base-button>
+        <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
+        <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Tenant</base-button>
       </div>
 </template>
 <script>

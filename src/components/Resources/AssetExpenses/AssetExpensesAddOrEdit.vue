@@ -51,7 +51,7 @@
         </div>
       </div>
     </card>
-    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Send</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Send</base-button>
   </form>
 </template>
 <script>
