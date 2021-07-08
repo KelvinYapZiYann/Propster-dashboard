@@ -32,37 +32,37 @@
         <form @submit.prevent="register">
           <card class="card-register card-white">
             <template slot="header">
-              <img
+              <!-- <img
                 class="card-img"
                 src="img/card-primary.png"
                 alt="Card image"
-              />
-              <h4 class="card-title text-left">Register</h4>
+              /> -->
+              <h4 class="card-title text-center text-primary">Register</h4>
             </template>
 
+            <validation-error :errorsArray="apiValidationErrors.mobile_number" />
             <base-input
                 v-model="mobile_number"
                 placeholder="Mobile Number"
                 addon-left-icon="tim-icons icon-mobile"
                 type="text">
             </base-input>
-            <validation-error :errorsArray="apiValidationErrors.mobile_number" />
 
+            <validation-error :errorsArray="apiValidationErrors.email" />
             <base-input
                 v-model="email"
                 placeholder="Email"
                 addon-left-icon="tim-icons icon-email-85"
                 type="email">
             </base-input>
-            <validation-error :errorsArray="apiValidationErrors.email" />
 
+            <validation-error :errorsArray="apiValidationErrors.password"/>
             <base-input
                 v-model="password"
                 placeholder="Password"
                 addon-left-icon="tim-icons icon-lock-circle"
                 type="password">
             </base-input>
-            <validation-error :errorsArray="apiValidationErrors.password"/>
 
             <base-input
                 placeholder="Confirm Password"
@@ -82,7 +82,6 @@
                   native-type="submit"
                   slot="footer"
                   type="info"
-                  round
                   block
                   size="lg"
               >

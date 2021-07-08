@@ -50,15 +50,15 @@
           <validation-error :errorsArray="tmpApiValidationErrors.email"/>
         </div>
         <div class="col-md-6">
+          <label class="mt-1">Phone Number</label>
           <VuePhoneNumberInput 
                       v-model="resource.model.phone_number" 
-                      class="mt-4"
                       :default-country-code="phoneCountryCodeInput"
                       @update="updatePhoneNumber"
                       :no-example="false"
-                      color="#e14eca"
-                      valid-color="#e14eca"
-                      error-color="#e14eca"
+                      color="#1d8cf8"
+                      valid-color="#1d8cf8"
+                      error-color="#1d8cf8"
                       :show-code-on-list="true"
                       :only-countries="['MY']"
                       />

@@ -5,10 +5,11 @@
         <card class="card-login card-white text-left">
           <template slot="header">
             <!-- <img src="img/card-primary.png" class="card-img" alt=""/> -->
-            <h1 class="card-title">Forgot Password</h1>
+            <h1 class="card-title text-center text-primary" style="font-size: 3em;font-weight: 900; padding-bottom: 80px;">Forgot Password</h1>
           </template>
 
           <div>
+            <validation-error :errorsArray="apiValidationErrors.email"/>
             <base-input
                 v-validate="'required|email'"
                 name="email"
@@ -17,13 +18,12 @@
                 addon-left-icon="tim-icons icon-email-85"
             >
             </base-input>
-            <validation-error :errorsArray="apiValidationErrors.email"/>
           </div>
 
           <div slot="footer">
             <base-button
                 native-type="submit"
-                type="primary"
+                type="info"
                 class="mb-3"
                 size="lg"
                 block

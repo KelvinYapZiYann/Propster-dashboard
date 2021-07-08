@@ -35,15 +35,15 @@
                     placeholder="Phone Number"
                     v-model="model.phone_number">
         </base-input> -->
+        <label class="mt-1">Phone Number</label>
         <VuePhoneNumberInput 
-          v-model="model.phone_number" 
-          class="mt-4"
+          v-model="model.phone_number"
           :default-country-code="phoneCountryCodeInput"
           @update="updatePhoneNumber"
           :no-example="false"
-          color="#e14eca"
-          valid-color="#e14eca"
-          error-color="#e14eca"
+          color="#1d8cf8"
+          valid-color="#1d8cf8"
+          error-color="#1d8cf8"
           :show-code-on-list="true"
           :only-countries="['MY']"
           :disabled="true"
@@ -80,7 +80,7 @@
       </div>
     </div>
     <template slot="footer">
-      <base-button type="success" @click="handleSubmit()" fill>Save</base-button>
+      <base-button type="info" @click="handleSubmit()" fill>Save</base-button>
     </template>
   </card>
 </template>
