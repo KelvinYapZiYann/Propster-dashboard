@@ -9,6 +9,9 @@
       <div class="col-md-12">
         <edit-profile-form 
           :model="resource.model"
+          @submit="handleSubmit"
+          :tmpApiValidationErrors="apiValidationErrors"
+          addOrEdit="Edit"
           >
         </edit-profile-form>
       </div>
@@ -56,6 +59,24 @@
           });
         }
       },
+      async handleSubmit(userData) {
+        try {
+          await this.$store.dispatch('users/update', userData)
+          this.$notify({
+            message:'Successfully Updated',
+            icon: 'tim-icons icon-bell-55',
+            type: 'success'
+          });
+          this.resetApiValidation();
+        } catch (e) {
+          this.$notify({
+            message:'Server error',
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+          this.setApiValidation(e.response.data.errors)
+        }
+      }
     }
   }
 </script>

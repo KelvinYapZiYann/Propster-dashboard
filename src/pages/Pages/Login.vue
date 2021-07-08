@@ -65,6 +65,7 @@
 import {Card, BaseInput} from "@/components/index";
 import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
+import errorHandlingService from "@/store/services/error-handling-service";
 // import router from "@/router";
 
 export default {
@@ -98,15 +99,25 @@ export default {
       }
 
       try {
-        await this.$store.dispatch("login", {user, requestOptions})
+        await this.$store.dispatch("login", {user, requestOptions});
       } catch (e) {
         this.$notify({
           message: 'Invalid credentials!',
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
-        this.setApiValidation(e.response.data.errors)
+        this.setApiValidation(e.response.data.errors);
+        return;
       }
+
+      try {
+        await this.$store.dispatch("verifyMiddleware");
+      } catch (e) {
+        errorHandlingService.verifyErrorFromServer(e);
+        return;
+      }
+
+      this.$router.push({path: "/dashboard"});
     }
   }
 };

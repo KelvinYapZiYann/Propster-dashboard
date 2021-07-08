@@ -15,13 +15,17 @@ const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
 
 export default {
   state: {
-    isAuthenticated: localStorage.getItem("vue-authenticate.vueauth_access_token") !== null
+    isAuthenticated: localStorage.getItem("vue-authenticate.vueauth_access_token") !== null,
+    // isMiddlewareVerified: ""
   },
 
   getters: {
     isAuthenticated(state) {
       return state.isAuthenticated;
-    }
+    },
+    // isMiddlewareVerified(state) {
+    //   return state.isMiddlewareVerified;
+    // }
   },
 
   mutations: {
@@ -36,7 +40,6 @@ export default {
         context.commit("isAuthenticated", {
           isAuthenticated: vueAuth.isAuthenticated()
         });
-        router.push({path: "/dashboard"});
       });
     },
 
@@ -72,6 +75,24 @@ export default {
           .then(response => {
             return response.data;
           });
-    }
+    },
+
+    verifyMiddleware(context) {
+      const config = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      };
+
+      return axios
+          .post(API_URL + '/middleware-verification', config)
+          .then(response => {
+            // context.commit("isMiddlewareVerified", {
+            //   isMiddlewareVerified: response.data.message
+            // });
+            return response.data;
+          });
+    },
   }
 };

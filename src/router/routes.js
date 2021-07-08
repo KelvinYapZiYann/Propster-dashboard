@@ -6,6 +6,7 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import AuthLayout from "@/pages/Pages/AuthLayout.vue";
 import auth from "@/middleware/auth";
 import SelectRole from "@/pages/Pages/SelectRole";
+import FirstTimeProfile from "@/pages/Profile/FirstTimeProfile";
 
 const Dashboard = () =>
     import(/* webpackChunkName: "dashboard" */ "@/pages/Dashboard.vue");
@@ -438,6 +439,12 @@ let middlewarePages = {
       components: { default: SelectRole },
       meta: { middleware: auth }
     },
+    {
+      path: "first-time-profile",
+      name: "First Time User Profile",
+      components: { default: FirstTimeProfile },
+      meta: { middleware: auth }
+    },
   //   {
   //     path: "full-screen",
   //     name: "Full Screen Map",
@@ -476,7 +483,8 @@ const routes = [
       {
         path: "dashboard",
         name: "Dashboard",
-        component: Dashboard
+        component: Dashboard,
+        meta: { middleware: auth }
       },
       {
         path: "profile",

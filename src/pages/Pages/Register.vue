@@ -113,7 +113,7 @@
           Please verify the email before logging in.
         </p>
       </div>
-      <p class="text-left">
+      <p class="text-center">
         If you have more questions, don't hesitate to contact us. We're here to help!
       </p>
       <div slot="footer" class="justify-content-center">
