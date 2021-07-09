@@ -7,7 +7,7 @@
             <h3 class="card-title text-left">Please Select A Role</h3>
           </template>
           <tabs
-              type="success"
+              type="info"
               tabNavWrapperClasses="col-lg-3 col-md-6"
               tabContentClasses="col-md-8"
               vertical
@@ -28,6 +28,22 @@
                 <i class="tim-icons icon-single-02"></i>Tenant
               </span>
               Having access to pay rents, scheduling time with Vendors and Landlords
+              <br /><br />You will be able to select another role later.
+            </tab-pane>
+
+            <tab-pane>
+              <span slot="label" @click="selectRole('AGENT')">
+                <i class="fa fa-user-secret"></i>Agent
+              </span>
+              Having access to manage multiple landlords, and to all the features provided to landlords.
+              <br /><br />You will be able to select another role later.
+            </tab-pane>
+
+            <tab-pane>
+              <span slot="label" @click="selectRole('VENDOR')">
+                <i class="fa fa-industry"></i>Vendor
+              </span>
+              Having access to collect fee from agents, landlords or tenants.
               <br /><br />You will be able to select another role later.
             </tab-pane>
           </tabs>
@@ -88,6 +104,14 @@ export default {
       this.selectedRole = selectedRole;
     },
     async submitRole() {
+      if (this.selectedRole != 'LANDLORD') {
+        this.$notify({
+          message: 'This role is not yet developed. Please stay tuned.',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+        return;
+      }
       try {
         let data = {
           "role": this.selectedRole,
