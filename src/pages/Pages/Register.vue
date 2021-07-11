@@ -37,7 +37,8 @@
                 src="img/card-primary.png"
                 alt="Card image"
               /> -->
-              <h4 class="card-title text-center text-primary">Register</h4>
+              <img src="img/main_propster_logo.svg" class="card-img" alt=""/>
+              <h4 class="card-title text-center text-primary">PROPSTER.IO</h4>
             </template>
 
             <validation-error :errorsArray="apiValidationErrors.mobile_number" />
@@ -115,7 +116,16 @@
       <p class="text-center">
         If you have more questions, don't hesitate to contact us. We're here to help!
       </p>
+      <p class="text-center">
+        If you have not received any verification email, click the Resend Verification Email.
+      </p>
       <div slot="footer" class="justify-content-center">
+        <base-button
+          type="info"
+          round
+          @click="resendVerificationEmail"
+          >Resend Verification Email
+        </base-button>
         <base-button
           type="info"
           round
@@ -129,6 +139,7 @@
 <script>
 import { BaseCheckbox, Card, BaseInput, ValidationError, Modal } from "@/components";
 import formMixin from "@/mixins/form-mixin";
+import axios from "axios";
 
 export default {
   components: {
@@ -146,7 +157,7 @@ export default {
       email: null,
       password: null,
       password_confirmation: null,
-      registerSuccessful: false,
+      registerSuccessful: true,
     };
   },
   methods: {
@@ -194,6 +205,25 @@ export default {
     },
     async backToLoginPage() {
       this.$router.push({name: "login"});
+    },
+    async resendVerificationEmail() {
+      const url = process.env.VUE_APP_API_BASE_URL;
+      axios({
+        url: `${url}/api/dashboard/email-not-verified`,
+        method: 'POST',
+      }).then((response) => {
+        this.$notify({
+          type: 'success',
+          message: 'Verification email has been resent. Check your email.',
+          // icon: 'tim-icons icon-bell-55',
+        })
+      }).catch((error) => {
+        this.$notify({
+          type: 'danger',
+          message: 'Something went wrong. Verification email has not been resent.',
+          icon: 'tim-icons icon-bell-55',
+        })
+      });
     }
   }
 };

@@ -2,9 +2,10 @@
   <div class="sidebar" :data="backgroundColor">
     <div class="sidebar-wrapper text-left">
       <div class="logo">
-        <a href="javascript:void(0)" @click="dashboard" class="simple-text logo-mini">
-          <!-- {{ abv }} -->
-          <img src="img/main_propster_white_icon.png" alt="PS">
+        <a class="simple-text logo-mini">
+          <!-- href="javascript:void(0)"  -->
+          <!-- @click="dashboard"  -->
+          <img src="img/main_propster_logo_white.svg" alt="">
         </a>
 
         <a href="javascript:void(0)" @click="dashboard" class="simple-text logo-normal">

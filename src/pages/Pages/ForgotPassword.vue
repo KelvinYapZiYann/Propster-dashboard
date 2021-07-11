@@ -5,7 +5,8 @@
         <card class="card-login card-white text-left">
           <template slot="header">
             <!-- <img src="img/card-primary.png" class="card-img" alt=""/> -->
-            <h1 class="card-title text-center text-primary" style="font-size: 3em;font-weight: 900; padding-bottom: 80px;">Forgot Password</h1>
+            <img src="img/main_propster_logo.svg" class="card-img" alt=""/>
+            <h1 class="card-title text-center text-primary" style="font-size: 2em;font-weight: 900;">PROPSTER.IO</h1>
           </template>
 
           <div>

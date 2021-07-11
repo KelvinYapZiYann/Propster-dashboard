@@ -2,11 +2,11 @@
   <div class="container">
     <div class="col-lg-4 col-md-6 ml-auto mr-auto">
       <form @submit.prevent="login">
-        <card class="card-login card-white text-left">
+        <card class="card-login card-white">
           <template slot="header">
             <!-- <img src="img/card-primary.png" class="card-img" alt=""/> -->
-            <!-- <img src="img/main_propster_logo.png" class="" alt=""/> -->
-            <h1 class="card-title text-primary text-center">Login</h1>
+            <img src="img/main_propster_logo.svg" class="card-img" alt=""/>
+            <h1 class="card-title text-info text-center">PROPSTER.IO</h1>
           </template>
 
           <div>
