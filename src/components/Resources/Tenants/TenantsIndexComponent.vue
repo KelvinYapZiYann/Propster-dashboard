@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <div class="pro-feature alert alert-danger">
+      <div class="pro-feature alert alert-danger" v-if="$store.getters['users/model'].tier == 'BASIC'">
         <strong>
           You can only add 3 {{table.title}} per asset with free tier. Get
           <a
