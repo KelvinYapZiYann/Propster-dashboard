@@ -60,25 +60,25 @@
               placeholder="SEARCH"
             />
           </modal>
-          <!-- <drop-down>
+          <drop-down>
             <a
               href="javascript:void(0)"
               data-toggle="dropdown"
               class="dropdown-toggle nav-link"
             >
-              <div class="notification d-none d-lg-block d-xl-block"></div>
-              <i class="tim-icons icon-sound-wave"></i>
+              <div class="notification d-none d-lg-block d-xl-block" v-if="notifications.length > 0"></div>
+              <i class="fa fa-bell text-info"></i>
               <p class="d-lg-none text-left">
                 Notifications
               </p>
             </a>
             <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
-              <li class="nav-link">
-                <a href="#" class="nav-item dropdown-item"
-                  >Mike John responded to your email</a
+              <li class="nav-link" v-for="(value, key) in notifications" :key="key">
+                <a :href="value.link" class="nav-item dropdown-item"
+                  >{{value.title}}</a
                 >
               </li>
-              <li class="nav-link">
+              <!-- <li class="nav-link">
                 <a href="javascript:void(0)" class="nav-item dropdown-item"
                   >You have 5 more tasks</a
                 >
@@ -97,9 +97,9 @@
                 <a href="javascript:void(0)" class="nav-item dropdown-item"
                   >Another one</a
                 >
-              </li>
+              </li> -->
             </ul>
-          </drop-down> -->
+          </drop-down>
           <drop-down>
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <div class="photo">
@@ -107,7 +107,7 @@
               </div>
               <b class="caret d-none d-lg-block d-xl-block"></b>
               <p class="d-lg-none">
-                <!-- Log out -->
+                {{userFullname}}
               </p>
             </a>
             <ul class="dropdown-menu dropdown-navbar">
@@ -154,8 +154,43 @@ export default {
     return {
       searchModalVisible: false,
       searchQuery: "",
-      showMenu: false
+      showMenu: false,
+      userFullname: "",
+      hasNotification: false,
+      notifications: [
+        {
+          id: 1,
+          title: "Notification 1 email sent testing testing testing testing",
+          link: "https://propster.io/api/dashboard/notifications/1"
+        },
+        {
+          id: 2,
+          title: "Notification 2 email sent",
+          link: "https://propster.io/api/dashboard/notifications/2"
+        },
+        {
+          id: 3,
+          title: "Notification 3 email sent",
+          link: "https://propster.io/api/dashboard/notifications/3"
+        },
+        {
+          id: 4,
+          title: "Notification 1 email sent",
+          link: "https://propster.io/api/dashboard/notifications/4"
+        },
+        {
+          id: 5,
+          title: "Notification 1 email sent",
+          link: "https://propster.io/api/dashboard/notifications/5"
+        },
+      ]
     };
+  },
+  created() {
+    // this.getProfile();
+  },
+  mounted() {
+    this.getProfile();
   },
   methods: {
     toggleSidebar() {
@@ -184,6 +219,24 @@ export default {
         });
       }
     },
+    async getProfile() {
+        try {
+          if (!this.$store.getters["users/model"].full_name) {
+            await this.$store.dispatch('users/get', {}).then(() => {
+              this.userFullname = this.$store.getters["users/model"].full_name;
+            });
+          } else {
+            this.userFullname = this.$store.getters["users/model"].full_name;
+          }
+          console.log(this.userFullname);
+        } catch (e) {
+          this.$notify({
+            message:'Server error',
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+        }
+      },
   },
   computed: {
     isRTL() {
