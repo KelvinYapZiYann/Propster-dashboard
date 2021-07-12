@@ -90,8 +90,8 @@
               </base-button>
               <div class="pull-left text-left">
                 <h6>
-                  <router-link class="link footer-link" to="/login">
-                    Already have an account? Login
+                  <router-link class="link footer-link" to="/login" v-slot="{ navigate, href }" custom>
+                    <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Already have an account? Login</a>
                   </router-link>
                 </h6>
               </div>
@@ -157,7 +157,7 @@ export default {
       email: null,
       password: null,
       password_confirmation: null,
-      registerSuccessful: true,
+      registerSuccessful: false,
     };
   },
   methods: {

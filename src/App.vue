@@ -35,7 +35,9 @@ export default {
   mounted() {
     this.$watch("$route", this.disableRTL, { immediate: true });
     this.$watch("$sidebar.showSidebar", this.toggleNavOpen);
-    this.getProfile();
+    if (this.$store.getters.isAuthenticated) {
+      this.getProfile();
+    }
   }
 };
 </script>

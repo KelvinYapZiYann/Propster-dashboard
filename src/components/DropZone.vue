@@ -402,7 +402,7 @@ export default {
 <style scoped>
 .vue-dropzone {
   background-color: transparent;
-  border: 2px dashed #e14eca;
+  /* border: 2px dashed #1d8cf8; */
   border-radius: 15px;
   font-family: "Arial", sans-serif;
   letter-spacing: 0.2px;
@@ -427,7 +427,7 @@ export default {
 
 .vue-dropzone > .dz-preview .dz-image:hover img {
   transform: none;
-  -webkit-filter: none;
+  /* -webkit-filter: none; */
 }
 
 .vue-dropzone > .dz-preview .dz-details {

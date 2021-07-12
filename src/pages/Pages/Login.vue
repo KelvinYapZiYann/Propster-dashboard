@@ -44,15 +44,15 @@
             </base-button>
             <div class="pull-left">
               <h6>
-                <router-link class="link footer-link" to="/register">
-                  Create Account
+                <router-link class="link footer-link" to="/register" v-slot="{ navigate, href }" custom>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Create Account</a>
                 </router-link>
               </h6>
             </div>
             <div class="pull-right">
               <h6>
-                <router-link class="link footer-link" to="/forgot-password">
-                  Forgot Password
+                <router-link class="link footer-link" to="/forgot-password" v-slot="{ navigate, href }" custom>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Forgot Password</a>
                 </router-link>
               </h6>
             </div>

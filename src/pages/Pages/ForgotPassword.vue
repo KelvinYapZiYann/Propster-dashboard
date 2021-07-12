@@ -33,8 +33,8 @@
             </base-button>
             <div class="pull-left">
               <h6>
-                <router-link class="link footer-link" to="/login">
-                  Back to Login
+                <router-link class="link footer-link" to="/login" v-slot="{ navigate, href }" custom>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Back to Login</a>
                 </router-link>
               </h6>
             </div>
