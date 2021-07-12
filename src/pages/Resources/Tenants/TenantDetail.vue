@@ -17,6 +17,12 @@
           }"
         ></assets-index-component>
 
+        <div class="pro-feature alert alert-danger" v-if="tenureContractResource.models.length == 0">
+          <strong>
+            There is no tenure contract of this tenant. Please create one.
+          </strong>
+        </div>
+
         <tenure-contract-index-component
           :resource="tenureContractResource"
           :table="table"
