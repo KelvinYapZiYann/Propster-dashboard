@@ -139,7 +139,7 @@ export default {
       ],
       receivingPaymentRecordType: "Receiving",
       sendingPaymentRecordType: "Sending",
-      bgColor: '#778899',
+      bgColor: '#1d8cf8',
       fixedTooltip: true,
       position: 'bottom-right',
       tenantPaymentModalVisible: false,

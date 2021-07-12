@@ -142,7 +142,7 @@ export default {
           tooltip: 'Generate Report'
         }
       ],
-      bgColor: '#778899',
+      bgColor: '#1d8cf8',
       fixedTooltip: true,
       position: 'bottom-right',
       reportModalVisible: false,
