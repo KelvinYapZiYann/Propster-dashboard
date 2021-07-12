@@ -63,7 +63,10 @@
         <base-selector-input label="Gender"
                               placeholder="Gender"
                               v-model="model.gender"
-                              :options='[{"MALE": "Male"},{"FEMALE": "Female"}]'
+                              :options='[
+                                {"id":"MALE", "name":"Male"},
+                                {"id":"FEMALE", "name":"Female"}
+                              ]'
         >
         </base-selector-input>
         <validation-error :errorsArray="tmpApiValidationErrors.gender"/>

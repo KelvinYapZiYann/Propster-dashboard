@@ -27,7 +27,7 @@ function update(params) {
     }
   };
 
-  return axios.put(`${url}/users/${userId}`, payload, config)
+  return axios.post(`${url}/users/${userId}`, payload, config)
     .then(response => {
       return response.data;
     });

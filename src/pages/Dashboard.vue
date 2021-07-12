@@ -72,7 +72,7 @@
         </card>
       </div> -->
       <div
-        class="col-lg-3 col-md-6"
+        class="col-xl-3 col-lg-6 col-md-6 col-sm-6"
         v-for="card in statsCards"
         :key="card.title"
       >
