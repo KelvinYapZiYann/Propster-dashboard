@@ -267,30 +267,30 @@ export default {
           title: "RM15,000.00",
           subTitle: "Overdue Rent",
           type: "warning",
-          icon: "tim-icons icon-chat-33"
+          icon: "fas fa-clock"
         },
         {
           title: "RM22,000.00",
           subTitle: "Upcoming Rent",
           type: "primary",
-          icon: "tim-icons icon-shape-star"
+          icon: "fas fa-building"
         },
         {
           title: "RM8,000.00",
           subTitle: "Overdue Expenses",
           type: "warning",
-          icon: "tim-icons icon-single-02"
+          icon: "fas fa-clock"
         },
         {
           title: "RM5,000.00",
           subTitle: "Upcoming Expenses",
           type: "primary",
-          icon: "tim-icons icon-molecule-40"
+          icon: "fas fa-dollar-sign"
         }
       ],
       pieChart2: {
         chartData: {
-          labels: [1, 2, 3],
+          labels: ["Collected Rent", "Overdue Rent", "Upcoming Rent"],
           datasets: [
             {
               label: "Rent",
