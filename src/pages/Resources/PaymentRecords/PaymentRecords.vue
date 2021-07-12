@@ -1,9 +1,11 @@
 <template>
-  <payment-record-index-component
-    :resource="resource"
-    @getResource="getResource"
-    :paymentRecordType="allPaymentRecordType"
-  ></payment-record-index-component>
+  <div class="content">
+    <payment-record-index-component
+      :resource="resource"
+      @getResource="getResource"
+      :paymentRecordType="allPaymentRecordType"
+    ></payment-record-index-component>
+  </div>
 </template>
 <script>
 import PaymentRecordIndexComponent from "@/components/Resources/PaymentRecords/PaymentRecordIndexComponent";

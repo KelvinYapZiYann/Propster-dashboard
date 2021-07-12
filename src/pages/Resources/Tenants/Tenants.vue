@@ -1,8 +1,10 @@
 <template>
-  <tenants-index-component
-    :resource="resource"
-    @getResource="getResource"
-  ></tenants-index-component>
+  <div class="content">
+    <tenants-index-component
+      :resource="resource"
+      @getResource="getResource"
+    ></tenants-index-component>
+  </div>
 </template>
 <script>
 import { BaseTable } from "@/components";

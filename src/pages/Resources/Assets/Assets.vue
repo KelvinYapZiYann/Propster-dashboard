@@ -1,8 +1,10 @@
 <template>
+  <div class="content">
     <assets-index-component
       :resource="resource"
       @getResource="getResource"
     ></assets-index-component>
+  </div>
 </template>
 <script>
 import AssetsIndexComponent from "@/components/Resources/Assets/AssetsIndexComponent";

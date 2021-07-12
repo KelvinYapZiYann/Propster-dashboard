@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="row">
     <div class="col-12">
       <div class="pro-feature alert alert-danger">
         <strong>
@@ -61,10 +61,13 @@ import router from "@/router";
 
 let tableColumns = {
   asset_nickname: "Asset Nickname",
-  asset_ownership_type: "Ownership Type",
-  asset_size: "Size",
-  is_occupied: "Currently Occupied",
-  is_multi_unit: "Is Multi Unit"
+  asset_unit_no: "Unit No",
+  asset_address_line: "Address Line",
+  asset_city: "City",
+  // asset_ownership_type: "Ownership Type",
+  // asset_size: "Size",
+  // is_occupied: "Currently Occupied",
+  // is_multi_unit: "Is Multi Unit"
 };
 
 const tableDefaultData = [

@@ -1,12 +1,14 @@
 <template>
-  <tenure-contract-index-component
-    :resource="resource"
-    :tenantId="tenantId"
-    :assetId="assetId"
-    @getResource="getResource"
-    @assetIdChange="assetIdChange"
-    @tenantIdChange="tenantIdChange"
-  ></tenure-contract-index-component>
+  <div class="content">
+    <tenure-contract-index-component
+      :resource="resource"
+      :tenantId="tenantId"
+      :assetId="assetId"
+      @getResource="getResource"
+      @assetIdChange="assetIdChange"
+      @tenantIdChange="tenantIdChange"
+    ></tenure-contract-index-component>
+  </div>
 </template>
 <script>
 // import { BaseTable } from "@/components";

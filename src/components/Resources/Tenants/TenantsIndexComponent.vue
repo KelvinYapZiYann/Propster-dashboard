@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="row">
     <div class="col-12">
       <div class="pro-feature alert alert-danger">
         <strong>

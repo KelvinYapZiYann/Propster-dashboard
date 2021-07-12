@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="row">
     <div class="col-12">
       <card>
         <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
