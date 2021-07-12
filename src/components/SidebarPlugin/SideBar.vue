@@ -8,7 +8,7 @@
           <img src="img/main_propster_logo_white.svg" alt="">
         </a>
 
-        <a href="javascript:void(0)" @click="dashboard" class="simple-text logo-normal">
+        <a href="javascript:void(0)" class="simple-text logo-normal">
           {{ title }}
         </a>
       </div>

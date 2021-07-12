@@ -107,7 +107,7 @@
               </div>
               <b class="caret d-none d-lg-block d-xl-block"></b>
               <p class="d-lg-none">
-                {{userFullname}}
+                {{$store.getters["users/model"].full_name}}
               </p>
             </a>
             <ul class="dropdown-menu dropdown-navbar">
@@ -155,7 +155,6 @@ export default {
       searchModalVisible: false,
       searchQuery: "",
       showMenu: false,
-      userFullname: "",
       hasNotification: false,
       notifications: [
         {
@@ -186,12 +185,6 @@ export default {
       ]
     };
   },
-  created() {
-    // this.getProfile();
-  },
-  mounted() {
-    this.getProfile();
-  },
   methods: {
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
@@ -219,24 +212,6 @@ export default {
         });
       }
     },
-    async getProfile() {
-        try {
-          if (!this.$store.getters["users/model"].full_name) {
-            await this.$store.dispatch('users/get', {}).then(() => {
-              this.userFullname = this.$store.getters["users/model"].full_name;
-            });
-          } else {
-            this.userFullname = this.$store.getters["users/model"].full_name;
-          }
-          console.log(this.userFullname);
-        } catch (e) {
-          this.$notify({
-            message:'Server error',
-            icon: 'tim-icons icon-bell-55',
-            type: 'danger'
-          });
-        }
-      },
   },
   computed: {
     isRTL() {

@@ -18,11 +18,24 @@ export default {
     toggleNavOpen() {
       let root = document.getElementsByTagName("html")[0];
       root.classList.toggle("nav-open");
-    }
+    },
+    async getProfile() {
+      console.log('appp profile');
+      try {
+        await this.$store.dispatch('users/get', {});
+      } catch (e) {
+        this.$notify({
+          message:'Server error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      }
+    },
   },
   mounted() {
     this.$watch("$route", this.disableRTL, { immediate: true });
     this.$watch("$sidebar.showSidebar", this.toggleNavOpen);
+    this.getProfile();
   }
 };
 </script>

@@ -185,11 +185,12 @@ export default {
           this.tenureContractResource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
         });
 
-        await this.$store.dispatch('users/get', {}).then(() => {
-          this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+        this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+        // await this.$store.dispatch('users/get', {}).then(() => {
+          // this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
           // this.userResource.data = Object.assign({}, this.$store.getters["users/data"])
           // this.userResource.selector = Object.assign({}, this.$store.getters["users/selector"])
-        })
+        // })
 
         // await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
         // this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
