@@ -21,6 +21,15 @@
             v-bind:disabled="!resource.data.canAdd"
           >Add {{table.title}}</base-button>
         </div>
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
+            <base-input 
+                    addonLeftIcon="el-icon-search"
+                    placeholder="Search"
+                    v-model="searchQuery">
+            </base-input>
+          </div>
+        </div>
         <div class="table-responsive">
           <base-table
             :data="resource.models"
@@ -56,7 +65,7 @@
   </div>
 </template>
 <script>
-import {BaseTable, BasePagination, Card} from "@/components";
+import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
@@ -79,6 +88,7 @@ const tableDefaultData = [
 
 export default {
   components: {
+    BaseInput,
     BaseTable,
     BasePagination,
     Card
@@ -89,7 +99,9 @@ export default {
         title: "Tenants",
         columns: {...tableColumns},
         data: [...tableDefaultData]
-      }
+      },
+      searchQuery: "",
+      searchQueryTimeout: null,
     };
   },
   props: {
@@ -234,6 +246,16 @@ export default {
           type: 'danger'
         });
       }
+    }
+  },
+  watch: {
+    searchQuery(value) {
+      if (this.searchQueryTimeout) {
+        clearTimeout(this.searchQueryTimeout);
+      }
+      this.searchQueryTimeout = setTimeout(() => {
+        console.log('searching query with = ' + value);
+      }, 2000);
     }
   }
 };

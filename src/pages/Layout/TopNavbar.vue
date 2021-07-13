@@ -113,7 +113,7 @@
             <ul class="dropdown-menu dropdown-navbar">
               <li class="nav-link">
                 <a href="javascript:void(0)" @click="profile" class="nav-item dropdown-item"
-                  >Profile</a
+                  >User Profile</a
                 >
               </li>
               <!-- <li class="nav-link">

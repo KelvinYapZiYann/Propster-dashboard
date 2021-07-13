@@ -3,6 +3,15 @@
     <div class="col-12">
       <card>
         <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
+            <base-input 
+                    addonLeftIcon="el-icon-search"
+                    placeholder="Search"
+                    v-model="searchQuery">
+            </base-input>
+          </div>
+        </div>
         <div class="table-responsive">
           <base-table
             :disableEdit="true"
@@ -38,7 +47,7 @@
   </div>
 </template>
 <script>
-import {BaseTable, BasePagination, Card} from "@/components";
+import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
@@ -50,6 +59,7 @@ let tableColumns = {
 
 export default {
   components: {
+    BaseInput,
     BaseTable,
     BasePagination,
     Card
@@ -59,7 +69,9 @@ export default {
       table: {
         title: "Asset Expenses",
         columns: {...tableColumns},
-      }
+      },
+      searchQuery: "",
+      searchQueryTimeout: null,
     };
   },
   props: {
@@ -126,6 +138,16 @@ export default {
           type: 'danger'
         });
       }
+    }
+  },
+  watch: {
+    searchQuery(value) {
+      if (this.searchQueryTimeout) {
+        clearTimeout(this.searchQueryTimeout);
+      }
+      this.searchQueryTimeout = setTimeout(() => {
+        console.log('searching query with = ' + value);
+      }, 2000);
     }
   }
 };

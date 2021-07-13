@@ -15,11 +15,20 @@
         <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
         <div class="text-right mb-3">
           <base-button
-            @click="addModel"
-            class="mt-3"
-            type="info"
-            v-bind:disabled="!resource.data.canAdd"
+                @click="addModel"
+                class="mt-3"
+                type="info"
+                v-bind:disabled="!resource.data.canAdd"
           >Add {{table.title}}</base-button>
+        </div>
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
+            <base-input 
+                    addonLeftIcon="el-icon-search"
+                    placeholder="Search"
+                    v-model="searchQuery">
+            </base-input>
+          </div>
         </div>
         <div class="table-responsive">
           <base-table
@@ -56,7 +65,7 @@
   </div>
 </template>
 <script>
-import {BaseTable, BasePagination, Card} from "@/components";
+import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
@@ -83,6 +92,7 @@ const tableDefaultData = [
 
 export default {
   components: {
+    BaseInput,
     BaseTable,
     BasePagination,
     Card
@@ -92,8 +102,10 @@ export default {
       table: {
         title: "Assets",
         columns: {...tableColumns},
-        data: [...tableDefaultData]
-      }
+        data: [...tableDefaultData],
+      },
+      searchQuery: "",
+      searchQueryTimeout: null,
     };
   },
   props: {
@@ -205,6 +217,16 @@ export default {
           type: 'danger'
         });
       }
+    }
+  },
+  watch: {
+    searchQuery(value) {
+      if (this.searchQueryTimeout) {
+        clearTimeout(this.searchQueryTimeout);
+      }
+      this.searchQueryTimeout = setTimeout(() => {
+        console.log('searching query with = ' + value);
+      }, 2000);
     }
   }
 };
