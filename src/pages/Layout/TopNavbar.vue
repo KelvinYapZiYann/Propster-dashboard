@@ -78,6 +78,13 @@
                   >{{value.title}}</a
                 >
               </li>
+              <div class="dropdown-divider"></div>
+              <li class="nav-link">
+                <router-link class="nav-item dropdown-item" to="/notifications" v-slot="{ navigate, href }" custom>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">All Notifications</a>
+                </router-link>
+                
+              </li>
               <!-- <li class="nav-link">
                 <a href="javascript:void(0)" class="nav-item dropdown-item"
                   >You have 5 more tasks</a

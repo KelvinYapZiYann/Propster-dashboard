@@ -16,9 +16,11 @@
 
           <sidebar-link
             :link="{ name: $t('sidebar.assets'), path: '/assets', icon: 'fas fa-home fa-2x'}"
+            v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false"
           ></sidebar-link>
           <sidebar-link
             :link="{ name: $t('sidebar.tenants'), path: '/tenants', icon: 'fas fa-child fa-2x'}"
+            v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false"
           ></sidebar-link>
           <sidebar-link
             :link="{ name: $t('sidebar.tenureContracts'), path: '/tenure-contracts', icon: 'fas fa-file fa-2x'}"
@@ -28,6 +30,7 @@
           ></sidebar-link>
           <sidebar-link
             :link="{ name: $t('sidebar.assetExpenses'), path: '/asset-expenses', icon: 'fas fa-dollar-sign fa-2x'}"
+            v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false"
           ></sidebar-link>
           <sidebar-link
             :link="{ name: $t('sidebar.userProfile'), path: '/profile', icon: 'tim-icons icon-single-02'}"

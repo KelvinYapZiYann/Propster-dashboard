@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import {BaseDetailList} from "@/components";
+import {BaseDetailList, Card} from "@/components";
 import DropZone from "@/components/DropZone";
 import PaymentPage from "@/components/Resources/PaymentRecords/PaymentPage";
 
@@ -44,6 +44,7 @@ let detailHeaders = {
 export default {
   components: {
     BaseDetailList,
+    Card,
     DropZone,
     PaymentPage
   },

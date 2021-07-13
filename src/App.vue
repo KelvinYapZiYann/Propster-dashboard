@@ -20,7 +20,6 @@ export default {
       root.classList.toggle("nav-open");
     },
     async getProfile() {
-      console.log('appp profile');
       try {
         await this.$store.dispatch('users/get', {});
       } catch (e) {
