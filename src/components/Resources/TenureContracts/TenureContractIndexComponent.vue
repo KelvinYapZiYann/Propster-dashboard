@@ -86,7 +86,7 @@ let tableColumns = {
   asset_nickname: "Asset Nickname",
   first_name: "Tenant First Name",
   contract_name: "Contract Name",
-  monthly_rental_amount: "Monthly Rental Amount",
+  monthly_rental_amount: "Monthly Rental Amount (RM)",
   tenure_start_date: "Tenure Start Date",
   tenure_end_date: "Tenure End Date",
 };
