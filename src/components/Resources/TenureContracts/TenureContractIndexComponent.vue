@@ -22,7 +22,9 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 ">
+          <div class="col-xl-4 col-lg-2 col-md-12">
+          </div>
+          <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-selector-input label="Asset Nickname"
                         placeholder="Asset Nickname"
                         v-model="assetIdComp"
@@ -31,7 +33,7 @@
                         >
             </base-selector-input>
           </div>
-          <div class="col-md-6 ">
+          <div class="col-xl-4 col-lg-5 col-md-6" v-if="query ? !query.tenantId : true">
             <base-selector-input label="Tenant Name"
                         placeholder="Tenant Name"
                         v-model="tenantIdComp"

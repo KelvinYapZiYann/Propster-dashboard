@@ -2,13 +2,11 @@
   <div class="sidebar" :data="backgroundColor">
     <div class="sidebar-wrapper text-left">
       <div class="logo">
-        <a class="simple-text logo-mini">
-          <!-- href="javascript:void(0)"  -->
-          <!-- @click="dashboard"  -->
-          <img src="img/main_propster_logo_white.svg" alt="">
+        <a class="simple-text logo-mini" @click="dashboard" href="javascript:void(0)">
+          <img src="/img/main_propster_logo_white.svg" alt="">
         </a>
 
-        <a href="javascript:void(0)" class="simple-text logo-normal">
+        <a href="javascript:void(0)" class="simple-text logo-normal" @click="dashboard" >
           {{ title }}
         </a>
       </div>

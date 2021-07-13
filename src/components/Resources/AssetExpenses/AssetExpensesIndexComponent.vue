@@ -100,7 +100,7 @@ export default {
   methods: {
     showDetails(id) {
       router.push({
-        path: "Asset Expenses Detail",
+        name: "Asset Expenses Detail",
         params: {
           assetExpenseId: id,
           previousRoute: this.$router.currentRoute.fullPath
