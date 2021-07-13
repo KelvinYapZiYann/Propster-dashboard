@@ -41,29 +41,41 @@
               <h4 class="card-title text-center text-primary">PROPSTER.IO</h4>
             </template>
 
-            <validation-error :errorsArray="apiValidationErrors.mobile_number" />
-            <base-input
+            <VuePhoneNumberInput 
+                      v-model="phone_number" 
+                      :default-country-code="phoneCountryCodeInput"
+                      @update="updatePhoneNumber"
+                      :no-example="false"
+                      color="#1d8cf8"
+                      valid-color="#1d8cf8"
+                      error-color="#1d8cf8"
+                      :show-code-on-list="true"
+                      :only-countries="['MY']"
+                      class="pb-2"
+                      />
+            <!-- <base-input
                 v-model="mobile_number"
                 placeholder="Mobile Number"
                 addon-left-icon="tim-icons icon-mobile"
                 type="text">
-            </base-input>
+            </base-input> -->
+            <validation-error :errorsArray="apiValidationErrors.mobile_number" />
 
-            <validation-error :errorsArray="apiValidationErrors.email" />
             <base-input
                 v-model="email"
                 placeholder="Email"
                 addon-left-icon="tim-icons icon-email-85"
                 type="email">
             </base-input>
+            <validation-error :errorsArray="apiValidationErrors.email" />
 
-            <validation-error :errorsArray="apiValidationErrors.password"/>
             <base-input
                 v-model="password"
                 placeholder="Password"
                 addon-left-icon="tim-icons icon-lock-circle"
                 type="password">
             </base-input>
+            <validation-error :errorsArray="apiValidationErrors.password"/>
 
             <base-input
                 placeholder="Confirm Password"
@@ -140,6 +152,8 @@
 import { BaseCheckbox, Card, BaseInput, ValidationError, Modal } from "@/components";
 import formMixin from "@/mixins/form-mixin";
 import axios from "axios";
+import VuePhoneNumberInput from 'vue-phone-number-input';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 
 export default {
   components: {
@@ -147,18 +161,23 @@ export default {
     Card,
     BaseInput,
     ValidationError,
-    Modal
+    Modal,
+    VuePhoneNumberInput
   },
   mixins: [formMixin],
   data() {
     return {
-      mobile_number: null,
+      phone_number: null,
       boolean: false,
       email: null,
       password: null,
       password_confirmation: null,
       registerSuccessful: false,
+      phoneCountryCodeInput: "MY",
     };
+  },
+  mounted() {
+    this.phoneCountryCodeInput = "MY";
   },
   methods: {
     async register() {
@@ -172,7 +191,7 @@ export default {
       // }
 
       const user = {
-        mobile_number: this.mobile_number,
+        mobile_number: this.phone_number,
         email: this.email,
         password: this.password,
         password_confirmation: this.password_confirmation,
@@ -224,6 +243,9 @@ export default {
           icon: 'tim-icons icon-bell-55',
         })
       });
+    },
+    updatePhoneNumber(event) {
+      // this.phone_country_code = event.countryCallingCode;
     }
   }
 };
