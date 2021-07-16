@@ -63,7 +63,7 @@ export default {
       dropzoneOptions: {
         url: 'https://httpbin.org/post',
         thumbnailWidth: 200,
-        addRemoveLinks: true,
+        addRemoveLinks: false,
         maxFiles: 1
       },
     };

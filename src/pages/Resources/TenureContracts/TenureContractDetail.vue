@@ -12,16 +12,18 @@
           <div class="card-header mb-3">
             <h5 class="card-category">Media</h5>
           </div>
-          <drop-zone ref="myVueDropzone"
-                     id="dropzone"
-                     :options="dropzoneOptions"
+          <drop-zone
+                    @click.native="downloadFile" 
+                    ref="myVueDropzone"
+                    id="dropzone"
+                    :options="dropzoneOptions"
           >
           <!-- :disable="disableDropZone" -->
           </drop-zone>
         </card>
 
         <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
-        <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Tenure Contract</base-button>
+        <!-- <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Tenure Contract</base-button> -->
       </div>
 </template>
 <script>
@@ -57,8 +59,10 @@ export default {
       dropzoneOptions: {
         url: 'https://httpbin.org/post',
         thumbnailWidth: 200,
-        addRemoveLinks: true,
-        maxFiles: 1
+        addRemoveLinks: false,
+        maxFiles: 1,
+        maxFilesize: 1,
+        clickable: false
       },
       showMedia: false,
     };
@@ -73,7 +77,7 @@ export default {
   },
   mounted() {
     this.getResource();
-    this.disableDropZone();
+    // this.disableDropZone();
   },
   methods: {
     async getResource() {
@@ -95,15 +99,30 @@ export default {
     loadAttachment() {
       if (this.resource.model.media.length > 0) {
         this.showMedia = true;
-        let file = { size: 123, name: "Icon", type: "image/png" };
-        this.$refs.myVueDropzone.manuallyAddFile(file, this.resource.model.media[0].temporary_url);
+        let fileData = this.resource.model.media[0].temporary_url;
+        // console.log(fileData);
+        let file = {  name: this.resource.model.media[0].file_name, type: this.resource.model.media[0].mime_type };
+        this.$refs.myVueDropzone.manuallyAddFile(file, fileData);
         this.$refs.myVueDropzone.removeEventListeners()
-        this.$refs.myVueDropzone.setupEventListeners()
+        // this.$refs.myVueDropzone.setupEventListeners()
       }
     },
-    disableDropZone() {
-      return true;
+    downloadFile() {
+      console.log('zxczxc');
+      console.log(this.$refs.myVueDropzone);
+      console.log(this.$refs.myVueDropzone.getAcceptedFiles());
+      console.log(this.$refs.myVueDropzone.getActiveFiles());
+      console.log(this.$refs.myVueDropzone.getAddedFiles());
+      console.log(this.$refs.myVueDropzone.getExistingFallback());
+      console.log(this.$refs.myVueDropzone.getFallbackForm());
+      console.log(this.$refs.myVueDropzone.getFilesWithStatus());
+      console.log(this.$refs.myVueDropzone.getQueuedFiles());
+      console.log(this.$refs.myVueDropzone.getRejectedFiles());
+      console.log(this.$refs.myVueDropzone.getUploadingFiles());
     },
+    // disableDropZone() {
+    //   return true;
+    // },
     async handleBack() {
       if (this.previousRoute) {
         this.$router.push({path: this.previousRoute});
@@ -124,4 +143,7 @@ export default {
 };
 </script>
 <style>
+.dz-size span {
+  display: none;
+}
 </style>
