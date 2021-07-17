@@ -29,25 +29,28 @@
         <div class="col-md-6 ">
           <base-input label="First Name"
                       placeholder="First Name"
-                      v-model="resource.model.first_name">
+                      v-model="resource.model.first_name"
+                      :error="tmpApiValidationErrors.first_name ? tmpApiValidationErrors.first_name[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.first_name"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.first_name"/> -->
         </div>
         <div class="col-md-6">
           <base-input label="Last Name"
                       placeholder="Last Name"
-                      v-model="resource.model.last_name">
+                      v-model="resource.model.last_name"
+                      :error="tmpApiValidationErrors.last_name ? tmpApiValidationErrors.last_name[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.last_name"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.last_name"/> -->
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 ">
           <base-input label="Email"
                       placeholder="Email"
-                      v-model="resource.model.email">
+                      v-model="resource.model.email"
+                      :error="tmpApiValidationErrors.email ? tmpApiValidationErrors.email[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.email"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.email"/> -->
         </div>
         <div class="col-md-6">
           <label class="mt-1">Phone Number</label>
@@ -76,17 +79,19 @@
                                v-model="resource.model.gender"
                                :initialValue="resource.model.gender"
                                :options="resource.selector.gender"
+                               :error="tmpApiValidationErrors.gender ? tmpApiValidationErrors.gender[0] : ''"
           >
           </base-selector-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.gender"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.gender"/> -->
         </div>
         <div class="col-md-6">
           <base-input label="Is Business?"
                       type="checkbox"
                       :checked="typeof resource.model.is_business == 'boolean' ? resource.model.is_business : (typeof resource.model.is_business == 'string' ? resource.model.is_business == 'true' : false)"
-                      v-model="resource.model.is_business">
+                      v-model="resource.model.is_business"
+                      :error="tmpApiValidationErrors.is_business ? tmpApiValidationErrors.is_business[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.is_business"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_business"/> -->
         </div>
       </div>
 
@@ -94,16 +99,18 @@
         <div class="col-md-6">
           <base-input label="Date Of Birth"
                       type="date"
-                      v-model="resource.model.date_of_birth">
+                      v-model="resource.model.date_of_birth"
+                      :error="tmpApiValidationErrors.date_of_birth ? tmpApiValidationErrors.date_of_birth[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/> -->
         </div>
         <div class="col-md-6 pr-md-1">
           <base-input label="Reputation"
                       placeholder="Reputation"
-                      v-model="resource.model.reputation">
+                      v-model="resource.model.reputation"
+                      :error="tmpApiValidationErrors.reputation ? tmpApiValidationErrors.reputation[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.reputation"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.reputation"/> -->
         </div>
       </div>
 
@@ -114,9 +121,10 @@
                                v-model="resource.model.salary_range"
                                :initialValue="resource.model.salary_range"
                                :options="resource.selector.salary_range"
+                               :error="tmpApiValidationErrors.salary_range ? tmpApiValidationErrors.salary_range[0] : ''"
           >
           </base-selector-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.salary_range"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.salary_range"/> -->
         </div>
       </div>
     </card>

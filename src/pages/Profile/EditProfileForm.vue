@@ -7,16 +7,18 @@
       <div class="col-md-6 ">
         <base-input label="First Name"
                     placeholder="First Name"
-                    v-model="model.first_name">
+                    v-model="model.first_name"
+                    :error="tmpApiValidationErrors.first_name ? tmpApiValidationErrors.first_name[0] : ''">
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.first_name"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.first_name"/> -->
       </div>
       <div class="col-md-6">
         <base-input label="Last Name"
                     placeholder="Last Name"
-                    v-model="model.last_name">
+                    v-model="model.last_name"
+                    :error="tmpApiValidationErrors.last_name ? tmpApiValidationErrors.last_name[0] : ''">
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.last_name"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.last_name"/> -->
       </div>
     </div>
     <div class="row" v-if="addOrEdit != 'Add'">
@@ -25,9 +27,10 @@
                     type="email"
                     disabled="true"
                     placeholder="email"
-                    v-model="model.email">
+                    v-model="model.email"
+                    :error="tmpApiValidationErrors.email ? tmpApiValidationErrors.email[0] : ''">
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.email"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.email"/> -->
       </div>
       <div class="col-md-6">
         <!-- <base-input label="Phone Number"
@@ -55,9 +58,10 @@
       <div class="col-md-6">
         <base-input label="Date Of Birth"
                     type="date"
-                    v-model="model.date_of_birth">
+                    v-model="model.date_of_birth"
+                    :error="tmpApiValidationErrors.date_of_birth ? tmpApiValidationErrors.date_of_birth[0] : ''">
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/> -->
       </div>
       <div class="col-md-6">
         <base-selector-input label="Gender"
@@ -67,9 +71,10 @@
                                 {"id":"MALE", "name":"Male"},
                                 {"id":"FEMALE", "name":"Female"}
                               ]'
+                              :error="tmpApiValidationErrors.gender ? tmpApiValidationErrors.gender[0] : ''"
         >
         </base-selector-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.gender"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.gender"/> -->
       </div>
     </div>
     <div class="row">
@@ -77,9 +82,10 @@
         <base-input label="Is Business?"
                     type="checkbox"
                     v-model="model.is_business"
+                    :error="tmpApiValidationErrors.is_business ? tmpApiValidationErrors.is_business[0] : ''"
         >
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.is_business"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_business"/> -->
       </div>
     </div>
     <template slot="footer">

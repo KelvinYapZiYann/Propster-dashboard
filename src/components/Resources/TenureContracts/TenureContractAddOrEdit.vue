@@ -8,19 +8,22 @@
                       placeholder="Asset Nickname"
                       v-model="resource.model.asset_id"
                       :options="resource.selector.asset_id"
-                      v-if="addOrEdit == 'Add' && !assetId">
+                      v-if="addOrEdit == 'Add' && !assetId"
+                      :error="tmpApiValidationErrors.asset_nickname ? tmpApiValidationErrors.asset_nickname[0] : ''">
           </base-selector-input>
           <base-input label="Asset Nickname"
                       v-if="addOrEdit == 'Add' && assetId" 
                       :value="getAssetNicknameByAssetIdFromSelector()"
-                      :disabled="true">
+                      :disabled="true"
+                      :error="tmpApiValidationErrors.asset_nickname ? tmpApiValidationErrors.asset_nickname[0] : ''">
           </base-input>
           <base-input label="Asset Nickname"
                       v-if="addOrEdit != 'Add'" 
                       :value="resource.model.asset ? (resource.model.asset.asset_nickname ? resource.model.asset.asset_nickname : '') : ''"
-                      :disabled="true">
+                      :disabled="true"
+                      :error="tmpApiValidationErrors.asset_nickname ? tmpApiValidationErrors.asset_nickname[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/> -->
         </div>
         <div class="col-md-6">
           <!-- <base-selector-input label="Tenant Name"
@@ -35,15 +38,17 @@
               <base-input label="Tenant Name"
                         v-if="tenant.id == tenantId && addOrEdit == 'Add'" 
                         :value="tenant.name"
-                        :disabled="true">
+                        :disabled="true"
+                        :error="tmpApiValidationErrors.tenant_name ? tmpApiValidationErrors.tenant_name[0] : ''">
               </base-input>
           </div>
           <base-input label="Tenant Name"
                       v-if="addOrEdit != 'Add'" 
                       :value="resource.model.tenant ? (resource.model.tenant.first_name + ' ' + resource.model.tenant.last_name) : ''"
-                      :disabled="true">
+                      :disabled="true"
+                      :error="tmpApiValidationErrors.tenant_id ? tmpApiValidationErrors.tenant_id[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.tenant_id"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.tenant_id"/> -->
         </div>
       </div>
 
@@ -51,25 +56,28 @@
         <div class="col-md-6 ">
           <base-input label="Contract Name"
                       placeholder="Contract Name"
-                      v-model="resource.model.contract_name">
+                      v-model="resource.model.contract_name"
+                      :error="tmpApiValidationErrors.contract_name ? tmpApiValidationErrors.contract_name[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.contract_name"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.contract_name"/> -->
         </div>
         <div class="col-md-6">
           <base-input label="Contract Description"
                       placeholder="Contract Description"
-                      v-model="resource.model.contract_description">
+                      v-model="resource.model.contract_description"
+                      :error="tmpApiValidationErrors.contract_description ? tmpApiValidationErrors.contract_description[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.contract_description"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.contract_description"/> -->
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <base-input label="Monthly Rental Amoun (RM)"
                       placeholder="Monthly Rental Amount (RM)"
-                      v-model="resource.model.monthly_rental_amount">
+                      v-model="resource.model.monthly_rental_amount"
+                      :error="tmpApiValidationErrors.monthly_rental_amount ? tmpApiValidationErrors.monthly_rental_amount[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.monthly_rental_amount"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.monthly_rental_amount"/> -->
         </div>
       </div>
 
@@ -77,16 +85,18 @@
         <div class="col-md-6">
           <base-input label="Contract Start Date"
                       type="date"
-                      v-model="resource.model.tenure_start_date">
+                      v-model="resource.model.tenure_start_date"
+                      :error="tmpApiValidationErrors.tenure_start_date ? tmpApiValidationErrors.tenure_start_date[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.tenure_start_date"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.tenure_start_date"/> -->
         </div>
         <div class="col-md-6 pr-md-1">
           <base-input label="Contract End Date"
                       type="date"
-                      v-model="resource.model.tenure_end_date">
+                      v-model="resource.model.tenure_end_date"
+                      :error="tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_end_date[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.tenure_end_date"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.tenure_end_date"/> -->
         </div>
       </div>
     </card>

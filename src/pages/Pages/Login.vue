@@ -10,17 +10,18 @@
           </template>
 
           <div>
-            <validation-error :errorsArray="apiValidationErrors.email"/>
+            <!-- <validation-error :errorsArray="apiValidationErrors.email"/> -->
             <base-input
                 v-validate="'required|email'"
                 name="email"
                 v-model="model.email"
                 placeholder="Email"
                 addon-left-icon="tim-icons icon-email-85"
+                :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''"
             >
             </base-input>
 
-            <validation-error :errorsArray="apiValidationErrors.password"/>
+            <!-- <validation-error :errorsArray="apiValidationErrors.password"/> -->
             <base-input
                 v-validate="'required|min:5'"
                 name="password"
@@ -28,6 +29,7 @@
                 type="password"
                 placeholder="Password"
                 addon-left-icon="tim-icons icon-lock-circle"
+                :error="apiValidationErrors.password ? apiValidationErrors.password[0] : ''"
             >
             </base-input>
           </div>

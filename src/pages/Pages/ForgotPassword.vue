@@ -10,13 +10,14 @@
           </template>
 
           <div>
-            <validation-error :errorsArray="apiValidationErrors.email"/>
+            <!-- <validation-error :errorsArray="apiValidationErrors.email"/> -->
             <base-input
                 v-validate="'required|email'"
                 name="email"
                 v-model="model.email"
                 placeholder="Email"
                 addon-left-icon="tim-icons icon-email-85"
+                :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''"
             >
             </base-input>
           </div>
@@ -47,7 +48,7 @@
 <script>
 import {Card, BaseInput} from "@/components/index";
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
+// import ValidationError from "@/components/ValidationError.vue";
 import router from "@/router";
 import swal from "sweetalert2";
 
@@ -56,7 +57,7 @@ export default {
   components: {
     Card,
     BaseInput,
-    ValidationError
+    // ValidationError
   },
   data() {
     return {

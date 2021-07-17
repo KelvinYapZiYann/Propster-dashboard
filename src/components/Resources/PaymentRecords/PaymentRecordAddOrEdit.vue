@@ -9,13 +9,15 @@
                                v-model="resource.model.asset.id"
                                :options="resource.selector.assets"
                                v-if="addOrEdit == 'Add' && (query ? !query.assetId : true)"
+                               :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''"
           >
           </base-selector-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/> -->
           <base-input label="Asset"
                       v-if="addOrEdit != 'Add' || (query ? query.assetId : false)" 
                       :value="resource.model.asset ? resource.model.asset.asset_nickname : ''"
-                      :disabled="true">
+                      :disabled="true"
+                      :error="tmpApiValidationErrors.asset ? tmpApiValidationErrors.asset[0] : ''">
           </base-input>
         </div>
       </div>
@@ -23,16 +25,18 @@
         <div class="col-md-6 ">
           <base-input label="Payment Description"
                       placeholder="Payment Description"
-                      v-model="resource.model.payment_description">
+                      v-model="resource.model.payment_description"
+                      :error="tmpApiValidationErrors.payment_description ? tmpApiValidationErrors.payment_description[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.payment_description"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_description"/> -->
         </div>
         <div class="col-md-6">
           <base-input label="Amount(RM)"
                       placeholder="Amount"
-                      v-model="resource.model.amount">
+                      v-model="resource.model.amount"
+                      :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.amount"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.amount"/> -->
         </div>
       </div>
       <div class="row">
@@ -42,9 +46,10 @@
                                v-model="resource.model.payment_method"
                                :initialValue="resource.model.payment_method"
                                :options="resource.selector.payment_method"
+                               :error="tmpApiValidationErrors.payment_method ? tmpApiValidationErrors.payment_method[0] : ''"
           >
           </base-selector-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.payment_method"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_method"/> -->
         </div>
         <div class="col-md-6">
           <base-selector-input label="Payment Type"
@@ -52,9 +57,10 @@
                                v-model="resource.model.payment_type"
                                :initialValue="resource.model.payment_type"
                                :options="resource.selector.payment_type"
+                               :error="tmpApiValidationErrors.payment_type ? tmpApiValidationErrors.payment_type[0] : ''"
           >
           </base-selector-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.payment_type"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_type"/> -->
         </div>
       </div>
 
@@ -63,9 +69,10 @@
           <base-input label="Reference Payment?"
                       type="checkbox"
                       :checked="typeof resource.model.is_reference_only == 'boolean' ? resource.model.is_reference_only : (typeof resource.model.is_reference_only == 'string' ? resource.model.is_reference_only == 'true' : false)"
-                      v-model="resource.model.is_reference_only">
+                      v-model="resource.model.is_reference_only"
+                      :error="tmpApiValidationErrors.is_reference_only ? tmpApiValidationErrors.is_reference_only[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.is_reference_only"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_reference_only"/> -->
         </div>
       </div>
     </card>
@@ -74,13 +81,13 @@
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
+import { BaseInput, BaseSelectorInput, Card } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     // AssetForm,
-    ValidationError,
+    // ValidationError,
     BaseInput,
     BaseSelectorInput,
     Card

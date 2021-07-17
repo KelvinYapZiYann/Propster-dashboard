@@ -65,26 +65,29 @@
                 v-model="email"
                 placeholder="Email"
                 addon-left-icon="tim-icons icon-email-85"
-                type="email">
+                type="email"
+                :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''">
             </base-input>
-            <validation-error :errorsArray="apiValidationErrors.email" />
+            <!-- <validation-error :errorsArray="apiValidationErrors.email" /> -->
 
             <base-input
                 v-model="password"
                 placeholder="Password"
                 addon-left-icon="tim-icons icon-lock-circle"
-                type="password">
+                type="password"
+                :error="apiValidationErrors.password ? apiValidationErrors.password[0] : ''">
             </base-input>
-            <validation-error :errorsArray="apiValidationErrors.password"/>
+            <!-- <validation-error :errorsArray="apiValidationErrors.password"/> -->
 
             <base-input
                 placeholder="Confirm Password"
                 type="password"
                 name="Password confirmation"
                 v-model="password_confirmation"
-                addon-left-icon="tim-icons icon-lock-circle">
+                addon-left-icon="tim-icons icon-lock-circle"
+                :error="apiValidationErrors.password_confirmation ? apiValidationErrors.password_confirmation[0] : ''">
             </base-input>
-            <validation-error :errorsArray="apiValidationErrors.password_confirmation" />
+            <!-- <validation-error :errorsArray="apiValidationErrors.password_confirmation" /> -->
 
             <!-- <base-checkbox v-model="boolean" class="text-left">
               I agree to the <a href="#something">terms and conditions</a>.
