@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="content">
     <payment-page
-      :model="resource.model"
+      :resource="resource"
+    ></payment-page>
+      <!-- :model="resource.model"
       :asset="resource.model.asset"
       :recipient="resource.model.recipient"
-      :sender="resource.model.sender"
-    ></payment-page>
+      :sender="resource.model.sender" -->
     <base-detail-list
       :category="'Payment Details'"
       :title="''"
@@ -23,10 +24,12 @@
         >
         </drop-zone>
     </card>
+
+    <base-button slot="footer" type="info"  @click="handleBack()" fill>Back</base-button>
   </div>
 </template>
 <script>
-import {BaseDetailList} from "@/components";
+import {BaseDetailList, Card} from "@/components";
 import DropZone from "@/components/DropZone";
 import PaymentPage from "@/components/Resources/PaymentRecords/PaymentPage";
 
@@ -41,6 +44,7 @@ let detailHeaders = {
 export default {
   components: {
     BaseDetailList,
+    Card,
     DropZone,
     PaymentPage
   },
@@ -64,13 +68,21 @@ export default {
       },
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: false,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getResource();
   },
   methods: {
     async getResource() {
       try {
-        await this.$store.dispatch('assetExpenses/getById', this.$route.params.assetExpensesId)
+        await this.$store.dispatch('assetExpenses/getById', this.$route.params.assetExpenseId)
         this.resource.model = await this.$store.getters["assetExpenses/model"]
         this.resource.data = await this.$store.getters["assetExpenses/data"]
         this.loadAttachment();
@@ -89,6 +101,13 @@ export default {
         this.$refs.myVueDropzone.manuallyAddFile(file, this.resource.model.media[0].temporary_url);
         this.$refs.myVueDropzone.removeEventListeners()
         this.$refs.myVueDropzone.setupEventListeners()
+      }
+    },
+    async handleBack() {
+      if (this.previousRoute) {
+        this.$router.push({path: this.previousRoute});
+      } else {
+        this.$router.go(-1);
       }
     }
   }

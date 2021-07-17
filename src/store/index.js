@@ -11,6 +11,7 @@ import tenureContract from "./modules/resources/tenure-contracts-module"
 import assetExpenses from "./modules/resources/asset-expenses-module"
 import paymentRecords from "./modules/resources/payment-records-module"
 import selectRole from "./modules/select-role-module"
+import createProfile from "./modules/create-profile-module"
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     assetExpenses,
     paymentRecords,
     tenureContract,
-    selectRole
+    selectRole,
+    createProfile
   }
 });

@@ -2,13 +2,15 @@
   <div class="container">
     <div class="col-lg-4 col-md-6 ml-auto mr-auto">
       <form @submit.prevent="login">
-        <card class="card-login card-white text-left">
+        <card class="card-login card-white">
           <template slot="header">
-            <img src="img/card-primary.png" class="card-img" alt=""/>
-            <h1 class="card-title">Log in</h1>
+            <!-- <img src="img/card-primary.png" class="card-img" alt=""/> -->
+            <img src="img/main_propster_logo.svg" class="card-img" alt=""/>
+            <h1 class="card-title text-info text-center">PROPSTER.IO</h1>
           </template>
 
           <div>
+            <validation-error :errorsArray="apiValidationErrors.email"/>
             <base-input
                 v-validate="'required|email'"
                 name="email"
@@ -17,8 +19,8 @@
                 addon-left-icon="tim-icons icon-email-85"
             >
             </base-input>
-            <validation-error :errors="apiValidationErrors.email"/>
 
+            <validation-error :errorsArray="apiValidationErrors.password"/>
             <base-input
                 v-validate="'required|min:5'"
                 name="password"
@@ -28,13 +30,12 @@
                 addon-left-icon="tim-icons icon-lock-circle"
             >
             </base-input>
-            <validation-error :errors="apiValidationErrors.password"/>
           </div>
 
           <div slot="footer">
             <base-button
                 native-type="submit"
-                type="primary"
+                type="info"
                 class="mb-3"
                 size="lg"
                 block
@@ -43,15 +44,15 @@
             </base-button>
             <div class="pull-left">
               <h6>
-                <router-link class="link footer-link" to="/register">
-                  Create Account
+                <router-link class="link footer-link" to="/register" v-slot="{ navigate, href }" custom>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Create Account</a>
                 </router-link>
               </h6>
             </div>
             <div class="pull-right">
               <h6>
-                <router-link class="link footer-link" to="/forgot-password">
-                  Forgot Password
+                <router-link class="link footer-link" to="/forgot-password" v-slot="{ navigate, href }" custom>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Forgot Password</a>
                 </router-link>
               </h6>
             </div>
@@ -65,6 +66,7 @@
 import {Card, BaseInput} from "@/components/index";
 import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
+import errorHandlingService from "@/store/services/error-handling-service";
 // import router from "@/router";
 
 export default {
@@ -98,15 +100,25 @@ export default {
       }
 
       try {
-        await this.$store.dispatch("login", {user, requestOptions})
+        await this.$store.dispatch("login", {user, requestOptions});
       } catch (e) {
         this.$notify({
           message: 'Invalid credentials!',
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
-        this.setApiValidation(e.response.data.errors)
+        this.setApiValidation(e.response.data.errors);
+        return;
       }
+
+      try {
+        await this.$store.dispatch("verifyMiddleware");
+      } catch (e) {
+        errorHandlingService.verifyErrorFromServer(e);
+        return;
+      }
+
+      this.$router.push({path: "/dashboard"});
     }
   }
 };

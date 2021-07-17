@@ -5,6 +5,7 @@
       :tmpApiValidationErrors="apiValidationErrors"
       :addOrEdit="addOrEdit"
       @submit="handleSubmit"
+      @cancel="handleCancel"
     >
     </asset-add-or-edit>
   </div>
@@ -35,6 +36,14 @@ export default {
       addOrEdit: "Edit"
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: false,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getAsset();
   },
@@ -55,8 +64,8 @@ export default {
       }
     },
     async handleSubmit(model) {
-      const modelId = this.resource.data.id
-      if (modelId == null) {
+      const assetId = this.resource.data.id
+      if (assetId == null) {
         this.$notify({
           message:'Server error',
           icon: 'tim-icons icon-bell-55',
@@ -64,14 +73,19 @@ export default {
         });
       } else {
         try {
-          await this.$store.dispatch('asset/update', {'modelId': modelId, 'model': model})
+          await this.$store.dispatch('asset/update', {'assetId': assetId, 'model': model})
           this.$notify({
             message:'Successfully Updated',
             icon: 'tim-icons icon-bell-55',
             type: 'success'
           });
           this.resetApiValidation();
-          router.go(-1);
+          if (this.previousRoute) {
+            router.push({path: this.previousRoute});
+          } else {
+            router.go(-1);
+          }
+          // router.go(-1);
           // router.push({path: "/assets"});
         } catch (e) {
           this.$notify({
@@ -82,9 +96,17 @@ export default {
           this.setApiValidation(e.response.data.errors)
         }
       }
+    },
+    async handleCancel() {
+      if (this.previousRoute) {
+        router.push({path: this.previousRoute});
+      } else {
+        router.go(-1);
+      }
     }
   }
 }
 </script>
 <style>
 </style>
+

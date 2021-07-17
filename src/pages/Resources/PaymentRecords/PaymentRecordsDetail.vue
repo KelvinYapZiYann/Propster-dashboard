@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="content">
     <payment-page
-      :model="resource.model"
+      :resource="resource"
+    ></payment-page>
+      <!-- :model="resource.model"
       :asset="resource.model.asset"
       :recipient="resource.model.recipient"
-      :sender="resource.model.sender"
-    ></payment-page>
+      :sender="resource.model.sender" -->
     <base-detail-list
       :category="'Payment Details'"
       :title="''"
@@ -13,17 +14,21 @@
       :headers="table.detailHeaders"
       thead-classes="text-primary"
     ></base-detail-list>
+
+    <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
   </div>
 </template>
 <script>
-import PaymentPage from "@/components/Resources/PaymentRecords/PaymentPage";
-import { BaseDetailList } from "@/components";
+import { BaseDetailList, PaymentPage } from "@/components";
 
 let detailHeaders = {
+  asset_nickname: "Asset Nickname",
   payment_description: "Payment Description",
-  amount: "Receiver",
+  amount: "Amount (RM)",
   payment_method: "Payment Method",
   payment_type: "Payment Type",
+  status: "Status",
+  is_seen: "Seen?",
   is_reference_only: "Is reference only?"
 };
 export default {
@@ -42,6 +47,14 @@ export default {
         detailHeaders: {...detailHeaders},
       },
     };
+  },
+  props: {
+    previousRoute: {
+      type: String,
+      required: false,
+      default: "",
+      description: "Previous Route"
+    }
   },
   mounted() {
     this.getResource();
@@ -68,6 +81,13 @@ export default {
         this.$refs.myVueDropzone.manuallyAddFile(file, this.resource.model.media[0].temporary_url);
         this.$refs.myVueDropzone.removeEventListeners()
         this.$refs.myVueDropzone.setupEventListeners()
+      }
+    },
+    async handleBack() {
+      if (this.previousRoute) {
+        this.$router.push({path: this.previousRoute});
+      } else {
+        this.$router.go(-1);
       }
     }
   }

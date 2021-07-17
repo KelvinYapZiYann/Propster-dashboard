@@ -1,8 +1,10 @@
 <template>
-  <tenants-index-component
-    :resource="resource"
-    :showAll="showAll"
-  ></tenants-index-component>
+  <div class="content">
+    <tenants-index-component
+      :resource="resource"
+      @getResource="getResource"
+    ></tenants-index-component>
+  </div>
 </template>
 <script>
 import { BaseTable } from "@/components";
@@ -18,8 +20,7 @@ export default {
       resource: {
         models: [{}],
         data: {}
-      },
-      showAll: true
+      }
     };
   },
   mounted() {

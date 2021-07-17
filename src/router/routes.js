@@ -6,6 +6,7 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import AuthLayout from "@/pages/Pages/AuthLayout.vue";
 import auth from "@/middleware/auth";
 import SelectRole from "@/pages/Pages/SelectRole";
+import FirstTimeProfile from "@/pages/Profile/FirstTimeProfile";
 
 const Dashboard = () =>
     import(/* webpackChunkName: "dashboard" */ "@/pages/Dashboard.vue");
@@ -119,19 +120,28 @@ let resources = {
       path: "assets/add",
       name: "Add Assets",
       components: { default: AssetAdd },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "assets/:assetId",
       name: "Asset Detail",
       components: { default: AssetDetail },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "assets/:assetId/edit",
       name: "Edit Assets",
       components: { default: AssetEdit },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenants",
@@ -143,19 +153,28 @@ let resources = {
       path: "tenants/add",
       name: "Add Tenant",
       components: { default: TenantAdd },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenants/:tenantId",
       name: "Tenant Detail",
       components: { default: TenantDetail },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenants/:tenantId/edit",
       name: "Edit Tenant",
       components: { default: TenantEdit },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenure-contracts",
@@ -167,19 +186,28 @@ let resources = {
       path: "tenure-contracts/:tenureContractId",
       name: "Tenure Contract Detail",
       components: { default: TenureContractDetail },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenure-contracts/add",
       name: "Add Tenure Contract",
       components: { default: TenureContractAdd },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "tenure-contracts/:tenureContractId/edit",
       name: "Edit Tenure Contract",
       components: { default: TenureContractEdit },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "asset-expenses",
@@ -188,14 +216,17 @@ let resources = {
       meta: { middleware: auth }
     },
     {
-      path: "asset-expenses/:assetExpensesId",
+      path: "asset-expenses/:assetExpenseId",
       name: "Asset Expenses Detail",
       components: { default: AssetExpensesDetail },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "payment-records",
-      name: "Payment Record",
+      name: "Payment Records",
       components: { default: PaymentRecords },
       meta: { middleware: auth }
     },
@@ -203,13 +234,19 @@ let resources = {
       path: "payment-records/add",
       name: "Add Payment Record",
       components: { default: PaymentRecordsAdd },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "payment-records/:paymentRecordsId",
       name: "Payment Record Detail",
       components: { default: PaymentRecordsDetail },
-      meta: { middleware: auth }
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     }
   ]
 };
@@ -402,6 +439,12 @@ let middlewarePages = {
       components: { default: SelectRole },
       meta: { middleware: auth }
     },
+    {
+      path: "first-time-profile",
+      name: "First Time User Profile",
+      components: { default: FirstTimeProfile },
+      meta: { middleware: auth }
+    },
   //   {
   //     path: "full-screen",
   //     name: "Full Screen Map",
@@ -440,7 +483,8 @@ const routes = [
       {
         path: "dashboard",
         name: "Dashboard",
-        component: Dashboard
+        component: Dashboard,
+        meta: { middleware: auth }
       },
       {
         path: "profile",

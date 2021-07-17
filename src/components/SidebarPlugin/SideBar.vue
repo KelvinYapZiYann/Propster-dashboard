@@ -2,11 +2,11 @@
   <div class="sidebar" :data="backgroundColor">
     <div class="sidebar-wrapper text-left">
       <div class="logo">
-        <a href="javascript:void(0)" class="simple-text logo-mini">
-          {{ abv }}
+        <a class="simple-text logo-mini" @click="dashboard" href="javascript:void(0)">
+          <img src="/img/main_propster_logo_white.svg" alt="">
         </a>
 
-        <a href="javascript:void(0)" class="simple-text logo-normal">
+        <a href="javascript:void(0)" class="simple-text logo-normal" @click="dashboard" >
           {{ title }}
         </a>
       </div>
@@ -38,11 +38,11 @@ export default {
     SidebarLink
   },
   props: {
-    abv: {
-      type: String,
-      default: "PS",
-      description: "Sidebar short title"
-    },
+    // abv: {
+    //   type: String,
+    //   default: "",
+    //   description: "Sidebar short title"
+    // },
     title: {
       type: String,
       default: "Propster",
@@ -50,7 +50,7 @@ export default {
     },
     backgroundColor: {
       type: String,
-      default: "green",
+      default: "blue",
       description: "Sidebar background color (blue|green|orange|red|primary)"
     },
     sidebarLinks: {
@@ -75,7 +75,17 @@ export default {
           this.activeLinkIndex = index;
         }
       });
-    }
+    },
+    async dashboard() {
+      try {
+        this.$router.push({name: "Home"});
+      } catch (error) {
+        this.$notify({
+          type: "danger",
+          message: "Oops, something went wrong!",
+        });
+      }
+    },
   }
 };
 </script>

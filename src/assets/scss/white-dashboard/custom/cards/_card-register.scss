@@ -27,22 +27,22 @@
     }
 
     .card-header {
-      padding: 0 0 50px;
+      // padding: 0 0 50px;
       overflow: hidden;
 
       .card-title {
-        position: relative;
-        font-size: 5em;
+        // position: relative;
+        font-size: 2em;
         font-weight: 900;
         color: $black;
-        text-transform: lowercase;
+        // text-transform: lowercase;
         margin-left: -5px;
         z-index: 1;
       }
     }
 
     .card-img {
-      position: absolute;
+      // position: absolute;
       left: 0;
       top: -15%;
       width: 70%;

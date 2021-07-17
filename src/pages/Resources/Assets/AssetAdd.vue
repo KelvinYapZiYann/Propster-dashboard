@@ -5,6 +5,7 @@
       :tmpApiValidationErrors="apiValidationErrors"
       :addOrEdit="addOrEdit"
       @submit="handleSubmit"
+      @cancel="handleCancel"
     >
     </asset-add-or-edit>
   </div>
@@ -31,6 +32,14 @@ export default {
       },
       addOrEdit: "Add"
     };
+  },
+  props: {
+    previousRoute: {
+      type: String,
+      required: false,
+      default: "",
+      description: "Previous Route"
+    }
   },
   mounted() {
     this.getAsset();
@@ -63,7 +72,12 @@ export default {
             type: 'success'
           });
           this.resetApiValidation();
-          router.go(-1);
+          if (this.previousRoute) {
+            router.push({path: this.previousRoute});
+          } else {
+            router.go(-1);
+          }
+          // router.go(-1);
           // router.push({path: "/assets"});
         } catch (e) {
           this.$notify({
@@ -73,6 +87,13 @@ export default {
           });
           this.setApiValidation(e.response.data.errors)
         }
+    },
+    async handleCancel() {
+      if (this.previousRoute) {
+        router.push({path: this.previousRoute});
+      } else {
+        router.go(-1);
+      }
     }
   }
 }

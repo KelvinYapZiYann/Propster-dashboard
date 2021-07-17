@@ -4,18 +4,18 @@
         padding-bottom: $padding-base-horizontal;
 
         .card-header {
-          padding: 0 0 100px;
+          // padding: 0 0 100px;
           overflow: hidden;
-          img{
-            position: absolute;
-          }
+          // img{
+          //   // position: absolute;
+          // }
           .card-title{
-            position: relative;
-            font-size: 5em;
+            // position: relative;
+            font-size: 2em;
             font-weight: 900;
             color: $black;
-            text-transform: lowercase;
-            margin-left: -5px;
+            // text-transform: lowercase;
+            // margin-left: -5px;
             z-index: 1;
           }
         }

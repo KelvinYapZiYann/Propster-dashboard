@@ -9,8 +9,10 @@
         :to="{ name: route.name }"
         v-if="index < $route.matched.length - 1"
         class="breadcrumb-link"
+        v-slot="{ navigate, href }"
+        custom
       >
-        {{ route.name }}
+        <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">{{ route.name }}</a>
       </router-link>
       <span v-else class="breadcrumb-current">{{ route.name }}</span>
     </bread-crumb-item>

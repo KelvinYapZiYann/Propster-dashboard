@@ -9,7 +9,7 @@
                                :options="reportTypes"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.report_type"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.report_type"/>
         </div>
       </div>
     <div class="row">
@@ -19,7 +19,7 @@
                     placeholder="Start Date"
                     v-model="model.start_date">
         </base-input>
-        <validation-error :errors="apiValidationErrors.start_date"/>
+        <validation-error :errorsArray="tmpApiValidationErrors.start_date"/>
       </div>
       <div class="col-md-6">
         <base-input label="End Date"
@@ -27,23 +27,23 @@
                     placeholder="End Date"
                     v-model="model.end_date">
         </base-input>
-        <validation-error :errors="apiValidationErrors.end_date"/>
+        <validation-error :errorsArray="tmpApiValidationErrors.end_date"/>
       </div>
     </div>
-    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Generate Report</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Generate Report</base-button>
   </form>
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
-import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     // AssetForm,
     ValidationError,
-    BaseSelectorInput
+    BaseSelectorInput,
+    BaseInput
   },
   data() {
     return {
@@ -51,16 +51,20 @@ export default {
         report_type: null,
         start_date: null,
         end_date: null,
-      }
+      },
+      reportTypes: [
+        { "id": "CASHFLOW_STATEMENT", "name": "Cashflow Statement" },
+      ],
     }
   },
   props: {
-    apiValidationErrors: {
-      type: Object
+    tmpApiValidationErrors: {
+      type: Object,
+      required: true,
+      default: function() {
+        return {};
+      }
     },
-    reportTypes: {
-      type: Object
-    }
   },
   methods: {
     async handleSubmit() {

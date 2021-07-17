@@ -23,7 +23,7 @@
     </div>
     <slot name="raw-content"></slot>
     <div
-      class="card-footer text-left"
+      class="card-footer text-center"
       :class="footerClasses"
       v-if="$slots.footer"
     >

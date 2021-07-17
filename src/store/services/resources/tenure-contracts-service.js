@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const url = process.env.VUE_APP_API_BASE_URL;
-function get() {
+function get(pageId) {
   const config = {
     headers: {
       'Accept': 'application/json',
@@ -9,10 +9,18 @@ function get() {
     }
   };
 
-  return axios.get(`${url}/tenure-contracts`, config)
-    .then(response => {
-      return response.data;
-    });
+  if (pageId && typeof pageId == "number") {
+    return axios.get(`${url}/tenure-contracts?page=${pageId}`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else {
+    return axios.get(`${url}/tenure-contracts`, config)
+      .then(response => {
+        return response.data;
+      });
+  }
+  
 }
 
 function getById(Id) {
@@ -44,7 +52,7 @@ function create() {
 }
 
 function update(payload) {
-  const modelId = payload.modelId;
+  const tenureContractId = payload.tenureContractId;
   const model = payload.model;
 
   const config = {
@@ -54,7 +62,7 @@ function update(payload) {
     }
   };
 
-  return axios.put(`${url}/tenure-contracts/${modelId}`, model, config)
+  return axios.post(`${url}/tenure-contracts/${tenureContractId}/update`, model, config)
     .then(response => {
       return response.data;
     });

@@ -1,4 +1,5 @@
 import service from '@/store/services/resources/payment-records-service';
+import errorHandlingService from '@/store/services/error-handling-service';
 
 const state = {
   models: [],
@@ -24,6 +25,12 @@ const mutations = {
     })
     state.data = {
       'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+      'links': response.meta.links,
     }
   },
   SET_RESOURCE: (state, response) => {
@@ -56,34 +63,76 @@ const mutations = {
 
 const actions = {
   get({commit, dispatch}, params) {
-    return service.get()
+    return service.get(params)
       .then((response) => {
         commit('SET_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   add({commit, dispatch}, params) {
     return service.add(params)
       .then((response) => {
         commit('SET_RESOURCE', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   getById({commit, dispatch}, Id) {
     return service.getById(Id)
       .then((response) => {
         commit('SET_RESOURCE', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
       });
   },
   update({commit, dispatch}, payload) {
     return service.update(payload)
-      .then((response) => {});
+      .then((response) => {})
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
   },
   store({commit, dispatch}, payload) {
     return service.store(payload)
-      .then((response) => {});
+      .then((response) => {})
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
   },
   remove({commit, dispatch}, Id) {
     return service.remove(Id)
-      .then((response) => {});
+      .then((response) => {})
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
   }
 };
 

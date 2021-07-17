@@ -1,9 +1,11 @@
 <template>
-  <div>
+  <div class="content">
     <tenure-contract-add-or-edit
       :resource="resource"
-      :apiValidationErrors="apiValidationErrors"
+      :tmpApiValidationErrors="apiValidationErrors"
+      :addOrEdit="addOrEdit"
       @submit="handleSubmit"
+      @cancel="handleCancel"
       ></tenure-contract-add-or-edit>
   </div>
 </template>
@@ -11,8 +13,8 @@
 import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
 import router from "@/router";
-import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
-import TenantAddOrEdit from "@/components/Resources/Tenants/TenantAddOrEdit";
+// import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+// import TenantAddOrEdit from "@/components/Resources/Tenants/TenantAddOrEdit";
 import TenureContractAddOrEdit from "@/components/Resources/TenureContracts/TenureContractAddOrEdit";
 
 export default {
@@ -20,27 +22,37 @@ export default {
   components: {
     TenureContractAddOrEdit,
     ValidationError,
-    BaseSelectorInput,
+    // BaseSelectorInput,
   },
   data() {
     return {
+      tenureContractId: this.$route.params.tenureContractId,
       resource: {
         model: {},
         data: {},
         selector: {}
       },
+      addOrEdit: "Edit"
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: false,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
-    this.getAsset();
+    this.getTenureContract();
   },
   methods: {
-    async getAsset() {
+    async getTenureContract() {
       try {
-        await this.$store.dispatch('tenant/getById', this.$route.params.tenantId).then(() => {
-          this.resource.model = Object.assign({}, this.$store.getters["tenant/model"])
-          this.resource.data = Object.assign({}, this.$store.getters["tenant/data"])
-          this.resource.selector = Object.assign({}, this.$store.getters["tenant/selector"])
+        await this.$store.dispatch('tenureContract/getById', this.tenureContractId).then(() => {
+          this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
+          this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
+          this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
         })
       } catch (e) {
         this.$notify({
@@ -51,8 +63,7 @@ export default {
       }
     },
     async handleSubmit(model) {
-      const modelId = this.$route.params.tenantId
-      if (modelId == null) {
+      if (this.tenureContractId == null) {
         this.$notify({
           message:'Server error',
           icon: 'tim-icons icon-bell-55',
@@ -60,14 +71,20 @@ export default {
         });
       } else {
         try {
-          await this.$store.dispatch('tenant/update', {'modelId': modelId, 'model': model})
+          await this.$store.dispatch('tenureContract/update', {'tenureContractId': this.tenureContractId, 'model': model})
           this.$notify({
             message:'Successfully Updated',
             icon: 'tim-icons icon-bell-55',
             type: 'success'
           });
-          this.resetApiValidation()
-          router.push({path: "/tenants"});
+          this.resetApiValidation();
+          if (this.previousRoute) {
+            router.push({path: this.previousRoute});
+          } else {
+            router.go(-1);
+          }
+          // router.go(-1);
+          // router.push({path: "/tenants"});
         } catch (e) {
           this.$notify({
             message:'Server error',
@@ -76,6 +93,13 @@ export default {
           });
           this.setApiValidation(e.response.data.errors)
         }
+      }
+    },
+    async handleCancel() {
+      if (this.previousRoute) {
+        router.push({path: this.previousRoute});
+      } else {
+        router.go(-1);
       }
     }
   }

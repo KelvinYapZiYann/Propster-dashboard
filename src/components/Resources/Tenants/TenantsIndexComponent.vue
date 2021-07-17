@@ -1,7 +1,7 @@
 <template>
-  <div class="content">
+  <div class="row">
     <div class="col-12">
-      <div class="pro-feature alert alert-danger">
+      <div class="pro-feature alert alert-danger" v-if="$store.getters['users/model'].tier == 'BASIC'">
         <strong>
           You can only add 3 {{table.title}} per asset with free tier. Get
           <a
@@ -17,9 +17,18 @@
           <base-button
             @click="addModel"
             class="mt-3"
-            type="primary"
-            v-bind:disabled="!resource.data.canAdd || showAll"
+            type="info"
+            v-bind:disabled="!resource.data.canAdd"
           >Add {{table.title}}</base-button>
+        </div>
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
+            <base-input 
+                    addonLeftIcon="el-icon-search"
+                    placeholder="Search"
+                    v-model="searchQuery">
+            </base-input>
+          </div>
         </div>
         <div class="table-responsive">
           <base-table
@@ -47,6 +56,7 @@
             :per-page="resource.data.perPage"
             :total="resource.data.total"
             @input="handlePagination"
+            type="info"
           >
           </base-pagination>
         </div>
@@ -55,25 +65,30 @@
   </div>
 </template>
 <script>
-import {BaseTable, BasePagination, Card} from "@/components";
+import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
   first_name: "First Name",
   last_name: "Last Name",
-  is_business: "Is Business",
+  // is_business: "Is Business",
+  email: "Email",
+  phone_number: "Phone Number",
 };
 
 const tableDefaultData = [
   {
     first_name: "",
     last_name: "",
-    is_business: "",
+    // is_business: "",
+    email: "",
+    phone_number: "",
   }
 ];
 
 export default {
   components: {
+    BaseInput,
     BaseTable,
     BasePagination,
     Card
@@ -84,7 +99,9 @@ export default {
         title: "Tenants",
         columns: {...tableColumns},
         data: [...tableDefaultData]
-      }
+      },
+      searchQuery: "",
+      searchQueryTimeout: null,
     };
   },
   props: {
@@ -109,18 +126,57 @@ export default {
       type: Object,
       // default: {},
     },
-    showAll: {
-      type: Boolean,
-      required: true,
-      default: false
-    }
+    // assetId: {
+    //   type: Number | Object,
+    //   default: null
+    // }
+    // showAll: {
+    //   type: Boolean,
+    //   required: true,
+    //   default: false
+    // }
   },
   methods: {
     showDetails(id) {
-      router.push({path: "/tenants/" + id});
+      if (this.$props.query) {
+        if (this.$props.query.assetId) {
+          router.push({
+            name: "Tenant Detail", 
+            query: {
+              assetId: `${this.$props.query.assetId}`,
+            },
+            params: {
+              tenantId: id,
+              previousRoute: this.$router.currentRoute.fullPath
+            }
+          });
+        } else {
+          router.push({
+            name: "Tenant Detail", 
+            params: {
+              tenantId: id,
+              previousRoute: this.$router.currentRoute.fullPath
+            }
+          });
+        }
+      } else {
+        router.push({
+          name: "Tenant Detail", 
+          params: {
+            tenantId: id,
+            previousRoute: this.$router.currentRoute.fullPath
+          }
+        });
+      }
     },
     editDetails(id) {
-      router.push({path: "/tenants/" + id + "/edit"});
+      router.push({
+        name: "Edit Tenant",
+        params: {
+          tenantId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     deleteDetails(id) {
       if (id == null) {
@@ -150,15 +206,21 @@ export default {
     addModel() {
       this.$router.push({
         name: 'Add Tenant',
-        query: this.query
+        query: this.query,
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
+        }
       });
+    },
+    getResource() {
+      this.$emit('getResource')
     },
     async handlePagination(pageId) {
       try {
         if (this.$props.query) {
-          if (this.$props.query.modelType === 'asset_id') {
+          if (this.$props.query.assetId) {
             var param = {
-              id: this.$props.query.modelId,
+              id: this.$props.query.assetId,
               pageId: pageId
             }
             await this.$store.dispatch('asset/getTenants', param).then(() => {
@@ -184,6 +246,16 @@ export default {
           type: 'danger'
         });
       }
+    }
+  },
+  watch: {
+    searchQuery(value) {
+      if (this.searchQueryTimeout) {
+        clearTimeout(this.searchQueryTimeout);
+      }
+      this.searchQueryTimeout = setTimeout(() => {
+        console.log('searching query with = ' + value);
+      }, 2000);
     }
   }
 };

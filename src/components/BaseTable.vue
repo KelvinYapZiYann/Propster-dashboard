@@ -22,8 +22,9 @@
             v-if="!disableView"
             @click="showDetails(item.id)"
             class="remove btn-link"
-            type="danger"
+            type="info"
             size="sm"
+            title="View"
             icon
         >
           <i class="fa fa-eye" aria-hidden="true"></i>
@@ -32,8 +33,9 @@
             v-if="!disableEdit"
             @click="editDetails(item.id)"
             class="edit btn-link"
-            type="warning"
+            type="info"
             size="sm"
+            title="Edit"
             icon
         >
           <i class="tim-icons icon-pencil"></i>
@@ -44,6 +46,7 @@
             class="remove btn-link"
             type="danger"
             size="sm"
+            title="Delete"
             icon
         >
           <i class="tim-icons icon-simple-remove"></i>
@@ -106,15 +109,34 @@ export default {
       return item[column.toLowerCase()] !== "undefined";
     },
     itemValue(item, column) {
-      if (typeof item[column.toLowerCase()] == 'boolean') {
-        return item[column.toLowerCase()];
-      } else if (typeof item[column.toLowerCase()] == 'number') {
-        return item[column.toLowerCase()];
-      } else if (typeof item[column.toLowerCase()] == 'string') {
-        return item[column.toLowerCase()];
+      if (item[column.toLowerCase()]) {
+        if (typeof item[column.toLowerCase()] == 'boolean') {
+          return item[column.toLowerCase()];
+        } else if (typeof item[column.toLowerCase()] == 'number') {
+          return item[column.toLowerCase()];
+        } else if (typeof item[column.toLowerCase()] == 'string') {
+          return item[column.toLowerCase()];
+        } else {
+          return '-';
+        }
       } else {
-        return '-';
+        for (const objectValue of Object.values(item)) {
+          if (typeof objectValue == 'object') {
+            if (objectValue) {
+              if (objectValue[column.toLowerCase()]) {
+                if (typeof objectValue[column.toLowerCase()] == 'boolean') {
+                  return objectValue[column.toLowerCase()];
+                } else if (typeof objectValue[column.toLowerCase()] == 'number') {
+                  return objectValue[column.toLowerCase()];
+                } else if (typeof objectValue[column.toLowerCase()] == 'string') {
+                  return objectValue[column.toLowerCase()];
+                }
+              }
+            }
+          }
+        }
       }
+      return '-';
     },
     showDetails: function (id) {
       this.$emit('show-details', id)

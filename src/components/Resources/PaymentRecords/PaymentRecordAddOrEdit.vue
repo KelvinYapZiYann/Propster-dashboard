@@ -4,18 +4,35 @@
       <h5 slot="header" class="title">Create New Payment</h5>
       <div class="row">
         <div class="col-md-6 ">
+          <base-selector-input label="Asset"
+                               placeholder="Asset"
+                               v-model="resource.model.asset.id"
+                               :options="resource.selector.assets"
+                               v-if="addOrEdit == 'Add' && (query ? !query.assetId : true)"
+          >
+          </base-selector-input>
+          <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/>
+          <base-input label="Asset"
+                      v-if="addOrEdit != 'Add' || (query ? query.assetId : false)" 
+                      :value="resource.model.asset ? resource.model.asset.asset_nickname : ''"
+                      :disabled="true">
+          </base-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 ">
           <base-input label="Payment Description"
                       placeholder="Payment Description"
                       v-model="resource.model.payment_description">
           </base-input>
-          <validation-error :errors="apiValidationErrors.payment_description"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.payment_description"/>
         </div>
         <div class="col-md-6">
           <base-input label="Amount(RM)"
                       placeholder="Amount"
                       v-model="resource.model.amount">
           </base-input>
-          <validation-error :errors="apiValidationErrors.amount"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.amount"/>
         </div>
       </div>
       <div class="row">
@@ -27,7 +44,7 @@
                                :options="resource.selector.payment_method"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.payment_method"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.payment_method"/>
         </div>
         <div class="col-md-6">
           <base-selector-input label="Payment Type"
@@ -37,7 +54,7 @@
                                :options="resource.selector.payment_type"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.payment_type"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.payment_type"/>
         </div>
       </div>
 
@@ -45,26 +62,28 @@
         <div class="col-md-6">
           <base-input label="Reference Payment?"
                       type="checkbox"
+                      :checked="typeof resource.model.is_reference_only == 'boolean' ? resource.model.is_reference_only : (typeof resource.model.is_reference_only == 'string' ? resource.model.is_reference_only == 'true' : false)"
                       v-model="resource.model.is_reference_only">
           </base-input>
-          <validation-error :errors="apiValidationErrors.is_reference_only"/>
+          <validation-error :errorsArray="tmpApiValidationErrors.is_reference_only"/>
         </div>
       </div>
     </card>
-    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Send</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Send</base-button>
   </form>
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
-import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     // AssetForm,
     ValidationError,
-    BaseSelectorInput
+    BaseInput,
+    BaseSelectorInput,
+    Card
   },
   props: {
     resource: {
@@ -77,9 +96,29 @@ export default {
       },
       description: "Resource info"
     },
-    apiValidationErrors: {
-      type: Object
-    }
+    tmpApiValidationErrors: {
+      type: Object,
+      required: true,
+      default: function() {
+        return {};
+      }
+    },
+    addOrEdit: {
+      type: String,
+      required: false,
+      default: "Add"
+    },
+    query: {
+      type: Object,
+      // default: {},
+    },
+  },
+  mounted() {
+    // console.log('mounted');
+    // console.log(this.resource);
+    // console.log(this.resource.model.payment_description);
+    // console.log(this.resource.data);
+    // console.log(this.resource.selector);
   },
   methods: {
     async handleSubmit() {
@@ -90,21 +129,32 @@ export default {
       // }
 
       for (const [key, value] of Object.entries(this.translateModel())) {
-        formData.append(key, value);
+        if (value) {
+          formData.append(key, value);
+          continue;
+        }
+        if (key == "is_reference_only") {
+          formData.append(key, value);
+        }
       }
 
       this.$emit('submit', formData)
     },
     translateModel() {
+      console.log(this.resource);
       return {
-        recipient_type: this.resource.model.recipient.recipient_type,
+        // recipient_type: this.resource.model.recipient.recipient_type,
+        recipient_type: "LANDLORD",
         recipient_id: this.resource.model.recipient.id,
+        // sender_type: this.resource.model.sender.sender_type,
+        sender_type: "TENANT",
+        sender_id: this.resource.model.sender.id,
         asset_id: this.resource.model.asset.id,
         payment_description: this.resource.model.payment_description,
         payment_method: this.resource.model.payment_method,
         payment_type: this.resource.model.payment_type,
         amount: this.resource.model.amount,
-        is_reference_only: this.resource.model.is_reference_only == null ? false : true,
+        is_reference_only: this.resource.model.is_reference_only == null ? false : this.resource.model.is_reference_only,
       }
     }
   }

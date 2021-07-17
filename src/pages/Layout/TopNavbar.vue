@@ -33,7 +33,7 @@
       </button>
       <div class="collapse navbar-collapse show text-left" v-show="showMenu">
         <ul class="navbar-nav" :class="$rtl.isRTL ? 'mr-auto' : 'ml-auto'">
-          <li class="search-bar input-group" @click="searchModalVisible = true">
+          <!-- <li class="search-bar input-group" @click="searchModalVisible = true">
             <button
               class="btn btn-link"
               id="search-button"
@@ -43,7 +43,7 @@
               <i class="tim-icons icon-zoom-split"></i>
               <span class="d-lg-none d-md-block">Search</span>
             </button>
-          </li>
+          </li> -->
           <modal
             :show.sync="searchModalVisible"
             class="modal-search"
@@ -66,19 +66,26 @@
               data-toggle="dropdown"
               class="dropdown-toggle nav-link"
             >
-              <div class="notification d-none d-lg-block d-xl-block"></div>
-              <i class="tim-icons icon-sound-wave"></i>
+              <div class="notification d-none d-lg-block d-xl-block" v-if="notifications.length > 0"></div>
+              <i class="fa fa-bell text-info"></i>
               <p class="d-lg-none text-left">
                 Notifications
               </p>
             </a>
             <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
-              <li class="nav-link">
-                <a href="#" class="nav-item dropdown-item"
-                  >Mike John responded to your email</a
+              <li class="nav-link" v-for="(value, key) in notifications" :key="key">
+                <a :href="value.link" class="nav-item dropdown-item"
+                  >{{value.title}}</a
                 >
               </li>
+              <div class="dropdown-divider"></div>
               <li class="nav-link">
+                <router-link class="nav-item dropdown-item" to="/notifications" v-slot="{ navigate, href }" custom>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">All Notifications</a>
+                </router-link>
+                
+              </li>
+              <!-- <li class="nav-link">
                 <a href="javascript:void(0)" class="nav-item dropdown-item"
                   >You have 5 more tasks</a
                 >
@@ -97,7 +104,7 @@
                 <a href="javascript:void(0)" class="nav-item dropdown-item"
                   >Another one</a
                 >
-              </li>
+              </li> -->
             </ul>
           </drop-down>
           <drop-down>
@@ -107,20 +114,20 @@
               </div>
               <b class="caret d-none d-lg-block d-xl-block"></b>
               <p class="d-lg-none">
-                Log out
+                {{$store.getters["users/model"].full_name}}
               </p>
             </a>
             <ul class="dropdown-menu dropdown-navbar">
               <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
-                  >Profile</a
+                <a href="javascript:void(0)" @click="profile" class="nav-item dropdown-item"
+                  >User Profile</a
                 >
               </li>
-              <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
+              <!-- <li class="nav-link">
+                <a href="/settings" class="nav-item dropdown-item"
                   >Settings</a
                 >
-              </li>
+              </li> -->
               <li class="nav-link">
                 <a href="/select-role" class="nav-item dropdown-item"
                 >Change Role</a
@@ -154,7 +161,35 @@ export default {
     return {
       searchModalVisible: false,
       searchQuery: "",
-      showMenu: false
+      showMenu: false,
+      hasNotification: false,
+      notifications: [
+        {
+          id: 1,
+          title: "Notification 1 email sent testing testing testing testing",
+          link: "https://propster.io/api/dashboard/notifications/1"
+        },
+        {
+          id: 2,
+          title: "Notification 2 email sent",
+          link: "https://propster.io/api/dashboard/notifications/2"
+        },
+        {
+          id: 3,
+          title: "Notification 3 email sent",
+          link: "https://propster.io/api/dashboard/notifications/3"
+        },
+        {
+          id: 4,
+          title: "Notification 1 email sent",
+          link: "https://propster.io/api/dashboard/notifications/4"
+        },
+        {
+          id: 5,
+          title: "Notification 1 email sent",
+          link: "https://propster.io/api/dashboard/notifications/5"
+        },
+      ]
     };
   },
   methods: {
@@ -167,6 +202,16 @@ export default {
     async logout() {
       try {
         this.$store.dispatch("logout");
+      } catch (error) {
+        this.$notify({
+          type: "danger",
+          message: "Oops, something went wrong!",
+        });
+      }
+    },
+    async profile() {
+      try {
+        this.$router.push({name: "User Profile"});
       } catch (error) {
         this.$notify({
           type: "danger",

@@ -1,11 +1,11 @@
 <template>
-  <div class="content">
+  <div class="row">
     <div class="col-12">
-      <div class="pro-feature alert alert-danger">
+      <div class="pro-feature alert alert-danger" v-if="$store.getters['users/model'].tier == 'BASIC'">
         <strong>
           You can only add ONE {{table.title}} with free tier. Get 
           <a
-            href="https://www.creative-tim.com/live/vue-black-dashboard-pro-laravel"
+            href="https://www.propster.io"
             target="_blank"
           >PRO</a>
           version to add more {{ table.title }} !
@@ -15,11 +15,20 @@
         <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
         <div class="text-right mb-3">
           <base-button
-            @click="addModel"
-            class="mt-3"
-            type="primary"
-            v-bind:disabled="!resource.data.canAdd"
+                @click="addModel"
+                class="mt-3"
+                type="info"
+                v-bind:disabled="!resource.data.canAdd"
           >Add {{table.title}}</base-button>
+        </div>
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
+            <base-input 
+                    addonLeftIcon="el-icon-search"
+                    placeholder="Search"
+                    v-model="searchQuery">
+            </base-input>
+          </div>
         </div>
         <div class="table-responsive">
           <base-table
@@ -46,6 +55,7 @@
               :per-page="resource.data.perPage"
               :total="resource.data.total"
               @input="handlePagination"
+              type="info"
             >
             </base-pagination>
           </div>
@@ -55,15 +65,18 @@
   </div>
 </template>
 <script>
-import {BaseTable, BasePagination, Card} from "@/components";
+import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
   asset_nickname: "Asset Nickname",
-  asset_ownership_type: "Ownership Type",
-  asset_size: "Size",
-  is_occupied: "Currently Occupied",
-  is_multi_unit: "Is Multi Unit"
+  asset_unit_no: "Unit No",
+  asset_address_line: "Address Line",
+  asset_city: "City",
+  // asset_ownership_type: "Ownership Type",
+  // asset_size: "Size",
+  // is_occupied: "Currently Occupied",
+  // is_multi_unit: "Is Multi Unit"
 };
 
 const tableDefaultData = [
@@ -79,6 +92,7 @@ const tableDefaultData = [
 
 export default {
   components: {
+    BaseInput,
     BaseTable,
     BasePagination,
     Card
@@ -88,8 +102,10 @@ export default {
       table: {
         title: "Assets",
         columns: {...tableColumns},
-        data: [...tableDefaultData]
-      }
+        data: [...tableDefaultData],
+      },
+      searchQuery: "",
+      searchQueryTimeout: null,
     };
   },
   props: {
@@ -117,10 +133,22 @@ export default {
   },
   methods: {
     showDetails(id) {
-      router.push({path: "/assets/" + id});
+      router.push({
+        name: "Asset Detail",
+        params: {
+          assetId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     editDetails(id) {
-      router.push({path: "/assets/" + id + "/edit"});
+      router.push({
+        name: "Edit Assets",
+        params: {
+          assetId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     deleteDetails(id) {
       if (id == null) {
@@ -139,7 +167,6 @@ export default {
           });
           this.getResource();
         } catch (e) {
-          console.error(e);
           this.$notify({
             message:'Server error when del',
             icon: 'tim-icons icon-bell-55',
@@ -149,7 +176,12 @@ export default {
       }
     },
     addModel() {
-      router.push({path: "/assets/add"});
+      router.push({
+        name: "Add Assets",
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     getResource() {
       this.$emit('getResource')
@@ -157,9 +189,9 @@ export default {
     async handlePagination(pageId) {
       try {
         if (this.$props.query) {
-          if (this.$props.query.modelType === 'tenant_id') {
+          if (this.$props.query.tenantId) {
             var param = {
-              id: this.$props.query.modelId,
+              id: this.$props.query.tenantId,
               pageId: pageId
             }
             await this.$store.dispatch('tenant/getAssets', param).then(() => {
@@ -185,6 +217,16 @@ export default {
           type: 'danger'
         });
       }
+    }
+  },
+  watch: {
+    searchQuery(value) {
+      if (this.searchQueryTimeout) {
+        clearTimeout(this.searchQueryTimeout);
+      }
+      this.searchQueryTimeout = setTimeout(() => {
+        console.log('searching query with = ' + value);
+      }, 2000);
     }
   }
 };

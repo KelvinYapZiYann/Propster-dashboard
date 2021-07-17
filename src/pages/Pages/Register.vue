@@ -32,37 +32,38 @@
         <form @submit.prevent="register">
           <card class="card-register card-white">
             <template slot="header">
-              <img
+              <!-- <img
                 class="card-img"
                 src="img/card-primary.png"
                 alt="Card image"
-              />
-              <h4 class="card-title text-left">Register</h4>
+              /> -->
+              <img src="img/main_propster_logo.svg" class="card-img" alt=""/>
+              <h4 class="card-title text-center text-primary">PROPSTER.IO</h4>
             </template>
 
+            <validation-error :errorsArray="apiValidationErrors.mobile_number" />
             <base-input
                 v-model="mobile_number"
                 placeholder="Mobile Number"
                 addon-left-icon="tim-icons icon-mobile"
                 type="text">
             </base-input>
-            <validation-error :errors="apiValidationErrors.mobile_number" />
 
+            <validation-error :errorsArray="apiValidationErrors.email" />
             <base-input
                 v-model="email"
                 placeholder="Email"
                 addon-left-icon="tim-icons icon-email-85"
                 type="email">
             </base-input>
-            <validation-error :errors="apiValidationErrors.email" />
 
+            <validation-error :errorsArray="apiValidationErrors.password"/>
             <base-input
                 v-model="password"
                 placeholder="Password"
                 addon-left-icon="tim-icons icon-lock-circle"
                 type="password">
             </base-input>
-            <validation-error :errors="apiValidationErrors.password" />
 
             <base-input
                 placeholder="Confirm Password"
@@ -71,18 +72,17 @@
                 v-model="password_confirmation"
                 addon-left-icon="tim-icons icon-lock-circle">
             </base-input>
-            <validation-error :errors="apiValidationErrors.password_confirmation" />
+            <validation-error :errorsArray="apiValidationErrors.password_confirmation" />
 
-            <base-checkbox v-model="boolean" class="text-left">
+            <!-- <base-checkbox v-model="boolean" class="text-left">
               I agree to the <a href="#something">terms and conditions</a>.
-            </base-checkbox>
+            </base-checkbox> -->
 
             <div slot="footer">
               <base-button
                   native-type="submit"
                   slot="footer"
-                  type="primary"
-                  round
+                  type="info"
                   block
                   size="lg"
               >
@@ -90,8 +90,8 @@
               </base-button>
               <div class="pull-left text-left">
                 <h6>
-                  <router-link class="link footer-link" to="/login">
-                    Already have an account? Login
+                  <router-link class="link footer-link" to="/login" v-slot="{ navigate, href }" custom>
+                    <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Already have an account? Login</a>
                   </router-link>
                 </h6>
               </div>
@@ -100,19 +100,54 @@
         </form>
       </div>
     </div>
+    <modal
+      :show.sync="registerSuccessful"
+      footerClasses="justify-content-center"
+      type="notice"
+    >
+      <div class="instruction">
+        <p class="description">
+          Register Successfully
+        </p>
+        <p class="description">
+          Please verify the email before logging in.
+        </p>
+      </div>
+      <p class="text-center">
+        If you have more questions, don't hesitate to contact us. We're here to help!
+      </p>
+      <p class="text-center">
+        If you have not received any verification email, click the Resend Verification Email.
+      </p>
+      <div slot="footer" class="justify-content-center">
+        <base-button
+          type="info"
+          round
+          @click="resendVerificationEmail"
+          >Resend Verification Email
+        </base-button>
+        <base-button
+          type="info"
+          round
+          @click="backToLoginPage"
+          >OK
+        </base-button>
+      </div>
+    </modal>
   </div>
 </template>
 <script>
-import { BaseCheckbox, Card, BaseInput } from "@/components/index";
-import ValidationError from "@/components/ValidationError.vue";
+import { BaseCheckbox, Card, BaseInput, ValidationError, Modal } from "@/components";
 import formMixin from "@/mixins/form-mixin";
+import axios from "axios";
 
 export default {
   components: {
     BaseCheckbox,
     Card,
     BaseInput,
-    ValidationError
+    ValidationError,
+    Modal
   },
   mixins: [formMixin],
   data() {
@@ -122,18 +157,19 @@ export default {
       email: null,
       password: null,
       password_confirmation: null,
+      registerSuccessful: false,
     };
   },
   methods: {
     async register() {
-      if (!this.boolean) {
-        await this.$notify({
-          type: 'danger',
-          message: 'You need to agree with our terms and conditions.',
-          icon: 'tim-icons icon-bell-55',
-        })
-        return;
-      }
+      // if (!this.boolean) {
+      //   await this.$notify({
+      //     type: 'danger',
+      //     message: 'You need to agree with our terms and conditions.',
+      //     icon: 'tim-icons icon-bell-55',
+      //   })
+      //   return;
+      // }
 
       const user = {
         mobile_number: this.mobile_number,
@@ -151,11 +187,13 @@ export default {
 
       try {
         await this.$store.dispatch("register", { user, requestOptions });
-        this.$notify({
-          type: 'succes',
-          message: 'Successfully registered.',
-          icon: 'tim-icons icon-bell-55',
-        })
+        this.registerSuccessful = true;
+        // this.$notify({
+        //   type: 'succes',
+        //   message: 'Successfully registered.',
+        //   icon: 'tim-icons icon-bell-55',
+        // })
+        // this.$router.push({name: "login"});
       } catch (error) {
         this.$notify({
           type: 'danger',
@@ -164,6 +202,28 @@ export default {
         })
         this.setApiValidation(error.response.data.errors);
       }
+    },
+    async backToLoginPage() {
+      this.$router.push({name: "login"});
+    },
+    async resendVerificationEmail() {
+      const url = process.env.VUE_APP_API_BASE_URL;
+      axios({
+        url: `${url}/api/dashboard/email-not-verified`,
+        method: 'POST',
+      }).then((response) => {
+        this.$notify({
+          type: 'success',
+          message: 'Verification email has been resent. Check your email.',
+          // icon: 'tim-icons icon-bell-55',
+        })
+      }).catch((error) => {
+        this.$notify({
+          type: 'danger',
+          message: 'Something went wrong. Verification email has not been resent.',
+          icon: 'tim-icons icon-bell-55',
+        })
+      });
     }
   }
 };

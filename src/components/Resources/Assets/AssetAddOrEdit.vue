@@ -81,14 +81,16 @@
         <div class="col-md-2">
           <base-input label="Unit Number"
                       placeholder="Unit Number"
-                      v-model="resource.model.location_details.asset_unit_no">
+                      v-model="resource.model.location_details.asset_unit_no"
+                      v-if="resource.model.location_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.asset_unit_no"/>
         </div>
         <div class="col-md-10">
           <base-input label="Address Line"
                       placeholder="Address Line"
-                      v-model="resource.model.location_details.asset_address_line">
+                      v-model="resource.model.location_details.asset_address_line"
+                      v-if="resource.model.location_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.asset_address_line"/>
         </div>
@@ -98,21 +100,24 @@
         <div class="col-md-4">
           <base-input label="City"
                       placeholder="City"
-                      v-model="resource.model.location_details.asset_city">
+                      v-model="resource.model.location_details.asset_city"
+                      v-if="resource.model.location_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.asset_city"/>
         </div>
         <div class="col-md-4">
           <base-input label="State"
                       placeholder="State"
-                      v-model="resource.model.location_details.asset_state">
+                      v-model="resource.model.location_details.asset_state"
+                      v-if="resource.model.location_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.asset_state"/>
         </div>
         <div class="col-md-4">
           <base-input label="Postcode"
                       placeholder="Postcode"
-                      v-model="resource.model.location_details.asset_postal_code">
+                      v-model="resource.model.location_details.asset_postal_code"
+                      v-if="resource.model.location_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.asset_postal_code"/>
         </div>
@@ -124,7 +129,7 @@
                                placeholder="Country"
                                v-model="resource.model.location_details.asset_country"
                                :options="resource.selector.asset_country"
-          >
+                               v-if="resource.model.location_details">
           </base-selector-input>
           <validation-error :errorsArray="tmpApiValidationErrors.asset_country"/>
         </div>
@@ -137,14 +142,16 @@
         <div class="col-md-6">
           <base-input label="Purchased Value"
                       placeholder="Purchased Value"
-                      v-model="resource.model.financial_details.asset_purchased_value">
+                      v-model="resource.model.financial_details.asset_purchased_value"
+                      v-if="resource.model.financial_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.asset_purchased_value"/>
         </div>
         <div class="col-md-6">
           <base-input label="Taxable Amount"
                       placeholder="Taxable Amount"
-                      v-model="resource.model.financial_details.asset_purchased_tax">
+                      v-model="resource.model.financial_details.asset_purchased_tax"
+                      v-if="resource.model.financial_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.asset_purchased_tax"/>
         </div>
@@ -154,14 +161,16 @@
         <div class="col-md-6">
           <base-input label="Remaining Loan"
                       placeholder="Remaining Loan"
-                      v-model="resource.model.financial_details.loan_outstanding_amount">
+                      v-model="resource.model.financial_details.loan_outstanding_amount"
+                      v-if="resource.model.financial_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.loan_outstanding_amount"/>
         </div>
         <div class="col-md-6">
           <base-input label="Purchased Date"
                       type="date"
-                      v-model="resource.model.financial_details.purchased_date">
+                      v-model="resource.model.financial_details.purchased_date"
+                      v-if="resource.model.financial_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.purchased_date"/>
         </div>
@@ -171,20 +180,23 @@
         <div class="col-md-6">
           <base-input label="Loan Interest Rate"
                       placeholder="Loan Interest Rate"
-                      v-model="resource.model.financial_details.loan_interest_rate">
+                      v-model="resource.model.financial_details.loan_interest_rate"
+                      v-if="resource.model.financial_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.loan_interest_rate"/>
         </div>
         <div class="col-md-6">
           <base-input label="Loan Duration"
                       placeholder="Loan Duration"
-                      v-model="resource.model.financial_details.loan_total_year">
+                      v-model="resource.model.financial_details.loan_total_year"
+                      v-if="resource.model.financial_details">
           </base-input>
           <validation-error :errorsArray="tmpApiValidationErrors.loan_total_year"/>
         </div>
       </div>
     </card>
-    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
+    <base-button slot="footer" type="info" @click="handleCancel()" fill>Cancel</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>
 <script>
@@ -226,6 +238,9 @@ export default {
   methods: {
     async handleSubmit() {
       this.$emit('submit', this.translateModel(this.resource.model));
+    },
+    async handleCancel() {
+      this.$emit('cancel');
     },
     translateModel(model) {
       return {

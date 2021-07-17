@@ -1,8 +1,17 @@
 <template>
-  <div class="content">
+  <div class="row">
     <div class="col-12">
       <card>
         <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
+            <base-input 
+                    addonLeftIcon="el-icon-search"
+                    placeholder="Search"
+                    v-model="searchQuery">
+            </base-input>
+          </div>
+        </div>
         <div class="table-responsive">
           <base-table
             :disableEdit="true"
@@ -28,6 +37,7 @@
               :per-page="resource.data.perPage"
               :total="resource.data.total"
               @input="handlePagination"
+              type="info"
             >
             </base-pagination>
           </div>
@@ -37,18 +47,19 @@
   </div>
 </template>
 <script>
-import {BaseTable, BasePagination, Card} from "@/components";
+import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
   payment_description: "Payment Description",
   amount: "Amount (RM)",
-  cash_flow_direction: "Cash flow",
+  status: "Status",
   payment_method: "Payment Method"
 };
 
 export default {
   components: {
+    BaseInput,
     BaseTable,
     BasePagination,
     Card
@@ -58,7 +69,9 @@ export default {
       table: {
         title: "Asset Expenses",
         columns: {...tableColumns},
-      }
+      },
+      searchQuery: "",
+      searchQueryTimeout: null,
     };
   },
   props: {
@@ -86,15 +99,38 @@ export default {
   },
   methods: {
     showDetails(id) {
-      router.push({path: "/asset-expenses/" + id});
+      router.push({
+        name: "Asset Expenses Detail",
+        params: {
+          assetExpenseId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     async handlePagination(pageId) {
       try {
-        console.log(this.props.query);
-        await this.$store.dispatch('assetExpenses/get', pageId).then(() => {
-          this.resource.models = this.$store.getters["assetExpenses/models"];
-          this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
-        });
+        if (this.$props.query) {
+          if (this.$props.query.assetId) {
+            var param = {
+              id: this.$props.query.assetId,
+              pageId: pageId
+            }
+            await this.$store.dispatch('asset/getAssetExpenses', param).then(() => {
+              this.resource.models = this.$store.getters["asset/assetExpenseModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["asset/assetExpenseData"]);
+            });
+          } else {
+            await this.$store.dispatch('assetExpenses/get', pageId).then(() => {
+              this.resource.models = this.$store.getters["assetExpenses/models"];
+              this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
+            });
+          }
+        } else {
+          await this.$store.dispatch('assetExpenses/get', pageId).then(() => {
+            this.resource.models = this.$store.getters["assetExpenses/models"];
+            this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
+          });
+        }
       } catch (e) {
         this.$notify({
           message:'Server error',
@@ -102,6 +138,16 @@ export default {
           type: 'danger'
         });
       }
+    }
+  },
+  watch: {
+    searchQuery(value) {
+      if (this.searchQueryTimeout) {
+        clearTimeout(this.searchQueryTimeout);
+      }
+      this.searchQueryTimeout = setTimeout(() => {
+        console.log('searching query with = ' + value);
+      }, 2000);
     }
   }
 };

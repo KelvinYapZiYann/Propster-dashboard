@@ -10,14 +10,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <router-link :to="{path:'/'}" class="navbar-brand">Site title</router-link>
+          <router-link class="navbar-brand" :to="{path:'/'}" v-slot="{ navigate, href }" custom>
+            <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Site title</a>
+          </router-link>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navigation-example-2">
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <router-link :to="{path:'/'}">Home</router-link>
+              <router-link :to="{path:'/'}" v-slot="{ navigate, href }" custom>
+                <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Home</a>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -42,10 +46,14 @@
         <nav class="pull-left">
           <ul>
             <li>
-              <router-link :to="{path:'/'}">Home</router-link>
+              <router-link :to="{path:'/'}" v-slot="{ navigate, href }" custom>
+                <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Home</a>
+              </router-link>
             </li>
             <li>
-              <router-link :to="{path:'/register'}">Register</router-link>
+              <router-link :to="{path:'/register'}" v-slot="{ navigate, href }" custom>
+                <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Register</a>
+              </router-link>
             </li>
           </ul>
         </nav>

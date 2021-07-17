@@ -51,7 +51,7 @@
         </div>
       </div>
     </card>
-    <base-button slot="footer" native-type="submit" type="primary"  @click="handleSubmit()" fill>Send</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Send</base-button>
   </form>
 </template>
 <script>
@@ -90,7 +90,9 @@ export default {
       // }
 
       for (const [key, value] of Object.entries(this.translateModel())) {
-        formData.append(key, value);
+        if (value) {
+          formData.append(key, value);
+        }
       }
 
       this.$emit('submit', formData)

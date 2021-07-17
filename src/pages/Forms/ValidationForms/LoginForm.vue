@@ -43,7 +43,7 @@
         <base-button
           native-type="submit"
           @click.native.prevent="validate"
-          type="primary"
+          type="info"
           >Login</base-button
         >
         <a href="javascript:void(0)" class="pull-right">Forgot password?</a>

@@ -22,29 +22,27 @@
      thead-classes="text-primary"
    ></base-detail-list>
 
-   <!-- <asset-expenses-index-component
+   <asset-expenses-index-component
      :resource="assetExpensesResource"
      :table="table"
      :query='{
-           modelType: "asset_id",
-           modelId: `${modelId}`
+           assetId: `${assetId}`
          }'
-   ></asset-expenses-index-component> -->
+   ></asset-expenses-index-component>
 
    <tenants-index-component
      :resource="tenantResource"
      :table="table"
      :query='{
-           modelType: "asset_id",
-           modelId: `${modelId}`
+           assetId: `${assetId}`
          }'
-     :showAll="showAll"
    ></tenants-index-component>
 
    <fab
      :position="position"
      :bg-color="bgColor"
      :actions="fabActions"
+     :fixed-tooltip="fixedTooltip"
      @generateReport="reportModalVisible = true"
    ></fab>
 
@@ -54,22 +52,25 @@
           :centered="false"
           :show-close="true">
        <generate-report-form
-         :reportTypes="reportTypes"
-         :apiValidationErrors="apiValidationErrors"
+         :tmpApiValidationErrors="apiValidationErrors"
          @requestReport="requestReport"
        ></generate-report-form>
    </modal>
+
+   <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
+   <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Asset</base-button>
   </div>
 </template>
 <script>
-import { BaseDetailList } from "@/components";
+import { BaseDetailList, Modal, ValidationError } from "@/components";
 import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/AssetExpensesIndexComponent";
 import TenantsIndexComponent from "@/components/Resources/Tenants/TenantsIndexComponent";
 import fab from "vue-fab";
-import Modal from "@/components/Modal";
+// import Modal from "@/components/Modal";
 import GenerateReportForm from "@/components/Resources/Assets/GenerateReportForm";
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
+// import ValidationError from "@/components/ValidationError.vue";
+import axios from 'axios';
 
 let detailHeaders = {
   asset_nickname: "Asset Nickname",
@@ -115,7 +116,7 @@ export default {
   },
   data() {
     return {
-      modelId: this.$route.params.assetId,
+      assetId: this.$route.params.assetId,
       resource: {
         model: {},
         data: {}
@@ -137,41 +138,67 @@ export default {
       fabActions: [
         {
           name: 'generateReport',
-          icon: 'insert_chart_outlined'
+          icon: 'insert_chart_outlined',
+          tooltip: 'Generate Report'
         }
       ],
-      bgColor: '#778899',
+      bgColor: '#1d8cf8',
+      fixedTooltip: true,
       position: 'bottom-right',
-      reportTypes: [
-        { "id": "CASHFLOW_STATEMENT", "name": "Cashflow Statement" },
-      ],
       reportModalVisible: false,
-      showAll: false
+      // showAll: false
     };
+  },
+  props: {
+    previousRoute: {
+      type: String,
+      required: false,
+      default: "",
+      description: "Previous Route"
+    }
   },
   mounted() {
     this.getResource();
   },
   methods: {
-    requestReport() {
+    requestReport(data) {
+      const url = process.env.VUE_APP_API_BASE_URL;
+      let fileName = data.report_type + '-' + data.start_date + '-' + data.end_date + '.csv';
+      axios({
+        url: `${url}/assets/reports/generate-report`,
+        method: 'GET',
+        responseType: 'blob',
+        params: {
+          'report_type': data.report_type,
+          'start_date': data.start_date,
+          'end_date': data.end_date
+        }
+      }).then((response) => {
+        let fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        let fileLink = document.createElement('a');
 
-      alert('test');
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', fileName);
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+      });
     },
     async getResource() {
       try {
-        await this.$store.dispatch('asset/getById', this.modelId)
+        await this.$store.dispatch('asset/getById', this.assetId)
         this.resource.model = await this.$store.getters["asset/model"]
         this.resource.data = await this.$store.getters["asset/data"]
 
-        // await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
-        // this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
-        // this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
+        await this.$store.dispatch('asset/getAssetExpenses', this.assetId)
+        this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
+        this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
 
-        await this.$store.dispatch('asset/getTenants', this.$route.params.assetId)
+        await this.$store.dispatch('asset/getTenants', this.assetId)
         this.tenantResource.models = await this.$store.getters["asset/tenantModels"]
         this.tenantResource.data = await this.$store.getters["asset/tenantData"]
 
-        // await this.$store.dispatch('asset/getTenureContracts', this.$route.params.assetId)
+        // await this.$store.dispatch('asset/getTenureContracts', this.assetId)
         // this.tenureContractResource.models = await this.$store.getters["asset/tenureContractModels"]
         // this.tenureContractResource.data = await this.$store.getters["asset/tenureContractData"]
       } catch (e) {
@@ -182,6 +209,22 @@ export default {
         });
       }
     },
+    async handleBack() {
+      if (this.previousRoute) {
+        this.$router.push({path: this.previousRoute});
+      } else {
+        this.$router.go(-1);
+      }
+    },
+    async handleEdit() {
+      this.$router.push({
+        name: "Edit Assets",
+        params: {
+          assetId: this.assetId,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
+    }
   }
 };
 </script>

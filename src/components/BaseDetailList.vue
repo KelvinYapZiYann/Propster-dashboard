@@ -6,13 +6,15 @@
         <h3 class="card-title">{{ title }}</h3>
       </div>
       <div class="card-body">
-        <div class="row" v-for="(value, key) in model" :key="key">
-          <div class="col-sm-3 mb-3" v-if="hasValue(headers, key)">
+        <div class="row" v-for="(value, key) in headers" :key="key">
+          <div class="col-sm-3 mb-3">
+            <!-- v-if="hasValue(model, key)" -->
             <h6 class="mb-0">{{ headers[key] }}</h6>
           </div>
-          <span class="col-sm-9 mb-3" v-if="hasValue(headers, key)">
-          {{ value }}
-        </span>
+          <span class="col-sm-9 mb-3">
+            <!-- v-if="hasValue(model, key)" -->
+            {{ itemValue(model, key) }}
+          </span>
         </div>
       </div>
     </card>
@@ -54,10 +56,44 @@
     },
     methods: {
       hasValue(item, column) {
-        return item[column.toLowerCase()] ? true : false;
+        if (item[column.toLowerCase()]) {
+          return true;
+        }
+        for (const objectValue of Object.values(item)) {
+          if (typeof objectValue == 'object') {
+            if (objectValue[column.toLowerCase()]) {
+              return true;
+            }
+          }
+        }
+        return false;
       },
       itemValue(item, column) {
-        return item[column.toLowerCase()] ? item[column.toLowerCase()] : "-";
+        if (!item) {
+          return '-';
+        }
+        if (typeof item[column.toLowerCase()] == 'boolean') {
+          return item[column.toLowerCase()];
+        } else if (typeof item[column.toLowerCase()] == 'number') {
+          return item[column.toLowerCase()];
+        } else if (typeof item[column.toLowerCase()] == 'string') {
+          return item[column.toLowerCase()];
+        } else {
+          for (const objectValue of Object.values(item)) {
+            if (objectValue) {
+              if (typeof objectValue == 'object') {
+                if (typeof objectValue[column.toLowerCase()] == 'boolean') {
+                  return objectValue[column.toLowerCase()];
+                } else if (typeof objectValue[column.toLowerCase()] == 'number') {
+                  return objectValue[column.toLowerCase()];
+                } else if (typeof objectValue[column.toLowerCase()] == 'string') {
+                  return objectValue[column.toLowerCase()];
+                }
+              }
+            }
+          }
+          return '-';
+        }
       },
       // showDetails: function (id) {
       //   this.$emit('show-details', id)

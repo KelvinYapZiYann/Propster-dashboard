@@ -4,6 +4,7 @@
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
+      @cancel="handleCancel"
       :addOrEdit="addOrEdit"
       ></tenant-add-or-edit>
   </div>
@@ -32,11 +33,19 @@ export default {
       addOrEdit: "Edit"
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: false,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
-    this.getAsset();
+    this.getTenant();
   },
   methods: {
-    async getAsset() {
+    async getTenant() {
       try {
         await this.$store.dispatch('tenant/getById', this.$route.params.tenantId).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenant/model"])
@@ -52,8 +61,8 @@ export default {
       }
     },
     async handleSubmit(model) {
-      const modelId = this.$route.params.tenantId
-      if (modelId == null) {
+      const tenantId = this.$route.params.tenantId
+      if (tenantId == null) {
         this.$notify({
           message:'Server error',
           icon: 'tim-icons icon-bell-55',
@@ -61,14 +70,19 @@ export default {
         });
       } else {
         try {
-          await this.$store.dispatch('tenant/update', {'modelId': modelId, 'model': model})
+          await this.$store.dispatch('tenant/update', {'tenantId': tenantId, 'model': model})
           this.$notify({
             message:'Successfully Updated',
             icon: 'tim-icons icon-bell-55',
             type: 'success'
           });
           this.resetApiValidation()
-          router.go(-1);
+          if (this.previousRoute) {
+            router.push({path: this.previousRoute});
+          } else {
+            router.go(-1);
+          }
+          // router.go(-1);
           // router.push({path: "/tenants"});
         } catch (e) {
           this.$notify({
@@ -78,6 +92,13 @@ export default {
           });
           this.setApiValidation(e.response.data.errors)
         }
+      }
+    },
+    async handleCancel() {
+      if (this.previousRoute) {
+        router.push({path: this.previousRoute});
+      } else {
+        router.go(-1);
       }
     }
   }

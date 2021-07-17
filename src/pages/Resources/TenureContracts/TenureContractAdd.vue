@@ -1,9 +1,11 @@
 <template>
-  <div>
+  <div class="content">
     <tenure-contract-add-or-edit
       :resource="resource"
-      :apiValidationErrors="apiValidationErrors"
+      :tmpApiValidationErrors="apiValidationErrors"
+      :addOrEdit="addOrEdit"
       @submit="handleSubmit"
+      @cancel="handleCancel"
     >
     </tenure-contract-add-or-edit>
   </div>
@@ -27,16 +29,25 @@ export default {
         data: {},
         selector: {}
       },
+      addOrEdit: "Add"
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: false,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
-    this.getResource();
+    this.getTenureContract();
   },
   methods: {
-    async getResource() {
+    async getTenureContract() {
       try {
         await this.$store.dispatch('tenureContract/create').then(() => {
-          this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
+          this.resource.model = Object.assign({}, this.$store.getters["tenureContract/models"])
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
         })
@@ -51,7 +62,7 @@ export default {
     async handleSubmit(formData) {
         try {
           await this.$store.dispatch('tenureContract/store', {'model': formData}).then(() => {
-            this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
+            this.resource.model = Object.assign({}, this.$store.getters["tenureContract/models"])
             this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           })
           this.$notify({
@@ -59,8 +70,14 @@ export default {
             icon: 'tim-icons icon-bell-55',
             type: 'success'
           });
-          this.resetApiValidation()
-          router.push({path: "/tenure-contracts"});
+          this.resetApiValidation();
+          // router.go(-1);
+          if (this.previousRoute) {
+            router.push({path: this.previousRoute});
+          } else {
+            router.go(-1);
+          }
+          // router.push({path: "/tenure-contracts"});
         } catch (e) {
           this.$notify({
             message:'Server error',
@@ -69,6 +86,13 @@ export default {
           });
           this.setApiValidation(e.response.data.errors)
         }
+    },
+    async handleCancel() {
+      if (this.previousRoute) {
+        router.push({path: this.previousRoute});
+      } else {
+        router.go(-1);
+      }
     }
   }
 }

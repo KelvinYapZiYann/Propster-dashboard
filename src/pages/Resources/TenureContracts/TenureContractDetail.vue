@@ -16,16 +16,22 @@
                      id="dropzone"
                      :options="dropzoneOptions"
           >
+          <!-- :disable="disableDropZone" -->
           </drop-zone>
         </card>
+
+        <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
+        <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Tenure Contract</base-button>
       </div>
 </template>
 <script>
 import { BaseDetailList, Card, DropZone } from "@/components";
 
 let detailHeaders = {
+  asset_nickname: "Asset Nickname",
+  first_name: "Tenant First Name",
   contract_name: "Contract Name",
-  monthly_rental_amount: "Monthly Rental Amount",
+  monthly_rental_amount: "Monthly Rental Amount (RM)",
   tenure_start_date: "Tenure Start Date",
   tenure_end_date: "Tenure End Date",
 };
@@ -39,7 +45,7 @@ export default {
   data() {
     return {
       allowAddUser: false,
-      modelId: this.$route.params.tenureContractId,
+      tenureContractId: this.$route.params.tenureContractId,
       resource: {
         model: {},
         data: {}
@@ -57,13 +63,22 @@ export default {
       showMedia: false,
     };
   },
+  props: {
+    previousRoute: {
+      type: String,
+      required: false,
+      default: "",
+      description: "Previous Route"
+    }
+  },
   mounted() {
     this.getResource();
+    this.disableDropZone();
   },
   methods: {
     async getResource() {
       try {
-        await this.$store.dispatch('tenureContract/getById',  this.modelId).then(() => {
+        await this.$store.dispatch('tenureContract/getById',  this.tenureContractId).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
@@ -85,6 +100,25 @@ export default {
         this.$refs.myVueDropzone.removeEventListeners()
         this.$refs.myVueDropzone.setupEventListeners()
       }
+    },
+    disableDropZone() {
+      return true;
+    },
+    async handleBack() {
+      if (this.previousRoute) {
+        this.$router.push({path: this.previousRoute});
+      } else {
+        this.$router.go(-1);
+      }
+    },
+    async handleEdit() {
+      this.$router.push({
+        name: "Edit Tenure Contract",
+        params: {
+          tenureContractId: this.tenureContractId,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     }
   }
 };
