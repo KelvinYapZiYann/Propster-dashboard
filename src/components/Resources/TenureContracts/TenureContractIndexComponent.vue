@@ -49,9 +49,10 @@
             :columns="table.columns"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
-            v-on:edit-details="editDetails"
             :disableDelete="true"
+            :disableEdit="true"
           >
+          <!-- v-on:edit-details="editDetails" -->
           <!-- v-on:delete-details="deleteDetails" -->
           </base-table>
           <div

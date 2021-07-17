@@ -35,10 +35,10 @@ import PaymentPage from "@/components/Resources/PaymentRecords/PaymentPage";
 
 let detailHeaders = {
   payment_description: "Payment Description",
-  amount: "Receiver",
+  amount: "Amount (RM)",
   payment_method: "Payment Method",
   payment_type: "Payment Type",
-  is_reference_only: "Is reference only?"
+  // is_reference_only: "Is reference only?"
 };
 
 export default {
@@ -63,7 +63,7 @@ export default {
       dropzoneOptions: {
         url: 'https://httpbin.org/post',
         thumbnailWidth: 200,
-        addRemoveLinks: true,
+        addRemoveLinks: false,
         maxFiles: 1
       },
     };

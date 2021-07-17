@@ -3,8 +3,10 @@
     <div class="dz-message dropzone-container">
       <div class="file-selector">
         Drop Or Add Files Here
-        <p class="separator"><span> </span></p>
-        <button type="button">Browse</button>
+        <p class="separator">
+          <span></span>
+        </p>
+        <button type="info" class="btn" fill>Browse</button>
       </div>
     </div>
   </div>
@@ -116,7 +118,7 @@ export default {
           ) {
             if (
               this.files[_i].name === file.name &&
-              this.files[_i].size === file.size &&
+              // this.files[_i].size === file.size &&
               this.files[_i].lastModifiedDate.toString() ===
               file.lastModifiedDate.toString()
             ) {
@@ -292,8 +294,9 @@ export default {
         containsImageFileType = true;
       if (
         this.dropzone.options.createImageThumbnails &&
-        containsImageFileType &&
-        file.size <= this.dropzone.options.maxThumbnailFilesize * 1024 * 1024
+        containsImageFileType 
+        // &&
+        // file.size <= this.dropzone.options.maxThumbnailFilesize * 1024 * 1024
       ) {
         fileUrl && this.dropzone.emit("thumbnail", file, fileUrl);
 
@@ -554,7 +557,7 @@ button {
   content: "";
   height: 1px;
   width: 200px;
-  background: #e14eca;
+  background: #777;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

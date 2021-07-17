@@ -111,12 +111,12 @@ export default {
         return;
       }
 
-      try {
-        await this.$store.dispatch("verifyMiddleware");
-      } catch (e) {
-        errorHandlingService.verifyErrorFromServer(e);
-        return;
-      }
+      // try {
+      //   await this.$store.dispatch("verifyMiddleware");
+      // } catch (e) {
+      //   errorHandlingService.verifyErrorFromServer(e);
+      //   return;
+      // }
 
       this.$router.push({path: "/dashboard"});
     }
