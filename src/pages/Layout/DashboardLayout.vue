@@ -26,6 +26,9 @@
             :link="{ name: $t('sidebar.tenureContracts'), path: '/tenure-contracts', icon: 'fas fa-file fa-2x'}"
           ></sidebar-link>
           <sidebar-link
+            :link="{ name: $t('sidebar.billingRecords'), path: '/billing-records', icon: 'fas fa-credit-card fa-2x'}"
+          ></sidebar-link>
+          <sidebar-link
             :link="{ name: $t('sidebar.paymentRecords'), path: '/payment-records', icon: 'fas fa-history fa-2x'}"
           ></sidebar-link>
           <sidebar-link

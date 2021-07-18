@@ -150,6 +150,7 @@
     "calendar": "Calendar",
     "assetExpenses": "Asset Expenses",
     "assets": "Assets",
+    "billingRecords":  "Billing  Records",
     "paymentRecords":  "Payment Records",
     "tenants": "Tenants",
     "tenureContracts":  "Tenure Contracts",
