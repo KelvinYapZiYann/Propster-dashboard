@@ -9,7 +9,7 @@
             class="mt-3"
             type="info"
             v-bind:disabled="!resource.data.canAdd"
-            v-if="resource.data.canAdd"
+            v-if="resource.data.canAdd && billingRecordType != 'All'"
           >Add {{table.title}}</base-button>
         </div>
         <div class="row">

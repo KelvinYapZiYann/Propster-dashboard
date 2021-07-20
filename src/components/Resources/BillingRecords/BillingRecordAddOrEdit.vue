@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">Create New Payment Record</h5>
+      <h5 slot="header" class="title">Create New Billing</h5>
       <div class="row">
         <div class="col-md-6 ">
           <base-selector-input label="Asset"

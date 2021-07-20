@@ -3,11 +3,6 @@
     <transaction-section
       :resource="resource"
     ></transaction-section>
-    <!-- :model="resource.model"
-      :asset="resource.model.asset"
-      :recipient="resource.model.recipient"
-      :sender="resource.model.sender" -->
-    <!-- {{resource}} -->
     <payment-record-add-or-edit
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
@@ -21,9 +16,7 @@
 <script>
 import formMixin from "@/mixins/form-mixin";
 import router from "@/router";
-// import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
 import PaymentRecordAddOrEdit from "@/components/Resources/PaymentRecords/PaymentRecordAddOrEdit";
-// import ValidationError from "@/components/ValidationError.vue";
 import { TransactionSection, ValidationError } from "@/components";
 
 export default {

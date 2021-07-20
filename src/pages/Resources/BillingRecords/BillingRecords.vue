@@ -3,13 +3,18 @@
     <billing-record-index-component
       :resource="resource"
       @getResource="getResource"
-      :billingRecordType="receivingBillingRecordType"
+      billingRecordType="All"
     ></billing-record-index-component>
-    <billing-record-index-component
+    <!-- <billing-record-index-component
       :resource="resource"
       @getResource="getResource"
-      :billingRecordType="sendingBillingRecordType"
-    ></billing-record-index-component>
+      billingRecordType="Receiving"
+    ></billing-record-index-component> -->
+    <!-- <billing-record-index-component
+      :resource="resource"
+      @getResource="getResource"
+      billingRecordType="Sending"
+    ></billing-record-index-component> -->
   </div>
 </template>
 <script>
@@ -24,9 +29,7 @@ export default {
       resource: {
         models: [{}],
         data: {}
-      },
-      receivingBillingRecordType: "Receiving",
-      sendingBillingRecordType: "Sending",
+      }
     };
   },
   mounted() {
