@@ -4,6 +4,13 @@
       <card>
         <h4 slot="header" class="card-title text-left">{{billingRecordType == "All" ? "" : (billingRecordType + " ")}}{{table.title}}</h4>
         <div class="text-right mb-3">
+          <base-button
+            @click="addModel"
+            class="mt-3"
+            type="info"
+            v-bind:disabled="!resource.data.canAdd"
+            v-if="resource.data.canAdd"
+          >Add {{table.title}}</base-button>
         </div>
         <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -32,7 +39,7 @@
           >
             <div class="">
               <p class="card-category">
-                Showing {{ resource.data.from }} to {{ resource.data.to }} of {{ resource.data.total }} entries
+                Showing {{ resource.data.from ? resource.data.from : "0" }} to {{ resource.data.to ? resource.data.to : "0" }} of {{ resource.data.total }} entries
               </p>
             </div>
             <base-pagination
@@ -79,6 +86,9 @@ export default {
       },
       searchQuery: "",
       searchQueryTimeout: null,
+      userResource: {
+        model: {},
+      },
     };
   },
   props: {
@@ -110,12 +120,30 @@ export default {
       }
     }
   },
+  mounted() {
+    this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+  },
   methods: {
     showDetails(id) {
       router.push({
         name: "Billing Record Detail",
         params: {
           paymentRecordsId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
+    },
+    addModel() {
+      this.$router.push({
+        name: 'Add Billing Record',
+        query: {
+          senderType: "TENANT",
+          senderId: `${this.$props.query.tenantId}`,
+          recipientType: "LANDLORD",
+          recipientId: `${this.userResource.model.landlord_ids[0]}`,
+          assetId: this.assetId,
+        },
+        params: {
           previousRoute: this.$router.currentRoute.fullPath
         }
       });

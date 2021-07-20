@@ -14,13 +14,14 @@
       <card>
         <h4 slot="header" class="card-title text-left">{{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{table.title}}</h4>
         <div class="text-right mb-3">
-          <!-- <base-button
+          <base-button
             @click="addModel"
             class="mt-3"
             type="info"
             v-bind:disabled="!resource.data.canAdd"
-          >Add {{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{ table.title }}
-          </base-button> -->
+            v-if="paymentRecordType != 'All'"
+          >Add {{table.title}} {{paymentRecordType == 'Receiving' ? ' from Tenant' : ''}}
+          </base-button>
         </div>
         <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -49,7 +50,7 @@
           >
             <div class="">
               <p class="card-category">
-                Showing {{ resource.data.from }} to {{ resource.data.to }} of {{ resource.data.total }} entries
+                Showing {{ resource.data.from ? resource.data.from : "0" }} to {{ resource.data.to ? resource.data.to : "0" }} of {{ resource.data.total }} entries
               </p>
             </div>
             <base-pagination
@@ -96,6 +97,9 @@ export default {
       },
       searchQuery: "",
       searchQueryTimeout: null,
+      userResource: {
+        model: {},
+      },
     };
   },
   props: {
@@ -128,6 +132,9 @@ export default {
       }
     }
   },
+  mounted() {
+    this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+  },
   methods: {
     showDetails(id) {
       router.push({
@@ -139,9 +146,21 @@ export default {
       });
     },
     addModel() {
+      // this.$router.push({
+      //   name: 'Add Payment Record',
+      //   query: this.query,
+      //   params: {
+      //     previousRoute: this.$router.currentRoute.fullPath
+      //   }
+      // });
       this.$router.push({
         name: 'Add Payment Record',
-        query: this.query,
+        query: {
+          senderType: "TENANT",
+          senderId: `${this.$props.query.tenantId}`,
+          recipientType: "LANDLORD",
+          recipientId: `${this.userResource.model.landlord_ids[0]}`,
+        },
         params: {
           previousRoute: this.$router.currentRoute.fullPath
         }

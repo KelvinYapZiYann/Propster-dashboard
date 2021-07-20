@@ -47,7 +47,7 @@
         >
           <div class="">
             <p class="card-category">
-              Showing {{ resource.data.from }} to {{ resource.data.to }} of {{ resource.data.total }} entries
+              Showing {{ resource.data.from ? resource.data.from : "0" }} to {{ resource.data.to ? resource.data.to : "0" }} of {{ resource.data.total }} entries
             </p>
           </div>
           <base-pagination
