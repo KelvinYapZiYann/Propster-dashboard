@@ -1,8 +1,8 @@
 <template>
   <div class="content">
-    <payment-page
+    <transaction-section
       :resource="resource"
-    ></payment-page>
+    ></transaction-section>
       <!-- :model="resource.model"
       :asset="resource.model.asset"
       :recipient="resource.model.recipient"
@@ -29,9 +29,7 @@
   </div>
 </template>
 <script>
-import {BaseDetailList, Card} from "@/components";
-import DropZone from "@/components/DropZone";
-import PaymentPage from "@/components/Resources/PaymentRecords/PaymentPage";
+import {BaseDetailList, Card, DropZone, TransactionSection} from "@/components";
 
 let detailHeaders = {
   payment_description: "Payment Description",
@@ -46,7 +44,7 @@ export default {
     BaseDetailList,
     Card,
     DropZone,
-    PaymentPage
+    TransactionSection
   },
   data() {
     return {

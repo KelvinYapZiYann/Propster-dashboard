@@ -76,6 +76,7 @@
         </div>
       </div>
     </card>
+    <base-button slot="footer" type="info" @click="handleBack()" fill>Cancel</base-button>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Send</base-button>
   </form>
 </template>
@@ -119,6 +120,12 @@ export default {
       type: Object,
       // default: {},
     },
+    previousRoute: {
+      type: String,
+      required: false,
+      default: "",
+      description: "Previous Route"
+    }
   },
   mounted() {
     // console.log('mounted');
@@ -128,6 +135,13 @@ export default {
     // console.log(this.resource.selector);
   },
   methods: {
+    async handleBack() {
+      if (this.previousRoute) {
+        this.$router.push({path: this.previousRoute});
+      } else {
+        this.$router.go(-1);
+      }
+    },
     async handleSubmit() {
       let formData = new FormData();
 

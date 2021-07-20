@@ -61,7 +61,8 @@
           :bg-color="bgColor"
           :actions="fabActions"
           :fixed-tooltip="fixedTooltip"
-          @tenantPayment="addPaymentRecord"
+          @tenantPayment="addTenantPaymentRecord"
+          @tenantBilling="addTenantBillingRecord"
         ></fab>
 
         <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
@@ -132,9 +133,14 @@ export default {
       },
       fabActions: [
         {
-          name: 'tenantPayment',
+          name: 'tenantBilling',
           icon: 'payment',
-          tooltip: 'Record Tenant Payment'
+          tooltip: 'Tenant Billing'
+        },
+        {
+          name: 'tenantPayment',
+          icon: 'history',
+          tooltip: 'Record Payment from Tenant'
         }
       ],
       receivingPaymentRecordType: "Receiving",
@@ -213,9 +219,24 @@ export default {
         });
       }
     },
-    addPaymentRecord() {
+    addTenantPaymentRecord() {
       this.$router.push({
         name: 'Add Payment Record',
+        query: {
+          senderType: "TENANT",
+          senderId: `${this.tenantId}`,
+          recipientType: "LANDLORD",
+          recipientId: `${this.userResource.model.landlord_ids[0]}`,
+          assetId: this.assetId,
+        },
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
+    },
+    addTenantBillingRecord() {
+      this.$router.push({
+        name: 'Add Billing Record',
         query: {
           senderType: "TENANT",
           senderId: `${this.tenantId}`,

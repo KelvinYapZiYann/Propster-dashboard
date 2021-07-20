@@ -1,8 +1,8 @@
 <template>
   <div class="content">
-    <payment-page
+    <transaction-section
       :resource="resource"
-    ></payment-page>
+    ></transaction-section>
       <!-- :model="resource.model"
       :asset="resource.model.asset"
       :recipient="resource.model.recipient"
@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import { BaseDetailList, PaymentPage } from "@/components";
+import { BaseDetailList, TransactionSection } from "@/components";
 
 let detailHeaders = {
   asset_nickname: "Asset Nickname",
@@ -33,7 +33,7 @@ let detailHeaders = {
 };
 export default {
   components: {
-    PaymentPage,
+    TransactionSection,
     BaseDetailList
   },
   data() {

@@ -8,21 +8,20 @@
       :recipient="resource.model.recipient"
       :sender="resource.model.sender" -->
     <!-- {{resource}} -->
-    <payment-record-add-or-edit
+    <!-- <payment-record-add-or-edit
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
       addOrEdit="Add"
       :query="this.$route.query"
-      :previousRoute="previousRoute"
-    ></payment-record-add-or-edit>
+    ></payment-record-add-or-edit> -->
   </div>
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
 import router from "@/router";
 // import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
-import PaymentRecordAddOrEdit from "@/components/Resources/PaymentRecords/PaymentRecordAddOrEdit";
+// import PaymentRecordAddOrEdit from "@/components/Resources/PaymentRecords/PaymentRecordAddOrEdit";
 // import ValidationError from "@/components/ValidationError.vue";
 import { TransactionSection, ValidationError } from "@/components";
 
@@ -31,7 +30,7 @@ export default {
   components: {
     ValidationError,
     TransactionSection,
-    PaymentRecordAddOrEdit
+    // PaymentRecordAddOrEdit
   },
   data() {
     return {
@@ -62,38 +61,38 @@ export default {
   //   })
   // },
   mounted() {
-    this.getPaymentRecordDetail();
+    // this.getPaymentRecordDetail();
   },
   methods: {
-    async getPaymentRecordDetail() {
-      try {
-        var paymentRecordsAddParam = this.$route.query.assetId ?
-        {
-          'sender_type': this.$route.query.senderType,
-          'sender_id': this.$route.query.senderId,
-          'recipient_type': this.$route.query.recipientType,
-          'recipient_id': this.$route.query.recipientId,
-          'asset_id': this.$route.query.assetId,
-        } : 
-        {
-          'sender_type': this.$route.query.senderType,
-          'sender_id': this.$route.query.senderId,
-          'recipient_type': this.$route.query.recipientType,
-          'recipient_id': this.$route.query.recipientId,
-        };
-        await this.$store.dispatch('paymentRecords/add', paymentRecordsAddParam).then(() => {
-          this.resource.model = Object.assign({}, this.$store.getters["paymentRecords/model"])
-          this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"])
-          this.resource.selector = Object.assign({}, this.$store.getters["paymentRecords/selector"])
-        })
-      } catch (e) {
-        this.$notify({
-          message:'Server error',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
-      }
-    },
+    // async getPaymentRecordDetail() {
+    //   try {
+    //     var paymentRecordsAddParam = this.$route.query.assetId ?
+    //     {
+    //       'sender_type': this.$route.query.senderType,
+    //       'sender_id': this.$route.query.senderId,
+    //       'recipient_type': this.$route.query.recipientType,
+    //       'recipient_id': this.$route.query.recipientId,
+    //       'asset_id': this.$route.query.assetId,
+    //     } : 
+    //     {
+    //       'sender_type': this.$route.query.senderType,
+    //       'sender_id': this.$route.query.senderId,
+    //       'recipient_type': this.$route.query.recipientType,
+    //       'recipient_id': this.$route.query.recipientId,
+    //     };
+    //     await this.$store.dispatch('paymentRecords/add', paymentRecordsAddParam).then(() => {
+    //       this.resource.model = Object.assign({}, this.$store.getters["paymentRecords/model"])
+    //       this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"])
+    //       this.resource.selector = Object.assign({}, this.$store.getters["paymentRecords/selector"])
+    //     })
+    //   } catch (e) {
+    //     this.$notify({
+    //       message:'Server error',
+    //       icon: 'tim-icons icon-bell-55',
+    //       type: 'danger'
+    //     });
+    //   }
+    // },
     async handleSubmit(model) {
       try {
         await this.$store.dispatch('paymentRecords/store', {'model': model}).then(() => {
