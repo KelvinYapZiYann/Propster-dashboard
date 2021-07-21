@@ -287,7 +287,7 @@ export default {
           subTitle: "Overdue Expenses",
           type: "warning",
           icon: "fas fa-clock",
-          description: "Expenses that you are been due to. For eg.  Maintaince fees that is overdue.",
+          description: "Expenses that you are been due to. For eg. Maintaince fees that is overdue.",
         },
         {
           title: "RM5,000.00",

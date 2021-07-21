@@ -104,17 +104,14 @@
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/> -->
         </div>
-        <div class="col-md-6 pr-md-1">
+        <!-- <div class="col-md-6 pr-md-1">
           <base-input label="Reputation"
                       placeholder="Reputation"
                       v-model="resource.model.reputation"
                       :error="tmpApiValidationErrors.reputation ? tmpApiValidationErrors.reputation[0] : ''">
-          </base-input>
+          </base-input> -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.reputation"/> -->
-        </div>
-      </div>
-
-      <div class="row">
+        <!-- </div> -->
         <div class="col-md-6">
           <base-selector-input label="Salary Range"
                                placeholder="Salary Range"

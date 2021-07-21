@@ -34,6 +34,12 @@
           @tenantIdChange="tenantIdChange"
         ></tenure-contract-index-component>
 
+        <div class="pro-feature alert alert-danger" v-if="billingRecordResource.models.length == 0">
+          <strong>
+            There is no billing record of this tenant. Please create one.
+          </strong>
+        </div>
+
         <billing-record-index-component
           :resource="billingRecordResource"
           :query="{
@@ -95,7 +101,7 @@ let detailHeaders = {
     gender: "Gender",
     is_business: "Is Business",
     date_of_birth: "Date Of Birth",
-    reputation: "Reputation",
+    // reputation: "Reputation",
     salary_range: "Salary Range",
 };
 

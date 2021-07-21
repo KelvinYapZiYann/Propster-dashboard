@@ -5,42 +5,58 @@
     <side-bar :background-color="backgroundColor">
       <!-- <mobile-menu slot="content"></mobile-menu> -->
       <template slot="links">
-        <sidebar-link
-          :link="{
-            name: $t('sidebar.dashboard'),
-            icon: 'tim-icons icon-chart-pie-36',
-            path: '/dashboard'
-          }"
-        >
-        </sidebar-link>
+        <el-tooltip content="Main detail info of your asset property." :open-delay="300" placement="right">
+          <sidebar-link
+            :link="{
+              name: $t('sidebar.dashboard'),
+              icon: 'tim-icons icon-chart-pie-36',
+              path: '/dashboard'
+            }"
+          >
+          </sidebar-link>
+        </el-tooltip>
 
+        <el-tooltip content="Asset property that is rented to tenants." :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.assets'), path: '/assets', icon: 'fas fa-home fa-2x'}"
           ></sidebar-link>
-          <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
+        </el-tooltip>
+        <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
+        <el-tooltip content="Tenants that rent your asset property." :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.tenants'), path: '/tenants', icon: 'fas fa-child fa-2x'}"
           ></sidebar-link>
+        </el-tooltip>
           <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
+        <el-tooltip content="Tenure contract of the asset property and tenant." :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.tenureContracts'), path: '/tenure-contracts', icon: 'fas fa-file fa-2x'}"
           ></sidebar-link>
+        </el-tooltip>
+        <el-tooltip content="Biiling records." :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.billingRecords'), path: '/billing-records', icon: 'fas fa-credit-card fa-2x'}"
           ></sidebar-link>
+        </el-tooltip>
+        <el-tooltip content="Payment records." :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.paymentRecords'), path: '/payment-records', icon: 'fas fa-history fa-2x'}"
           ></sidebar-link>
+        </el-tooltip>
+        <el-tooltip content="Asset expenses." :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.assetExpenses'), path: '/asset-expenses', icon: 'fas fa-dollar-sign fa-2x'}"
           ></sidebar-link>
+        </el-tooltip>
+        <el-tooltip content="User profile." :open-delay="300" placement="right">
           <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
           <sidebar-link
             :link="{ name: $t('sidebar.userProfile'), path: '/profile', icon: 'tim-icons icon-single-02'}"
           ></sidebar-link>
-          <!-- <sidebar-link
-            :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog fa-2x'}"
-          ></sidebar-link> -->
+        </el-tooltip>
+        <!-- <sidebar-link
+          :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog fa-2x'}"
+        ></sidebar-link> -->
 
         <!-- <sidebar-link
           :link="{
