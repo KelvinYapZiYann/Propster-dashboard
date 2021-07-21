@@ -62,13 +62,13 @@ import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
 let tableColumns = {
-//   sender_name: "Sender",
-//   recipient_name: "Recipient",
-//   asset_nickname: "Asset",
-//   payment_description: "Payment Description",
-//   amount: "Amount (RM)",
+  sender_name: "Sender",
+  recipient_name: "Recipient",
+  asset_nickname: "Asset",
+  description: "Description",
+  amount: "Amount (RM)",
 //   status: "Status",
-//   payment_method: "Payment Method"
+  payment_method: "Payment Method"
 };
 
 export default {
@@ -162,16 +162,16 @@ export default {
             //   this.resource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"]);
             // });
           } else {
-            // await this.$store.dispatch('paymentRecords/get', pageId).then(() => {
-            //   this.resource.models = this.$store.getters["paymentRecords/models"];
-            //   this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"]);
-            // });
+            await this.$store.dispatch('billingRecords/get', pageId).then(() => {
+              this.resource.models = this.$store.getters["billingRecords/models"];
+              this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"]);
+            });
           }
         } else {
-        //   await this.$store.dispatch('paymentRecords/get', pageId).then(() => {
-        //     this.resource.models = this.$store.getters["paymentRecords/models"];
-        //     this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"]);
-        //   });
+          await this.$store.dispatch('billingRecords/get', pageId).then(() => {
+            this.resource.models = this.$store.getters["billingRecords/models"];
+            this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"]);
+          });
         }
       } catch (e) {
         this.$notify({
