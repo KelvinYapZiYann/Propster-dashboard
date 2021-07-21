@@ -67,7 +67,7 @@
               class="dropdown-toggle nav-link"
             >
               <div class="notification d-none d-lg-block d-xl-block" v-if="notifications.length > 0"></div>
-              <i class="fa fa-bell text-info"></i>
+              <i class="fa fa-bell text-info" :title="$t('topbar.notifications')"></i>
               <p class="d-lg-none text-left">
                 Notifications
               </p>

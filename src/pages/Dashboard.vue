@@ -80,7 +80,7 @@ export default {
       statsCards: [
         {
           title: "RM15,000.00",
-          subTitle: this.$t('dashboard.overdueImcome'),
+          subTitle: this.$t('dashboard.overdueIncome'),
           type: "warning",
           icon: "fas fa-clock",
           description: this.$t('dashboard.overdueIncomeDesc'),

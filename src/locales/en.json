@@ -21,6 +21,9 @@
     "userProfileDesc": "User profile.",
     "toggleSidebar": "Toggle Sidebar"
   },
+  "topbar": {
+    "notifications": "Notifications"
+  },
   "footer": {
     "aboutUs": "About Us"
   },
