@@ -3,6 +3,7 @@
     "dashboard": "Dashboard",
     "dashboardDesc": "Main detail info of your asset property.",
     "assets": "Assets",
+    "asset": "Asset",
     "assetsDesc": "Asset property that is rented to tenants.",
     "tenants": "Tenants",
     "tenantsDesc": "Tenants that rent your asset property.",
@@ -42,11 +43,17 @@
     "search": "Search",
     "detail": "Detail",
     "edit": "Edit",
+    "add": "Add",
     "remove": "Remove",
     "showing": "Showing",
     "to": "To",
     "of": "Of",
-    "entries": "Entries"
+    "entries": "Entries",
+    "proFeature1": "You can only add",
+    "proFeature2": "with free tier.",
+    "proFeature21": "per asset with free tier.",
+    "proFeature3": "Get",
+    "proFeature4": "version to add more"
   },
   "property": {
     "firstName": "First Name",
@@ -54,6 +61,21 @@
     "email": "Email",
     "phoneNumber": "Phone Number",
     "dueDate": "Due Date",
-    "dueAmount": "Due Amount"
+    "dueAmount": "Due Amount",
+    "assetNickname": "Asset Nickname",
+    "unitNo": "Unit No",
+    "addressLine": "Address Line",
+    "city": "City",
+    "tenantName": "Tenant Name",
+    "contractName": "Contract Name",
+    "monthlyRentalAmount": "Monthly Rental Amount (RM)",
+    "tenureStartDate": "Tenure Start Date",
+    "tenureEndDate": "Tenure End Date",
+    "senderName": "Sender Name",
+    "recipientName": "Recipient Name",
+    "description": "Description",
+    "amount": "Amount (RM)",
+    "paymentMethod": "Payment Method",
+    "status": "Status"
   }
 }

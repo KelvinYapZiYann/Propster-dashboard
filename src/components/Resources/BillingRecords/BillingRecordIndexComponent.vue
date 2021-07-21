@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <card>
-        <h4 slot="header" class="card-title text-left">{{billingRecordType == "All" ? "" : (billingRecordType + " ")}}{{table.title}}</h4>
+        <h4 slot="header" class="card-title text-left">{{billingRecordType == "All" ? "" : (billingRecordType + " ")}}{{$t('sidebar.billingRecords')}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
@@ -10,13 +10,13 @@
             type="info"
             v-bind:disabled="!resource.data.canAdd"
             v-if="resource.data.canAdd && billingRecordType != 'All'"
-          >Add {{table.title}}</base-button>
+          >{{$t('component.add')}} {{$t('sidebar.billingRecords')}}</base-button>
         </div>
         <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
                     addonLeftIcon="el-icon-search"
-                    placeholder="Search"
+                    :placeholder="$t('component.search')"
                     v-model="searchQuery">
             </base-input>
           </div>
@@ -39,7 +39,7 @@
           >
             <div class="">
               <p class="card-category">
-                Showing {{ resource.data.from ? resource.data.from : "0" }} to {{ resource.data.to ? resource.data.to : "0" }} of {{ resource.data.total }} entries
+                {{$t('component.showing')}} {{ resource.data.from ? resource.data.from : "0" }} {{$t('component.to')}} {{ resource.data.to ? resource.data.to : "0" }} {{$t('component.of')}} {{ resource.data.total }} {{$t('component.entries')}}
               </p>
             </div>
             <base-pagination
@@ -61,16 +61,6 @@
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
-let tableColumns = {
-  sender_name: "Sender",
-  recipient_name: "Recipient",
-  asset_nickname: "Asset",
-  description: "Description",
-  amount: "Amount (RM)",
-//   status: "Status",
-  payment_method: "Payment Method"
-};
-
 export default {
   components: {
     BaseInput,
@@ -81,8 +71,14 @@ export default {
   data() {
     return {
       table: {
-        title: "Billing Records",
-        columns: {...tableColumns},
+        columns: {
+          sender_name: this.$t('property.senderName'),
+          recipient_name: this.$t('property.recipientName'),
+          asset_nickname: this.$t('property.assetNickname'),
+          description: this.$t('property.description'),
+          amount: this.$t('property.amount'),
+          payment_method: this.$t('property.paymentMethod')
+        },
       },
       searchQuery: "",
       searchQueryTimeout: null,

@@ -52,17 +52,6 @@
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
-const tableDefaultData = [
-  {
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone_number: "",
-    due_date: "",
-    due_amount: "",
-  }
-];
-
 export default {
   components: {
     BaseInput,
@@ -81,8 +70,7 @@ export default {
           phone_number: this.$t('property.phoneNumber'),
           due_date: this.$t('property.dueDate'),
           due_amount: this.$t('property.dueAmount')
-        },
-        data: [...tableDefaultData]
+        }
       },
       searchQuery: "",
       searchQueryTimeout: null,

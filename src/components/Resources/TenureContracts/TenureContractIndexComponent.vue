@@ -10,13 +10,13 @@
             type="info"
             v-bind:disabled="!resource.data.canAdd"
             v-if="resource.data.canAdd"
-          >Add {{table.title}}</base-button>
+          >{{$t('component.add')}} {{$t('sidebar.tenureContracts')}}</base-button>
         </div>
         <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
                     addonLeftIcon="el-icon-search"
-                    placeholder="Search"
+                    :placeholder="$t('component.search')"
                     v-model="searchQuery">
             </base-input>
           </div>
@@ -25,8 +25,9 @@
           <div class="col-xl-4 col-lg-2 col-md-12">
           </div>
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
-            <base-selector-input label="Asset Nickname"
-                        placeholder="Asset Nickname"
+            <base-selector-input 
+                        :label="$t('property.assetNickname')"
+                        :placeholder="$t('property.assetNickname')"
                         v-model="assetIdComp"
                         :options="resource.selector.asset_id"
                         @input="filterAssetId"
@@ -34,8 +35,9 @@
             </base-selector-input>
           </div>
           <div class="col-xl-4 col-lg-5 col-md-6" v-if="query ? !query.tenantId : true">
-            <base-selector-input label="Tenant Name"
-                        placeholder="Tenant Name"
+            <base-selector-input 
+                        :label="$t('property.tenantName')"
+                        :placeholder="$t('property.tenantName')"
                         v-model="tenantIdComp"
                         :options="resource.selector.tenant_id"
                         @input="filterTenantId"
@@ -61,7 +63,7 @@
           >
             <div class="">
               <p class="card-category">
-                Showing {{ resource.data.from ? resource.data.from : "0" }} to {{ resource.data.to ? resource.data.to : "0" }} of {{ resource.data.total }} entries
+                {{$t('component.showing')}} {{ resource.data.from ? resource.data.from : "0" }} {{$t('component.to')}} {{ resource.data.to ? resource.data.to : "0" }} {{$t('component.of')}} {{ resource.data.total }} {{$t('component.entries')}}
               </p>
             </div>
             <base-pagination
@@ -83,26 +85,6 @@
 import {BaseInput, BaseTable, BasePagination, BaseSelectorInput, Card} from "@/components";
 import router from "@/router";
 
-let tableColumns = {
-  asset_nickname: "Asset Nickname",
-  first_name: "Tenant First Name",
-  contract_name: "Contract Name",
-  monthly_rental_amount: "Monthly Rental Amount (RM)",
-  tenure_start_date: "Tenure Start Date",
-  tenure_end_date: "Tenure End Date",
-};
-
-const tableDefaultData = [
-  {
-    asset_nickname: "",
-    first_name: "",
-    contract_name: "",
-    monthly_rental_amount: "",
-    tenure_start_date: "",
-    tenure_end_date: "",
-  }
-];
-
 export default {
   components: {
     BaseInput,
@@ -114,9 +96,14 @@ export default {
   data() {
     return {
       table: {
-        title: "Tenure Contract",
-        columns: {...tableColumns},
-        data: [...tableDefaultData]
+        columns: {
+          asset_nickname: this.$t('property.assetNickname'),
+          first_name: this.$t('property.firstName'),
+          contract_name: this.$t('property.contractName'),
+          monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
+          tenure_start_date: this.$t('property.tenureStartDate'),
+          tenure_end_date: this.$t('property.tenureEndDate')
+        }
       },
       searchQuery: "",
       searchQueryTimeout: null,

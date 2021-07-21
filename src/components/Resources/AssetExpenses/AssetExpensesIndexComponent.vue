@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-12">
       <card>
-        <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
+        <h4 slot="header" class="card-title text-left">{{$t('sidebar.assetExpenses')}}</h4>
         <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
                     addonLeftIcon="el-icon-search"
-                    placeholder="Search"
+                    :placeholder="$t('component.search')"
                     v-model="searchQuery">
             </base-input>
           </div>
@@ -28,7 +28,7 @@
           >
             <div class="">
               <p class="card-category">
-                Showing {{ resource.data.from ? resource.data.from : "0" }} to {{ resource.data.to ? resource.data.to : "0" }} of {{ resource.data.total }} entries
+                {{$t('component.showing')}} {{ resource.data.from ? resource.data.from : "0" }} {{$t('component.to')}} {{ resource.data.to ? resource.data.to : "0" }} {{$t('component.of')}} {{ resource.data.total }} {{$t('component.entries')}}
               </p>
             </div>
             <base-pagination
@@ -67,8 +67,12 @@ export default {
   data() {
     return {
       table: {
-        title: "Asset Expenses",
-        columns: {...tableColumns},
+        columns: {
+          payment_description: this.$t('property.description'),
+          amount: this.$t('property.amount'),
+          status: this.$t('property.status'),
+          payment_method: this.$t('property.paymentMethod')
+        },
       },
       searchQuery: "",
       searchQueryTimeout: null,

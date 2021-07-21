@@ -3,29 +3,29 @@
     <div class="col-12">
       <div class="pro-feature alert alert-danger" v-if="$store.getters['users/model'].tier == 'BASIC'">
         <strong>
-          You can only add 3 {{table.title}} per asset with free tier. Get
+          {{$t('component.proFeature1')}} 3 {{$t('sidebar.tenants')}} {{$t('component.proFeature21')}} {{$t('component.proFeature3')}} 
           <a
             href="https://www.propster.io"
             target="_blank"
           >PRO</a>
-          version to add more {{ table.title }} !
+          {{$t('component.proFeature4')}} {{$t('sidebar.tenants')}}!
         </strong>
       </div>
       <card>
-        <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
+        <h4 slot="header" class="card-title text-left">{{$t('sidebar.tenants')}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
             class="mt-3"
             type="info"
             v-bind:disabled="!resource.data.canAdd"
-          >Add {{table.title}}</base-button>
+          >{{$t('component.add')}} {{$t('sidebar.tenants')}}</base-button>
         </div>
         <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
                     addonLeftIcon="el-icon-search"
-                    placeholder="Search"
+                    :placeholder="$t('component.search')"
                     v-model="searchQuery">
             </base-input>
           </div>
@@ -47,7 +47,7 @@
         >
           <div class="">
             <p class="card-category">
-              Showing {{ resource.data.from ? resource.data.from : "0" }} to {{ resource.data.to ? resource.data.to : "0" }} of {{ resource.data.total }} entries
+              {{$t('component.showing')}} {{ resource.data.from ? resource.data.from : "0" }} {{$t('component.to')}} {{ resource.data.to ? resource.data.to : "0" }} {{$t('component.of')}} {{ resource.data.total }} {{$t('component.entries')}}
             </p>
           </div>
           <base-pagination
@@ -68,24 +68,6 @@
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
-let tableColumns = {
-  first_name: "First Name",
-  last_name: "Last Name",
-  // is_business: "Is Business",
-  email: "Email",
-  phone_number: "Phone Number",
-};
-
-const tableDefaultData = [
-  {
-    first_name: "",
-    last_name: "",
-    // is_business: "",
-    email: "",
-    phone_number: "",
-  }
-];
-
 export default {
   components: {
     BaseInput,
@@ -96,9 +78,12 @@ export default {
   data() {
     return {
       table: {
-        title: "Tenants",
-        columns: {...tableColumns},
-        data: [...tableDefaultData]
+        columns: {
+          first_name: this.$t('property.firstName'),
+          last_name: this.$t('property.lastName'),
+          email: this.$t('property.email'),
+          phone_number: this.$t('property.phoneNumber'),
+        },
       },
       searchQuery: "",
       searchQueryTimeout: null,
