@@ -24,7 +24,7 @@
             class="remove btn-link"
             type="info"
             size="sm"
-            title="View"
+            :title="$t('component.detail')"
             icon
         >
           <i class="fa fa-eye" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
             class="edit btn-link"
             type="info"
             size="sm"
-            title="Edit"
+            :title="$t('component.edit')"
             icon
         >
           <i class="tim-icons icon-pencil"></i>
@@ -46,7 +46,7 @@
             class="remove btn-link"
             type="danger"
             size="sm"
-            title="Delete"
+            :title="$t('component.remove')"
             icon
         >
           <i class="tim-icons icon-simple-remove"></i>

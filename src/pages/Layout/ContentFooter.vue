@@ -9,7 +9,7 @@
         </li> -->
         <li class="nav-item">
           <a href="https://propster.io/about-us" target="_blank" rel="noopener" class="nav-link">
-            About Us
+            {{$t('footer.aboutUs')}}
           </a>
         </li>
         <!-- <li class="nav-item">

@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip content="Toggle sidebar" :open-delay="300" placement="bottom">
+  <el-tooltip :content="$t('sidebar.toggleSidebar')" :open-delay="300" placement="bottom">
     <button
       class="minimize-sidebar btn btn-link btn-just-icon"
       @click="minimizeSidebar"

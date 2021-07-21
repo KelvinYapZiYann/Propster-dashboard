@@ -9,7 +9,7 @@
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
                     addonLeftIcon="el-icon-search"
-                    placeholder="Search"
+                    :placeholder="$t('component.search')"
                     v-model="searchQuery">
             </base-input>
           </div>
@@ -31,7 +31,7 @@
         >
           <div class="">
             <p class="card-category">
-              Showing {{ resource.data.from ? resource.data.from : "0" }} to {{ resource.data.to ? resource.data.to : "0" }} of {{ resource.data.total }} entries
+              {{$t('component.showing')}} {{ resource.data.from ? resource.data.from : "0" }} {{$t('component.to')}} {{ resource.data.to ? resource.data.to : "0" }} {{$t('component.of')}} {{ resource.data.total }} {{$t('component.entries')}}
             </p>
           </div>
           <base-pagination
@@ -52,21 +52,10 @@
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 
-let tableColumns = {
-  first_name: "First Name",
-  last_name: "Last Name",
-  // is_business: "Is Business",
-  email: "Email",
-  phone_number: "Phone Number",
-  due_date: "Due Date",
-  due_amount: "Due Amount"
-};
-
 const tableDefaultData = [
   {
     first_name: "",
     last_name: "",
-    // is_business: "",
     email: "",
     phone_number: "",
     due_date: "",
@@ -84,8 +73,15 @@ export default {
   data() {
     return {
       table: {
-        title: "Overdue Tenants List",
-        columns: {...tableColumns},
+        title: this.$t('dashboard.overdueTenantsList'),
+        columns: {
+          first_name: this.$t('property.firstName'),
+          last_name: this.$t('property.lastName'),
+          email: this.$t('property.email'),
+          phone_number: this.$t('property.phoneNumber'),
+          due_date: this.$t('property.dueDate'),
+          due_amount: this.$t('property.dueAmount')
+        },
         data: [...tableDefaultData]
       },
       searchQuery: "",
