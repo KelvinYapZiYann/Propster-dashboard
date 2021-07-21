@@ -9,6 +9,7 @@
       @submit="handleSubmit"
       addOrEdit="Add"
       :query="this.$route.query"
+      :previousRoute="previousRoute"
     ></billing-record-add-or-edit>
   </div>
 </template>
@@ -56,38 +57,38 @@ export default {
   //   })
   // },
   mounted() {
-    // this.getPaymentRecordDetail();
+    this.getBillingRecordDetail();
   },
   methods: {
-    // async getPaymentRecordDetail() {
-    //   try {
-    //     var paymentRecordsAddParam = this.$route.query.assetId ?
-    //     {
-    //       'sender_type': this.$route.query.senderType,
-    //       'sender_id': this.$route.query.senderId,
-    //       'recipient_type': this.$route.query.recipientType,
-    //       'recipient_id': this.$route.query.recipientId,
-    //       'asset_id': this.$route.query.assetId,
-    //     } : 
-    //     {
-    //       'sender_type': this.$route.query.senderType,
-    //       'sender_id': this.$route.query.senderId,
-    //       'recipient_type': this.$route.query.recipientType,
-    //       'recipient_id': this.$route.query.recipientId,
-    //     };
-    //     await this.$store.dispatch('paymentRecords/add', paymentRecordsAddParam).then(() => {
-    //       this.resource.model = Object.assign({}, this.$store.getters["paymentRecords/model"])
-    //       this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"])
-    //       this.resource.selector = Object.assign({}, this.$store.getters["paymentRecords/selector"])
-    //     })
-    //   } catch (e) {
-    //     this.$notify({
-    //       message:'Server error',
-    //       icon: 'tim-icons icon-bell-55',
-    //       type: 'danger'
-    //     });
-    //   }
-    // },
+    async getBillingRecordDetail() {
+      try {
+        var billingRecordCreateParam = this.$route.query.assetId ?
+        {
+          'sender_type': this.$route.query.senderType,
+          'sender_id': this.$route.query.senderId,
+          'recipient_type': this.$route.query.recipientType,
+          'recipient_id': this.$route.query.recipientId,
+          'asset_id': this.$route.query.assetId,
+        } : 
+        {
+          'sender_type': this.$route.query.senderType,
+          'sender_id': this.$route.query.senderId,
+          'recipient_type': this.$route.query.recipientType,
+          'recipient_id': this.$route.query.recipientId,
+        };
+        await this.$store.dispatch('billingRecords/create', billingRecordCreateParam).then(() => {
+          this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
+          this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
+          this.resource.selector = Object.assign({}, this.$store.getters["billingRecords/selector"])
+        })
+      } catch (e) {
+        this.$notify({
+          message:'Server error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      }
+    },
     async handleSubmit(model) {
       try {
         await this.$store.dispatch('billingRecords/store', {'model': model}).then(() => {

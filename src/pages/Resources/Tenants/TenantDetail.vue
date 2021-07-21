@@ -199,7 +199,7 @@ export default {
           this.tenureContractResource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"])
         })
 
-        await this.$store.dispatch('billingRecords/get',  this.tenantId).then(() => {
+        await this.$store.dispatch('billingRecords/get',  {}).then(() => {
           this.billingRecordResource.models = this.$store.getters["billingRecords/models"]
           this.billingRecordResource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
         })

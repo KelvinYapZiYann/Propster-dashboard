@@ -23,12 +23,12 @@
       </div>
       <div class="row">
         <div class="col-md-6 ">
-          <base-input label="Payment Description"
-                      placeholder="Payment Description"
-                      v-model="resource.model.payment_description"
-                      :error="tmpApiValidationErrors.payment_description ? tmpApiValidationErrors.payment_description[0] : ''">
+          <base-input label="Billing Description"
+                      placeholder="Billing Description"
+                      v-model="resource.model.description"
+                      :error="tmpApiValidationErrors.description ? tmpApiValidationErrors.description[0] : ''">
           </base-input>
-          <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_description"/> -->
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.description"/> -->
         </div>
         <div class="col-md-6">
           <base-input label="Amount(RM)"
@@ -41,8 +41,8 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <base-selector-input label="Payment Method"
-                               placeholder="Payment Method"
+          <base-selector-input label="Billing Method"
+                               placeholder="Billing Method"
                                v-model="resource.model.payment_method"
                                :initialValue="resource.model.payment_method"
                                :options="resource.selector.payment_method"
@@ -52,8 +52,8 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_method"/> -->
         </div>
         <div class="col-md-6">
-          <base-selector-input label="Payment Type"
-                               placeholder="Payment Type"
+          <base-selector-input label="Billing Type"
+                               placeholder="Billing Type"
                                v-model="resource.model.payment_type"
                                :initialValue="resource.model.payment_type"
                                :options="resource.selector.payment_type"
@@ -63,16 +63,45 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_type"/> -->
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Reference Payment?"
-                      type="checkbox"
-                      :checked="typeof resource.model.is_reference_only == 'boolean' ? resource.model.is_reference_only : (typeof resource.model.is_reference_only == 'string' ? resource.model.is_reference_only == 'true' : false)"
-                      v-model="resource.model.is_reference_only"
-                      :error="tmpApiValidationErrors.is_reference_only ? tmpApiValidationErrors.is_reference_only[0] : ''">
+          <base-selector-input label="Frequency"
+                               placeholder="Frequency"
+                               v-model="resource.model.frequency_type"
+                               :initialValue="resource.model.frequency_type"
+                               :options="resource.selector.frequency_type"
+                               :error="tmpApiValidationErrors.frequency_type ? tmpApiValidationErrors.frequency_type[0] : ''"
+          >
+          </base-selector-input>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.frequency_type"/> -->
+        </div>
+        <div class="col-md-6">
+          <base-input label="Billing Start Date"
+                      type="date"
+                      v-model="resource.model.billing_start_at"
+                      :error="tmpApiValidationErrors.billing_start_at ? tmpApiValidationErrors.billing_start_at[0] : ''">
           </base-input>
-          <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_reference_only"/> -->
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.billing_start_at"/> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <base-input label="Grace Period (Days)"
+                      placeholder="Grace Period"
+                      type="number"
+                      v-model="resource.model.grace_period_in_days"
+                      :error="tmpApiValidationErrors.grace_period_in_days ? tmpApiValidationErrors.grace_period_in_days[0] : ''">
+          </base-input>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.grace_period_in_days"/> -->
+        </div>
+        <div class="col-md-6">
+          <base-input label="Remind Before (Days)"
+                      placeholder="Remind Before"
+                      type="number"
+                      v-model="resource.model.remind_before_days"
+                      :error="tmpApiValidationErrors.remind_before_days ? tmpApiValidationErrors.remind_before_days[0] : ''">
+          </base-input>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.remind_before_days"/> -->
         </div>
       </div>
     </card>
@@ -171,11 +200,14 @@ export default {
         sender_type: "TENANT",
         sender_id: this.resource.model.sender.id,
         asset_id: this.resource.model.asset.id,
-        payment_description: this.resource.model.payment_description,
+        description: this.resource.model.description,
         payment_method: this.resource.model.payment_method,
         payment_type: this.resource.model.payment_type,
         amount: this.resource.model.amount,
-        is_reference_only: this.resource.model.is_reference_only == null ? false : this.resource.model.is_reference_only,
+        frequency_type: this.resource.model.frequency_type,
+        billing_start_at: this.resource.model.billing_start_at,
+        grace_period_in_days: this.resource.model.grace_period_in_days,
+        remind_before_days: this.resource.model.remind_before_days,
       }
     }
   }

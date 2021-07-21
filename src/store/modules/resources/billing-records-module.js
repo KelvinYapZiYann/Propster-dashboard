@@ -157,8 +157,8 @@ const actions = {
         }
       });
   },
-  create({commit, dispatch}) {
-    return service.create()
+  create({commit, dispatch}, param) {
+    return service.create(param)
       .then((response) => {
         commit('SET_RESOURCE', response);
       })
