@@ -1,7 +1,7 @@
 <template>
   <div class="content">
    <base-detail-list
-     :category="resource.data.category"
+     :category="$t('property.assetDetails')"
      :title="resource.model.asset_nickname"
      :model="resource.model"
      :headers="table.detailHeaders"
@@ -9,14 +9,14 @@
    ></base-detail-list>
 
    <base-detail-list
-     :category="'Location Details'"
+     :category="$t('property.locationDetails')"
      :model="resource.model.location_details"
      :headers="table.locationDetailHeaders"
      thead-classes="text-primary"
    ></base-detail-list>
 
    <base-detail-list
-     :category="'Financial Details'"
+     :category="$t('property.financialDetails')"
      :model="resource.model.financial_details"
      :headers="table.financialDetailHeaders"
      thead-classes="text-primary"
@@ -57,8 +57,8 @@
        ></generate-report-form>
    </modal>
 
-   <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
-   <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Asset</base-button>
+   <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
+   <base-button slot="footer" type="info" @click="handleEdit()" fill>{{$t('component.edit')}} {{$t('sidebar.asset')}}</base-button>
   </div>
 </template>
 <script>
@@ -71,37 +71,6 @@ import GenerateReportForm from "@/components/Resources/Assets/GenerateReportForm
 import formMixin from "@/mixins/form-mixin";
 // import ValidationError from "@/components/ValidationError.vue";
 import axios from 'axios';
-
-let detailHeaders = {
-  asset_nickname: "Asset Nickname",
-  asset_ownership_type: "Ownership Type",
-  asset_size: "Size (sq. ft)",
-  currently_occupied: "Currently Occupied",
-  is_multi_unit: "Is Multi Unit",
-  asset_type: "Asset Type",
-};
-
-let locationDetailHeaders = {
-  asset_unit_no: "Unit No",
-  asset_address_line: "Address Line",
-  asset_city: "City",
-  asset_state: "State",
-  asset_postal_code: "Postal Code",
-  asset_country: "Country",
-};
-
-let financialDetailHeaders = {
-  asset_purchased_value: "Purchased Value (RM)",
-  asset_purchased_tax: "Purchased Tax",
-  asset_current_value: "Current Value (RM)",
-  purchased_date: "Date",
-  loan_is_active: "Loan Is Active",
-  loan_interest_rate: "Interest Rate (%)",
-  loan_outstanding_amount: "Outstanding Amount (RM)",
-  loan_remaining_year: "Remaining Years",
-  loan_total_year: "Total Loan Years",
-
-};
 
 export default {
   mixins: [formMixin],
@@ -130,16 +99,39 @@ export default {
         data: {}
       },
       table: {
-        title: "Assets",
-        detailHeaders: {...detailHeaders},
-        locationDetailHeaders: {...locationDetailHeaders},
-        financialDetailHeaders: {...financialDetailHeaders}
+        detailHeaders: {
+          asset_nickname: this.$t('property.assetNickname'),
+          asset_ownership_type: this.$t('property.ownershipType'),
+          asset_size: this.$t('property.assetSize'),
+          currently_occupied: this.$t('property.currentlyOccupied'),
+          is_multi_unit: this.$t('property.isMultiUnit'),
+          asset_type: this.$t('property.assetType'),
+        },
+        locationDetailHeaders: {
+          asset_unit_no: this.$t('property.unitNo'),
+          asset_address_line: this.$t('property.addressLine'),
+          asset_city: this.$t('property.city'),
+          asset_state: this.$t('property.state'),
+          asset_postal_code: this.$t('property.postalCode'),
+          asset_country: this.$t('property.country'),
+        },
+        financialDetailHeaders: {
+          asset_purchased_value: this.$t('property.assetPurchasedValue'),
+          asset_current_value: this.$t('property.assetCurrentValue'),
+          asset_purchased_tax: this.$t('property.assetPurchasedTax'),
+          purchased_date: this.$t('property.purchasedDate'),
+          loan_is_active: this.$t('property.loanIsActive'),
+          loan_interest_rate: this.$t('property.loanInterestRate'),
+          loan_outstanding_amount: this.$t('property.loanOutstandingAmount'),
+          loan_remaining_year: this.$t('property.loanRemainingYear'),
+          loan_total_year: this.$t('property.loanTotalYear'),
+        }
       },
       fabActions: [
         {
           name: 'generateReport',
           icon: 'insert_chart_outlined',
-          tooltip: 'Generate Report'
+          tooltip: this.$t('component.generate') + ' ' + this.$t('sidebar.report')
         }
       ],
       bgColor: '#1d8cf8',

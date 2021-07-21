@@ -65,9 +65,10 @@
               href="javascript:void(0)"
               data-toggle="dropdown"
               class="dropdown-toggle nav-link"
+              :title="$t('topbar.notifications')"
             >
               <div class="notification d-none d-lg-block d-xl-block" v-if="notifications.length > 0"></div>
-              <i class="fa fa-bell text-info" :title="$t('topbar.notifications')"></i>
+              <i class="fa fa-bell text-info"></i>
               <p class="d-lg-none text-left">
                 Notifications
               </p>
