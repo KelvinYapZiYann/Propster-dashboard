@@ -76,14 +76,19 @@
         v-for="card in statsCards"
         :key="card.title"
       >
-        <stats-card
-          :title="card.title"
-          :sub-title="card.subTitle"
-          :type="card.type"
-          :icon="card.icon"
+        <el-tooltip
+          :content="card.description"
+          :open-delay="300"
         >
-          <div slot="footer" v-html="card.footer"></div>
-        </stats-card>
+          <stats-card
+            :title="card.title"
+            :sub-title="card.subTitle"
+            :type="card.type"
+            :icon="card.icon"
+          >
+            <div slot="footer" v-html="card.footer"></div>
+          </stats-card>
+        </el-tooltip>
       </div>
     </div>
     <div class="row">
@@ -265,27 +270,31 @@ export default {
       statsCards: [
         {
           title: "RM15,000.00",
-          subTitle: "Overdue Rent",
+          subTitle: "Overdue Income",
           type: "warning",
-          icon: "fas fa-clock"
+          icon: "fas fa-clock",
+          description: "Income (Rent & Other) that have already been due over the due date (incl. of Grace Period).",
         },
         {
           title: "RM22,000.00",
-          subTitle: "Upcoming Rent",
+          subTitle: "Upcoming Income",
           type: "primary",
-          icon: "fas fa-building"
+          icon: "fas fa-building",
+          description: "Income (Rent & Other) that you are expected to receive in the set given time range.",
         },
         {
           title: "RM8,000.00",
           subTitle: "Overdue Expenses",
           type: "warning",
-          icon: "fas fa-clock"
+          icon: "fas fa-clock",
+          description: "Expenses that you are been due to. For eg.  Maintaince fees that is overdue.",
         },
         {
           title: "RM5,000.00",
           subTitle: "Upcoming Expenses",
           type: "primary",
-          icon: "fas fa-dollar-sign"
+          icon: "fas fa-dollar-sign",
+          description: "Expenses that you are expected to pay in the set given time range.",
         }
       ],
       pieChart2: {
