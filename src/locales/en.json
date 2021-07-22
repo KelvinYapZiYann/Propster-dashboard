@@ -32,6 +32,20 @@
   "footer": {
     "aboutUs": "About Us"
   },
+  "selectRole": {
+    "title": "Please Select A Role",
+    "landlord": "Landlord",
+    "landlordDesc": "Having the access to multiple features such as Tenant management, Asset Managements and Assets Analytics.",
+    "tenant": "Tenant",
+    "tenantDesc": "Having access to pay rents, scheduling time with Vendors and Landlords.",
+    "agent": "Agent",
+    "agentDesc": "Having access to manage multiple landlords, and to all the features provided to landlords.",
+    "vendor": "Vendor",
+    "vendorDesc": "Having access to collect fee from agents, landlords or tenants.",
+    "selectRole": "Select Role",
+    "remeberThisSetting": "Remember This Setting",
+    "changeRoleLater": "You will be able to select another role later."
+  },
   "dashboard": {
     "overdueIncome": "Overdue Income",
     "overdueIncomeDesc": "Income (Rent & Other) that have already been due over the due date (incl. of Grace Period).",

@@ -3,8 +3,8 @@
     <div class=" col-md-6 ml-auto mr-auto">
         <card>
           <template slot="header">
-            <h5 class="card-category text-left">Before we start..</h5>
-            <h3 class="card-title text-left">Please Select A Role</h3>
+            <!-- <h5 class="card-category text-left">Before we start..</h5> -->
+            <h3 class="card-title text-left">{{$t('selectRole.title')}}</h3>
           </template>
           <tabs
               type="info"
@@ -16,35 +16,38 @@
           >
             <tab-pane>
               <span slot="label" @click="selectRole('LANDLORD')">
-                <i class="tim-icons icon-istanbul"></i>Landlord
+                <i class="tim-icons icon-istanbul"></i>{{$t('selectRole.landlord')}}
               </span>
-              Having the access to multiple features such as Tenant management, Asset Managements
-              and Assets Analytics.<br /><br />
-              You will be able to select another role later.
+              {{$t('selectRole.landlordDesc')}}
+              <br /><br />
+              {{$t('selectRole.changeRoleLater')}}
             </tab-pane>
 
             <tab-pane>
               <span slot="label" @click="selectRole('TENANT')">
-                <i class="tim-icons icon-single-02"></i>Tenant
+                <i class="tim-icons icon-single-02"></i>{{$t('selectRole.tenant')}}
               </span>
-              Having access to pay rents, scheduling time with Vendors and Landlords
-              <br /><br />You will be able to select another role later.
+              {{$t('selectRole.tenantDesc')}}
+              <br /><br />
+              {{$t('selectRole.changeRoleLater')}}
             </tab-pane>
 
             <tab-pane>
               <span slot="label" @click="selectRole('AGENT')">
-                <i class="fa fa-user-secret"></i>Agent
+                <i class="fa fa-user-secret"></i>{{$t('selectRole.agent')}}
               </span>
-              Having access to manage multiple landlords, and to all the features provided to landlords.
-              <br /><br />You will be able to select another role later.
+              {{$t('selectRole.agentDesc')}}
+              <br /><br />
+              {{$t('selectRole.changeRoleLater')}}
             </tab-pane>
 
             <tab-pane>
               <span slot="label" @click="selectRole('VENDOR')">
-                <i class="fa fa-industry"></i>Vendor
+                <i class="fa fa-industry"></i>{{$t('selectRole.vendor')}}
               </span>
-              Having access to collect fee from agents, landlords or tenants.
-              <br /><br />You will be able to select another role later.
+              {{$t('selectRole.vendorDesc')}}
+              <br /><br />
+              {{$t('selectRole.changeRoleLater')}}
             </tab-pane>
           </tabs>
 
@@ -57,12 +60,12 @@
                 block
                 size="lg"
             >
-              Select Role
+              {{$t('selectRole.selectRole')}}
             </base-button>
             <div class="pull-left text-left">
               <h6>
                 <base-checkbox v-model="rememberSetting" class="text-left">
-                  Remember this setting
+                  {{$t('selectRole.remeberThisSetting')}}
                 </base-checkbox>
               </h6>
             </div>
@@ -95,7 +98,7 @@ export default {
   },
   data() {
     return {
-      rememberSetting: false,
+      rememberSetting: true,
       selectedRole: 'LANDLORD',
     };
   },
