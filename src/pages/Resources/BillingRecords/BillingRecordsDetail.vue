@@ -4,27 +4,18 @@
       :resource="resource"
     ></transaction-section>
     <base-detail-list
-      :category="'Billing Details'"
-      :title="''"
+      :category="$t('property.billingRecordDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
       thead-classes="text-primary"
     ></base-detail-list>
 
-    <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
+    <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
   </div>
 </template>
 <script>
 import { BaseDetailList, TransactionSection } from "@/components";
 
-let detailHeaders = {
-  asset_nickname: "Asset Nickname",
-  description: "Description",
-  amount: "Amount (RM)",
-//   payment_method: "Payment Method",
-  payment_type: "Payment Type",
-  status: "Status",
-};
 export default {
   components: {
     TransactionSection,
@@ -37,7 +28,13 @@ export default {
         data: {}
       },
       table: {
-        detailHeaders: {...detailHeaders},
+        detailHeaders: {
+          asset_nickname: this.$t('property.assetNickname'),
+          description: this.$t('property.description'),
+          amount: this.$t('property.amount'),
+          payment_type: this.$t('property.paymentType'),
+          status: this.$t('property.status'),
+        },
       },
     };
   },

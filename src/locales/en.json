@@ -114,11 +114,18 @@
     "monthlyRentalAmount": "Monthly Rental Amount (RM)",
     "tenureStartDate": "Tenure Start Date",
     "tenureEndDate": "Tenure End Date",
+    "billingRecordDetails": "Billing Record Details",
+    "paymentRecordDetails": "Payment Record Details",
+    "sender": "Sender",
     "senderName": "Sender Name",
+    "recipient": "Recipient",
     "recipientName": "Recipient Name",
     "description": "Description",
     "amount": "Amount (RM)",
     "paymentMethod": "Payment Method",
-    "status": "Status"
+    "paymentType": "Payment Type",
+    "status": "Status",
+    "isSeen": "Is Seen?",
+    "isReferenceOnly": "Is Reference Only?"
   }
 }

@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="card-body ">
-              <h4 class="card-title">Sender</h4>
+              <h4 class="card-title">{{$t('property.sender')}}</h4>
               <h6 class="card-category text-gray">{{ resource.model.sender ? resource.model.sender.sender_name : ''}}</h6>
               <h6 class="card-category text-gray">({{ resource.model.sender ? resource.model.sender.sender_type : ''}})</h6>
             </div>
@@ -67,7 +67,7 @@
             </div>
 
             <div class="card-body ">
-              <h4 class="card-title">Recipient</h4>
+              <h4 class="card-title">{{$t('property.recipient')}}</h4>
               <h6 class="card-category text-gray">{{ resource.model.recipient ? resource.model.recipient.recipient_name : '' }}</h6>
               <h6 class="card-category text-gray">({{ resource.model.recipient ? resource.model.recipient.recipient_type : ''}})</h6>
             </div>

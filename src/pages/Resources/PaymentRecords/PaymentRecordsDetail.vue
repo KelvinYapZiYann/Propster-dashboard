@@ -8,29 +8,18 @@
       :recipient="resource.model.recipient"
       :sender="resource.model.sender" -->
     <base-detail-list
-      :category="'Payment Details'"
-      :title="''"
+      :category="$t('property.paymentRecordDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
       thead-classes="text-primary"
     ></base-detail-list>
 
-    <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
+    <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
   </div>
 </template>
 <script>
 import { BaseDetailList, TransactionSection } from "@/components";
 
-let detailHeaders = {
-  asset_nickname: "Asset Nickname",
-  payment_description: "Payment Description",
-  amount: "Amount (RM)",
-  payment_method: "Payment Method",
-  payment_type: "Payment Type",
-  status: "Status",
-  is_seen: "Seen?",
-  is_reference_only: "Is reference only?"
-};
 export default {
   components: {
     TransactionSection,
@@ -43,8 +32,16 @@ export default {
         data: {}
       },
       table: {
-        title: "Assets",
-        detailHeaders: {...detailHeaders},
+        detailHeaders: {
+          asset_nickname: this.$t('property.assetNickname'),
+          payment_description: this.$t('property.description'),
+          amount: this.$t('property.amount'),
+          payment_method: this.$t('property.paymentMethod'),
+          payment_type: this.$t('property.paymentType'),
+          status: this.$t('property.status'),
+          is_seen: this.$t('property.isSeen'),
+          is_reference_only: this.$t('property.isReferenceOnly'),
+        },
       },
     };
   },
