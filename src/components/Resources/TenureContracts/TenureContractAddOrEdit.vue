@@ -1,23 +1,22 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">{{addOrEdit}} TenureContract</h5>
+      <h5 slot="header" class="title">{{addOrEdit}} {{$t('sidebar.tenureContract')}}</h5>
       <div class="row">
         <div class="col-md-6 ">
-          <base-selector-input label="Asset Nickname"
-                      placeholder="Asset Nickname"
+          <base-selector-input :label="$t('property.assetNickname')"
                       v-model="resource.model.asset_id"
                       :options="resource.selector.asset_id"
                       v-if="addOrEdit == 'Add' && !assetId"
                       :error="tmpApiValidationErrors.asset_nickname ? tmpApiValidationErrors.asset_nickname[0] : ''">
           </base-selector-input>
-          <base-input label="Asset Nickname"
+          <base-input :label="$t('property.assetNickname')"
                       v-if="addOrEdit == 'Add' && assetId" 
                       :value="getAssetNicknameByAssetIdFromSelector()"
                       :disabled="true"
                       :error="tmpApiValidationErrors.asset_nickname ? tmpApiValidationErrors.asset_nickname[0] : ''">
           </base-input>
-          <base-input label="Asset Nickname"
+          <base-input :label="$t('property.assetNickname')"
                       v-if="addOrEdit != 'Add'" 
                       :value="resource.model.asset ? (resource.model.asset.asset_nickname ? resource.model.asset.asset_nickname : '') : ''"
                       :disabled="true"
@@ -35,14 +34,14 @@
                       > 
           </base-selector-input> -->
           <div v-for="tenant in resource.selector.tenant_id" v-bind:key="tenant.id">
-              <base-input label="Tenant Name"
+              <base-input :label="$t('property.tenantName')"
                         v-if="tenant.id == tenantId && addOrEdit == 'Add'" 
                         :value="tenant.name"
                         :disabled="true"
                         :error="tmpApiValidationErrors.tenant_name ? tmpApiValidationErrors.tenant_name[0] : ''">
               </base-input>
           </div>
-          <base-input label="Tenant Name"
+          <base-input :label="$t('property.tenantName')"
                       v-if="addOrEdit != 'Add'" 
                       :value="resource.model.tenant ? (resource.model.tenant.first_name + ' ' + resource.model.tenant.last_name) : ''"
                       :disabled="true"
@@ -54,16 +53,16 @@
 
       <div class="row">
         <div class="col-md-6 ">
-          <base-input label="Contract Name"
-                      placeholder="Contract Name"
+          <base-input :label="$t('property.contractName')"
+                      :placeholder="$t('property.contractName')"
                       v-model="resource.model.contract_name"
                       :error="tmpApiValidationErrors.contract_name ? tmpApiValidationErrors.contract_name[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.contract_name"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Contract Description"
-                      placeholder="Contract Description"
+          <base-input :label="$t('property.description')"
+                      :placeholder="$t('property.description')"
                       v-model="resource.model.contract_description"
                       :error="tmpApiValidationErrors.contract_description ? tmpApiValidationErrors.contract_description[0] : ''">
           </base-input>
@@ -72,8 +71,8 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Monthly Rental Amoun (RM)"
-                      placeholder="Monthly Rental Amount (RM)"
+          <base-input :label="$t('property.monthlyRentalAmount')"
+                      :placeholder="$t('property.monthlyRentalAmount')"
                       v-model="resource.model.monthly_rental_amount"
                       :error="tmpApiValidationErrors.monthly_rental_amount ? tmpApiValidationErrors.monthly_rental_amount[0] : ''">
           </base-input>
@@ -83,7 +82,7 @@
 
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Contract Start Date"
+          <base-input :label="$t('property.tenureStartDate')"
                       type="date"
                       v-model="resource.model.tenure_start_date"
                       :error="tmpApiValidationErrors.tenure_start_date ? tmpApiValidationErrors.tenure_start_date[0] : ''">
@@ -91,7 +90,7 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.tenure_start_date"/> -->
         </div>
         <div class="col-md-6 pr-md-1">
-          <base-input label="Contract End Date"
+          <base-input :label="$t('property.tenureEndDate')"
                       type="date"
                       v-model="resource.model.tenure_end_date"
                       :error="tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_end_date[0] : ''">
@@ -115,7 +114,7 @@
         </div>
       </div>
     </card>
-    <base-button slot="footer" type="info" @click="handleCancel()" fill>Cancel</base-button>
+    <base-button slot="footer" type="info" @click="handleCancel()" fill>{{$t('component.cancel')}}</base-button>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>
