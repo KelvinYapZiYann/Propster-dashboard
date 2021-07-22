@@ -1,19 +1,19 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">{{addOrEdit}} Asset</h5>
+      <h5 slot="header" class="title">{{addOrEdit}} {{$t('sidebar.asset')}}</h5>
       <div class="row">
         <div class="col-md-6 ">
-          <base-input label="Asset Name"
-                      placeholder="Asset Name"
+          <base-input :label="$t('property.assetNickname')"
+                      :placeholder="$t('property.assetNickname')"
                       v-model="resource.model.asset_nickname"
                       :error="tmpApiValidationErrors.asset_nickname ? tmpApiValidationErrors.asset_nickname[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_nickname"/> -->
         </div>
         <div class="col-md-6">
-          <base-selector-input label="Asset Type"
-                               placeholder="Asset Type"
+          <base-selector-input :label="$t('property.assetType')"
+                               :placeholder="$t('property.assetType')"
                                v-model="resource.model.asset_type"
                                :options="resource.selector.asset_type"
                                :error="tmpApiValidationErrors.asset_type ? tmpApiValidationErrors.asset_type[0] : ''"
@@ -24,8 +24,8 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <base-selector-input label="Ownership Type"
-                               placeholder="Ownership Type"
+          <base-selector-input :label="$t('property.ownershipType')"
+                               :placeholder="$t('property.ownershipType')"
                                v-model="resource.model.asset_ownership_type"
                                :options="resource.selector.asset_ownership_type"
                                :error="tmpApiValidationErrors.asset_ownership_type ? tmpApiValidationErrors.asset_ownership_type[0] : ''"
@@ -34,8 +34,8 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_ownership_type"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Asset Size (sq. ft)"
-                      placeholder="Asset Size (sq. ft)"
+          <base-input :label="$t('property.assetSize')"
+                      :placeholder="$t('property.assetSize')"
                       v-model="resource.model.asset_size"
                       :error="tmpApiValidationErrors.asset_size ? tmpApiValidationErrors.asset_size[0] : ''">
           </base-input>
@@ -45,16 +45,16 @@
 
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Number Of Rooms"
-                      placeholder="Number Of Rooms"
+          <base-input :label="$t('property.numberOfRooms')"
+                      :placeholder="$t('property.numberOfRooms')"
                       v-model="resource.model.number_of_rooms"
                       :error="tmpApiValidationErrors.number_of_rooms ? tmpApiValidationErrors.number_of_rooms[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.number_of_rooms"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Number Of Bathrooms"
-                      placeholder="Number Of Bathrooms"
+          <base-input :label="$t('property.numberOfBathrooms')"
+                      :placeholder="$t('property.numberOfBathrooms')"
                       v-model="resource.model.number_of_bathrooms"
                       :error="tmpApiValidationErrors.number_of_bathrooms ? tmpApiValidationErrors.number_of_bathrooms[0] : ''">
           </base-input>
@@ -64,7 +64,7 @@
 
       <div class="row">
         <div class="col-md-6 pr-md-1">
-          <base-input label="Is Multi Unit?"
+          <base-input :label="$t('property.isMultiUnit')"
                       type="checkbox"
                       :checked="typeof resource.model.is_multi_unit == 'boolean' ? resource.model.is_multi_unit : (typeof resource.model.is_multi_unit == 'string' ? resource.model.is_multi_unit == 'true' : false)"
                       v-model="resource.model.is_multi_unit"
@@ -73,7 +73,7 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_multi_unit"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Is Occupied?"
+          <base-input :label="$t('property.isOccupied')"
                       type="checkbox"
                       :checked="typeof resource.model.is_occupied == 'boolean' ? resource.model.is_occupied : (typeof resource.model.is_occupied == 'string' ? resource.model.is_occupied == 'true' : false)"
                       v-model="resource.model.is_occupied"
@@ -84,20 +84,20 @@
       </div>
     </card>
     <card>
-      <h5 slot="header" class="title">Asset Location</h5>
+      <h5 slot="header" class="title">{{$t('property.locationDetails')}}</h5>
       <div class="row">
-        <div class="col-md-2">
-          <base-input label="Unit Number"
-                      placeholder="Unit Number"
+        <div class="col-md-3">
+          <base-input :label="$t('property.unitNo')"
+                      :placeholder="$t('property.unitNo')"
                       v-model="resource.model.location_details.asset_unit_no"
                       v-if="resource.model.location_details"
                       :error="tmpApiValidationErrors.asset_unit_no ? tmpApiValidationErrors.asset_unit_no[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_unit_no"/> -->
         </div>
-        <div class="col-md-10">
-          <base-input label="Address Line"
-                      placeholder="Address Line"
+        <div class="col-md-9">
+          <base-input :label="$t('property.addressLine')"
+                      :placeholder="$t('property.addressLine')"
                       v-model="resource.model.location_details.asset_address_line"
                       v-if="resource.model.location_details"
                       :error="tmpApiValidationErrors.asset_address_line ? tmpApiValidationErrors.asset_address_line[0] : ''">
@@ -108,8 +108,8 @@
 
       <div class="row">
         <div class="col-md-4">
-          <base-input label="City"
-                      placeholder="City"
+          <base-input :label="$t('property.city')"
+                      :placeholder="$t('property.city')"
                       v-model="resource.model.location_details.asset_city"
                       v-if="resource.model.location_details"
                       :error="tmpApiValidationErrors.asset_city ? tmpApiValidationErrors.asset_city[0] : ''">
@@ -117,8 +117,8 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_city"/> -->
         </div>
         <div class="col-md-4">
-          <base-input label="State"
-                      placeholder="State"
+          <base-input :label="$t('property.state')"
+                      :placeholder="$t('property.state')"
                       v-model="resource.model.location_details.asset_state"
                       v-if="resource.model.location_details"
                       :error="tmpApiValidationErrors.asset_state ? tmpApiValidationErrors.asset_state[0] : ''">
@@ -126,8 +126,8 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_state"/> -->
         </div>
         <div class="col-md-4">
-          <base-input label="Postcode"
-                      placeholder="Postcode"
+          <base-input :label="$t('property.postalCode')"
+                      :placeholder="$t('property.postalCode')"
                       v-model="resource.model.location_details.asset_postal_code"
                       v-if="resource.model.location_details"
                       :error="tmpApiValidationErrors.asset_postal_code ? tmpApiValidationErrors.asset_postal_code[0] : ''">
@@ -138,8 +138,8 @@
 
       <div class="row">
         <div class="col-md-4">
-          <base-selector-input label="Country"
-                               placeholder="Country"
+          <base-selector-input :label="$t('property.country')"
+                               :placeholder="$t('property.country')"
                                v-model="resource.model.location_details.asset_country"
                                :options="resource.selector.asset_country"
                                v-if="resource.model.location_details"
@@ -151,11 +151,11 @@
     </card>
 
     <card>
-      <h5 slot="header" class="title">Asset Financial Details</h5>
+      <h5 slot="header" class="title">{{$t('property.financialDetails')}}</h5>
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Purchased Value"
-                      placeholder="Purchased Value"
+          <base-input :label="$t('property.assetPurchasedValue')"
+                      :placeholder="$t('property.assetPurchasedValue')"
                       v-model="resource.model.financial_details.asset_purchased_value"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.asset_purchased_value ? tmpApiValidationErrors.asset_purchased_value[0] : ''">
@@ -163,8 +163,8 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_purchased_value"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Taxable Amount"
-                      placeholder="Taxable Amount"
+          <base-input :label="$t('property.assetPurchasedTax')"
+                      :placeholder="$t('property.assetPurchasedTax')"
                       v-model="resource.model.financial_details.asset_purchased_tax"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.asset_purchased_tax ? tmpApiValidationErrors.asset_purchased_tax[0] : ''">
@@ -175,8 +175,8 @@
 
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Remaining Loan"
-                      placeholder="Remaining Loan"
+          <base-input :label="$t('property.assetRemainingLoan')"
+                      :placeholder="$t('property.assetRemainingLoan')"
                       v-model="resource.model.financial_details.loan_outstanding_amount"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.loan_outstanding_amount ? tmpApiValidationErrors.loan_outstanding_amount[0] : ''">
@@ -184,7 +184,7 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.loan_outstanding_amount"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Purchased Date"
+          <base-input :label="$t('property.purchasedDate')"
                       type="date"
                       v-model="resource.model.financial_details.purchased_date"
                       v-if="resource.model.financial_details"
@@ -196,8 +196,8 @@
 
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Loan Interest Rate"
-                      placeholder="Loan Interest Rate"
+          <base-input :label="$t('property.loanInterestRate')"
+                      :placeholder="$t('property.loanInterestRate')"
                       v-model="resource.model.financial_details.loan_interest_rate"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.loan_interest_rate ? tmpApiValidationErrors.loan_interest_rate[0] : ''">
@@ -205,8 +205,8 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.loan_interest_rate"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Loan Duration"
-                      placeholder="Loan Duration"
+          <base-input :label="$t('property.loanTotalYear')"
+                      :placeholder="$t('property.loanTotalYear')"
                       v-model="resource.model.financial_details.loan_total_year"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.loan_total_year ? tmpApiValidationErrors.loan_total_year[0] : ''">
@@ -215,7 +215,7 @@
         </div>
       </div>
     </card>
-    <base-button slot="footer" type="info" @click="handleCancel()" fill>Cancel</base-button>
+    <base-button slot="footer" type="info" @click="handleCancel()" fill>{{$t('component.cancel')}}</base-button>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>
