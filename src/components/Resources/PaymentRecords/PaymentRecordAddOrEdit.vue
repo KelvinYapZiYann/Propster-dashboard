@@ -1,11 +1,10 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">Create New Payment Record</h5>
+      <h5 slot="header" class="title">{{$t('component.add')}} {{$t('sidebar.paymentRecord')}}</h5>
       <div class="row">
         <div class="col-md-6 ">
-          <base-selector-input label="Asset"
-                               placeholder="Asset"
+          <base-selector-input :label="$t('property.assetNickname')"
                                v-model="resource.model.asset.id"
                                :options="resource.selector.assets"
                                v-if="addOrEdit == 'Add' && (query ? !query.assetId : true)"
@@ -13,7 +12,7 @@
           >
           </base-selector-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/> -->
-          <base-input label="Asset"
+          <base-input :label="$t('property.assetNickname')"
                       v-if="addOrEdit != 'Add' || (query ? query.assetId : false)" 
                       :value="resource.model.asset ? resource.model.asset.asset_nickname : ''"
                       :disabled="true"
@@ -23,16 +22,16 @@
       </div>
       <div class="row">
         <div class="col-md-6 ">
-          <base-input label="Payment Description"
-                      placeholder="Payment Description"
+          <base-input :label="$t('property.description')"
+                      :placeholder="$t('property.description')"
                       v-model="resource.model.payment_description"
                       :error="tmpApiValidationErrors.payment_description ? tmpApiValidationErrors.payment_description[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_description"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Amount(RM)"
-                      placeholder="Amount"
+          <base-input :label="$t('property.amount')"
+                      :placeholder="$t('property.amount')"
                       v-model="resource.model.amount"
                       :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
           </base-input>
@@ -41,8 +40,8 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <base-selector-input label="Payment Method"
-                               placeholder="Payment Method"
+          <base-selector-input :label="$t('property.paymentMethod')"
+                               :placeholder="$t('property.paymentMethod')"
                                v-model="resource.model.payment_method"
                                :initialValue="resource.model.payment_method"
                                :options="resource.selector.payment_method"
@@ -52,8 +51,8 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_method"/> -->
         </div>
         <div class="col-md-6">
-          <base-selector-input label="Payment Type"
-                               placeholder="Payment Type"
+          <base-selector-input :label="$t('property.paymentType')"
+                               :placeholder="$t('property.paymentType')"
                                v-model="resource.model.payment_type"
                                :initialValue="resource.model.payment_type"
                                :options="resource.selector.payment_type"
@@ -66,7 +65,7 @@
 
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Reference Payment?"
+          <base-input :label="$t('property.isReferenceOnly')"
                       type="checkbox"
                       :checked="typeof resource.model.is_reference_only == 'boolean' ? resource.model.is_reference_only : (typeof resource.model.is_reference_only == 'string' ? resource.model.is_reference_only == 'true' : false)"
                       v-model="resource.model.is_reference_only"
@@ -76,8 +75,8 @@
         </div>
       </div>
     </card>
-    <base-button slot="footer" type="info" @click="handleBack()" fill>Cancel</base-button>
-    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Send</base-button>
+    <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.cancel')}}</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{$t('component.add')}}</base-button>
   </form>
 </template>
 <script>
