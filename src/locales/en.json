@@ -76,11 +76,12 @@
     "email": "Email",
     "phoneNumber": "Phone Number",
     "gender": "Gender",
-    "isBusiness": "Is Business",
+    "isBusiness": "Is Business?",
     "dateOfBirth": "Date of Birth",
     "salaryRange": "Salary Range",
     "dueDate": "Due Date",
     "dueAmount": "Due Amount",
+    "residingIn": "Residing In",
 
     "assetDetails": "Asset Details",
     "locationDetails": "Location Details",
