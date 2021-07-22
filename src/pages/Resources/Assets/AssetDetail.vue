@@ -131,7 +131,7 @@ export default {
         {
           name: 'generateReport',
           icon: 'insert_chart_outlined',
-          tooltip: this.$t('component.generate') + ' ' + this.$t('sidebar.report')
+          tooltip: this.$t('component.generateReport')
         }
       ],
       bgColor: '#1d8cf8',

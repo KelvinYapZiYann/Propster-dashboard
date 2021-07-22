@@ -5,6 +5,7 @@
     "assets": "Assets",
     "asset": "Asset",
     "assetsDesc": "Asset property that is rented to tenants.",
+    "tenant": "Tenant",
     "tenants": "Tenants",
     "tenantsDesc": "Tenants that rent your asset property.",
     "tenureContracts":  "Tenure Contracts",
@@ -19,8 +20,7 @@
     "settingsDesc": "Settings.",
     "userProfile": "User Profile",
     "userProfileDesc": "User profile.",
-    "toggleSidebar": "Toggle Sidebar",
-    "report": "Report"
+    "toggleSidebar": "Toggle Sidebar"
   },
   "topbar": {
     "notifications": "Notifications"
@@ -51,24 +51,37 @@
     "remove": "Remove",
     "back": "Back",
     "cancel": "Cancel",
+
     "showing": "Showing",
-    "generate": "Generate",
     "to": "To",
     "of": "Of",
     "entries": "Entries",
+
     "proFeature1": "You can only add",
     "proFeature2": "with free tier.",
     "proFeature21": "per asset with free tier.",
     "proFeature3": "Get",
-    "proFeature4": "version to add more"
+    "proFeature4": "version to add more",
+    "noTenureContractAlert": "There is no tenure contract of this tenant. Please create one.",
+    "noBillingRecordAlert": "There is no billing record of this tenant. Please create one.",
+
+    "generateReport": "Generate Report",
+    "tenantBilling": "Bill this Tenant",
+    "tenantPayment": "Record Payment from this Tenant"
   },
   "property": {
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
     "phoneNumber": "Phone Number",
+    "gender": "Gender",
+    "isBusiness": "Is Business",
+    "dateOfBirth": "Date of Birth",
+    "salaryRange": "Salary Range",
+
     "dueDate": "Due Date",
     "dueAmount": "Due Amount",
+
     "assetDetails": "Asset Details",
     "locationDetails": "Location Details",
     "financialDetails": "Financial Details",
@@ -93,6 +106,8 @@
     "currentlyOccupied": "Currently Occupied",
     "isMultiUnit": "Is Multi Unit",
     "assetType": "Asset Type",
+
+    "tenantDetails": "Tenant Details",
     "tenantName": "Tenant Name",
     "contractName": "Contract Name",
     "monthlyRentalAmount": "Monthly Rental Amount (RM)",

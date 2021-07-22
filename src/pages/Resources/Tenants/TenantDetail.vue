@@ -1,8 +1,7 @@
 <template>
       <div class="content">
         <base-detail-list
-          :category="`Personal Details`"
-          :title="''"
+          :category="$t('property.tenantDetails')"
           :model="resource.model"
           :headers="table.detailHeaders"
           thead-classes="text-primary"
@@ -18,7 +17,7 @@
 
         <div class="pro-feature alert alert-danger" v-if="tenureContractResource.models.length == 0">
           <strong>
-            There is no tenure contract of this tenant. Please create one.
+            {{$t('component.noTenureContractAlert')}}
           </strong>
         </div>
 
@@ -36,7 +35,7 @@
 
         <div class="pro-feature alert alert-danger" v-if="billingRecordResource.models.length == 0">
           <strong>
-            There is no billing record of this tenant. Please create one.
+            {{$t('component.noBillingRecordAlert')}}
           </strong>
         </div>
 
@@ -47,11 +46,7 @@
             assetId: this.assetId,
           }"
           billingRecordType="All"
-          :assetId="assetId"
-          :tenantId="tenantId"
         ></billing-record-index-component>
-        <!-- @assetIdChange="assetIdChange"
-          @tenantIdChange="tenantIdChange" -->
 
         <payment-record-index-component
           :resource="receivingPaymentRecordResource"
@@ -72,16 +67,16 @@
         ></payment-record-index-component> -->
 
         <fab
-          :position="position"
-          :bg-color="bgColor"
+          position="bottom-right"
+          bg-color="#1d8cf8"
           :actions="fabActions"
-          :fixed-tooltip="fixedTooltip"
+          fixed-tooltip="true"
           @tenantPayment="addTenantPaymentRecord"
           @tenantBilling="addTenantBillingRecord"
         ></fab>
 
-        <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
-        <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Tenant</base-button>
+        <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
+        <base-button slot="footer" type="info" @click="handleEdit()" fill>{{$t('component.edit')}} {{$t('sidebar.tenant')}}</base-button>
       </div>
 </template>
 <script>
@@ -92,18 +87,6 @@ import TenureContractIndexComponent from "@/components/Resources/TenureContracts
 import BillingRecordIndexComponent from "@/components/Resources/BillingRecords/BillingRecordIndexComponent";
 import PaymentRecordIndexComponent from "@/components/Resources/PaymentRecords/PaymentRecordIndexComponent";
 import fab from "vue-fab";
-
-let detailHeaders = {
-    first_name: "First Name",
-    last_name: "Last Name",
-    email: "Email",
-    phone_number: "Phone Number",
-    gender: "Gender",
-    is_business: "Is Business",
-    date_of_birth: "Date Of Birth",
-    // reputation: "Reputation",
-    salary_range: "Salary Range",
-};
 
 export default {
   components: {
@@ -118,7 +101,6 @@ export default {
   },
   data() {
     return {
-      allowAddUser: false,
       // modelId: this.$route.params.tenantId,
       resource: {
         model: {},
@@ -150,27 +132,32 @@ export default {
         model: {},
       },
       table: {
-        title: "Tenants",
-        detailHeaders: {...detailHeaders},
+        detailHeaders: {
+          first_name: this.$t('property.firstName'),
+          last_name: this.$t('property.lastName'),
+          email: this.$t('property.email'),
+          phone_number: this.$t('property.phoneNumber'),
+          gender: this.$t('property.gender'),
+          is_business: this.$t('property.isBusiness'),
+          date_of_birth: this.$t('property.dateOfBirth'),
+          // reputation: "Reputation",
+          salary_range: this.$t('property.salaryRange'),
+        },
       },
       fabActions: [
         {
           name: 'tenantBilling',
           icon: 'payment',
-          tooltip: 'Bill this Tenant'
+          tooltip: this.$t('component.tenantBilling')
         },
         {
           name: 'tenantPayment',
           icon: 'history',
-          tooltip: 'Record Payment from this Tenant'
+          tooltip: this.$t('component.tenantPayment')
         }
       ],
       receivingPaymentRecordType: "Receiving",
       sendingPaymentRecordType: "Sending",
-      bgColor: '#1d8cf8',
-      fixedTooltip: true,
-      position: 'bottom-right',
-      tenantPaymentModalVisible: false,
       tenantId: this.$route.params.tenantId,
       assetId: this.$route.query ? (this.$route.query.assetId ? this.$route.query.assetId : null) : null,
     };
