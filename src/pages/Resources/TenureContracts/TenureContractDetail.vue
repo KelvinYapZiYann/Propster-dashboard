@@ -1,8 +1,7 @@
 <template>
       <div class="content">
         <base-detail-list
-          :category="`Tenure Contract Details`"
-          :title="''"
+          :category="$t('property.tenureContractDetails')"
           :model="resource.model"
           :headers="table.detailHeaders"
           thead-classes="text-primary"
@@ -10,7 +9,7 @@
 
         <card v-show="showMedia">
           <div class="card-header mb-3">
-            <h5 class="card-category">Media</h5>
+            <h5 class="card-category">{{$t('component.media')}}</h5>
           </div>
           <drop-zone
                     @click.native="downloadFile" 
@@ -22,22 +21,13 @@
           </drop-zone>
         </card>
 
-        <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
+        <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
         <!-- <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Tenure Contract</base-button> -->
       </div>
 </template>
 <script>
 import { BaseDetailList, Card, DropZone } from "@/components";
 import axios from 'axios';
-
-let detailHeaders = {
-  asset_nickname: "Asset Nickname",
-  first_name: "Tenant First Name",
-  contract_name: "Contract Name",
-  monthly_rental_amount: "Monthly Rental Amount (RM)",
-  tenure_start_date: "Tenure Start Date",
-  tenure_end_date: "Tenure End Date",
-};
 
 export default {
   components: {
@@ -55,7 +45,14 @@ export default {
       },
       table: {
         title: "Tenure Contract",
-        detailHeaders: {...detailHeaders},
+        detailHeaders: {
+          asset_nickname: this.$t('property.assetNickname'),
+          first_name: this.$t('property.firstName'),
+          contract_name: this.$t('property.contractName'),
+          monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
+          tenure_start_date: this.$t('property.tenureStartDate'),
+          tenure_end_date: this.$t('property.tenureEndDate'),
+        },
       },
       dropzoneOptions: {
         url: 'https://httpbin.org/post',

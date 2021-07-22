@@ -78,7 +78,6 @@
     "isBusiness": "Is Business",
     "dateOfBirth": "Date of Birth",
     "salaryRange": "Salary Range",
-
     "dueDate": "Due Date",
     "dueAmount": "Due Amount",
 
@@ -109,6 +108,8 @@
 
     "tenantDetails": "Tenant Details",
     "tenantName": "Tenant Name",
+    "tenureContractDetails": "Tenure Contract Details",
+    "media": "Media",
     "contractName": "Contract Name",
     "monthlyRentalAmount": "Monthly Rental Amount (RM)",
     "tenureStartDate": "Tenure Start Date",
