@@ -60,7 +60,7 @@
               placeholder="SEARCH"
             />
           </modal>
-          <drop-down>
+          <!-- <drop-down>
             <a
               href="javascript:void(0)"
               data-toggle="dropdown"
@@ -84,30 +84,9 @@
                 <router-link class="nav-item dropdown-item" to="/notifications" v-slot="{ navigate, href }" custom>
                   <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">All Notifications</a>
                 </router-link>
-                
               </li>
-              <!-- <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
-                  >You have 5 more tasks</a
-                >
-              </li>
-              <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
-                  >Your friend Michael is in town</a
-                >
-              </li>
-              <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
-                  >Another notification</a
-                >
-              </li>
-              <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
-                  >Another one</a
-                >
-              </li> -->
             </ul>
-          </drop-down>
+          </drop-down> -->
           <drop-down>
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <div class="photo">
