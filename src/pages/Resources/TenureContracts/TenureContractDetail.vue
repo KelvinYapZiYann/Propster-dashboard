@@ -37,7 +37,6 @@ export default {
   },
   data() {
     return {
-      allowAddUser: false,
       tenureContractId: this.$route.params.tenureContractId,
       resource: {
         model: {},
