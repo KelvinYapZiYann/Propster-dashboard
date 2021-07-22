@@ -136,6 +136,10 @@
     "paymentType": "Payment Type",
     "status": "Status",
     "isSeen": "Is Seen?",
-    "isReferenceOnly": "Is Reference Only?"
+    "isReferenceOnly": "Is Reference Only?",
+    "frequencyType": "Frequency Type",
+    "billingStartDate": "Billing Start Date",
+    "gracePeriod": "Grace Period (Days)",
+    "remindBefore": "Remind Before (Days)"
   }
 }

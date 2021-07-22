@@ -1,11 +1,10 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">Create New Billing</h5>
+      <h5 slot="header" class="title">{{$t('component.add')}} {{$t('sidebar.billingRecord')}}</h5>
       <div class="row">
         <div class="col-md-6 ">
-          <base-selector-input label="Asset"
-                               placeholder="Asset"
+          <base-selector-input :label="$t('property.assetNickname')"
                                v-model="resource.model.asset.id"
                                :options="resource.selector.assets"
                                v-if="addOrEdit == 'Add' && (query ? !query.assetId : true)"
@@ -13,7 +12,7 @@
           >
           </base-selector-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/> -->
-          <base-input label="Asset"
+          <base-input :label="$t('property.assetNickname')"
                       v-if="addOrEdit != 'Add' || (query ? query.assetId : false)" 
                       :value="resource.model.asset ? resource.model.asset.asset_nickname : ''"
                       :disabled="true"
@@ -23,16 +22,16 @@
       </div>
       <div class="row">
         <div class="col-md-6 ">
-          <base-input label="Billing Description"
-                      placeholder="Billing Description"
+          <base-input :label="$t('property.description')"
+                      :placeholder="$t('property.description')"
                       v-model="resource.model.description"
                       :error="tmpApiValidationErrors.description ? tmpApiValidationErrors.description[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.description"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Amount(RM)"
-                      placeholder="Amount"
+          <base-input :label="$t('property.amount')"
+                      :placeholder="$t('property.amount')"
                       v-model="resource.model.amount"
                       :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
           </base-input>
@@ -41,8 +40,8 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <base-selector-input label="Billing Method"
-                               placeholder="Billing Method"
+          <base-selector-input :label="$t('property.paymentMethod')"
+                               :placeholder="$t('property.paymentMethod')"
                                v-model="resource.model.payment_method"
                                :initialValue="resource.model.payment_method"
                                :options="resource.selector.payment_method"
@@ -52,8 +51,8 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_method"/> -->
         </div>
         <div class="col-md-6">
-          <base-selector-input label="Billing Type"
-                               placeholder="Billing Type"
+          <base-selector-input :label="$t('property.paymentType')"
+                               :placeholder="$t('property.paymentType')"
                                v-model="resource.model.payment_type"
                                :initialValue="resource.model.payment_type"
                                :options="resource.selector.payment_type"
@@ -65,8 +64,8 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <base-selector-input label="Frequency"
-                               placeholder="Frequency"
+          <base-selector-input :label="$t('property.frequencyType')"
+                               :placeholder="$t('property.frequencyType')"
                                v-model="resource.model.frequency_type"
                                :initialValue="resource.model.frequency_type"
                                :options="resource.selector.frequency_type"
@@ -76,7 +75,7 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.frequency_type"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Billing Start Date"
+          <base-input :label="$t('property.billingStartDate')"
                       type="date"
                       v-model="resource.model.billing_start_at"
                       :error="tmpApiValidationErrors.billing_start_at ? tmpApiValidationErrors.billing_start_at[0] : ''">
@@ -86,8 +85,8 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Grace Period (Days)"
-                      placeholder="Grace Period"
+          <base-input :label="$t('property.gracePeriod')"
+                      :placeholder="$t('property.gracePeriod')"
                       type="number"
                       v-model="resource.model.grace_period_in_days"
                       :error="tmpApiValidationErrors.grace_period_in_days ? tmpApiValidationErrors.grace_period_in_days[0] : ''">
@@ -95,8 +94,8 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.grace_period_in_days"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Remind Before (Days)"
-                      placeholder="Remind Before"
+          <base-input :label="$t('property.remindBefore')"
+                      :placeholder="$t('property.remindBefore')"
                       type="number"
                       v-model="resource.model.remind_before_days"
                       :error="tmpApiValidationErrors.remind_before_days ? tmpApiValidationErrors.remind_before_days[0] : ''">
@@ -105,8 +104,8 @@
         </div>
       </div>
     </card>
-    <base-button slot="footer" type="info" @click="handleBack()" fill>Cancel</base-button>
-    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Send</base-button>
+    <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.cancel')}}</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{$t('component.add')}}</base-button>
   </form>
 </template>
 <script>
