@@ -15,7 +15,7 @@
                 v-validate="'required|email'"
                 name="email"
                 v-model="model.email"
-                placeholder="Email"
+                :placeholder="$t('forgotPassword.email')"
                 addon-left-icon="tim-icons icon-email-85"
                 :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''"
             >
@@ -30,12 +30,12 @@
                 size="lg"
                 block
             >
-              Send Email Verification
+              {{$t('forgotPassword.forgotPassword')}}
             </base-button>
             <div class="pull-left">
               <h6>
                 <router-link class="link footer-link" to="/login" v-slot="{ navigate, href }" custom>
-                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Back to Login</a>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">{{$t('forgotPassword.backToLogin')}}</a>
                 </router-link>
               </h6>
             </div>

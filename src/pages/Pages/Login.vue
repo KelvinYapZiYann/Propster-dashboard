@@ -15,7 +15,7 @@
                 v-validate="'required|email'"
                 name="email"
                 v-model="model.email"
-                placeholder="Email"
+                :placeholder="$t('login.email')"
                 addon-left-icon="tim-icons icon-email-85"
                 :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''"
             >
@@ -27,7 +27,7 @@
                 name="password"
                 v-model="model.password"
                 type="password"
-                placeholder="Password"
+                :placeholder="$t('login.password')"
                 addon-left-icon="tim-icons icon-lock-circle"
                 :error="apiValidationErrors.password ? apiValidationErrors.password[0] : ''"
             >
@@ -42,19 +42,19 @@
                 size="lg"
                 block
             >
-              Login
+              {{$t('login.login')}}
             </base-button>
             <div class="pull-left">
               <h6>
                 <router-link class="link footer-link" to="/register" v-slot="{ navigate, href }" custom>
-                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Create Account</a>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">{{$t('login.createAccount')}}</a>
                 </router-link>
               </h6>
             </div>
             <div class="pull-right">
               <h6>
                 <router-link class="link footer-link" to="/forgot-password" v-slot="{ navigate, href }" custom>
-                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Forgot Password</a>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">{{$t('login.forgotPassword')}}</a>
                 </router-link>
               </h6>
             </div>

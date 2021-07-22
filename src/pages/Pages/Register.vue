@@ -7,7 +7,7 @@
             <i class="tim-icons icon-wifi"></i>
           </div>
           <div class="description">
-            <h3 class="info-title">By register, you will experience how this tool can help you manage your property effectively.</h3>
+            <h3 class="info-title">{{$t('register.desc1')}}</h3>
           </div>
         </div>
         <div class="info-area info-horizontal">
@@ -15,7 +15,7 @@
             <i class="tim-icons icon-triangle-right-17"></i>
           </div>
           <div class="description">
-            <h3 class="info-title">Free To Use If you're just started to manage your property</h3>
+            <h3 class="info-title">{{$t('register.desc2')}}</h3>
           </div>
         </div>
         <div class="info-area info-horizontal">
@@ -23,7 +23,7 @@
             <i class="tim-icons icon-trophy"></i>
           </div>
           <div class="description">
-            <h3 class="info-title">We will be helping you as much as needed to familiar and be productive in Propster.</h3>
+            <h3 class="info-title">{{$t('register.desc3')}}</h3>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
 
             <base-input
                 v-model="email"
-                placeholder="Email"
+                :placeholder="$t('register.email')"
                 addon-left-icon="tim-icons icon-email-85"
                 type="email"
                 :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''">
@@ -72,7 +72,7 @@
 
             <base-input
                 v-model="password"
-                placeholder="Password"
+                :placeholder="$t('register.password')"
                 addon-left-icon="tim-icons icon-lock-circle"
                 type="password"
                 :error="apiValidationErrors.password ? apiValidationErrors.password[0] : ''">
@@ -80,7 +80,7 @@
             <!-- <validation-error :errorsArray="apiValidationErrors.password"/> -->
 
             <base-input
-                placeholder="Confirm Password"
+                :placeholder="$t('register.confirmPassowrd')"
                 type="password"
                 name="Password confirmation"
                 v-model="password_confirmation"
@@ -101,12 +101,12 @@
                   block
                   size="lg"
               >
-                Get Started
+                {{$t('register.register')}}
               </base-button>
               <div class="pull-left text-left">
                 <h6>
                   <router-link class="link footer-link" to="/login" v-slot="{ navigate, href }" custom>
-                    <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Already have an account? Login</a>
+                    <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">{{$t('register.login')}}</a>
                   </router-link>
                 </h6>
               </div>
@@ -122,24 +122,24 @@
     >
       <div class="instruction">
         <p class="description">
-          Register Successfully
+          {{$t('register.registerSuccessfully')}}
         </p>
         <p class="description">
-          Please verify the email before logging in.
+          {{$t('register.verifyEmail')}}
         </p>
       </div>
       <p class="text-center">
-        If you have more questions, don't hesitate to contact us. We're here to help!
+        {{$t('register.moreQuestions')}}
       </p>
       <p class="text-center">
-        If you have not received any verification email, click the Resend Verification Email.
+        {{$t('register.noVerificationEmail')}}
       </p>
       <div slot="footer" class="justify-content-center">
         <base-button
           type="info"
           round
           @click="resendVerificationEmail"
-          >Resend Verification Email
+          >{{$t('register.resendVerificationEmail')}}
         </base-button>
         <base-button
           type="info"
