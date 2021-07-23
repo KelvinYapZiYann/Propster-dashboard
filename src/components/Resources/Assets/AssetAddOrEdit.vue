@@ -46,6 +46,7 @@
       <div class="row">
         <div class="col-md-6">
           <base-input :label="$t('property.numberOfRooms')"
+                      type="number"
                       :placeholder="$t('property.numberOfRooms')"
                       v-model="resource.model.number_of_rooms"
                       :error="tmpApiValidationErrors.number_of_rooms ? tmpApiValidationErrors.number_of_rooms[0] : ''">
@@ -54,6 +55,7 @@
         </div>
         <div class="col-md-6">
           <base-input :label="$t('property.numberOfBathrooms')"
+                      type="number"
                       :placeholder="$t('property.numberOfBathrooms')"
                       v-model="resource.model.number_of_bathrooms"
                       :error="tmpApiValidationErrors.number_of_bathrooms ? tmpApiValidationErrors.number_of_bathrooms[0] : ''">
@@ -163,6 +165,18 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_purchased_value"/> -->
         </div>
         <div class="col-md-6">
+          <base-input :label="$t('property.assetCurrentValue')"
+                      :placeholder="$t('property.assetCurrentValue')"
+                      v-model="resource.model.financial_details.asset_current_value"
+                      v-if="resource.model.financial_details"
+                      :error="tmpApiValidationErrors.asset_current_value ? tmpApiValidationErrors.asset_current_value[0] : ''">
+          </base-input>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_current_value"/> -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
           <base-input :label="$t('property.assetPurchasedTax')"
                       :placeholder="$t('property.assetPurchasedTax')"
                       v-model="resource.model.financial_details.asset_purchased_tax"
@@ -171,9 +185,6 @@
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_purchased_tax"/> -->
         </div>
-      </div>
-
-      <div class="row">
         <div class="col-md-6">
           <base-input :label="$t('property.assetRemainingLoan')"
                       :placeholder="$t('property.assetRemainingLoan')"
@@ -183,6 +194,9 @@
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.loan_outstanding_amount"/> -->
         </div>
+      </div>
+
+      <div class="row">
         <div class="col-md-6">
           <base-input :label="$t('property.purchasedDate')"
                       type="date"
@@ -192,9 +206,6 @@
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.purchased_date"/> -->
         </div>
-      </div>
-
-      <div class="row">
         <div class="col-md-6">
           <base-input :label="$t('property.loanInterestRate')"
                       :placeholder="$t('property.loanInterestRate')"
@@ -204,14 +215,28 @@
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.loan_interest_rate"/> -->
         </div>
+      </div>
+
+      <div class="row">
         <div class="col-md-6">
           <base-input :label="$t('property.loanTotalYear')"
                       :placeholder="$t('property.loanTotalYear')"
+                      type="number"
                       v-model="resource.model.financial_details.loan_total_year"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.loan_total_year ? tmpApiValidationErrors.loan_total_year[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.loan_total_year"/> -->
+        </div>
+        <div class="col-md-6">
+          <base-input :label="$t('property.loanRemainingYear')"
+                      :placeholder="$t('property.loanRemainingYear')"
+                      type="number"
+                      v-model="resource.model.financial_details.loan_remaining_year"
+                      v-if="resource.model.financial_details"
+                      :error="tmpApiValidationErrors.loan_remaining_year ? tmpApiValidationErrors.loan_remaining_year[0] : ''">
+          </base-input>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.loan_remaining_year"/> -->
         </div>
       </div>
     </card>
