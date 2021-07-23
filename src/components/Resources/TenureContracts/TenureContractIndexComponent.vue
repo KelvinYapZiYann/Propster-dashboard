@@ -12,7 +12,7 @@
             v-if="resource.data.canAdd"
           >{{$t('component.add')}} {{$t('sidebar.tenureContracts')}}</base-button>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
                     addonLeftIcon="el-icon-search"
@@ -20,8 +20,8 @@
                     v-model="searchQuery">
             </base-input>
           </div>
-        </div>
-        <div class="row">
+        </div> -->
+        <!-- <div class="row">
           <div class="col-xl-4 col-lg-2 col-md-12">
           </div>
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -44,7 +44,7 @@
                         >
             </base-selector-input>
           </div>
-        </div>
+        </div> -->
         <div class="table-responsive">
           <base-table
             :data="resource.models"

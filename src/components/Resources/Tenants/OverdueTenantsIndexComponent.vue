@@ -5,7 +5,7 @@
         <h4 slot="header" class="card-title text-left" title="Shows tenants which the Rent already exceed the given due date (incl. of Grace Period).">
           {{table.title}}
         </h4>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
                     addonLeftIcon="el-icon-search"
@@ -13,7 +13,7 @@
                     v-model="searchQuery">
             </base-input>
           </div>
-        </div>
+        </div> -->
         <div class="table-responsive">
           <base-table
             :data="resource.models"
