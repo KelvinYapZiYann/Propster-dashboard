@@ -70,6 +70,8 @@ import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
 import errorHandlingService from "@/store/services/error-handling-service";
 // import router from "@/router";
+import swal from "sweetalert2";
+import axios from "axios";
 
 export default {
   mixins: [formMixin],
@@ -116,7 +118,54 @@ export default {
       try {
         await this.$store.dispatch("verifyMiddleware");
       } catch (e) {
-        errorHandlingService.verifyErrorFromServer(e);
+        if (e.response.data.message) {
+          if (e.response.data.message == 'user email not verified.') {
+            swal({
+              title: `User email is not verified`,
+              text: this.$t('register.noVerificationEmail'),
+              buttonsStyling: false,
+              showCancelButton: true,
+              cancelButtonText: "OK",
+              cancelButtonClass: "btn btn-info btn-fill",
+              confirmButtonClass: "btn btn-info btn-fill",
+              confirmButtonText: this.$t('register.resendVerificationEmail'),
+              type: "info",
+              preConfirm: () => {
+                const url = process.env.VUE_APP_API_BASE_URL;
+                return axios({
+                  url: `${url}/email-not-verified`,
+                  method: 'POST',
+                }).then((response) => {
+                  if (response.data.message != "email successfully sent") {
+                    throw new Error("email has not been sent");
+                  }
+                  return "email successfully sent";
+                }).catch((error) => {
+                  swal.showValidationMessage(
+                    `Request failed: Something went wrong. Verification email has not been resent.`
+                  )
+                });
+              },
+            }).then((result) => {
+              if (!result.dismiss) {
+                swal.fire({
+                  title: `Verification Email has been resent`
+                });
+              }
+            });
+            // router.push({ path: "/login" });
+            return;
+          }
+        }
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          this.$notify({
+            message: 'Server error',
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+        }
         return;
       }
 

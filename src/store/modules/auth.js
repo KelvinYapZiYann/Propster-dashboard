@@ -69,7 +69,7 @@ export default {
       };
 
       return axios
-          .post(API_URL + 'password/email', {
+          .post(API_URL + '/password/email', {
             email: email,
           }, config)
           .then(response => {

@@ -115,7 +115,7 @@
         </form>
       </div>
     </div>
-    <modal
+    <!-- <modal
       :show.sync="registerSuccessful"
       footerClasses="justify-content-center"
       type="notice"
@@ -148,7 +148,7 @@
           >OK
         </base-button>
       </div>
-    </modal>
+    </modal> -->
   </div>
 </template>
 <script>
@@ -157,6 +157,7 @@ import formMixin from "@/mixins/form-mixin";
 import axios from "axios";
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -175,7 +176,7 @@ export default {
       email: null,
       password: null,
       password_confirmation: null,
-      registerSuccessful: false,
+      // registerSuccessful: false,
       phoneCountryCodeInput: "MY",
     };
   },
@@ -208,8 +209,47 @@ export default {
       };
 
       try {
-        await this.$store.dispatch("register", { user, requestOptions });
-        this.registerSuccessful = true;
+        await this.$store.dispatch("register", { user, requestOptions }).then(() => {
+          swal({
+            title: `Success`,
+            text: this.$t('register.verifyEmail') + "\n" + this.$t('register.noVerificationEmail'),
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: this.$t('register.resendVerificationEmail'),
+            cancelButtonText: "OK",
+            confirmButtonClass: "btn btn-info btn-fill",
+            cancelButtonClass: "btn btn-info btn-fill",
+            type: "success",
+            
+            preConfirm: () => {
+              const url = process.env.VUE_APP_API_BASE_URL;
+              return axios({
+                url: `${url}/email-not-verified`,
+                method: 'POST',
+              }).then((response) => {
+                if (response.message != "email successfully sent") {
+                  throw new Error("email has not been sent");
+                }
+                return "email successfully sent";
+              }).catch((error) => {
+                swal.showValidationMessage(
+                  `Request failed: Something went wrong. Verification email has not been resent.`
+                )
+              });
+            },
+          }).then((result) => {
+            if (result.value) {
+              swal.fire({
+                title: `Verification Email has been resent`
+              }).then(() => {
+                this.$router.push({name: "login"});
+              });
+            } else {
+              this.$router.push({name: "login"});
+            }
+          });
+        });
+        // this.registerSuccessful = true;
         // this.$notify({
         //   type: 'succes',
         //   message: 'Successfully registered.',
@@ -229,23 +269,7 @@ export default {
       this.$router.push({name: "login"});
     },
     async resendVerificationEmail() {
-      const url = process.env.VUE_APP_API_BASE_URL;
-      axios({
-        url: `${url}/api/dashboard/email-not-verified`,
-        method: 'POST',
-      }).then((response) => {
-        this.$notify({
-          type: 'success',
-          message: 'Verification email has been resent. Check your email.',
-          // icon: 'tim-icons icon-bell-55',
-        })
-      }).catch((error) => {
-        this.$notify({
-          type: 'danger',
-          message: 'Something went wrong. Verification email has not been resent.',
-          icon: 'tim-icons icon-bell-55',
-        })
-      });
+      
     },
     updatePhoneNumber(event) {
       // this.phone_country_code = event.countryCallingCode;

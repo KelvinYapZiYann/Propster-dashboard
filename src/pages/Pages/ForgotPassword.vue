@@ -72,10 +72,10 @@ export default {
         await this.$store.dispatch("forgotPassword", this.model.email)
 
         swal({
-          title: `Success!`,
+          title: `Success`,
           text: "We have emailed your password reset link!",
           buttonsStyling: false,
-          confirmButtonClass: "btn btn-success btn-fill",
+          confirmButtonClass: "btn btn-info btn-fill",
           type: "success"
         });
 

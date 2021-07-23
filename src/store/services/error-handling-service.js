@@ -7,6 +7,9 @@ function verifyErrorFromServer(e) {
             case 'This action is unauthorized.':
                 router.push({path: "/login"});
                 return;
+            case 'user email not verified.':
+                router.push({path: "/login"});
+                return;
             case 'user profile is not filled.':
                 router.push({path: "/first-time-profile"});
                 return;
