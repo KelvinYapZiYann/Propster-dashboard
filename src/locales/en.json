@@ -98,7 +98,9 @@
     "assetSuccessfullyAdded": "Asset is Successfully Added",
     "assetSuccessfullyAddedText": "Do you want to add a Tenant into this asset right now?",
     "tenantSuccessfullyAdded": "Tenant is Successfully Added",
-    "tenantSuccessfullyAddedText": "Do you want to add a Tenure Contract for this tenant right now?"
+    "tenantSuccessfullyAddedText": "Do you want to add a Tenure Contract for this tenant right now?",
+    "tenureContractSuccessfullyAdded": "Tenure Contract is Successfully Added",
+    "tenureContractSuccessfullyAddedText": "Do you want to add a Rental Billing for this tenure contract right now?"
   },
   "component": {
     "search": "Search",

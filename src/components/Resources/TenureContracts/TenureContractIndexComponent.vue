@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <card>
-        <h4 slot="header" class="card-title text-left">{{table.title}}</h4>
+        <h4 slot="header" class="card-title text-left">{{$t('sidebar.tenureContracts')}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
