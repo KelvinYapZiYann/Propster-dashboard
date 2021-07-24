@@ -4,14 +4,14 @@
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+          <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>
+          </button> -->
           <router-link class="navbar-brand" :to="{path:'/'}" v-slot="{ navigate, href }" custom>
-            <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Site title</a>
+            <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Propster.io</a>
           </router-link>
         </div>
 

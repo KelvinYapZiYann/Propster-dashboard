@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-      <form @submit.prevent="forgotPassword">
+      <form @submit.prevent="resetPassword">
         <card class="card-login card-white text-left">
           <template slot="header">
             <!-- <img src="img/card-primary.png" class="card-img" alt=""/> -->
@@ -10,14 +10,23 @@
           </template>
 
           <div>
-            <!-- <validation-error :errorsArray="apiValidationErrors.email"/> -->
+            <!-- <validation-error :errorsArray="apiValidationErrors.password"/> -->
             <base-input
-                v-validate="'required|email'"
-                name="email"
-                v-model="model.email"
-                :placeholder="$t('forgotPassword.email')"
-                addon-left-icon="tim-icons icon-email-85"
-                :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''"
+                v-validate="'required|min:5'"
+                name="password"
+                v-model="model.password"
+                :placeholder="$t('resetPassword.password')"
+                addon-left-icon="tim-icons icon-lock-circle"
+                :error="apiValidationErrors.password ? apiValidationErrors.password[0] : ''"
+            >
+            </base-input>
+            <base-input
+                v-validate="'required|min:5'"
+                name="password"
+                v-model="model.password_confirmation"
+                :placeholder="$t('resetPassword.confirmPassword')"
+                addon-left-icon="tim-icons icon-lock-circle"
+                :error="apiValidationErrors.password_confirmation ? apiValidationErrors.password_confirmation[0] : ''"
             >
             </base-input>
           </div>
@@ -30,12 +39,12 @@
                 size="lg"
                 block
             >
-              {{$t('forgotPassword.forgotPassword')}}
+              {{$t('resetPassword.resetPassword')}}
             </base-button>
             <div class="pull-left">
               <h6>
                 <router-link class="link footer-link" to="/login" v-slot="{ navigate, href }" custom>
-                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">{{$t('forgotPassword.backToLogin')}}</a>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">{{$t('resetPassword.backToLogin')}}</a>
                 </router-link>
               </h6>
             </div>
@@ -62,23 +71,28 @@ export default {
   data() {
     return {
       model: {
-        email: "",
+        password: "",
+        password_confirmation: ""
       }
     };
   },
   methods: {
-    async forgotPassword() {
+    async resetPassword() {
       try {
-        await this.$store.dispatch("forgotPassword", this.model.email)
+        await this.$store.dispatch("resetPassword", {
+            password: this.model.email,
+            password_confirmation: this.model.password_confirmation,
+            signUrl: router.currentRoute.params.signUrl
+        });
 
         swal({
           title: `Success`,
-          text: $t('forgotPassword.forgotPasswordSuccessfully'),
+          text: $t('resetPassword.resetPasswordSuccessfully'),
           buttonsStyling: false,
           confirmButtonClass: "btn btn-info btn-fill",
           type: "success"
-        }).then(() => {
-          router.push({ path: "/login" });
+        }),then(() => {
+            router.push({ path: "/login" });
         });
       } catch (e) {
         this.$notify({

@@ -74,6 +74,8 @@ const Login = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Login.vue");
 const ForgotPassword = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Pages/ForgotPassword.vue");
+  const ResetPassword = () =>
+    import(/* webpackChunkName: "pages" */ "@/pages/Pages/ResetPassword.vue");
 const Register = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Register.vue");
 const RTL = () =>
@@ -316,6 +318,11 @@ let authPages = {
       path: "forgot-password",
       name: "Forgot Password",
       component: ForgotPassword
+    },
+    {
+      path: "dashboard/password/reset/:signUrl",
+      name: "Reset Password",
+      component: ResetPassword
     },
     {
       path: "register",

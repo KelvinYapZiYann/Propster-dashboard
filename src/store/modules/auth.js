@@ -77,6 +77,21 @@ export default {
           });
     },
 
+    resetPassword(context, params) {
+      const config = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      };
+
+      return axios
+          .post(API_URL + '/password/email', params, config)
+          .then(response => {
+            return response.data;
+          });
+    },
+
     verifyMiddleware(context) {
       const config = {
         headers: {

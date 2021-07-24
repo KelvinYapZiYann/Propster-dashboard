@@ -56,9 +56,17 @@
     "resendVerificationEmail": "Resend Verification Email"
   },
   "forgotPassword": {
-    "forgotPassword": "Reset Password",
+    "forgotPassword": "Forgot Password",
     "email": "Email",
-    "backToLogin": "Back To Login"
+    "backToLogin": "Back To Login",
+    "forgotPasswordSuccessfully": "We have emailed your password reset link!"
+  },
+  "resetPassword": {
+    "resetPassword": "Reset Password",
+    "password": "Password",
+    "confirmPassword": "confirmPassword",
+    "backToLogin": "Back To Login",
+    "resetPasswordSuccessfully": "We have emailed your password reset link!"
   },
   "selectRole": {
     "title": "Please Select A Role",
