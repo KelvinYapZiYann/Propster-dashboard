@@ -6,16 +6,18 @@
         <div class="col-md-6 ">
           <base-input label="Payment Description"
                       placeholder="Payment Description"
-                      v-model="resource.model.payment_description">
+                      v-model="resource.model.payment_description"
+                      :error="tmpApiValidationErrors.payment_description ? tmpApiValidationErrors.payment_description[0] : ''">
           </base-input>
-          <validation-error :errors="apiValidationErrors.payment_description"/>
+          <!-- <validation-error :errors="apiValidationErrors.payment_description"/> -->
         </div>
         <div class="col-md-6">
           <base-input label="Amount(RM)"
                       placeholder="Amount"
-                      v-model="resource.model.amount">
+                      v-model="resource.model.amount"
+                      :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
           </base-input>
-          <validation-error :errors="apiValidationErrors.amount"/>
+          <!-- <validation-error :errors="apiValidationErrors.amount"/> -->
         </div>
       </div>
       <div class="row">
@@ -25,9 +27,10 @@
                                v-model="resource.model.payment_method"
                                :initialValue="resource.model.payment_method"
                                :options="resource.selector.payment_method"
+                               :error="tmpApiValidationErrors.payment_method ? tmpApiValidationErrors.payment_method[0] : ''"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.payment_method"/>
+          <!-- <validation-error :errors="apiValidationErrors.payment_method"/> -->
         </div>
         <div class="col-md-6">
           <base-selector-input label="Payment Type"
@@ -35,9 +38,10 @@
                                v-model="resource.model.payment_type"
                                :initialValue="resource.model.payment_type"
                                :options="resource.selector.payment_type"
+                               :error="tmpApiValidationErrors.payment_type ? tmpApiValidationErrors.payment_type[0] : ''"
           >
           </base-selector-input>
-          <validation-error :errors="apiValidationErrors.payment_type"/>
+          <!-- <validation-error :errors="apiValidationErrors.payment_type"/> -->
         </div>
       </div>
 
@@ -45,9 +49,10 @@
         <div class="col-md-6">
           <base-input label="Reference Payment?"
                       type="checkbox"
-                      v-model="resource.model.is_reference_only">
+                      v-model="resource.model.is_reference_only"
+                      :error="tmpApiValidationErrors.is_reference_only ? tmpApiValidationErrors.is_reference_only[0] : ''">
           </base-input>
-          <validation-error :errors="apiValidationErrors.is_reference_only"/>
+          <!-- <validation-error :errors="apiValidationErrors.is_reference_only"/> -->
         </div>
       </div>
     </card>
@@ -56,14 +61,14 @@
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
+// import ValidationError from "@/components/ValidationError.vue";
 import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
 
 export default {
   mixins: [formMixin],
   components: {
     // AssetForm,
-    ValidationError,
+    // ValidationError,
     BaseSelectorInput
   },
   props: {
@@ -77,7 +82,7 @@ export default {
       },
       description: "Resource info"
     },
-    apiValidationErrors: {
+    tmpApiValidationErrors: {
       type: Object
     }
   },

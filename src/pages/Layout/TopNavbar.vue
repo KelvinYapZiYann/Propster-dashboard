@@ -60,11 +60,12 @@
               placeholder="SEARCH"
             />
           </modal>
-          <drop-down>
+          <!-- <drop-down>
             <a
               href="javascript:void(0)"
               data-toggle="dropdown"
               class="dropdown-toggle nav-link"
+              :title="$t('topbar.notifications')"
             >
               <div class="notification d-none d-lg-block d-xl-block" v-if="notifications.length > 0"></div>
               <i class="fa fa-bell text-info"></i>
@@ -83,33 +84,12 @@
                 <router-link class="nav-item dropdown-item" to="/notifications" v-slot="{ navigate, href }" custom>
                   <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">All Notifications</a>
                 </router-link>
-                
               </li>
-              <!-- <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
-                  >You have 5 more tasks</a
-                >
-              </li>
-              <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
-                  >Your friend Michael is in town</a
-                >
-              </li>
-              <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
-                  >Another notification</a
-                >
-              </li>
-              <li class="nav-link">
-                <a href="javascript:void(0)" class="nav-item dropdown-item"
-                  >Another one</a
-                >
-              </li> -->
             </ul>
-          </drop-down>
+          </drop-down> -->
           <drop-down>
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <div class="photo">
+              <div class="photo" :title="this.$store.getters['users/model'].full_name">
                 <img src="@/assets/img/anime3.png" alt="Profile Photo" />
               </div>
               <b class="caret d-none d-lg-block d-xl-block"></b>

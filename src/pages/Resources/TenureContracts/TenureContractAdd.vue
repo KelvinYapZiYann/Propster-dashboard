@@ -15,6 +15,7 @@ import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
 import router from "@/router";
 import TenureContractAddOrEdit from "@/components/Resources/TenureContracts/TenureContractAddOrEdit";
+import swal from "sweetalert2";
 
 export default {
   mixins: [formMixin],
@@ -29,7 +30,11 @@ export default {
         data: {},
         selector: {}
       },
-      addOrEdit: "Add"
+      addOrEdit: "Add",
+      tenantId: null,
+      userResource: {
+        model: {},
+      },
     };
   },
   props: {
@@ -50,7 +55,9 @@ export default {
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/models"])
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
-        })
+        });
+        this.tenantId = this.$route.query.tenantId;
+        this.userResource.model = Object.assign({}, this.$store.getters["users/model"]);
       } catch (e) {
         this.$notify({
           message:'Server error',
@@ -64,20 +71,40 @@ export default {
           await this.$store.dispatch('tenureContract/store', {'model': formData}).then(() => {
             this.resource.model = Object.assign({}, this.$store.getters["tenureContract/models"])
             this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
-          })
-          this.$notify({
-            message:'Successfully Added',
-            icon: 'tim-icons icon-bell-55',
-            type: 'success'
           });
           this.resetApiValidation();
-          // router.go(-1);
-          if (this.previousRoute) {
-            router.push({path: this.previousRoute});
-          } else {
-            router.go(-1);
-          }
-          // router.push({path: "/tenure-contracts"});
+          swal({
+            title: this.$t('alert.tenureContractSuccessfullyAdded'),
+            text: this.$t('alert.tenureContractSuccessfullyAddedText'),
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: this.$t('component.yes'),
+            cancelButtonText: this.$t('component.no'),
+            cancelButtonClass: "btn btn-info btn-fill",
+            confirmButtonClass: "btn btn-info btn-fill",
+            type: "success",
+          }).then((result) => {
+            if (result.value) {
+              router.push({
+                name: 'Add Billing Record',
+                query: {
+                  senderType: "TENANT",
+                  senderId: `${this.tenantId}`,
+                  recipientType: "LANDLORD",
+                  recipientId: `${this.userResource.model.landlord_ids[0]}`
+                },
+                params: {
+                  previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'
+                }
+              });
+            } else {
+              if (this.previousRoute) {
+                router.push({path: this.previousRoute});
+              } else {
+                router.go(-1);
+              }
+            }
+          });
         } catch (e) {
           this.$notify({
             message:'Server error',

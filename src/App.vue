@@ -20,14 +20,17 @@ export default {
       root.classList.toggle("nav-open");
     },
     async getProfile() {
+      if (this.$router.currentRoute.name == 'login') {
+        return;
+      }
       try {
         await this.$store.dispatch('users/get', {});
       } catch (e) {
-        this.$notify({
-          message:'Server error',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
+        // this.$notify({
+        //   message:'Server error',
+        //   icon: 'tim-icons icon-bell-55',
+        //   type: 'danger'
+        // });
       }
     },
   },

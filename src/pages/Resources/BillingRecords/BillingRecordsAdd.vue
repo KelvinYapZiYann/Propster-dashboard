@@ -3,20 +3,22 @@
     <transaction-section
       :resource="resource"
     ></transaction-section>
-    <payment-record-add-or-edit
+    <billing-record-add-or-edit
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
       addOrEdit="Add"
       :query="this.$route.query"
       :previousRoute="previousRoute"
-    ></payment-record-add-or-edit>
+    ></billing-record-add-or-edit>
   </div>
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
 import router from "@/router";
-import PaymentRecordAddOrEdit from "@/components/Resources/PaymentRecords/PaymentRecordAddOrEdit";
+// import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
+import BillingRecordAddOrEdit from "@/components/Resources/BillingRecords/BillingRecordAddOrEdit";
+// import ValidationError from "@/components/ValidationError.vue";
 import { TransactionSection, ValidationError } from "@/components";
 
 export default {
@@ -24,7 +26,7 @@ export default {
   components: {
     ValidationError,
     TransactionSection,
-    PaymentRecordAddOrEdit
+    BillingRecordAddOrEdit
   },
   data() {
     return {
@@ -55,12 +57,12 @@ export default {
   //   })
   // },
   mounted() {
-    this.getPaymentRecordDetail();
+    this.getBillingRecordDetail();
   },
   methods: {
-    async getPaymentRecordDetail() {
+    async getBillingRecordDetail() {
       try {
-        var paymentRecordsAddParam = this.$route.query.assetId ?
+        var billingRecordCreateParam = this.$route.query.assetId ?
         {
           'sender_type': this.$route.query.senderType,
           'sender_id': this.$route.query.senderId,
@@ -74,10 +76,10 @@ export default {
           'recipient_type': this.$route.query.recipientType,
           'recipient_id': this.$route.query.recipientId,
         };
-        await this.$store.dispatch('paymentRecords/add', paymentRecordsAddParam).then(() => {
-          this.resource.model = Object.assign({}, this.$store.getters["paymentRecords/model"])
-          this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"])
-          this.resource.selector = Object.assign({}, this.$store.getters["paymentRecords/selector"])
+        await this.$store.dispatch('billingRecords/create', billingRecordCreateParam).then(() => {
+          this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
+          this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
+          this.resource.selector = Object.assign({}, this.$store.getters["billingRecords/selector"])
         })
       } catch (e) {
         this.$notify({
@@ -89,17 +91,16 @@ export default {
     },
     async handleSubmit(model) {
       try {
-        await this.$store.dispatch('paymentRecords/store', {'model': model}).then(() => {
-          this.resource.model = Object.assign({}, this.$store.getters["paymentRecords/model"])
-          this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"])
+        await this.$store.dispatch('billingRecords/store', {'model': model}).then(() => {
+          this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
+          this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
         })
         this.$notify({
           message:'Successfully Added',
           icon: 'tim-icons icon-bell-55',
           type: 'success'
         });
-        this.resetApiValidation()
-        // router.push({path: "/payment-records"});
+        this.resetApiValidation();
         if (this.previousRoute) {
           router.push({path: this.previousRoute});
         } else {
@@ -111,7 +112,7 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
-        this.setApiValidation(e.response.data.errors)
+        this.setApiValidation(e.response.data.errors);
       }
     },
   }

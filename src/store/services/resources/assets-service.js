@@ -92,7 +92,7 @@ function store(payload) {
     }
   };
 
-  return axios.post(`${url}/assets/`, model, config)
+  return axios.post(`${url}/assets`, model, config)
       .then(response => {
         return response.data;
       });

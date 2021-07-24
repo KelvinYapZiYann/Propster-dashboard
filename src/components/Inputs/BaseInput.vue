@@ -4,11 +4,11 @@
     :class="{
       'input-group-focus': focused,
       'has-danger': error,
-      'has-success': !error && touched,
       'has-label': label,
       'has-icon': hasIcon
     }"
   >
+  <!-- 'has-success': !error && touched, -->
     <slot name="label">
       <label v-if="label"> {{ label }} {{ required ? "*" : "" }} </label>
     </slot>

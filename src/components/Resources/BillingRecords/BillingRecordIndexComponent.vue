@@ -1,26 +1,16 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <div class="pro-feature alert alert-danger" v-if="$store.getters['users/model'].tier == 'BASIC'">
-        <strong>
-          <!-- {{$t('component.proFeature1')}} 1 {{$t('sidebar.asset')}} {{$t('component.proFeature2')}} {{$t('component.proFeature3')}} 
-          <a
-            href="https://www.propster.io"
-            target="_blank"
-          >PRO</a>
-          {{$t('component.proFeature4')}} {{$t('sidebar.assets')}}! -->
-          {{$t('alert.basicTierAssetCount')}}
-        </strong>
-      </div>
       <card>
-        <h4 slot="header" class="card-title text-left">{{$t('sidebar.assets')}}</h4>
+        <h4 slot="header" class="card-title text-left">{{billingRecordType == "All" ? "" : (billingRecordType + " ")}}{{$t('sidebar.billingRecords')}}</h4>
         <div class="text-right mb-3">
           <base-button
-                @click="addModel"
-                class="mt-3"
-                type="info"
-                v-bind:disabled="!resource.data.canAdd"
-          >{{$t('component.add')}} {{$t('sidebar.assets')}}</base-button>
+            @click="addModel"
+            class="mt-3"
+            type="info"
+            v-bind:disabled="!resource.data.canAdd"
+            v-if="resource.data.canAdd && billingRecordType != 'All'"
+          >{{$t('component.add')}} {{$t('sidebar.billingRecords')}}</base-button>
         </div>
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -33,13 +23,15 @@
         </div> -->
         <div class="table-responsive">
           <base-table
+            :disableEdit="true"
+            :disableDelete="true"
             :data="resource.models"
             :columns="table.columns"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
-            v-on:edit-details="editDetails"
-            v-on:delete-details="deleteDetails"
           >
+          <!-- v-on:edit-details="editDetails" -->
+          <!-- v-on:delete-details="deleteDetails" -->
           </base-table>
           <div
             slot="footer"
@@ -80,14 +72,19 @@ export default {
     return {
       table: {
         columns: {
+          sender_name: this.$t('property.senderName'),
+          recipient_name: this.$t('property.recipientName'),
           asset_nickname: this.$t('property.assetNickname'),
-          asset_unit_no: this.$t('property.unitNo'),
-          asset_address_line: this.$t('property.addressLine'),
-          asset_city: this.$t('property.city'),
+          description: this.$t('property.description'),
+          amount: this.$t('property.amount'),
+          payment_method: this.$t('property.paymentMethod')
         },
       },
       searchQuery: "",
       searchQueryTimeout: null,
+      userResource: {
+        model: {},
+      },
     };
   },
   props: {
@@ -106,90 +103,70 @@ export default {
           links: []
         }
       },
-      description: "Resource info"
     },
     query: {
       type: Object,
       // default: {},
+    },
+    billingRecordType: {
+      type: String,
+      required: true,
+      default: function() {
+        return "";
+      }
     }
+  },
+  mounted() {
+    this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
   },
   methods: {
     showDetails(id) {
       router.push({
-        name: "Asset Detail",
+        name: "Billing Record Detail",
         params: {
-          assetId: id,
+          paymentRecordsId: id,
           previousRoute: this.$router.currentRoute.fullPath
         }
       });
-    },
-    editDetails(id) {
-      router.push({
-        name: "Edit Assets",
-        params: {
-          assetId: id,
-          previousRoute: this.$router.currentRoute.fullPath
-        }
-      });
-    },
-    deleteDetails(id) {
-      if (id == null) {
-        this.$notify({
-          message:'Server error del id == null',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
-      } else {
-        try {
-          this.$store.dispatch('asset/remove', id)
-          this.$notify({
-            message:'Successfully Deleted',
-            icon: 'tim-icons icon-bell-55',
-            type: 'success'
-          });
-          this.getResource();
-        } catch (e) {
-          this.$notify({
-            message:'Server error when del',
-            icon: 'tim-icons icon-bell-55',
-            type: 'danger'
-          });
-        }
-      }
     },
     addModel() {
-      router.push({
-        name: "Add Assets",
+      this.$router.push({
+        name: 'Add Billing Record',
+        query: {
+          senderType: "TENANT",
+          senderId: `${this.$props.query.tenantId}`,
+          recipientType: "LANDLORD",
+          recipientId: `${this.userResource.model.landlord_ids[0]}`,
+          assetId: this.assetId,
+        },
         params: {
           previousRoute: this.$router.currentRoute.fullPath
         }
       });
-    },
-    getResource() {
-      this.$emit('getResource')
     },
     async handlePagination(pageId) {
       try {
         if (this.$props.query) {
           if (this.$props.query.tenantId) {
             var param = {
+              tenantId: this.$props.query.tenantId,
               id: this.$props.query.tenantId,
               pageId: pageId
             }
-            await this.$store.dispatch('tenant/getAssets', param).then(() => {
-              this.resource.models = this.$store.getters["tenant/assetModels"];
-              this.resource.data = Object.assign({}, this.$store.getters["tenant/assetData"]);
-            });
+            // await this.$store.dispatch('tenant/getPaymentRecords', param).then(() => {
+            //   this.resource.models = this.$store.getters["tenant/paymentRecordModels"];
+            //   this.resource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"]);
+            // });
           } else {
-            await this.$store.dispatch('asset/get', pageId).then(() => {
-              this.resource.models = this.$store.getters["asset/models"];
-              this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+            await this.$store.dispatch('billingRecords/get', pageId).then(() => {
+              this.resource.models = this.$store.getters["billingRecords/models"];
+              this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"]);
             });
           }
         } else {
-          await this.$store.dispatch('asset/get', pageId).then(() => {
-            this.resource.models = this.$store.getters["asset/models"];
-            this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+          await this.$store.dispatch('billingRecords/get', pageId).then(() => {
+            this.resource.models = this.$store.getters["billingRecords/models"];
+            this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"]);
           });
         }
       } catch (e) {

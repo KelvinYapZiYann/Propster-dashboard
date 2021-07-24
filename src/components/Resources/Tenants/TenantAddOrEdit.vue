@@ -1,17 +1,17 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">{{addOrEdit}} Tenant</h5>
+      <h5 slot="header" class="title">{{addOrEdit}} {{$t('sidebar.tenant')}}</h5>
       <div class="row">
         <div class="col-md-6">
           <div v-for="asset in resource.selector.asset_id" v-bind:key="asset.id">
-              <base-input label="Residing In"
+              <base-input :label="$t('property.residingIn')"
                         v-if="asset.id == assetId && addOrEdit == 'Add'" 
                         :value="asset.name"
                         :disabled="true">
               </base-input>
           </div>
-          <base-input label="Residing In"
+          <base-input :label="$t('property.residingIn')"
                       v-if="addOrEdit != 'Add'" 
                       :value="resource.model.assets ? (resource.model.assets[0] ? resource.model.assets[0].asset_nickname : '') : ''"
                       :disabled="true">
@@ -27,30 +27,33 @@
       </div>
       <div class="row">
         <div class="col-md-6 ">
-          <base-input label="First Name"
-                      placeholder="First Name"
-                      v-model="resource.model.first_name">
+          <base-input :label="$t('property.firstName')"
+                      :placeholder="$t('property.firstName')"
+                      v-model="resource.model.first_name"
+                      :error="tmpApiValidationErrors.first_name ? tmpApiValidationErrors.first_name[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.first_name"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.first_name"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Last Name"
-                      placeholder="Last Name"
-                      v-model="resource.model.last_name">
+          <base-input :label="$t('property.lastName')"
+                      :placeholder="$t('property.lastName')"
+                      v-model="resource.model.last_name"
+                      :error="tmpApiValidationErrors.last_name ? tmpApiValidationErrors.last_name[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.last_name"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.last_name"/> -->
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 ">
-          <base-input label="Email"
-                      placeholder="Email"
-                      v-model="resource.model.email">
+          <base-input :label="$t('property.email')"
+                      :placeholder="$t('property.email')"
+                      v-model="resource.model.email"
+                      :error="tmpApiValidationErrors.email ? tmpApiValidationErrors.email[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.email"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.email"/> -->
         </div>
         <div class="col-md-6">
-          <label class="mt-1">Phone Number</label>
+          <label class="mt-1">{{$t('property.phoneNumber')}}</label>
           <VuePhoneNumberInput 
                       v-model="resource.model.phone_number" 
                       :default-country-code="phoneCountryCodeInput"
@@ -71,56 +74,58 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <base-selector-input label="Gender"
-                               placeholder="Gender"
+          <base-selector-input :label="$t('property.gender')"
+                               :placeholder="$t('property.gender')"
                                v-model="resource.model.gender"
                                :initialValue="resource.model.gender"
                                :options="resource.selector.gender"
+                               :error="tmpApiValidationErrors.gender ? tmpApiValidationErrors.gender[0] : ''"
           >
           </base-selector-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.gender"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.gender"/> -->
         </div>
         <div class="col-md-6">
-          <base-input label="Is Business?"
+          <base-input :label="$t('property.isBusiness')"
                       type="checkbox"
                       :checked="typeof resource.model.is_business == 'boolean' ? resource.model.is_business : (typeof resource.model.is_business == 'string' ? resource.model.is_business == 'true' : false)"
-                      v-model="resource.model.is_business">
+                      v-model="resource.model.is_business"
+                      :error="tmpApiValidationErrors.is_business ? tmpApiValidationErrors.is_business[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.is_business"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_business"/> -->
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6">
-          <base-input label="Date Of Birth"
+          <base-input :label="$t('property.dateOfBirth')"
                       type="date"
-                      v-model="resource.model.date_of_birth">
+                      v-model="resource.model.date_of_birth"
+                      :error="tmpApiValidationErrors.date_of_birth ? tmpApiValidationErrors.date_of_birth[0] : ''">
           </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/> -->
         </div>
-        <div class="col-md-6 pr-md-1">
+        <!-- <div class="col-md-6 pr-md-1">
           <base-input label="Reputation"
                       placeholder="Reputation"
-                      v-model="resource.model.reputation">
-          </base-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.reputation"/>
-        </div>
-      </div>
-
-      <div class="row">
+                      v-model="resource.model.reputation"
+                      :error="tmpApiValidationErrors.reputation ? tmpApiValidationErrors.reputation[0] : ''">
+          </base-input> -->
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.reputation"/> -->
+        <!-- </div> -->
         <div class="col-md-6">
-          <base-selector-input label="Salary Range"
-                               placeholder="Salary Range"
+          <base-selector-input :label="$t('property.salaryRange')"
+                               :placeholder="$t('property.salaryRange')"
                                v-model="resource.model.salary_range"
                                :initialValue="resource.model.salary_range"
                                :options="resource.selector.salary_range"
+                               :error="tmpApiValidationErrors.salary_range ? tmpApiValidationErrors.salary_range[0] : ''"
           >
           </base-selector-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.salary_range"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.salary_range"/> -->
         </div>
       </div>
     </card>
-    <base-button slot="footer" type="info" @click="handleCancel()" fill>Cancel</base-button>
+    <base-button slot="footer" type="info" @click="handleCancel()" fill>{{$t('component.cancel')}}</base-button>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>
@@ -182,12 +187,12 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      this.$emit('submit', this.translateModel(this.resource.model))
+      this.$emit('submit', this.translateModel())
     },
     async handleCancel() {
       this.$emit('cancel')
     },
-    translateModel(model) {
+    translateModel() {
       return {
         asset_id: this.addOrEdit != 'Add' ? (this.resource.model.assets ? (this.resource.model.assets[0] ? this.resource.model.assets[0].id : null) : null) : 
           (this.assetId ? this.assetId : null),

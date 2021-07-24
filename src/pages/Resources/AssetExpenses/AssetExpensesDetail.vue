@@ -1,22 +1,21 @@
 <template>
   <div class="content">
-    <payment-page
+    <transaction-section
       :resource="resource"
-    ></payment-page>
+    ></transaction-section>
       <!-- :model="resource.model"
       :asset="resource.model.asset"
       :recipient="resource.model.recipient"
       :sender="resource.model.sender" -->
     <base-detail-list
-      :category="'Payment Details'"
-      :title="''"
+      :category="$t('property.assetExpenseDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
       thead-classes="text-primary"
     ></base-detail-list>
     <card v-show="showMedia">
       <div class="card-header mb-3">
-        <h5 class="card-category">Media</h5>
+        <h5 class="card-category">{{$t('component.media')}}</h5>
       </div>
         <drop-zone ref="myVueDropzone"
                    id="dropzone"
@@ -25,40 +24,34 @@
         </drop-zone>
     </card>
 
-    <base-button slot="footer" type="info"  @click="handleBack()" fill>Back</base-button>
+    <base-button slot="footer" type="info"  @click="handleBack()" fill>{{$t('component.back')}}</base-button>
   </div>
 </template>
 <script>
-import {BaseDetailList, Card} from "@/components";
-import DropZone from "@/components/DropZone";
-import PaymentPage from "@/components/Resources/PaymentRecords/PaymentPage";
-
-let detailHeaders = {
-  payment_description: "Payment Description",
-  amount: "Amount (RM)",
-  payment_method: "Payment Method",
-  payment_type: "Payment Type",
-  // is_reference_only: "Is reference only?"
-};
+import {BaseDetailList, Card, DropZone, TransactionSection} from "@/components";
 
 export default {
   components: {
     BaseDetailList,
     Card,
     DropZone,
-    PaymentPage
+    TransactionSection
   },
   data() {
     return {
-      allowAddUser: false,
       showMedia: false,
       resource: {
         model: {},
         data: {}
       },
       table: {
-        title: "Asset Details",
-        detailHeaders: {...detailHeaders},
+        detailHeaders: {
+          asset_nickname: this.$t('property.assetNickname'),
+          payment_description: this.$t('property.description'),
+          amount: this.$t('property.amount'),
+          payment_method:this.$t('property.paymentMethod'),
+          payment_type: this.$t('property.paymentType'),
+        },
       },
       dropzoneOptions: {
         url: 'https://httpbin.org/post',

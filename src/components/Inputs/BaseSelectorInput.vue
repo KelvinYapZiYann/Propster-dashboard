@@ -1,14 +1,14 @@
 <template>
   <div
-      class="form-group"
+      class="form-group base-selector-input"
       :class="{
       'input-group-focus': focused,
       'has-danger': error,
-      'has-success': !error && touched,
       'has-label': label,
       'has-icon': hasIcon
     }"
   >
+  <!-- 'has-success': !error && touched, -->
     <slot name="label">
       <label v-if="label"> {{ label }} {{ required ? "*" : "" }} </label>
     </slot>
@@ -148,4 +148,11 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.base-selector-input.has-danger::after {
+  content: "";
+}
+.base-selector-input.has-danger .el-input__inner {
+  border-color: #ec250d;
+}
+</style>

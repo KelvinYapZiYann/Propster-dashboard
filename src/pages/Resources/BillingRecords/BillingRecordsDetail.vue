@@ -3,12 +3,8 @@
     <transaction-section
       :resource="resource"
     ></transaction-section>
-      <!-- :model="resource.model"
-      :asset="resource.model.asset"
-      :recipient="resource.model.recipient"
-      :sender="resource.model.sender" -->
     <base-detail-list
-      :category="$t('property.paymentRecordDetails')"
+      :category="$t('property.billingRecordDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
       thead-classes="text-primary"
@@ -34,13 +30,10 @@ export default {
       table: {
         detailHeaders: {
           asset_nickname: this.$t('property.assetNickname'),
-          payment_description: this.$t('property.description'),
+          description: this.$t('property.description'),
           amount: this.$t('property.amount'),
-          payment_method: this.$t('property.paymentMethod'),
           payment_type: this.$t('property.paymentType'),
           status: this.$t('property.status'),
-          is_seen: this.$t('property.isSeen'),
-          is_reference_only: this.$t('property.isReferenceOnly'),
         },
       },
     };
@@ -59,9 +52,9 @@ export default {
   methods: {
     async getResource() {
       try {
-        await this.$store.dispatch('paymentRecords/getById', this.$route.params.paymentRecordsId)
-        this.resource.model = await this.$store.getters["paymentRecords/model"]
-        this.resource.data = await this.$store.getters["paymentRecords/data"]
+        await this.$store.dispatch('billingRecords/getById', this.$route.params.billingRecordsId)
+        this.resource.model = await this.$store.getters["billingRecords/model"]
+        this.resource.data = await this.$store.getters["billingRecords/data"]
         this.loadAttachment();
       } catch (e) {
         this.$notify({
@@ -74,10 +67,11 @@ export default {
     loadAttachment() {
       if (this.resource.model.media.length > 0) {
         this.showMedia = true;
-        let file = { size: 123, name: "Icon", type: "image/png" };
-        this.$refs.myVueDropzone.manuallyAddFile(file, this.resource.model.media[0].temporary_url);
+        let fileData = this.resource.model.media[0].temporary_url;
+        let file = { name: this.resource.model.media[0].file_name, type: this.resource.model.media[0].mime_type };
+        this.$refs.myVueDropzone.manuallyAddFile(file, fileData);
         this.$refs.myVueDropzone.removeEventListeners()
-        this.$refs.myVueDropzone.setupEventListeners()
+        // this.$refs.myVueDropzone.setupEventListeners()
       }
     },
     async handleBack() {

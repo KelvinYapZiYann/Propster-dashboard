@@ -1,33 +1,36 @@
 <template>
   <card>
     <template slot="header">
-      <h5 class="title">Profile</h5>
+      <h5 class="title">{{$t('sidebar.userProfile')}}</h5>
     </template>
     <div class="row">
       <div class="col-md-6 ">
-        <base-input label="First Name"
-                    placeholder="First Name"
-                    v-model="model.first_name">
+        <base-input :label="$t('property.firstName')"
+                    :placeholder="$t('property.firstName')"
+                    v-model="model.first_name"
+                    :error="tmpApiValidationErrors.first_name ? tmpApiValidationErrors.first_name[0] : ''">
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.first_name"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.first_name"/> -->
       </div>
       <div class="col-md-6">
-        <base-input label="Last Name"
-                    placeholder="Last Name"
-                    v-model="model.last_name">
+        <base-input :label="$t('property.lastName')"
+                    :placeholder="$t('property.lastName')"
+                    v-model="model.last_name"
+                    :error="tmpApiValidationErrors.last_name ? tmpApiValidationErrors.last_name[0] : ''">
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.last_name"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.last_name"/> -->
       </div>
     </div>
     <div class="row" v-if="addOrEdit != 'Add'">
       <div class="col-md-6">
-        <base-input label="Email address"
+        <base-input :label="$t('property.email')"
+                    :placeholder="$t('property.email')"
                     type="email"
                     disabled="true"
-                    placeholder="email"
-                    v-model="model.email">
+                    v-model="model.email"
+                    :error="tmpApiValidationErrors.email ? tmpApiValidationErrors.email[0] : ''">
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.email"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.email"/> -->
       </div>
       <div class="col-md-6">
         <!-- <base-input label="Phone Number"
@@ -35,7 +38,7 @@
                     placeholder="Phone Number"
                     v-model="model.phone_number">
         </base-input> -->
-        <label class="mt-1">Phone Number</label>
+        <label class="mt-1">{{$t('property.phoneNumber')}}</label>
         <VuePhoneNumberInput 
           v-model="model.phone_number"
           :default-country-code="phoneCountryCodeInput"
@@ -53,37 +56,39 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <base-input label="Date Of Birth"
+        <base-input :label="$t('property.dateOfBirth')"
                     type="date"
-                    v-model="model.date_of_birth">
+                    v-model="model.date_of_birth"
+                    :error="tmpApiValidationErrors.date_of_birth ? tmpApiValidationErrors.date_of_birth[0] : ''">
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/> -->
       </div>
       <div class="col-md-6">
-        <base-selector-input label="Gender"
-                              placeholder="Gender"
+        <base-selector-input :label="$t('property.gender')"
                               v-model="model.gender"
                               :options='[
                                 {"id":"MALE", "name":"Male"},
                                 {"id":"FEMALE", "name":"Female"}
                               ]'
+                              :error="tmpApiValidationErrors.gender ? tmpApiValidationErrors.gender[0] : ''"
         >
         </base-selector-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.gender"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.gender"/> -->
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 pr-md-1">
-        <base-input label="Is Business?"
+        <base-input :label="$t('property.isBusiness')"
                     type="checkbox"
                     v-model="model.is_business"
+                    :error="tmpApiValidationErrors.is_business ? tmpApiValidationErrors.is_business[0] : ''"
         >
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.is_business"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_business"/> -->
       </div>
     </div>
     <template slot="footer">
-      <base-button type="info" @click="handleSubmit()" fill>Save</base-button>
+      <base-button type="info" @click="handleSubmit()" fill>{{$t('component.save')}}</base-button>
     </template>
   </card>
 </template>

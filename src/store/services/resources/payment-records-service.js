@@ -39,7 +39,6 @@ function getById(Id) {
 }
 
 function add(param) {
-  console.log(param);
   const config = {
     headers: {
       'Accept': 'application/json',

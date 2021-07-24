@@ -1,158 +1,195 @@
 {
-  "dashboard": {
-    "completedTasks": "Completed Tasks",
-    "dailySales": "Daily Sales",
-    "performance": "Performance",
-    "simpleTable": "Simple Table",
-    "totalShipments": "Total Shipments",
-    "chartCategories": [
-      "Accounts",
-      "Purchases",
-      "Sessions"
-    ],
-    "tasks": "Tasks({count})",
-    "today": "Today",
-    "dropdown": {
-      "action": "Action",
-      "anotherAction": "Another Action",
-      "somethingElse": "Something else"
-    },
-    "usersTable": {
-      "title": "Simple Table",
-      "columns": [
-        "Name",
-        "Country",
-        "City",
-        "Salary"
-      ],
-      "data": [
-        {
-          "id": 1,
-          "name": "Dakota Rice",
-          "salary": "$36.738",
-          "country": "Niger",
-          "city": "Oud-Turnhout"
-        },
-        {
-          "id": 2,
-          "name": "Minerva Hooper",
-          "salary": "$23,789",
-          "country": "Curaçao",
-          "city": "Sinaai-Waas"
-        },
-        {
-          "id": 3,
-          "name": "Sage Rodriguez",
-          "salary": "$56,142",
-          "country": "Netherlands",
-          "city": "Baileux"
-        },
-        {
-          "id": 4,
-          "name": "Philip Chaney",
-          "salary": "$38,735",
-          "country": "Korea, South",
-          "city": "Overland Park"
-        },
-        {
-          "id": 5,
-          "name": "Doris Greene",
-          "salary": "$63,542",
-          "country": "Malawi",
-          "city": "Feldkirchen in Kärnten"
-        },
-        {
-          "id": 6,
-          "name": "Mason Porter",
-          "salary": "$98,615",
-          "country": "Chile",
-          "city": "Gloucester"
-        },
-        {
-          "id": 7,
-          "name": "Jon Porter",
-          "salary": "$78,615",
-          "country": "Portugal",
-          "city": "Gloucester"
-        }
-      ]
-    },
-    "taskList": [
-      {
-        "title": "Update the Documentation",
-        "description": "Dwuamish Head, Seattle, WA 8:47 AM",
-        "done": false
-      },
-      {
-        "title": "GDPR Compliance",
-        "description": "The GDPR is a regulation that requires businesses to protect the personal data and privacy of Europe citizens for transactions that occur within EU member states.",
-        "done": true
-      },
-      {
-        "title": "Solve the issues",
-        "description": "Fifty percent of all respondents said they would be more likely to shop at a company",
-        "done": false
-      },
-      {
-        "title": "Release v2.0.0",
-        "description": "Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM",
-        "done": false
-      },
-      {
-        "title": "Export the processed files",
-        "description": "The report also shows that consumers will not easily forgive a company once a breach exposing their personal data occurs.",
-        "done": false
-      },
-      {
-        "title": "Arival at export process",
-        "description": "Capitol Hill, Seattle, WA 12:34 AM",
-        "done": false
-      }
-    ]
-  },
   "sidebar": {
-    "title": "Creative Tim",
-    "shortTitle": "CT",
     "dashboard": "Dashboard",
-    "pages": "Pages",
-    "pricing": "Pricing",
-    "rtl": "RTL Support",
-    "timeline": "Timeline",
-    "login": "Login",
-    "register": "Register",
-    "lock": "Lock Screen",
-    "userProfile": "User Profile",
-    "components": "Components",
-    "multiLevelCollapse": "Multilevel Collapse",
-    "example": "Example Page",
-    "buttons": "Buttons",
-    "gridSystem": "Grid System",
-    "panels": "Panels",
-    "sweetAlert": "Sweet Alert",
-    "icons": "Icons",
-    "notifications": "Notifications",
-    "typography": "Typography",
-    "forms": "Forms",
-    "regularForms": "Regular Forms",
-    "extendedForms": "Extended Forms",
-    "validationForms": "Validation Forms",
-    "wizard": "Wizard",
-    "tables": "Tables",
-    "regularTables": "Regular Tables",
-    "extendedTables": "Extended Tables",
-    "paginatedTables": "Paginated Tables",
-    "maps": "Maps",
-    "googleMaps": "Google Maps",
-    "fullScreenMaps": "Full Screen Map",
-    "vectorMaps": "Vector Maps",
-    "widgets": "Widgets",
-    "charts": "Charts",
-    "calendar": "Calendar",
-    "assetExpenses": "Asset Expenses",
+    "dashboardDesc": "Main detail info of your asset property.",
     "assets": "Assets",
-    "paymentRecords":  "Payment Records",
+    "asset": "Asset",
+    "assetsDesc": "Asset property that is rented to tenants.",
+    "tenant": "Tenant",
     "tenants": "Tenants",
+    "tenantsDesc": "Tenants that rent your asset property.",
+    "tenureContract":  "Tenure Contract",
     "tenureContracts":  "Tenure Contracts",
-    "settings":  "Settings"
+    "tenureContractsDesc": "Tenure contract of the asset property and tenant.",
+    "billingRecord":  "Billing Record",
+    "billingRecords":  "Billing Records",
+    "billingRecordsDesc": "Billing Records.",
+    "paymentRecord":  "Payment Record",
+    "paymentRecords":  "Payment Records",
+    "paymentRecordsDesc": "Payment records.",
+    "assetExpense": "Asset Expense",
+    "assetExpenses": "Asset Expenses",
+    "assetExpensesDesc": "Asset expenses.",
+    "settings":  "Settings",
+    "settingsDesc": "Settings.",
+    "userProfile": "User Profile",
+    "userProfileDesc": "User profile.",
+    "toggleSidebar": "Toggle Sidebar"
+  },
+  "topbar": {
+    "notifications": "Notifications"
+  },
+  "footer": {
+    "aboutUs": "About Us"
+  },
+  "login": {
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "createAccount": "Create Account",
+    "forgotPassword": "Forgot Password"
+  },
+  "register": {
+    "register": "Get Started",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassowrd": "Confirm Password",
+    "phoneNumber": "Phone Number",
+    "login": "Already have an account? Login",
+    "desc1": "By register, you will experience how this tool can help you manage your property effectively.",
+    "desc2": "Free To Use If you're just started to manage your property.",
+    "desc3": "We will be helping you as much as needed to familiar and be productive in Propster.io.",
+    "registerSuccessfully": "Register Successfully",
+    "verifyEmail": "Please verify the email before logging in.",
+    "moreQuestions": "If you have more questions, don't hesitate to contact us. We're here to help!",
+    "noVerificationEmail": "If you have not received any verification email, click the Resend Verification Email.",
+    "resendVerificationEmail": "Resend Verification Email"
+  },
+  "forgotPassword": {
+    "forgotPassword": "Reset Password",
+    "email": "Email",
+    "backToLogin": "Back To Login"
+  },
+  "selectRole": {
+    "title": "Please Select A Role",
+    "landlord": "Landlord",
+    "landlordDesc": "Having the access to multiple features such as Tenant management, Asset Managements and Assets Analytics.",
+    "tenant": "Tenant",
+    "tenantDesc": "Having access to pay rents, scheduling time with Vendors and Landlords.",
+    "agent": "Agent",
+    "agentDesc": "Having access to manage multiple landlords, and to all the features provided to landlords.",
+    "vendor": "Vendor",
+    "vendorDesc": "Having access to collect fee from agents, landlords or tenants.",
+    "selectRole": "Select Role",
+    "remeberThisSetting": "Remember This Setting",
+    "changeRoleLater": "You will be able to select another role later."
+  },
+  "dashboard": {
+    "overdueIncome": "Overdue Income",
+    "overdueIncomeDesc": "Income (Rent & Other) that have already been due over the due date (incl. of Grace Period).",
+    "upcomingIncome": "Upcoming Income",
+    "upcomingIncomeDesc": "Income (Rent & Other) that you are expected to receive in the set given time range.",
+    "overdueExpenses": "Overdue Expenses",
+    "overdueExpensesDesc": "Expenses that you are been due to. For eg. Maintaince fees that is overdue.",
+    "upcomingExpenses": "Upcoming Expenses",
+    "upcomingExpensesDesc": "Expenses that you are expected to pay in the set given time range.",
+    "rent": "Rent",
+    "collectedRent": "Collected Rent",
+    "overdueRent": "Overdue Rent",
+    "upcomingRent": "Upcoming Rent",
+    "overdueTenantsList": "Overdue Tenants List"
+  },
+  "alert": {
+    "basicTierAssetCount": "You can only add 1 Asset with free tier. Get PRO version to add more assets.",
+    "basicTierTenantCount": "You can only add 3 Tenants per Asset with free tier. Get PRO version to add more tenants.",
+    "noTenureContractAlert": "There is no tenure contract of this tenant. Please create one.",
+    "noBillingRecordAlert": "There is no billing record of this tenant. Please create one.",
+
+    "assetSuccessfullyAdded": "Asset is Successfully Added",
+    "assetSuccessfullyAddedText": "Do you want to add a Tenant into this asset right now?",
+    "tenantSuccessfullyAdded": "Tenant is Successfully Added",
+    "tenantSuccessfullyAddedText": "Do you want to add a Tenure Contract for this tenant right now?",
+    "tenureContractSuccessfullyAdded": "Tenure Contract is Successfully Added",
+    "tenureContractSuccessfullyAddedText": "Do you want to add a Rental Billing for this tenure contract right now?"
+  },
+  "component": {
+    "search": "Search",
+    "detail": "Detail",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "back": "Back",
+    "cancel": "Cancel",
+    "media": "Media",
+    "save": "Save",
+    "yes": "Yes",
+    "no": "No",
+
+    "showing": "Showing",
+    "to": "To",
+    "of": "Of",
+    "entries": "Entries",
+    
+    "generateReport": "Generate Report",
+    "tenantBilling": "Bill this Tenant",
+    "tenantPayment": "Record Payment from this Tenant"
+  },
+  "property": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "gender": "Gender",
+    "isBusiness": "Is Business?",
+    "dateOfBirth": "Date of Birth",
+    "salaryRange": "Salary Range",
+    "dueDate": "Due Date",
+    "dueAmount": "Due Amount",
+    "residingIn": "Residing In",
+
+    "assetDetails": "Asset Details",
+    "locationDetails": "Location Details",
+    "financialDetails": "Financial Details",
+    "assetNickname": "Asset Nickname",
+    "assetPurchasedValue": "Purchased Value (RM)",
+    "assetCurrentValue": "Current Value (RM)",
+    "assetPurchasedTax": "Purchased Tax",
+    "assetRemainingLoan": "Remaining Loan",
+    "purchasedDate": "Purchased Date",
+    "loanIsActive": "Loan Is Active",
+    "loanInterestRate": "Interest Rate (%)",
+    "loanOutstandingAmount": "Outstanding Amount (RM)",
+    "loanRemainingYear": "Remaining Years",
+    "loanTotalYear": "Total Loan Years",
+    "unitNo": "Unit No",
+    "addressLine": "Address Line",
+    "city": "City",
+    "state": "State",
+    "postalCode": "Postal Code",
+    "country": "Country",
+    "ownershipType": "Ownership Type",
+    "assetSize": "Size (sq. ft)",
+    "currentlyOccupied": "Currently Occupied",
+    "isMultiUnit": "Is Multi Unit?",
+    "isOccupied": "Is Occupied?",
+    "assetType": "Asset Type",
+    "numberOfRooms": "Number Of Rooms",
+    "numberOfBathrooms": "Number Of Bathrooms",
+
+    "tenantDetails": "Tenant Details",
+    "tenantName": "Tenant Name",
+    "tenureContractDetails": "Tenure Contract Details",
+    "contractName": "Contract Name",
+    "monthlyRentalAmount": "Monthly Rental Amount (RM)",
+    "tenureStartDate": "Tenure Start Date",
+    "tenureEndDate": "Tenure End Date",
+    "billingRecordDetails": "Billing Record Details",
+    "paymentRecordDetails": "Payment Record Details",
+    "assetExpenseDetails": "Asset Expense Details",
+    "sender": "Sender",
+    "senderName": "Sender Name",
+    "recipient": "Recipient",
+    "recipientName": "Recipient Name",
+    "description": "Description",
+    "amount": "Amount (RM)",
+    "paymentMethod": "Payment Method",
+    "paymentType": "Payment Type",
+    "status": "Status",
+    "isSeen": "Is Seen?",
+    "isReferenceOnly": "Is Reference Only?",
+    "frequencyType": "Frequency Type",
+    "billingStartDate": "Billing Start Date",
+    "gracePeriod": "Grace Period (Days)",
+    "remindBefore": "Remind Before (Days)"
   }
 }

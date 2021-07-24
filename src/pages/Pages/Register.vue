@@ -7,7 +7,7 @@
             <i class="tim-icons icon-wifi"></i>
           </div>
           <div class="description">
-            <h3 class="info-title">By register, you will experience how this tool can help you manage your property effectively.</h3>
+            <h3 class="info-title">{{$t('register.desc1')}}</h3>
           </div>
         </div>
         <div class="info-area info-horizontal">
@@ -15,7 +15,7 @@
             <i class="tim-icons icon-triangle-right-17"></i>
           </div>
           <div class="description">
-            <h3 class="info-title">Free To Use If you're just started to manage your property</h3>
+            <h3 class="info-title">{{$t('register.desc2')}}</h3>
           </div>
         </div>
         <div class="info-area info-horizontal">
@@ -23,7 +23,7 @@
             <i class="tim-icons icon-trophy"></i>
           </div>
           <div class="description">
-            <h3 class="info-title">We will be helping you as much as needed to familiar and be productive in Propster.</h3>
+            <h3 class="info-title">{{$t('register.desc3')}}</h3>
           </div>
         </div>
       </div>
@@ -63,28 +63,31 @@
 
             <base-input
                 v-model="email"
-                placeholder="Email"
+                :placeholder="$t('register.email')"
                 addon-left-icon="tim-icons icon-email-85"
-                type="email">
+                type="email"
+                :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''">
             </base-input>
-            <validation-error :errorsArray="apiValidationErrors.email" />
+            <!-- <validation-error :errorsArray="apiValidationErrors.email" /> -->
 
             <base-input
                 v-model="password"
-                placeholder="Password"
+                :placeholder="$t('register.password')"
                 addon-left-icon="tim-icons icon-lock-circle"
-                type="password">
+                type="password"
+                :error="apiValidationErrors.password ? apiValidationErrors.password[0] : ''">
             </base-input>
-            <validation-error :errorsArray="apiValidationErrors.password"/>
+            <!-- <validation-error :errorsArray="apiValidationErrors.password"/> -->
 
             <base-input
-                placeholder="Confirm Password"
+                :placeholder="$t('register.confirmPassowrd')"
                 type="password"
                 name="Password confirmation"
                 v-model="password_confirmation"
-                addon-left-icon="tim-icons icon-lock-circle">
+                addon-left-icon="tim-icons icon-lock-circle"
+                :error="apiValidationErrors.password_confirmation ? apiValidationErrors.password_confirmation[0] : ''">
             </base-input>
-            <validation-error :errorsArray="apiValidationErrors.password_confirmation" />
+            <!-- <validation-error :errorsArray="apiValidationErrors.password_confirmation" /> -->
 
             <!-- <base-checkbox v-model="boolean" class="text-left">
               I agree to the <a href="#something">terms and conditions</a>.
@@ -98,12 +101,12 @@
                   block
                   size="lg"
               >
-                Get Started
+                {{$t('register.register')}}
               </base-button>
               <div class="pull-left text-left">
                 <h6>
                   <router-link class="link footer-link" to="/login" v-slot="{ navigate, href }" custom>
-                    <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Already have an account? Login</a>
+                    <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">{{$t('register.login')}}</a>
                   </router-link>
                 </h6>
               </div>
@@ -112,31 +115,31 @@
         </form>
       </div>
     </div>
-    <modal
+    <!-- <modal
       :show.sync="registerSuccessful"
       footerClasses="justify-content-center"
       type="notice"
     >
       <div class="instruction">
         <p class="description">
-          Register Successfully
+          {{$t('register.registerSuccessfully')}}
         </p>
         <p class="description">
-          Please verify the email before logging in.
+          {{$t('register.verifyEmail')}}
         </p>
       </div>
       <p class="text-center">
-        If you have more questions, don't hesitate to contact us. We're here to help!
+        {{$t('register.moreQuestions')}}
       </p>
       <p class="text-center">
-        If you have not received any verification email, click the Resend Verification Email.
+        {{$t('register.noVerificationEmail')}}
       </p>
       <div slot="footer" class="justify-content-center">
         <base-button
           type="info"
           round
           @click="resendVerificationEmail"
-          >Resend Verification Email
+          >{{$t('register.resendVerificationEmail')}}
         </base-button>
         <base-button
           type="info"
@@ -145,7 +148,7 @@
           >OK
         </base-button>
       </div>
-    </modal>
+    </modal> -->
   </div>
 </template>
 <script>
@@ -154,6 +157,7 @@ import formMixin from "@/mixins/form-mixin";
 import axios from "axios";
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -172,7 +176,7 @@ export default {
       email: null,
       password: null,
       password_confirmation: null,
-      registerSuccessful: false,
+      // registerSuccessful: false,
       phoneCountryCodeInput: "MY",
     };
   },
@@ -205,8 +209,47 @@ export default {
       };
 
       try {
-        await this.$store.dispatch("register", { user, requestOptions });
-        this.registerSuccessful = true;
+        await this.$store.dispatch("register", { user, requestOptions }).then(() => {
+          swal({
+            title: `Success`,
+            text: this.$t('register.verifyEmail') + "\n" + this.$t('register.noVerificationEmail'),
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: this.$t('register.resendVerificationEmail'),
+            cancelButtonText: "OK",
+            confirmButtonClass: "btn btn-info btn-fill",
+            cancelButtonClass: "btn btn-info btn-fill",
+            type: "success",
+            
+            preConfirm: () => {
+              const url = process.env.VUE_APP_API_BASE_URL;
+              return axios({
+                url: `${url}/email-not-verified`,
+                method: 'POST',
+              }).then((response) => {
+                if (response.message != "email successfully sent") {
+                  throw new Error("email has not been sent");
+                }
+                return "email successfully sent";
+              }).catch((error) => {
+                swal.showValidationMessage(
+                  `Request failed: Something went wrong. Verification email has not been resent.`
+                )
+              });
+            },
+          }).then((result) => {
+            if (result.value) {
+              swal.fire({
+                title: `Verification Email has been resent`
+              }).then(() => {
+                this.$router.push({name: "login"});
+              });
+            } else {
+              this.$router.push({name: "login"});
+            }
+          });
+        });
+        // this.registerSuccessful = true;
         // this.$notify({
         //   type: 'succes',
         //   message: 'Successfully registered.',
@@ -226,23 +269,7 @@ export default {
       this.$router.push({name: "login"});
     },
     async resendVerificationEmail() {
-      const url = process.env.VUE_APP_API_BASE_URL;
-      axios({
-        url: `${url}/api/dashboard/email-not-verified`,
-        method: 'POST',
-      }).then((response) => {
-        this.$notify({
-          type: 'success',
-          message: 'Verification email has been resent. Check your email.',
-          // icon: 'tim-icons icon-bell-55',
-        })
-      }).catch((error) => {
-        this.$notify({
-          type: 'danger',
-          message: 'Something went wrong. Verification email has not been resent.',
-          icon: 'tim-icons icon-bell-55',
-        })
-      });
+      
     },
     updatePhoneNumber(event) {
       // this.phone_country_code = event.countryCallingCode;

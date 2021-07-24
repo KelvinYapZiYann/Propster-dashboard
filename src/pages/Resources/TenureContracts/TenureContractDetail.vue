@@ -1,8 +1,7 @@
 <template>
       <div class="content">
         <base-detail-list
-          :category="`Tenure Contract Details`"
-          :title="''"
+          :category="$t('property.tenureContractDetails')"
           :model="resource.model"
           :headers="table.detailHeaders"
           thead-classes="text-primary"
@@ -10,7 +9,7 @@
 
         <card v-show="showMedia">
           <div class="card-header mb-3">
-            <h5 class="card-category">Media</h5>
+            <h5 class="card-category">{{$t('component.media')}}</h5>
           </div>
           <drop-zone
                     @click.native="downloadFile" 
@@ -22,21 +21,13 @@
           </drop-zone>
         </card>
 
-        <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
+        <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
         <!-- <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Tenure Contract</base-button> -->
       </div>
 </template>
 <script>
 import { BaseDetailList, Card, DropZone } from "@/components";
-
-let detailHeaders = {
-  asset_nickname: "Asset Nickname",
-  first_name: "Tenant First Name",
-  contract_name: "Contract Name",
-  monthly_rental_amount: "Monthly Rental Amount (RM)",
-  tenure_start_date: "Tenure Start Date",
-  tenure_end_date: "Tenure End Date",
-};
+import axios from 'axios';
 
 export default {
   components: {
@@ -46,7 +37,6 @@ export default {
   },
   data() {
     return {
-      allowAddUser: false,
       tenureContractId: this.$route.params.tenureContractId,
       resource: {
         model: {},
@@ -54,7 +44,14 @@ export default {
       },
       table: {
         title: "Tenure Contract",
-        detailHeaders: {...detailHeaders},
+        detailHeaders: {
+          asset_nickname: this.$t('property.assetNickname'),
+          first_name: this.$t('property.firstName'),
+          contract_name: this.$t('property.contractName'),
+          monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
+          tenure_start_date: this.$t('property.tenureStartDate'),
+          tenure_end_date: this.$t('property.tenureEndDate'),
+        },
       },
       dropzoneOptions: {
         url: 'https://httpbin.org/post',
@@ -101,24 +98,44 @@ export default {
         this.showMedia = true;
         let fileData = this.resource.model.media[0].temporary_url;
         // console.log(fileData);
-        let file = {  name: this.resource.model.media[0].file_name, type: this.resource.model.media[0].mime_type };
+        let file = { name: this.resource.model.media[0].file_name, type: this.resource.model.media[0].mime_type };
         this.$refs.myVueDropzone.manuallyAddFile(file, fileData);
         this.$refs.myVueDropzone.removeEventListeners()
         // this.$refs.myVueDropzone.setupEventListeners()
       }
     },
     downloadFile() {
-      console.log('zxczxc');
-      console.log(this.$refs.myVueDropzone);
-      console.log(this.$refs.myVueDropzone.getAcceptedFiles());
-      console.log(this.$refs.myVueDropzone.getActiveFiles());
-      console.log(this.$refs.myVueDropzone.getAddedFiles());
-      console.log(this.$refs.myVueDropzone.getExistingFallback());
-      console.log(this.$refs.myVueDropzone.getFallbackForm());
-      console.log(this.$refs.myVueDropzone.getFilesWithStatus());
-      console.log(this.$refs.myVueDropzone.getQueuedFiles());
-      console.log(this.$refs.myVueDropzone.getRejectedFiles());
-      console.log(this.$refs.myVueDropzone.getUploadingFiles());
+      console.log('trying to download file');
+      // console.log(this.$refs.myVueDropzone);
+      // console.log(this.$refs.myVueDropzone.getAcceptedFiles());
+      // console.log(this.$refs.myVueDropzone.getActiveFiles());
+      // console.log(this.$refs.myVueDropzone.getAddedFiles());
+      // console.log(this.$refs.myVueDropzone.getExistingFallback());
+      // console.log(this.$refs.myVueDropzone.getFallbackForm());
+      // console.log(this.$refs.myVueDropzone.getFilesWithStatus());
+      // console.log(this.$refs.myVueDropzone.getQueuedFiles());
+      // console.log(this.$refs.myVueDropzone.getRejectedFiles());
+      // console.log(this.$refs.myVueDropzone.getUploadingFiles());
+      if (this.resource.model.media.length <= 0) {
+        return;
+      }
+      axios({
+        url: this.resource.model.media[0].temporary_url,
+        method: 'GET',
+        responseType: 'blob'
+      }).then((response) => {
+        console.log(response);
+        // let fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        // let fileLink = document.createElement('a');
+
+        // fileLink.href = fileURL;
+        // fileLink.setAttribute('download', fileName);
+        // document.body.appendChild(fileLink);
+
+        // fileLink.click();
+      }).catch((error) => {
+        console.log(error);
+      });
     },
     // disableDropZone() {
     //   return true;

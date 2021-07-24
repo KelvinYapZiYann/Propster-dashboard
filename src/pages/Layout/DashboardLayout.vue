@@ -5,207 +5,60 @@
     <side-bar :background-color="backgroundColor">
       <!-- <mobile-menu slot="content"></mobile-menu> -->
       <template slot="links">
-        <sidebar-link
-          :link="{
-            name: $t('sidebar.dashboard'),
-            icon: 'tim-icons icon-chart-pie-36',
-            path: '/dashboard'
-          }"
-        >
-        </sidebar-link>
+        <el-tooltip :content="$t('sidebar.dashboardDesc')" :open-delay="300" placement="right">
+          <sidebar-link
+            :link="{
+              name: $t('sidebar.dashboard'),
+              icon: 'tim-icons icon-chart-pie-36',
+              path: '/dashboard'
+            }"
+          >
+          </sidebar-link>
+        </el-tooltip>
 
+        <el-tooltip :content="$t('sidebar.assetsDesc')" :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.assets'), path: '/assets', icon: 'fas fa-home fa-2x'}"
           ></sidebar-link>
-          <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
+        </el-tooltip>
+        <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
+        <el-tooltip :content="$t('sidebar.tenantsDesc')" :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.tenants'), path: '/tenants', icon: 'fas fa-child fa-2x'}"
           ></sidebar-link>
+        </el-tooltip>
           <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
+        <el-tooltip :content="$t('sidebar.tenureContractsDesc')" :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.tenureContracts'), path: '/tenure-contracts', icon: 'fas fa-file fa-2x'}"
           ></sidebar-link>
+        </el-tooltip>
+        <el-tooltip :content="$t('sidebar.billingRecordsDesc')" :open-delay="300" placement="right">
+          <sidebar-link
+            :link="{ name: $t('sidebar.billingRecords'), path: '/billing-records', icon: 'fas fa-credit-card fa-2x'}"
+          ></sidebar-link>
+        </el-tooltip>
+        <el-tooltip :content="$t('sidebar.paymentRecordsDesc')" :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.paymentRecords'), path: '/payment-records', icon: 'fas fa-history fa-2x'}"
           ></sidebar-link>
+        </el-tooltip>
+        <el-tooltip :content="$t('sidebar.assetExpensesDesc')" :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.assetExpenses'), path: '/asset-expenses', icon: 'fas fa-dollar-sign fa-2x'}"
           ></sidebar-link>
+        </el-tooltip>
+        <el-tooltip :content="$t('sidebar.userProfileDesc')" :open-delay="300" placement="right">
           <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
           <sidebar-link
             :link="{ name: $t('sidebar.userProfile'), path: '/profile', icon: 'tim-icons icon-single-02'}"
           ></sidebar-link>
-          <!-- <sidebar-link
-            :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog fa-2x'}"
-          ></sidebar-link> -->
-
+        </el-tooltip>
         <!-- <sidebar-link
-          :link="{
-            name: $t('sidebar.pages'),
-            icon: 'tim-icons icon-image-02'
-          }"
-        >
-          <sidebar-link
-            :link="{ name: $t('sidebar.pricing'), path: '/pricing' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{ name: $t('sidebar.rtl'), path: '/rtl' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{ name: $t('sidebar.timeline'), path: '/timeline' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{ name: $t('sidebar.login'), path: '/login' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{ name: $t('sidebar.register'), path: '/register' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{ name: $t('sidebar.lock'), path: '/lock' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{ name: $t('sidebar.userProfile'), path: '/user' }"
-          ></sidebar-link>
-        </sidebar-link> -->
-        <!-- <sidebar-link
-          :link="{
-            name: $t('sidebar.components'),
-            icon: 'tim-icons icon-molecule-40'
-          }"
-        >
-          <sidebar-link :link="{ name: $t('sidebar.multiLevelCollapse') }">
-            <sidebar-link
-              :link="{
-                name: $t('sidebar.example'),
-                isRoute: false,
-                path: 'https://google.com',
-                target: '_blank'
-              }"
-            ></sidebar-link>
-          </sidebar-link>
-
-          <sidebar-link
-            :link="{ name: $t('sidebar.buttons'), path: '/components/buttons' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.gridSystem'),
-              path: '/components/grid-system'
-            }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{ name: $t('sidebar.panels'), path: '/components/panels' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.sweetAlert'),
-              path: '/components/sweet-alert'
-            }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.notifications'),
-              path: '/components/notifications'
-            }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{ name: $t('sidebar.icons'), path: '/components/icons' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.typography'),
-              path: '/components/typography'
-            }"
-          ></sidebar-link>
-        </sidebar-link>
-
-        <sidebar-link
-          :link="{ name: $t('sidebar.forms'), icon: 'tim-icons icon-notes' }"
-        >
-          <sidebar-link
-            :link="{ name: $t('sidebar.regularForms'), path: '/forms/regular' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.extendedForms'),
-              path: '/forms/extended'
-            }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.validationForms'),
-              path: '/forms/validation'
-            }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{ name: $t('sidebar.wizard'), path: '/forms/wizard' }"
-          ></sidebar-link>
-        </sidebar-link>
-        <sidebar-link
-          :link="{
-            name: $t('sidebar.tables'),
-            icon: 'tim-icons icon-puzzle-10'
-          }"
-        >
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.regularTables'),
-              path: '/table-list/regular'
-            }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.extendedTables'),
-              path: '/table-list/extended'
-            }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.paginatedTables'),
-              path: '/table-list/paginated'
-            }"
-          ></sidebar-link>
-        </sidebar-link>
-        <sidebar-link
-          :link="{ name: $t('sidebar.maps'), icon: 'tim-icons icon-pin' }"
-        >
-          <sidebar-link
-            :link="{ name: $t('sidebar.googleMaps'), path: '/maps/google' }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{
-              name: $t('sidebar.fullScreenMaps'),
-              path: '/maps/full-screen'
-            }"
-          ></sidebar-link>
-          <sidebar-link
-            :link="{ name: $t('sidebar.vectorMaps'), path: '/maps/vector-map' }"
-          ></sidebar-link>
-        </sidebar-link> -->
-        <!-- <sidebar-link
-          :link="{
-            name: $t('sidebar.widgets'),
-            icon: 'tim-icons icon-settings',
-            path: '/widgets'
-          }"
+          :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog fa-2x'}"
         ></sidebar-link> -->
-        <!-- <sidebar-link
-          :link="{
-            name: $t('sidebar.charts'),
-            icon: 'tim-icons icon-chart-bar-32',
-            path: '/charts'
-          }"
-        ></sidebar-link> -->
-        <!-- <sidebar-link
-          :link="{
-            name: $t('sidebar.calendar'),
-            icon: 'tim-icons icon-time-alarm',
-            path: '/calendar'
-          }"
-        ></sidebar-link>  -->
       </template>
     </side-bar>
-    <!-- <sidebar-share :background-color.sync="backgroundColor"></sidebar-share> -->
 
     <div class="main-panel" :data="backgroundColor">
       <top-navbar></top-navbar>
@@ -221,7 +74,6 @@
 import TopNavbar from "./TopNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./DashboardContent.vue";
-import SidebarShare from "./SidebarSharePlugin.vue";
 import SideBar from "@/components/SidebarPlugin/SideBar.vue";
 import SidebarLink from "@/components/SidebarPlugin/SidebarLink.vue";
 import SidebarFixedToggleButton from "./SidebarFixedToggleButton.vue";
@@ -233,7 +85,6 @@ export default {
     ContentFooter,
     SideBar,
     SidebarLink,
-    SidebarShare,
     SidebarFixedToggleButton
   },
   data() {

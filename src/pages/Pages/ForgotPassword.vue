@@ -10,13 +10,14 @@
           </template>
 
           <div>
-            <validation-error :errorsArray="apiValidationErrors.email"/>
+            <!-- <validation-error :errorsArray="apiValidationErrors.email"/> -->
             <base-input
                 v-validate="'required|email'"
                 name="email"
                 v-model="model.email"
-                placeholder="Email"
+                :placeholder="$t('forgotPassword.email')"
                 addon-left-icon="tim-icons icon-email-85"
+                :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''"
             >
             </base-input>
           </div>
@@ -29,12 +30,12 @@
                 size="lg"
                 block
             >
-              Send Email Verification
+              {{$t('forgotPassword.forgotPassword')}}
             </base-button>
             <div class="pull-left">
               <h6>
                 <router-link class="link footer-link" to="/login" v-slot="{ navigate, href }" custom>
-                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">Back to Login</a>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">{{$t('forgotPassword.backToLogin')}}</a>
                 </router-link>
               </h6>
             </div>
@@ -47,7 +48,7 @@
 <script>
 import {Card, BaseInput} from "@/components/index";
 import formMixin from "@/mixins/form-mixin";
-import ValidationError from "@/components/ValidationError.vue";
+// import ValidationError from "@/components/ValidationError.vue";
 import router from "@/router";
 import swal from "sweetalert2";
 
@@ -56,7 +57,7 @@ export default {
   components: {
     Card,
     BaseInput,
-    ValidationError
+    // ValidationError
   },
   data() {
     return {
@@ -71,10 +72,10 @@ export default {
         await this.$store.dispatch("forgotPassword", this.model.email)
 
         swal({
-          title: `Success!`,
+          title: `Success`,
           text: "We have emailed your password reset link!",
           buttonsStyling: false,
-          confirmButtonClass: "btn btn-success btn-fill",
+          confirmButtonClass: "btn btn-info btn-fill",
           type: "success"
         });
 

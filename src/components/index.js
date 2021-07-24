@@ -36,7 +36,7 @@ import RouteBreadCrumb from "./Breadcrumb/RouteBreadcrumb.vue";
 import Badge from "./Badge";
 import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
 import ValidationError from "@/components/ValidationError";
-import PaymentPage from "@/components/Resources/PaymentRecords/PaymentPage";
+import TransactionSection from "@/components/Resources/TransactionSection";
 
 export {
   Card,
@@ -77,5 +77,5 @@ export {
   Badge,
   BaseSelectorInput,
   ValidationError,
-  PaymentPage
+  TransactionSection
 };

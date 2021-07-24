@@ -1,4 +1,4 @@
-import service from '@/store/services/resources/assets-service';
+import service from '@/store/services/resources/billing-records-service';
 import errorHandlingService from '@/store/services/error-handling-service';
 
 const state = {
@@ -6,12 +6,9 @@ const state = {
   data: {},
   model: {},
   selector: {},
-  assetExpenseModels: [],
-  assetExpenseData: {},
-  tenantModels: [],
-  tenantData: {},
-  tenureContractModels: [],
-  tenureContractData: {},
+
+  // assetModels: [],
+  // assetData: {},
 };
 
 const mutations = {
@@ -36,7 +33,6 @@ const mutations = {
       'total': response.meta.total,
       'perPage': response.meta.per_page,
       'links': response.meta.links,
-      // 'meta': response.meta
     }
   },
   SET_RESOURCE: (state, response) => {
@@ -45,12 +41,6 @@ const mutations = {
 
     for (let key in fields) {
       state.model[key] = fields[key];
-    }
-
-    state.data = {
-      'title': item.fields['Asset Nickname'],
-      'category': "Asset Details",
-      'id': item.id
     }
 
     let selectors = response.meta.selector;
@@ -66,9 +56,9 @@ const mutations = {
       state.selector[field] = options;
     }
   },
-  SET_ASSET_EXPENSE_RESOURCES: (state, response) => {
+  SET_RECEIVING_BILLING_RECORDS_RESOURCES: (state, response) => {
     let data = response.data;
-    state.assetExpenseModels = [];
+    state.receivingBillingRecordsModels = [];
     data.forEach(function (item, index) {
       let fields = item.fields;
       let obj = {};
@@ -76,10 +66,10 @@ const mutations = {
         obj[key] = fields[key];
       }
 
-      state.assetExpenseModels.push(obj);
+      state.receivingBillingRecordsModels.push(obj);
       obj.id = item.id;
     })
-    state.assetExpenseData = {
+    state.receivingBillingRecordsData = {
       'canAdd': response.meta.canAdd,
       'currentPage': response.meta.current_page,
       'from': response.meta.from,
@@ -87,12 +77,11 @@ const mutations = {
       'total': response.meta.total,
       'perPage': response.meta.per_page,
       'links': response.meta.links,
-      // 'meta': response.meta
     }
   },
-  SET_TENANT_RESOURCES: (state, response) => {
+  SET_SENDING_BILLING_RECORDS_RESOURCES: (state, response) => {
     let data = response.data;
-    state.tenantModels = [];
+    state.sendingBillingRecordsModels = [];
     data.forEach(function (item, index) {
       let fields = item.fields;
       let obj = {};
@@ -100,10 +89,10 @@ const mutations = {
         obj[key] = fields[key];
       }
 
-      state.tenantModels.push(obj);
+      state.sendingBillingRecordsModels.push(obj);
       obj.id = item.id;
     })
-    state.tenantData = {
+    state.receivingBillingRecordsData = {
       'canAdd': response.meta.canAdd,
       'currentPage': response.meta.current_page,
       'from': response.meta.from,
@@ -111,33 +100,8 @@ const mutations = {
       'total': response.meta.total,
       'perPage': response.meta.per_page,
       'links': response.meta.links,
-      // 'meta': response.meta
     }
-  },
-  SET_TENURE_CONTRACT_RESOURCES: (state, response) => {
-    let data = response.data;
-    state.tenureContractModels = [];
-    data.forEach(function (item, index) {
-      let fields = item.fields;
-      let obj = {};
-      for (let key in fields) {
-        obj[key] = fields[key];
-      }
-
-      state.tenureContractModels.push(obj);
-      obj.id = item.id;
-    })
-    state.tenureContractData = {
-      'canAdd': response.meta.canAdd,
-      'currentPage': response.meta.current_page,
-      'from': response.meta.from,
-      'to': response.meta.to,
-      'total': response.meta.total,
-      'perPage': response.meta.per_page,
-      'links': response.meta.links,
-      // 'meta': response.meta
-    }
-  },
+  }
 };
 
 const actions = {
@@ -145,6 +109,32 @@ const actions = {
     return service.get(params)
       .then((response) => {
         commit('SET_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
+  },
+  getReceivingBillingRecords({commit, dispatch}, params) {
+    return service.getReceivingBillingRecords(params)
+      .then((response) => {
+        commit('SET_RECEIVING_BILLING_RECORDS_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
+  },
+  getSendingBillingRecords({commit, dispatch}, params) {
+    return service.getSendingBillingRecords(params)
+      .then((response) => {
+        commit('SET_SENDING_BILLING_RECORDS_RESOURCES', response);
       })
       .catch((e) => {
         try {
@@ -167,49 +157,10 @@ const actions = {
         }
       });
   },
-  create({commit, dispatch}) {
-    return service.create()
+  create({commit, dispatch}, param) {
+    return service.create(param)
       .then((response) => {
         commit('SET_RESOURCE', response);
-      })
-      .catch((e) => {
-        try {
-          errorHandlingService.verifyErrorFromServer(e);
-        } catch(e1) {
-          throw e1;
-        }
-      });
-  },
-  getAssetExpenses({commit, dispatch}, params) {
-    return  service.getAssetExpenses(params)
-      .then((response2) => {
-        commit('SET_ASSET_EXPENSE_RESOURCES', response2);
-      })
-      .catch((e) => {
-        try {
-          errorHandlingService.verifyErrorFromServer(e);
-        } catch(e1) {
-          throw e1;
-        }
-      });
-  },
-  getTenants({commit, dispatch}, params) {
-    return  service.getTenants(params)
-      .then((response) => {
-        commit('SET_TENANT_RESOURCES', response);
-      })
-      .catch((e) => {
-        try {
-          errorHandlingService.verifyErrorFromServer(e);
-        } catch(e1) {
-          throw e1;
-        }
-      });
-  },
-  getTenureContracts({commit, dispatch}, Id) {
-    return  service.getAssetExpenses(Id)
-      .then((response2) => {
-        commit('SET_TENURE_CONTRACT_RESOURCES', response2);
       })
       .catch((e) => {
         try {
@@ -232,9 +183,7 @@ const actions = {
   },
   store({commit, dispatch}, payload) {
     return service.store(payload)
-      .then((response) => {
-        commit('SET_RESOURCE', response);
-      })
+      .then((response) => {})
       .catch((e) => {
         try {
           errorHandlingService.verifyErrorFromServer(e);
@@ -254,6 +203,7 @@ const actions = {
         }
       });
   }
+
 };
 
 const getters = {
@@ -261,12 +211,10 @@ const getters = {
   model: state => state.model,
   data: state => state.data,
   selector: state => state.selector,
-  assetExpenseModels: state => state.assetExpenseModels,
-  assetExpenseData: state => state.assetExpenseData,
-  tenantModels: state => state.tenantModels,
-  tenantData: state => state.tenantData,
-  tenureContractModels: state => state.assetExpenseModels,
-  tenureContractData: state => state.assetExpenseData,
+  receivingBillingRecordsModels: state => state.receivingBillingRecordsModels,
+  receivingBillingRecordsData: state => state.receivingBillingRecordsData,
+  sendingBillingRecordsModels: state => state.sendingBillingRecordsModels,
+  sendingBillingRecordsData: state => state.sendingBillingRecordsData,
 };
 
 const users = {

@@ -1,8 +1,7 @@
 <template>
       <div class="content">
         <base-detail-list
-          :category="`Personal Details`"
-          :title="''"
+          :category="$t('property.tenantDetails')"
           :model="resource.model"
           :headers="table.detailHeaders"
           thead-classes="text-primary"
@@ -10,7 +9,6 @@
 
         <assets-index-component
           :resource="assetResource"
-          :table="table"
           :query="{
             tenantId: this.tenantId,
             assetId: this.assetId,
@@ -19,13 +17,12 @@
 
         <div class="pro-feature alert alert-danger" v-if="tenureContractResource.models.length == 0">
           <strong>
-            There is no tenure contract of this tenant. Please create one.
+            {{$t('alert.noTenureContractAlert')}}
           </strong>
         </div>
 
         <tenure-contract-index-component
           :resource="tenureContractResource"
-          :table="table"
           :query="{
             tenantId: this.tenantId,
             assetId: this.assetId,
@@ -36,9 +33,23 @@
           @tenantIdChange="tenantIdChange"
         ></tenure-contract-index-component>
 
+        <div class="pro-feature alert alert-danger" v-if="billingRecordResource.models.length == 0">
+          <strong>
+            {{$t('alert.noBillingRecordAlert')}}
+          </strong>
+        </div>
+
+        <billing-record-index-component
+          :resource="billingRecordResource"
+          :query="{
+            tenantId: this.tenantId,
+            assetId: this.assetId,
+          }"
+          billingRecordType="All"
+        ></billing-record-index-component>
+
         <payment-record-index-component
           :resource="receivingPaymentRecordResource"
-          :table="table"
           :query="{
             tenantId: this.tenantId,
             assetId: this.assetId,
@@ -46,26 +57,26 @@
           :paymentRecordType="receivingPaymentRecordType"
         ></payment-record-index-component>
         
-        <payment-record-index-component
+        <!-- <payment-record-index-component
           :resource="sendingPaymentRecordResource"
-          :table="table"
           :query="{
             tenantId: this.tenantId,
             assetId: this.assetId,
           }"
           :paymentRecordType="sendingPaymentRecordType"
-        ></payment-record-index-component>
+        ></payment-record-index-component> -->
 
         <fab
-          :position="position"
-          :bg-color="bgColor"
+          position="bottom-right"
+          bg-color="#1d8cf8"
           :actions="fabActions"
-          :fixed-tooltip="fixedTooltip"
-          @tenantPayment="addPaymentRecord"
+          fixed-tooltip="true"
+          @tenantPayment="addTenantPaymentRecord"
+          @tenantBilling="addTenantBillingRecord"
         ></fab>
 
-        <base-button slot="footer" type="info" @click="handleBack()" fill>Back</base-button>
-        <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Tenant</base-button>
+        <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
+        <base-button slot="footer" type="info" @click="handleEdit()" fill>{{$t('component.edit')}} {{$t('sidebar.tenant')}}</base-button>
       </div>
 </template>
 <script>
@@ -73,20 +84,9 @@ import { BaseDetailList, Card } from "@/components";
 import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/AssetExpensesIndexComponent";
 import AssetsIndexComponent from "@/components/Resources/Assets/AssetsIndexComponent";
 import TenureContractIndexComponent from "@/components/Resources/TenureContracts/TenureContractIndexComponent";
+import BillingRecordIndexComponent from "@/components/Resources/BillingRecords/BillingRecordIndexComponent";
 import PaymentRecordIndexComponent from "@/components/Resources/PaymentRecords/PaymentRecordIndexComponent";
 import fab from "vue-fab";
-
-let detailHeaders = {
-    first_name: "First Name",
-    last_name: "Last Name",
-    email: "Email",
-    phone_number: "Phone Number",
-    gender: "Gender",
-    is_business: "Is Business",
-    date_of_birth: "Date Of Birth",
-    reputation: "Reputation",
-    salary_range: "Salary Range",
-};
 
 export default {
   components: {
@@ -94,13 +94,13 @@ export default {
     BaseDetailList,
     AssetExpensesIndexComponent,
     TenureContractIndexComponent,
+    BillingRecordIndexComponent,
     PaymentRecordIndexComponent,
     Card,
     fab
   },
   data() {
     return {
-      allowAddUser: false,
       // modelId: this.$route.params.tenantId,
       resource: {
         model: {},
@@ -111,6 +111,11 @@ export default {
         data: {}
       },
       tenureContractResource: {
+        models: [{}],
+        data: {},
+        selector: {}
+      },
+      billingRecordResource: {
         models: [{}],
         data: {},
         selector: {}
@@ -127,22 +132,32 @@ export default {
         model: {},
       },
       table: {
-        title: "Tenants",
-        detailHeaders: {...detailHeaders},
+        detailHeaders: {
+          first_name: this.$t('property.firstName'),
+          last_name: this.$t('property.lastName'),
+          email: this.$t('property.email'),
+          phone_number: this.$t('property.phoneNumber'),
+          gender: this.$t('property.gender'),
+          is_business: this.$t('property.isBusiness'),
+          date_of_birth: this.$t('property.dateOfBirth'),
+          // reputation: "Reputation",
+          salary_range: this.$t('property.salaryRange'),
+        },
       },
       fabActions: [
         {
-          name: 'tenantPayment',
+          name: 'tenantBilling',
           icon: 'payment',
-          tooltip: 'Record Tenant Payment'
+          tooltip: this.$t('component.tenantBilling')
+        },
+        {
+          name: 'tenantPayment',
+          icon: 'history',
+          tooltip: this.$t('component.tenantPayment')
         }
       ],
       receivingPaymentRecordType: "Receiving",
       sendingPaymentRecordType: "Sending",
-      bgColor: '#1d8cf8',
-      fixedTooltip: true,
-      position: 'bottom-right',
-      tenantPaymentModalVisible: false,
       tenantId: this.$route.params.tenantId,
       assetId: this.$route.query ? (this.$route.query.assetId ? this.$route.query.assetId : null) : null,
     };
@@ -177,19 +192,28 @@ export default {
           this.tenureContractResource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"])
         })
 
+        await this.$store.dispatch('billingRecords/get',  {}).then(() => {
+          this.billingRecordResource.models = this.$store.getters["billingRecords/models"]
+          this.billingRecordResource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
+        })
+
         await this.$store.dispatch('tenant/getReceivingPaymentRecords',  this.tenantId).then(() => {
           this.receivingPaymentRecordResource.models = this.$store.getters["tenant/receivingPaymentRecordModels"]
           this.receivingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/receivingPaymentRecordData"])
         })
 
-        await this.$store.dispatch('tenant/getSendingPaymentRecords',  this.tenantId).then(() => {
-          this.sendingPaymentRecordResource.models = this.$store.getters["tenant/sendingPaymentRecordModels"]
-          this.sendingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/sendingPaymentRecordData"])
-        })
+        // await this.$store.dispatch('tenant/getSendingPaymentRecords',  this.tenantId).then(() => {
+        //   this.sendingPaymentRecordResource.models = this.$store.getters["tenant/sendingPaymentRecordModels"]
+        //   this.sendingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/sendingPaymentRecordData"])
+        // })
 
         await this.$store.dispatch('tenureContract/create', {}).then(() => {
           this.tenureContractResource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
         });
+
+        // await this.$store.dispatch('billingRecords/create', {}).then(() => {
+        //   this.billingRecordResource.selector = Object.assign({}, this.$store.getters["billingRecord/selector"])
+        // });
 
         this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
         // await this.$store.dispatch('users/get', {}).then(() => {
@@ -213,9 +237,24 @@ export default {
         });
       }
     },
-    addPaymentRecord() {
+    addTenantPaymentRecord() {
       this.$router.push({
         name: 'Add Payment Record',
+        query: {
+          senderType: "TENANT",
+          senderId: `${this.tenantId}`,
+          recipientType: "LANDLORD",
+          recipientId: `${this.userResource.model.landlord_ids[0]}`,
+          assetId: this.assetId,
+        },
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
+    },
+    addTenantBillingRecord() {
+      this.$router.push({
+        name: 'Add Billing Record',
         query: {
           senderType: "TENANT",
           senderId: `${this.tenantId}`,

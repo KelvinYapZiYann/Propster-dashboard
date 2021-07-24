@@ -15,6 +15,7 @@ import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
 import router from "@/router";
 import AssetAddOrEdit from "@/components/Resources/Assets/AssetAddOrEdit";
+import swal from "sweetalert2";
 
 export default {
   mixins: [formMixin],
@@ -65,20 +66,37 @@ export default {
           await this.$store.dispatch('asset/store', {'model': model}).then(() => {
             this.resource.model = Object.assign({}, this.$store.getters["asset/model"])
             this.resource.data = Object.assign({}, this.$store.getters["asset/data"])
-          })
-          this.$notify({
-            message:'Successfully Added',
-            icon: 'tim-icons icon-bell-55',
-            type: 'success'
           });
           this.resetApiValidation();
-          if (this.previousRoute) {
-            router.push({path: this.previousRoute});
-          } else {
-            router.go(-1);
-          }
-          // router.go(-1);
-          // router.push({path: "/assets"});
+          swal({
+            title: this.$t('alert.assetSuccessfullyAdded'),
+            text: this.$t('alert.assetSuccessfullyAddedText'),
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: this.$t('component.yes'),
+            cancelButtonText: this.$t('component.no'),
+            cancelButtonClass: "btn btn-info btn-fill",
+            confirmButtonClass: "btn btn-info btn-fill",
+            type: "success",
+          }).then((result) => {
+            if (result.value) {
+              router.push({
+                name: 'Add Tenant',
+                query: {
+                  assetId: `${this.resource.data.id}`,
+                },
+                params: {
+                  previousRoute: this.previousRoute ? this.previousRoute : '/assets'
+                }
+              });
+            } else {
+              if (this.previousRoute) {
+                router.push({path: this.previousRoute});
+              } else {
+                router.go(-1);
+              }
+            }
+          });
         } catch (e) {
           this.$notify({
             message:'Server error',

@@ -7,9 +7,10 @@
                                placeholder="Report Type"
                                v-model="model.report_type"
                                :options="reportTypes"
+                               :error="tmpApiValidationErrors.report_type ? tmpApiValidationErrors.report_type[0] : ''"
           >
           </base-selector-input>
-          <validation-error :errorsArray="tmpApiValidationErrors.report_type"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.report_type"/> -->
         </div>
       </div>
     <div class="row">
@@ -17,17 +18,19 @@
         <base-input label="Start Date"
                     type="date"
                     placeholder="Start Date"
-                    v-model="model.start_date">
+                    v-model="model.start_date"
+                    :error="tmpApiValidationErrors.start_date ? tmpApiValidationErrors.start_date[0] : ''">
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.start_date"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.start_date"/> -->
       </div>
       <div class="col-md-6">
         <base-input label="End Date"
                     type="date"
                     placeholder="End Date"
-                    v-model="model.end_date">
+                    v-model="model.end_date"
+                    :error="tmpApiValidationErrors.end_date ? tmpApiValidationErrors.end_date[0] : ''">
         </base-input>
-        <validation-error :errorsArray="tmpApiValidationErrors.end_date"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.end_date"/> -->
       </div>
     </div>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Generate Report</base-button>
@@ -35,13 +38,13 @@
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
+import { BaseInput, BaseSelectorInput, Card } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     // AssetForm,
-    ValidationError,
+    // ValidationError,
     BaseSelectorInput,
     BaseInput
   },
