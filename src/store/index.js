@@ -5,6 +5,7 @@ import auth from "./modules/auth";
 import alerts from "./modules/alerts-module";
 import users from "./modules/users-module";
 import reset from "./modules/reset";
+import dashboard from "./modules/resources/dashboard-modules"
 import asset from "./modules/resources/assets-module"
 import tenant from "./modules/resources/tenants-module"
 import tenureContract from "./modules/resources/tenure-contracts-module"
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     alerts,
     users,
     reset,
+    dashboard,
     asset,
     tenant,
     assetExpenses,

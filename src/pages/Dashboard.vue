@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="row">
-      <div
+      <!-- <div
         class="col-xl-3 col-lg-6 col-md-6 col-sm-6"
         v-for="card in statsCards"
         :key="card.title"
@@ -17,6 +17,62 @@
             :icon="card.icon"
           >
             <div slot="footer" v-html="card.footer"></div>
+          </stats-card>
+        </el-tooltip>
+      </div> -->
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <el-tooltip
+          :content="$t('dashboard.overdueIncomeDesc')"
+          :open-delay="300"
+        >
+          <stats-card
+            :title="`RM${resource.general ? resource.general.overdue_income : ''}`"
+            :sub-title="$t('dashboard.overdueIncome')"
+            type="warning"
+            icon="fas fa-clock"
+          >
+          </stats-card>
+        </el-tooltip>
+      </div>
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <el-tooltip
+          :content="$t('dashboard.upcomingIncomeDesc')"
+          :open-delay="300"
+        >
+          <stats-card
+            :title="`RM${resource.general ? resource.general.upcoming_income : ''}`"
+            :sub-title="$t('dashboard.upcomingIncome')"
+            type="primary"
+            icon="fas fa-building"
+          >
+          </stats-card>
+        </el-tooltip>
+      </div>
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <el-tooltip
+          :content="$t('dashboard.overdueExpensesDesc')"
+          :open-delay="300"
+        >
+          <stats-card
+            :title="`RM${resource.general ? resource.general.overdue_expenses : ''}`"
+            :sub-title="$t('dashboard.overdueExpenses')"
+            type="warning"
+            icon="fas fa-clock"
+          >
+          </stats-card>
+        </el-tooltip>
+      </div>
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <el-tooltip
+          :content="$t('dashboard.upcomingExpensesDesc')"
+          :open-delay="300"
+        >
+          <stats-card
+            :title="`RM${resource.general ? resource.general.upcoming_expenses : ''}`"
+            :sub-title="$t('dashboard.upcomingExpenses')"
+            type="primary"
+            icon="fas fa-dollar-sign"
+          >
           </stats-card>
         </el-tooltip>
       </div>
@@ -41,16 +97,16 @@
             </div>
 
             <div class="col-6">
-              <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.collectedRent')}} <br/>RM{{pieChart2.chartData.datasets[0].data[0]}}</p>
-              <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.overdueRent')}} <br/>RM{{pieChart2.chartData.datasets[0].data[1]}}</p>
-              <p class="category text-left"><i class="tim-icons icon-tag text-light"></i> {{$t('dashboard.upcomingRent')}} <br/>RM{{pieChart2.chartData.datasets[0].data[2]}}</p>
+              <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.collectedRent')}}: RM{{resource.rental ? resource.rental.collected_rent : ''}}</p>
+              <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.overdueRent')}}: RM{{resource.rental ? resource.rental.overdue_rent : ''}}</p>
+              <p class="category text-left"><i class="tim-icons icon-tag text-light"></i> {{$t('dashboard.upcomingRent')}}: RM{{resource.rental ? resource.rental.upcoming_rent : ''}}</p>
             </div>
           </div>
         </card>
       </div>
     </div>
     <overdue-tenants-index-component
-      :resource="resource"
+      :resource="resource.overdueTenantList"
       @getResource="getResource"
     ></overdue-tenants-index-component>
     
@@ -72,41 +128,50 @@ export default {
     OverdueTenantsIndexComponent
   },
   data() {
+    // let rentalDetail = {
+    //   collected_rent: 10,
+    //   overdue_rent: 10,
+    //   upcoming_rent: 10,
+    // };
     return {
       resource: {
-        models: [{}],
-        data: {}
+        general: {},
+        rental: {},
+        overdueTenantList: {
+          models: [],
+          data: {}
+        },
       },
-      statsCards: [
-        {
-          title: "RM15,000.00",
-          subTitle: this.$t('dashboard.overdueIncome'),
-          type: "warning",
-          icon: "fas fa-clock",
-          description: this.$t('dashboard.overdueIncomeDesc'),
-        },
-        {
-          title: "RM22,000.00",
-          subTitle: this.$t('dashboard.upcomingIncome'),
-          type: "primary",
-          icon: "fas fa-building",
-          description: this.$t('dashboard.upcomingIncomeDesc'),
-        },
-        {
-          title: "RM8,000.00",
-          subTitle: this.$t('dashboard.overdueExpenses'),
-          type: "warning",
-          icon: "fas fa-clock",
-          description: this.$t('dashboard.overdueExpensesDesc'),
-        },
-        {
-          title: "RM5,000.00",
-          subTitle: this.$t('dashboard.upcomingExpenses'),
-          type: "primary",
-          icon: "fas fa-dollar-sign",
-          description: this.$t('dashboard.upcomingExpensesDesc'),
-        }
-      ],
+      // statsCards: [
+      //   {
+      //     title: "RM22,000.00",
+      //     subTitle: this.$t('dashboard.overdueIncome'),
+      //     type: "warning",
+      //     icon: "fas fa-clock",
+      //     description: this.$t('dashboard.overdueIncomeDesc'),
+      //   },
+      //   {
+      //     title: "RM22,000.00",
+      //     subTitle: this.$t('dashboard.upcomingIncome'),
+      //     type: "primary",
+      //     icon: "fas fa-building",
+      //     description: this.$t('dashboard.upcomingIncomeDesc'),
+      //   },
+      //   {
+      //     title: "RM8,000.00",
+      //     subTitle: this.$t('dashboard.overdueExpenses'),
+      //     type: "warning",
+      //     icon: "fas fa-clock",
+      //     description: this.$t('dashboard.overdueExpensesDesc'),
+      //   },
+      //   {
+      //     title: "RM5,000.00",
+      //     subTitle: this.$t('dashboard.upcomingExpenses'),
+      //     type: "primary",
+      //     icon: "fas fa-dollar-sign",
+      //     description: this.$t('dashboard.upcomingExpensesDesc'),
+      //   }
+      // ],
       pieChart2: {
         chartData: {
           labels: [this.$t('dashboard.collectedRent'), this.$t('dashboard.overdueRent'), this.$t('dashboard.upcomingRent')],
@@ -117,7 +182,7 @@ export default {
               pointHoverRadius: 0,
               backgroundColor: ["#ff8779", "#2a84e9", "#e2e2e2"],
               borderWidth: 0,
-              data: [37000, 15000, 22000]
+              data: [this.collectedRent, this.overdueRent, this.upcomingRent]
             }
           ]
         },
@@ -126,21 +191,38 @@ export default {
     };
   },
   computed: {
-    enableRTL() {
-      return this.$route.query.enableRTL;
+    // enableRTL() {
+    //   return this.$route.query.enableRTL;
+    // },
+    // isRTL() {
+    //   return this.$rtl.isRTL;
+    // }
+    collectedRent() {
+      return this.resource.rental ? this.resource.rental.collected_rent : 0;
     },
-    isRTL() {
-      return this.$rtl.isRTL;
+    overdueRent() {
+      console.log(this.resource.rental);
+      return this.resource.rental ? this.resource.rental.overdue_rent : 0;
+    },
+    upcomingRent() {
+      console.log(this.resource.rental);
+      return this.resource.rental ? this.resource.rental.upcoming_rent : 0;
     }
   },
   methods: {
     async getResource() {
       try {
-        await this.$store.dispatch('tenant/get', {}).then(() => {
-          this.resource.models = this.$store.getters["tenant/models"]
-          this.resource.data = Object.assign({}, this.$store.getters["tenant/data"])
-        })
+        await this.$store.dispatch('dashboard/getGeneralDetail', {}).then(() => {
+          this.resource.general = this.$store.getters["dashboard/general"]
+        });
+        await this.$store.dispatch('dashboard/getRentalDetail', {}).then(() => {
+          this.resource.rental = this.$store.getters["dashboard/rental"]
+        });
+        await this.$store.dispatch('dashboard/getOverdueTenantList', {}).then(() => {
+          this.resource.overdueTenantList.models = this.$store.getters["dashboard/overdueTenantList"]
+        });
       } catch (e) {
+        console.log(e);
         this.$notify({
           message:'Server error',
           icon: 'tim-icons icon-bell-55',
