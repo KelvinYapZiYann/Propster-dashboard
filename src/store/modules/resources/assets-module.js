@@ -232,7 +232,9 @@ const actions = {
   },
   store({commit, dispatch}, payload) {
     return service.store(payload)
-      .then((response) => {})
+      .then((response) => {
+        commit('SET_RESOURCE', response);
+      })
       .catch((e) => {
         try {
           errorHandlingService.verifyErrorFromServer(e);

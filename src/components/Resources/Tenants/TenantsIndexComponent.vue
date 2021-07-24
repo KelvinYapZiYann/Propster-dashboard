@@ -3,12 +3,13 @@
     <div class="col-12">
       <div class="pro-feature alert alert-danger" v-if="$store.getters['users/model'].tier == 'BASIC'">
         <strong>
-          {{$t('component.proFeature1')}} 3 {{$t('sidebar.tenants')}} {{$t('component.proFeature21')}} {{$t('component.proFeature3')}} 
+          <!-- {{$t('component.proFeature1')}} 3 {{$t('sidebar.tenants')}} {{$t('component.proFeature21')}} {{$t('component.proFeature3')}} 
           <a
             href="https://www.propster.io"
             target="_blank"
           >PRO</a>
-          {{$t('component.proFeature4')}} {{$t('sidebar.tenants')}}!
+          {{$t('component.proFeature4')}} {{$t('sidebar.tenants')}}! -->
+          {{$t('alert.basicTierTenantCount')}}
         </strong>
       </div>
       <card>

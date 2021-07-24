@@ -187,12 +187,12 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      this.$emit('submit', this.translateModel(this.resource.model))
+      this.$emit('submit', this.translateModel())
     },
     async handleCancel() {
       this.$emit('cancel')
     },
-    translateModel(model) {
+    translateModel() {
       return {
         asset_id: this.addOrEdit != 'Add' ? (this.resource.model.assets ? (this.resource.model.assets[0] ? this.resource.model.assets[0].id : null) : null) : 
           (this.assetId ? this.assetId : null),

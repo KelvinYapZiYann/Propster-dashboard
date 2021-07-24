@@ -89,6 +89,17 @@
     "upcomingRent": "Upcoming Rent",
     "overdueTenantsList": "Overdue Tenants List"
   },
+  "alert": {
+    "basicTierAssetCount": "You can only add 1 Asset with free tier. Get PRO version to add more assets.",
+    "basicTierTenantCount": "You can only add 3 Tenants per Asset with free tier. Get PRO version to add more tenants.",
+    "noTenureContractAlert": "There is no tenure contract of this tenant. Please create one.",
+    "noBillingRecordAlert": "There is no billing record of this tenant. Please create one.",
+
+    "assetSuccessfullyAdded": "Asset is Successfully Added",
+    "assetSuccessfullyAddedText": "Do you want to add a Tenant into this asset right now?",
+    "tenantSuccessfullyAdded": "Tenant is Successfully Added",
+    "tenantSuccessfullyAddedText": "Do you want to add a Tenure Contract for this tenant right now?"
+  },
   "component": {
     "search": "Search",
     "detail": "Detail",
@@ -99,20 +110,14 @@
     "cancel": "Cancel",
     "media": "Media",
     "save": "Save",
+    "yes": "Yes",
+    "no": "No",
 
     "showing": "Showing",
     "to": "To",
     "of": "Of",
     "entries": "Entries",
-
-    "proFeature1": "You can only add",
-    "proFeature2": "with free tier.",
-    "proFeature21": "per asset with free tier.",
-    "proFeature3": "Get",
-    "proFeature4": "version to add more",
-    "noTenureContractAlert": "There is no tenure contract of this tenant. Please create one.",
-    "noBillingRecordAlert": "There is no billing record of this tenant. Please create one.",
-
+    
     "generateReport": "Generate Report",
     "tenantBilling": "Bill this Tenant",
     "tenantPayment": "Record Payment from this Tenant"

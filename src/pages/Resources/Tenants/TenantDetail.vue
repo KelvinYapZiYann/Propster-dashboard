@@ -17,7 +17,7 @@
 
         <div class="pro-feature alert alert-danger" v-if="tenureContractResource.models.length == 0">
           <strong>
-            {{$t('component.noTenureContractAlert')}}
+            {{$t('alert.noTenureContractAlert')}}
           </strong>
         </div>
 
@@ -35,7 +35,7 @@
 
         <div class="pro-feature alert alert-danger" v-if="billingRecordResource.models.length == 0">
           <strong>
-            {{$t('component.noBillingRecordAlert')}}
+            {{$t('alert.noBillingRecordAlert')}}
           </strong>
         </div>
 

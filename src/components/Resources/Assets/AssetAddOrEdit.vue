@@ -304,11 +304,13 @@ export default {
         asset_postal_code: this.resource.model.location_details.asset_postal_code,
         asset_country: this.resource.model.location_details.asset_country,
         asset_purchased_value: this.resource.model.financial_details.asset_purchased_value,
+        asset_current_value: this.resource.model.financial_details.asset_current_value,
         asset_purchased_tax: this.resource.model.financial_details.asset_purchased_tax,
         loan_outstanding_amount: this.resource.model.financial_details.loan_outstanding_amount,
         purchased_date: this.resource.model.financial_details.purchased_date,
         loan_interest_rate: this.resource.model.financial_details.loan_interest_rate,
-        loan_total_year: this.resource.model.financial_details.loan_total_year
+        loan_total_year: this.resource.model.financial_details.loan_total_year,
+        loan_remaining_year: this.resource.model.financial_details.loan_remaining_year,
       }
     }
   }

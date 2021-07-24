@@ -89,7 +89,7 @@
           </drop-down> -->
           <drop-down>
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <div class="photo">
+              <div class="photo" :title="this.$store.getters['users/model'].full_name">
                 <img src="@/assets/img/anime3.png" alt="Profile Photo" />
               </div>
               <b class="caret d-none d-lg-block d-xl-block"></b>
