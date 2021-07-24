@@ -103,7 +103,7 @@ export default {
           asset_nickname: this.$t('property.assetNickname'),
           asset_ownership_type: this.$t('property.ownershipType'),
           asset_size: this.$t('property.assetSize'),
-          currently_occupied: this.$t('property.currentlyOccupied'),
+          is_occupied: this.$t('property.currentlyOccupied'),
           is_multi_unit: this.$t('property.isMultiUnit'),
           asset_type: this.$t('property.assetType'),
         },
@@ -123,7 +123,7 @@ export default {
           loan_is_active: this.$t('property.loanIsActive'),
           loan_interest_rate: this.$t('property.loanInterestRate'),
           loan_outstanding_amount: this.$t('property.loanOutstandingAmount'),
-          loan_remaining_year: this.$t('property.loanRemainingYear'),
+          // loan_remaining_year: this.$t('property.loanRemainingYear'),
           loan_total_year: this.$t('property.loanTotalYear'),
         }
       },

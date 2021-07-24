@@ -210,6 +210,7 @@ export default {
 
       try {
         await this.$store.dispatch("register", { user, requestOptions }).then(() => {
+          this.resetApiValidation();
           swal({
             title: `Success`,
             text: this.$t('register.verifyEmail') + "\n" + this.$t('register.noVerificationEmail'),

@@ -4,7 +4,7 @@ function verifyErrorFromServer(e) {
     if (e.response.data.message) {
         switch (e.response.data.message) {
             case 'Unauthenticated.':
-            case 'This action is unauthorized.':
+            // case 'This action is unauthorized.':
                 router.push({path: "/login"});
                 return;
             case 'user email not verified.':

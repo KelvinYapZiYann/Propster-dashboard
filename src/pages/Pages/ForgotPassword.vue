@@ -82,7 +82,7 @@ export default {
         router.push({ path: "/login" });
       } catch (e) {
         this.$notify({
-          message: 'Invalid credentials!',
+          message: 'Oops, Something went wrong.',
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

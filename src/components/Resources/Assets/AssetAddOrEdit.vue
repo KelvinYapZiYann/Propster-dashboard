@@ -228,7 +228,7 @@
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.loan_total_year"/> -->
         </div>
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <base-input :label="$t('property.loanRemainingYear')"
                       :placeholder="$t('property.loanRemainingYear')"
                       type="number"
@@ -236,8 +236,7 @@
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.loan_remaining_year ? tmpApiValidationErrors.loan_remaining_year[0] : ''">
           </base-input>
-          <!-- <validation-error :errorsArray="tmpApiValidationErrors.loan_remaining_year"/> -->
-        </div>
+        </div> -->
       </div>
     </card>
     <base-button slot="footer" type="info" @click="handleCancel()" fill>{{$t('component.cancel')}}</base-button>
@@ -310,7 +309,7 @@ export default {
         purchased_date: this.resource.model.financial_details.purchased_date,
         loan_interest_rate: this.resource.model.financial_details.loan_interest_rate,
         loan_total_year: this.resource.model.financial_details.loan_total_year,
-        loan_remaining_year: this.resource.model.financial_details.loan_remaining_year,
+        // loan_remaining_year: this.resource.model.financial_details.loan_remaining_year,
       }
     }
   }

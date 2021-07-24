@@ -122,6 +122,11 @@ export default {
         };
 
         await this.$store.dispatch('selectRole/submit', data)
+        this.$notify({
+          message:'Successfully Updated',
+          icon: 'tim-icons icon-bell-55',
+          type: 'success'
+        });
         router.push({ path: "/dashboard" });
       } catch (e) {
         this.$notify({
