@@ -1,17 +1,6 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <div class="pro-feature alert alert-danger" v-if="$store.getters['users/model'].tier == 'BASIC'">
-        <strong>
-          <!-- {{$t('component.proFeature1')}} 1 {{$t('sidebar.asset')}} {{$t('component.proFeature2')}} {{$t('component.proFeature3')}} 
-          <a
-            href="https://www.propster.io"
-            target="_blank"
-          >PRO</a>
-          {{$t('component.proFeature4')}} {{$t('sidebar.assets')}}! -->
-          {{$t('alert.basicTierAssetCount')}}
-        </strong>
-      </div>
       <card>
         <h4 slot="header" class="card-title text-left">{{$t('sidebar.assets')}}</h4>
         <div class="text-right mb-3">
