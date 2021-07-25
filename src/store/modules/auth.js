@@ -95,7 +95,7 @@ export default {
       return axios
           .post(API_URL + '/password/reset', params, config)
           .then(response => {
-            return response.data;
+            return response;
           });
     },
 

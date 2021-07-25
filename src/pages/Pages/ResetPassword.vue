@@ -82,21 +82,22 @@ export default {
     async resetPassword() {
       try {
         await this.$store.dispatch("resetPassword", {
+            email: router.currentRoute.query.email,
             password: this.model.password,
             password_confirmation: this.model.password_confirmation,
             token: router.currentRoute.params.token
         });
-
         swal({
           title: `Success`,
-          text: $t('resetPassword.resetPasswordSuccessfully'),
+          text: this.$t('resetPassword.resetPasswordSuccessfully'),
           buttonsStyling: false,
           confirmButtonClass: "btn btn-info btn-fill",
           type: "success"
-        }),then(() => {
+        }).then(() => {
             router.push({ path: "/login" });
         });
       } catch (e) {
+        console.log(e);
         this.$notify({
           message: 'Oops, Something went wrong.',
           icon: 'tim-icons icon-bell-55',
