@@ -19,6 +19,7 @@
             @click="addModel"
             class="mt-3"
             type="info"
+            v-if="resource.data.canAdd"
             v-bind:disabled="!resource.data.canAdd"
           >{{$t('component.add')}} {{$t('sidebar.tenants')}}</base-button>
         </div>
