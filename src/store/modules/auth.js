@@ -3,6 +3,8 @@ import router from "@/router";
 import { VueAuthenticate } from "vue-authenticate";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import service from "@/store/services/resources/assets-service";
+import errorHandlingService from "@/store/services/error-handling-service";
 Vue.use(VueAxios, axios);
 const API_URL = process.env.VUE_APP_API_BASE_URL;
 
@@ -72,6 +74,13 @@ export default {
           .post(API_URL + '/password/email', params, config)
           .then(response => {
             return response.data;
+          }).catch((e) => {
+            alert('test')
+            try {
+              errorHandlingService.verifyErrorFromServer(e);
+            } catch(e1) {
+              throw e1;
+            }
           });
     },
 

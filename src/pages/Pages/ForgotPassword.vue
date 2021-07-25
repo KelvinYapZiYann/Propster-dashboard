@@ -69,19 +69,19 @@ export default {
   methods: {
     async forgotPassword() {
       try {
-        await this.$store.dispatch("forgotPassword", {
+        await this.$store.dispatch('forgotPassword', {
           email: this.model.email,
           redirect_url: router.currentRoute.fullPath,
-        });
-
-        swal({
-          title: `Success`,
-          text: $t('forgotPassword.forgotPasswordSuccessfully'),
-          buttonsStyling: false,
-          confirmButtonClass: "btn btn-info btn-fill",
-          type: "success"
         }).then(() => {
-          router.push({ path: "/login" });
+          swal({
+            title: `Success`,
+            text: this.$t('forgotPassword.forgotPasswordSuccessfully'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            type: "success"
+          }).then(() => {
+            router.push({ path: "/login" });
+          });
         });
       } catch (e) {
         this.$notify({
