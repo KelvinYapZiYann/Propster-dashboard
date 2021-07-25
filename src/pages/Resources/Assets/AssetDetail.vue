@@ -156,25 +156,39 @@ export default {
     requestReport(data) {
       const url = process.env.VUE_APP_API_BASE_URL;
       let fileName = data.report_type + '-' + data.start_date + '-' + data.end_date + '.csv';
-      axios({
-        url: `${url}/assets/reports/generate-report`,
-        method: 'GET',
-        responseType: 'blob',
-        params: {
-          'report_type': data.report_type,
-          'start_date': data.start_date,
-          'end_date': data.end_date
-        }
-      }).then((response) => {
-        let fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        let fileLink = document.createElement('a');
+      try {
+        axios({
+          url: `${url}/assets/reports/generate-report`,
+          method: 'GET',
+          responseType: 'blob',
+          params: {
+            'report_type': data.report_type,
+            'start_date': data.start_date,
+            'end_date': data.end_date
+          }
+        }).then((response) => {
+          let fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          let fileLink = document.createElement('a');
 
-        fileLink.href = fileURL;
-        fileLink.setAttribute('download', fileName);
-        document.body.appendChild(fileLink);
+          fileLink.href = fileURL;
+          fileLink.setAttribute('download', fileName);
+          document.body.appendChild(fileLink);
 
-        fileLink.click();
-      });
+          fileLink.click();
+        }).catch((e) => {
+          this.$notify({
+            message:'Server error',
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+        });
+      } catch (e) {
+        this.$notify({
+          message:'Server error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      }
     },
     async getResource() {
       try {

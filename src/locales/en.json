@@ -145,6 +145,7 @@
     "dueAmount": "Due Amount",
     "residingIn": "Residing In",
 
+    "dateRange": "Date Range",
     "startDate": "Start Date",
     "endDate": "End Date",
 
@@ -182,8 +183,9 @@
     "tenureContractDetails": "Tenure Contract Details",
     "contractName": "Contract Name",
     "monthlyRentalAmount": "Monthly Rental Amount (RM)",
-    "tenureStartDate": "Tenure Start Date",
-    "tenureEndDate": "Tenure End Date",
+    "tenureDateRange": "Tenure Date Range",
+    "tenureStartDate": "Start Date",
+    "tenureEndDate": "End Date",
     "billingRecordDetails": "Billing Record Details",
     "paymentRecordDetails": "Payment Record Details",
     "assetExpenseDetails": "Asset Expense Details",

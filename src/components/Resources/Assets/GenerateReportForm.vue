@@ -14,7 +14,7 @@
         </div>
       </div>
     <div class="row">
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <base-input :label="$t('property.startDate')"
                     :error="tmpApiValidationErrors.start_date ? tmpApiValidationErrors.start_date[0] : ''">
               <el-date-picker
@@ -25,7 +25,6 @@
               >
               </el-date-picker>
         </base-input>
-        <!-- <validation-error :errorsArray="tmpApiValidationErrors.start_date"/> -->
       </div>
       <div class="col-md-6">
         <base-input :label="$t('property.endDate')"
@@ -38,7 +37,20 @@
               >
               </el-date-picker>
         </base-input>
-        <!-- <validation-error :errorsArray="tmpApiValidationErrors.end_date"/> -->
+      </div> -->
+      <div class="col-md-12">
+        <base-input :label="$t('property.dateRange')"
+                    :error="tmpApiValidationErrors.start_date ? (tmpApiValidationErrors.end_date ? tmpApiValidationErrors.start_date[0] + ' ' + tmpApiValidationErrors.end_date[0] : tmpApiValidationErrors.start_date[0]) : (tmpApiValidationErrors.end_date ? tmpApiValidationErrors.end_date[0] : '')">
+              <el-date-picker
+                type="daterange"
+                v-model="dateRange"
+                value-format="yyyy-MM-dd"
+                range-separator="-"
+                :start-placeholder="$t('property.startDate')"
+                :end-placeholder="$t('property.endDate')"
+              >
+              </el-date-picker>
+        </base-input>
       </div>
     </div>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Generate Report</base-button>
@@ -66,6 +78,7 @@ export default {
       reportTypes: [
         { "id": "CASHFLOW_STATEMENT", "name": "Cashflow Statement" },
       ],
+      dateRange: []
     }
   },
   props: {
@@ -84,16 +97,18 @@ export default {
     translateModel() {
       return {
         report_type: this.model.report_type,
-        start_date: this.model.start_date,
-        end_date: this.model.end_date
+        start_date: this.dateRange.length == 2 ? this.dateRange[0] : '',
+        end_date: this.dateRange.length == 2 ? this.dateRange[1] : ''
       }
     }
   }
 }
 </script>
 <style>
-.has-danger .el-date-editor .el-input__inner {
+.has-danger .el-date-editor {
   border-color: #ec250d;
+}
+.has-danger .el-date-editor .el-range-input {
   color: #ec250d;
 }
 </style>

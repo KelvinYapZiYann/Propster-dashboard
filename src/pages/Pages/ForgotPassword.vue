@@ -71,7 +71,7 @@ export default {
       try {
         await this.$store.dispatch('forgotPassword', {
           email: this.model.email,
-          redirect_url: router.currentRoute.fullPath,
+          // redirect_url: router.currentRoute.fullPath,
         }).then(() => {
           swal({
             title: `Success`,

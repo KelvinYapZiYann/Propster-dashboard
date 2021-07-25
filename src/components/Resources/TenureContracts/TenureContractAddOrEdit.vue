@@ -81,7 +81,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <base-input :label="$t('property.tenureStartDate')"
                       :error="tmpApiValidationErrors.tenure_start_date ? tmpApiValidationErrors.tenure_start_date[0] : ''">
                 <el-date-picker
@@ -92,7 +92,6 @@
                 >
                 </el-date-picker>
           </base-input>
-          <!-- <validation-error :errorsArray="tmpApiValidationErrors.tenure_start_date"/> -->
         </div>
         <div class="col-md-6 pr-md-1">
           <base-input :label="$t('property.tenureEndDate')"
@@ -105,7 +104,20 @@
                 >
                 </el-date-picker>
           </base-input>
-          <!-- <validation-error :errorsArray="tmpApiValidationErrors.tenure_end_date"/> -->
+        </div> -->
+        <div class="col-md-12">
+          <base-input :label="$t('property.tenureDateRange')"
+                      :error="tmpApiValidationErrors.tenure_start_date ? (tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_start_date[0] + ' ' + tmpApiValidationErrors.tenure_end_date[0] : tmpApiValidationErrors.tenure_start_date[0]) : (tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_end_date[0] : '')">
+                <el-date-picker
+                  type="daterange"
+                  v-model="tenureDateRange"
+                  value-format="yyyy-MM-dd"
+                  range-separator="-"
+                  :start-placeholder="$t('property.tenureStartDate')"
+                  :end-placeholder="$t('property.tenureEndDate')"
+                >
+                </el-date-picker>
+          </base-input>
         </div>
       </div>
     </card>
@@ -153,6 +165,7 @@ export default {
         addRemoveLinks: true,
         maxFiles: 1
       },
+      tenureDateRange: []
     }
   },
   props: {
@@ -182,6 +195,7 @@ export default {
   created() {
     this.assetId = this.$route.query.assetId;
     this.tenantId = this.$route.query.tenantId;
+    // this.tenure_start_date = this.resource.model.tenure_start_date + ', ' + this.resource.model.tenure_end_date;
   },
   methods: {
     async handleSubmit() {
@@ -210,16 +224,16 @@ export default {
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
-          tenure_start_date: this.resource.model.tenure_start_date,
-          tenure_end_date: this.resource.model.tenure_end_date
+          tenure_start_date: this.tenureDateRange.length == 2 ? this.tenureDateRange[0] : '',
+          tenure_end_date: this.tenureDateRange.length == 2 ? this.tenureDateRange[1] : ''
         }
       } else {
         return {
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
-          tenure_start_date: this.resource.model.tenure_start_date,
-          tenure_end_date: this.resource.model.tenure_end_date
+          tenure_start_date: this.tenureDateRange.length == 2 ? this.tenureDateRange[0] : '',
+          tenure_end_date: this.tenureDateRange.length == 2 ? this.tenureDateRange[1] : ''
         }
       }
     },
@@ -258,8 +272,10 @@ export default {
 }
 </script>
 <style>
-.has-danger .el-date-editor .el-input__inner {
+.has-danger .el-date-editor {
   border-color: #ec250d;
+}
+.has-danger .el-date-editor .el-range-input {
   color: #ec250d;
 }
 </style>
