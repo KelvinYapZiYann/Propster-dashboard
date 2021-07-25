@@ -199,10 +199,16 @@
       <div class="row">
         <div class="col-md-6">
           <base-input :label="$t('property.purchasedDate')"
-                      type="date"
-                      v-model="resource.model.financial_details.purchased_date"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.purchased_date ? tmpApiValidationErrors.purchased_date[0] : ''">
+                      <!-- type="date"
+                      v-model="resource.model.financial_details.purchased_date" -->
+              <el-date-picker
+                type="date"
+                :placeholder="$t('property.purchasedDate')"
+                v-model="resource.model.financial_details.purchased_date"
+              >
+              </el-date-picker>
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.purchased_date"/> -->
         </div>
@@ -315,3 +321,9 @@ export default {
   }
 }
 </script>
+<style>
+.has-danger .el-date-editor .el-input__inner {
+  border-color: #ec250d;
+  color: #ec250d;
+}
+</style>

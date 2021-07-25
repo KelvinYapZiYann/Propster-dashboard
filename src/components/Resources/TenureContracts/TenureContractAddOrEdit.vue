@@ -83,17 +83,25 @@
       <div class="row">
         <div class="col-md-6">
           <base-input :label="$t('property.tenureStartDate')"
-                      type="date"
-                      v-model="resource.model.tenure_start_date"
                       :error="tmpApiValidationErrors.tenure_start_date ? tmpApiValidationErrors.tenure_start_date[0] : ''">
+                <el-date-picker
+                  type="date"
+                  :placeholder="$t('property.tenureStartDate')"
+                  v-model="resource.model.tenure_start_date"
+                >
+                </el-date-picker>
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.tenure_start_date"/> -->
         </div>
         <div class="col-md-6 pr-md-1">
           <base-input :label="$t('property.tenureEndDate')"
-                      type="date"
-                      v-model="resource.model.tenure_end_date"
                       :error="tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_end_date[0] : ''">
+                <el-date-picker
+                  type="date"
+                  :placeholder="$t('property.tenureEndDate')"
+                  v-model="resource.model.tenure_end_date"
+                >
+                </el-date-picker>
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.tenure_end_date"/> -->
         </div>
@@ -248,4 +256,8 @@ export default {
 }
 </script>
 <style>
+.has-danger .el-date-editor .el-input__inner {
+  border-color: #ec250d;
+  color: #ec250d;
+}
 </style>

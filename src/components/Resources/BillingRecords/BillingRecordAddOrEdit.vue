@@ -76,9 +76,13 @@
         </div>
         <div class="col-md-6">
           <base-input :label="$t('property.billingStartDate')"
-                      type="date"
-                      v-model="resource.model.billing_start_at"
                       :error="tmpApiValidationErrors.billing_start_at ? tmpApiValidationErrors.billing_start_at[0] : ''">
+                <el-date-picker
+                  type="date"
+                  :placeholder="$t('property.billingStartDate')"
+                  v-model="resource.model.billing_start_at"
+                >
+                </el-date-picker>
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.billing_start_at"/> -->
         </div>
@@ -213,4 +217,8 @@ export default {
 }
 </script>
 <style>
+.has-danger .el-date-editor .el-input__inner {
+  border-color: #ec250d;
+  color: #ec250d;
+}
 </style>

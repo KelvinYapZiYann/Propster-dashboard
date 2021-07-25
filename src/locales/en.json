@@ -145,6 +145,9 @@
     "dueAmount": "Due Amount",
     "residingIn": "Residing In",
 
+    "startDate": "Start Date",
+    "endDate": "End Date",
+
     "assetDetails": "Asset Details",
     "locationDetails": "Location Details",
     "financialDetails": "Financial Details",
