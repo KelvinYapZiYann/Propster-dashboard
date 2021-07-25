@@ -60,7 +60,7 @@ export default {
       });
     },
 
-    forgotPassword(context, email) {
+    forgotPassword(context, params) {
       const config = {
         headers: {
           'Accept': 'application/json',
@@ -69,9 +69,7 @@ export default {
       };
 
       return axios
-          .post(API_URL + '/password/email', {
-            email: email,
-          }, config)
+          .post(API_URL + '/password/email', params, config)
           .then(response => {
             return response.data;
           });

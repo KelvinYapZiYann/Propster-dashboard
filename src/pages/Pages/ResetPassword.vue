@@ -15,6 +15,7 @@
                 v-validate="'required|min:5'"
                 name="password"
                 v-model="model.password"
+                type="password"
                 :placeholder="$t('resetPassword.password')"
                 addon-left-icon="tim-icons icon-lock-circle"
                 :error="apiValidationErrors.password ? apiValidationErrors.password[0] : ''"
@@ -24,6 +25,7 @@
                 v-validate="'required|min:5'"
                 name="password"
                 v-model="model.password_confirmation"
+                type="password"
                 :placeholder="$t('resetPassword.confirmPassword')"
                 addon-left-icon="tim-icons icon-lock-circle"
                 :error="apiValidationErrors.password_confirmation ? apiValidationErrors.password_confirmation[0] : ''"
@@ -82,7 +84,7 @@ export default {
         await this.$store.dispatch("resetPassword", {
             password: this.model.email,
             password_confirmation: this.model.password_confirmation,
-            signUrl: router.currentRoute.params.signUrl
+            token: router.currentRoute.params.token
         });
 
         swal({

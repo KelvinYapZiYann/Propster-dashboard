@@ -320,7 +320,7 @@ let authPages = {
       component: ForgotPassword
     },
     {
-      path: "dashboard/password/reset/:signUrl",
+      path: "dashboard/password/reset/:token",
       name: "Reset Password",
       component: ResetPassword
     },

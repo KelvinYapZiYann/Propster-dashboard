@@ -69,7 +69,10 @@ export default {
   methods: {
     async forgotPassword() {
       try {
-        await this.$store.dispatch("forgotPassword", this.model.email)
+        await this.$store.dispatch("forgotPassword", {
+          email: this.model.email,
+          redirect_url: router.currentRoute.fullPath,
+        });
 
         swal({
           title: `Success`,
