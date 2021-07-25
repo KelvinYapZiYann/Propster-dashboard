@@ -33,7 +33,12 @@ export default {
           description: this.$t('property.description'),
           amount: this.$t('property.amount'),
           payment_type: this.$t('property.paymentType'),
-          status: this.$t('property.status'),
+          billing_start_at: this.$t('property.billingStartDate'),
+          billing_end_at: this.$t('property.billingEndDate'),
+          end_of_month_billing: this.$t('property.endOfMonthBilling'),
+          grace_priod_in_days: this.$t('property.gracePeriod'),
+          remind_before_days: this.$t('property.remindBefore'),
+          // status: this.$t('property.status'),
         },
       },
     };
@@ -57,6 +62,7 @@ export default {
         this.resource.data = await this.$store.getters["billingRecords/data"]
         this.loadAttachment();
       } catch (e) {
+        console.log(e);
         this.$notify({
           message: 'Server error',
           icon: 'tim-icons icon-bell-55',
@@ -65,6 +71,9 @@ export default {
       }
     },
     loadAttachment() {
+      if (!this.resource.model.media) {
+        return;
+      }
       if (this.resource.model.media.length > 0) {
         this.showMedia = true;
         let fileData = this.resource.model.media[0].temporary_url;

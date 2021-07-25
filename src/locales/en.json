@@ -129,7 +129,7 @@
     "entries": "Entries",
     
     "generateReport": "Generate Report",
-    "tenantBilling": "Bill this Tenant",
+    "tenantBilling": "Bill this Tenant on rental",
     "tenantPayment": "Record Payment from this Tenant"
   },
   "property": {
@@ -201,8 +201,13 @@
     "isSeen": "Is Seen?",
     "isReferenceOnly": "Is Reference Only?",
     "frequencyType": "Frequency Type",
-    "billingStartDate": "Billing Start Date",
+    "billingDateRange": "Billing Date Range",
+    "billingStartDate": "Start Date",
+    "billingEndDate": "End Date",
     "gracePeriod": "Grace Period (Days)",
-    "remindBefore": "Remind Before (Days)"
+    "remindBefore": "Remind Before (Days)",
+    "endOfMonthBilling": "Bill At End Of Month?",
+    "endOfMonthBillingTrue": "End Of Month",
+    "endOfMonthBillingFalse": "At The Date Of First Billing"
   }
 }

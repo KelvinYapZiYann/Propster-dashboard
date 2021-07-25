@@ -51,31 +51,36 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_method"/> -->
         </div>
         <div class="col-md-6">
-          <base-selector-input :label="$t('property.paymentType')"
+          <!-- <base-selector-input :label="$t('property.paymentType')"
                                :placeholder="$t('property.paymentType')"
                                v-model="resource.model.payment_type"
                                :initialValue="resource.model.payment_type"
                                :options="resource.selector.payment_type"
                                :error="tmpApiValidationErrors.payment_type ? tmpApiValidationErrors.payment_type[0] : ''"
           >
-          </base-selector-input>
+          </base-selector-input> -->
+          <base-input :label="$t('property.paymentType')"
+                      value="Rental"
+                      :disabled="true"
+                      :error="tmpApiValidationErrors.asset ? tmpApiValidationErrors.asset[0] : ''">
+          </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_type"/> -->
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
-          <base-selector-input :label="$t('property.frequencyType')"
+        <!-- <div class="col-md-6"> -->
+          <!-- <base-selector-input :label="$t('property.frequencyType')"
                                :placeholder="$t('property.frequencyType')"
                                v-model="resource.model.frequency_type"
                                :initialValue="resource.model.frequency_type"
                                :options="resource.selector.frequency_type"
                                :error="tmpApiValidationErrors.frequency_type ? tmpApiValidationErrors.frequency_type[0] : ''"
           >
-          </base-selector-input>
+          </base-selector-input> -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.frequency_type"/> -->
-        </div>
-        <div class="col-md-6">
-          <base-input :label="$t('property.billingStartDate')"
+        <!-- </div> -->
+        <!-- <div class="col-md-6"> -->
+          <!-- <base-input :label="$t('property.billingStartDate')"
                       :error="tmpApiValidationErrors.billing_start_at ? tmpApiValidationErrors.billing_start_at[0] : ''">
                 <el-date-picker
                   type="date"
@@ -84,8 +89,32 @@
                   value-format="yyyy-MM-dd"
                 >
                 </el-date-picker>
-          </base-input>
+          </base-input> -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.billing_start_at"/> -->
+        <!-- </div> -->
+        <div class="col-md-6">
+          <base-input :label="$t('property.billingDateRange')"
+                      :error="tmpApiValidationErrors.billing_start_at ? (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_start_at[0] + ' ' + tmpApiValidationErrors.billing_end_at[0] : tmpApiValidationErrors.billing_start_at[0]) : (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_end_at[0] : '')">
+                <el-date-picker
+                  type="daterange"
+                  v-model="billingDateRange"
+                  value-format="yyyy-MM-dd"
+                  range-separator="-"
+                  :start-placeholder="$t('property.billingStartDate')"
+                  :end-placeholder="$t('property.billingEndDate')"
+                >
+                </el-date-picker>
+          </base-input>
+        </div>
+        <div class="col-md-6">
+          <base-selector-input :label="$t('property.endOfMonthBilling')"
+                               :placeholder="$t('property.endOfMonthBilling')"
+                               v-model="endOfMonthBilling"
+                               :options="endOfMonthBillingOptions"
+                               value="1"
+                               :error="tmpApiValidationErrors.end_of_month_billing ? tmpApiValidationErrors.end_of_month_billing[0] : ''"
+          >
+          </base-selector-input>
         </div>
       </div>
       <div class="row">
@@ -125,6 +154,13 @@ export default {
     BaseInput,
     BaseSelectorInput,
     Card
+  },
+  data() {
+    return {
+      billingDateRange: [],
+      endOfMonthBilling: {},
+      endOfMonthBillingOptions: [{'id': '1', 'name': this.$t('property.endOfMonthBillingTrue')}, {'id': '0', 'name': this.$t('property.endOfMonthBillingFalse')}]
+    }
   },
   props: {
     resource: {
@@ -167,6 +203,9 @@ export default {
     // console.log(this.resource.data);
     // console.log(this.resource.selector);
   },
+  created() {
+    this.endOfMonthBilling = "1";
+  },
   methods: {
     async handleBack() {
       if (this.previousRoute) {
@@ -195,7 +234,6 @@ export default {
       this.$emit('submit', formData)
     },
     translateModel() {
-      console.log(this.resource);
       return {
         // recipient_type: this.resource.model.recipient.recipient_type,
         recipient_type: "LANDLORD",
@@ -206,20 +244,27 @@ export default {
         asset_id: this.resource.model.asset.id,
         description: this.resource.model.description,
         payment_method: this.resource.model.payment_method,
-        payment_type: this.resource.model.payment_type,
+        // payment_type: this.resource.model.payment_type,
+        payment_type: "RENTAL",
         amount: this.resource.model.amount,
-        frequency_type: this.resource.model.frequency_type,
-        billing_start_at: this.resource.model.billing_start_at,
+        // frequency_type: this.resource.model.frequency_type,
+        frequency_type: "MONTH",
+        frequency: 1,
+        billing_start_at: this.billingDateRange.length == 2 ? this.billingDateRange[0] : '',
+        billing_end_at: this.billingDateRange.length == 2 ? this.billingDateRange[1] : '',
         grace_period_in_days: this.resource.model.grace_period_in_days,
         remind_before_days: this.resource.model.remind_before_days,
+        end_of_month_billing: this.endOfMonthBilling,
       }
     }
   }
 }
 </script>
 <style>
-.has-danger .el-date-editor .el-input__inner {
+.has-danger .el-date-editor {
   border-color: #ec250d;
+}
+.has-danger .el-date-editor .el-range-input {
   color: #ec250d;
 }
 </style>

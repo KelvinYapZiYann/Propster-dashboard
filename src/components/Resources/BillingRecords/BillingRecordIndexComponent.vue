@@ -77,7 +77,7 @@ export default {
           asset_nickname: this.$t('property.assetNickname'),
           description: this.$t('property.description'),
           amount: this.$t('property.amount'),
-          payment_method: this.$t('property.paymentMethod')
+          payment_type: this.$t('property.paymentType')
         },
       },
       searchQuery: "",
@@ -124,7 +124,7 @@ export default {
       router.push({
         name: "Billing Record Detail",
         params: {
-          paymentRecordsId: id,
+          billingRecordsId: id,
           previousRoute: this.$router.currentRoute.fullPath
         }
       });
