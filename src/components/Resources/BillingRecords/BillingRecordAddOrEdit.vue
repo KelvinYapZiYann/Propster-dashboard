@@ -81,6 +81,7 @@
                   type="date"
                   :placeholder="$t('property.billingStartDate')"
                   v-model="resource.model.billing_start_at"
+                  value-format="yyyy-MM-dd"
                 >
                 </el-date-picker>
           </base-input>

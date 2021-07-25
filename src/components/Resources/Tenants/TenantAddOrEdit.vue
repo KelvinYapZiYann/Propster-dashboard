@@ -103,6 +103,7 @@
                   type="date"
                   :placeholder="$t('property.dateOfBirth')"
                   v-model="resource.model.date_of_birth"
+                  value-format="yyyy-MM-dd"
                 >
                 </el-date-picker>
           </base-input>
@@ -197,6 +198,7 @@ export default {
       this.$emit('cancel')
     },
     translateModel() {
+      console.log(this.resource.model.date_of_birth);
       return {
         asset_id: this.addOrEdit != 'Add' ? (this.resource.model.assets ? (this.resource.model.assets[0] ? this.resource.model.assets[0].id : null) : null) : 
           (this.assetId ? this.assetId : null),

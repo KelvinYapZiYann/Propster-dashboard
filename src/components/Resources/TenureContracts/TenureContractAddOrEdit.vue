@@ -88,6 +88,7 @@
                   type="date"
                   :placeholder="$t('property.tenureStartDate')"
                   v-model="resource.model.tenure_start_date"
+                  value-format="yyyy-MM-dd"
                 >
                 </el-date-picker>
           </base-input>
@@ -100,6 +101,7 @@
                   type="date"
                   :placeholder="$t('property.tenureEndDate')"
                   v-model="resource.model.tenure_end_date"
+                  value-format="yyyy-MM-dd"
                 >
                 </el-date-picker>
           </base-input>

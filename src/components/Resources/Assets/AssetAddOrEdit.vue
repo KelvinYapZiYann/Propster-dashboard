@@ -207,6 +207,7 @@
                 type="date"
                 :placeholder="$t('property.purchasedDate')"
                 v-model="resource.model.financial_details.purchased_date"
+                value-format="yyyy-MM-dd"
               >
               </el-date-picker>
           </base-input>

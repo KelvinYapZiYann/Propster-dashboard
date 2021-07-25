@@ -65,6 +65,7 @@
                 type="date"
                 :placeholder="$t('property.dateOfBirth')"
                 v-model="model.date_of_birth"
+                value-format="yyyy-MM-dd"
               >
               </el-date-picker>
         </base-input>

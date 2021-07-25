@@ -21,6 +21,7 @@
                 type="date"
                 :placeholder="$t('property.startDate')"
                 v-model="model.start_date"
+                value-format="yyyy-MM-dd"
               >
               </el-date-picker>
         </base-input>
@@ -33,6 +34,7 @@
                 type="date"
                 :placeholder="$t('property.endDate')"
                 v-model="model.end_date"
+                value-format="yyyy-MM-dd"
               >
               </el-date-picker>
         </base-input>
