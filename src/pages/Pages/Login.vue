@@ -167,6 +167,15 @@ export default {
         }
         return;
       }
+      // try {
+      //   await this.$store.dispatch('users/get', {});
+      // } catch(e) {
+      //   this.$notify({
+      //     message: 'Server error',
+      //     icon: 'tim-icons icon-bell-55',
+      //     type: 'danger'
+      //   });
+      // }
       router.push({
         name: 'Dashboard',
         params: {
