@@ -111,6 +111,10 @@ const BillingRecords = () => import("@/pages/Resources/BillingRecords/BillingRec
 const BillingRecordsDetail = () => import("@/pages/Resources/BillingRecords/BillingRecordsDetail");
 const BillingRecordsAdd = () => import("@/pages/Resources/BillingRecords/BillingRecordsAdd");
 
+const BillingPayments = () => import("@/pages/Resources/BillingPayments/BillingPayments");
+// const BillingPaymentsDetail = () => import("@/pages/Resources/BillingPayments/BillingPaymentsDetail");
+// const BillingPaymentsAdd = () => import("@/pages/Resources/BillingPayments/BillingPaymentsAdd");
+
 let resources = {
   path: "/",
   component: DashboardLayout,
@@ -277,7 +281,31 @@ let resources = {
       props: {
         default: true
       }
-    }
+    },
+    {
+      path: "billing-payments",
+      name: "Billing Payments",
+      components: { default: BillingPayments },
+      meta: { middleware: auth }
+    },
+    // {
+    //   path: "billing-payments/add",
+    //   name: "Add Billing Payment",
+    //   components: { default: BillingPaymentsAdd },
+    //   meta: { middleware: auth },
+    //   props: {
+    //     default: true
+    //   }
+    // },
+    // {
+    //   path: "billing-payments/:billingPaymentsId",
+    //   name: "Billing Payment Detail",
+    //   components: { default: BillingPaymentsDetail },
+    //   meta: { middleware: auth },
+    //   props: {
+    //     default: true
+    //   }
+    // }
   ]
 };
 
