@@ -82,7 +82,7 @@ export default {
     async resetPassword() {
       try {
         await this.$store.dispatch("resetPassword", {
-            password: this.model.email,
+            password: this.model.password,
             password_confirmation: this.model.password_confirmation,
             token: router.currentRoute.params.token
         });
