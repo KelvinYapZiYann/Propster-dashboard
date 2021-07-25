@@ -190,6 +190,14 @@ export default {
       }
     };
   },
+  // props: {
+    // fromLogin: {
+    //   type: Boolean,
+    //   required: false,
+    //   default: false,
+    //   description: "From Login"
+    // }
+  // },
   computed: {
     // enableRTL() {
     //   return this.$route.query.enableRTL;
@@ -212,6 +220,9 @@ export default {
   methods: {
     async getResource() {
       try {
+        if (this.$route.params.fromLogin) {
+          await this.$store.dispatch('users/get', {});
+        }
         await this.$store.dispatch('dashboard/getGeneralDetail', {}).then(() => {
           this.resource.general = this.$store.getters["dashboard/general"]
         });
@@ -222,7 +233,6 @@ export default {
           this.resource.overdueTenantList.models = this.$store.getters["dashboard/overdueTenantList"]
         });
       } catch (e) {
-        console.log(e);
         this.$notify({
           message:'Server error',
           icon: 'tim-icons icon-bell-55',

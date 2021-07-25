@@ -28,6 +28,7 @@
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
+            :disableDelete="true"
           >
           </base-table>
           <div

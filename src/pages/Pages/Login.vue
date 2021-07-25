@@ -69,7 +69,7 @@ import {Card, BaseInput} from "@/components/index";
 import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
 import errorHandlingService from "@/store/services/error-handling-service";
-// import router from "@/router";
+import router from "@/router";
 import swal from "sweetalert2";
 import axios from "axios";
 
@@ -153,7 +153,6 @@ export default {
                 });
               }
             });
-            // router.push({ path: "/login" });
             return;
           }
         }
@@ -168,8 +167,21 @@ export default {
         }
         return;
       }
-
-      this.$router.push({path: "/dashboard"});
+      // try {
+      //   await this.$store.dispatch('users/get', {});
+      // } catch(e) {
+      //   this.$notify({
+      //     message: 'Server error',
+      //     icon: 'tim-icons icon-bell-55',
+      //     type: 'danger'
+      //   });
+      // }
+      router.push({
+        name: 'Dashboard',
+        params: {
+          fromLogin: true
+        }
+      });
     }
   }
 };
