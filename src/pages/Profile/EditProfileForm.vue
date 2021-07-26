@@ -39,7 +39,30 @@
                     v-model="model.phone_number">
         </base-input> -->
         <label class="mt-1">{{$t('property.phoneNumber')}}</label>
-        <VuePhoneNumberInput 
+        <div class="row">
+          <div class="col-2">
+            <vue-country-code
+                  @onSelect="onSelectCountryCode"
+                  :only-countries="['MY']"
+                  class="pt-1 pb-1"
+                  disabled="true"
+                  >
+            </vue-country-code>
+            <validation-error :errorsArray="tmpApiValidationErrors.phone_country_code" />
+          </div>
+          <div class="col-9 ml-auto">
+            <base-input
+                v-model="model.phone_number"
+                :placeholder="$t('property.phoneNumber')"
+                type="tel"
+                pattern="^[0-9]+$"
+                disabled="true"
+                :error="tmpApiValidationErrors.phone_number ? tmpApiValidationErrors.phone_number[0] : ''">
+            </base-input>
+            <!-- <validation-error :errorsArray="apiValidationErrors.phone_number" /> -->
+          </div>
+        </div>
+        <!-- <VuePhoneNumberInput 
           v-model="model.phone_number"
           :default-country-code="phoneCountryCodeInput"
           @update="updatePhoneNumber"
@@ -50,7 +73,7 @@
           :show-code-on-list="true"
           :only-countries="['MY']"
           :disabled="true"
-          />
+          /> -->
         <validation-error :errorsArray="tmpApiValidationErrors.phone_number"/>
       </div>
     </div>
@@ -105,8 +128,9 @@ import { Card, BaseInput, BaseSelectorInput } from "@/components/index";
 import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
 import BaseButton from "@/components/BaseButton";
-import VuePhoneNumberInput from 'vue-phone-number-input';
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+// import VuePhoneNumberInput from 'vue-phone-number-input';
+// import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import VueCountryCode from "vue-country-code";
 
 export default {
   mixins: [formMixin],
@@ -116,7 +140,8 @@ export default {
     BaseSelectorInput,
     BaseButton,
     ValidationError,
-    VuePhoneNumberInput
+    // VuePhoneNumberInput
+    VueCountryCode
   },
   props: {
     model: {
@@ -147,8 +172,11 @@ export default {
   },
   data() {
     return {
-      phoneCountryCodeInput: "MY",
+      phone_country_code: null,
     }
+  },
+  mounted() {
+    this.phone_country_code = "60";
   },
   methods: {
     async handleSubmit() {
@@ -191,8 +219,8 @@ export default {
       //   this.setApiValidation(e.response.data.errors)
       // }
     },
-    updatePhoneNumber(event) {
-      this.model.phone_country_code = event.countryCallingCode;
+    onSelectCountryCode(params) {
+      this.phone_country_code = params.dialCode;
     }
   }
 };

@@ -65,7 +65,28 @@
         </div>
         <div class="col-md-6">
           <label class="mt-1">{{$t('property.phoneNumber')}}</label>
-          <VuePhoneNumberInput 
+            <div class="row">
+              <div class="col-2">
+                <vue-country-code
+                      @onSelect="onSelectCountryCode"
+                      :only-countries="['MY']"
+                      class="pt-1 pb-1"
+                      >
+                </vue-country-code>
+                <validation-error :errorsArray="tmpApiValidationErrors.phone_country_code" />
+              </div>
+              <div class="col-9 ml-auto">
+                <base-input
+                    v-model="resource.model.phone_number"
+                    :placeholder="$t('property.phoneNumber')"
+                    type="tel"
+                    pattern="^[0-9]+$"
+                    :error="tmpApiValidationErrors.phone_number ? tmpApiValidationErrors.phone_number[0] : ''">
+                </base-input>
+                <!-- <validation-error :errorsArray="apiValidationErrors.phone_number" /> -->
+              </div>
+            </div>
+          <!-- <VuePhoneNumberInput 
                       v-model="resource.model.phone_number" 
                       :default-country-code="phoneCountryCodeInput"
                       @update="updatePhoneNumber"
@@ -75,12 +96,12 @@
                       error-color="#1d8cf8"
                       :show-code-on-list="true"
                       :only-countries="['MY']"
-                      />
+                      /> -->
           <!-- <base-input label="Phone Number"
                       placeholder="Phone Number"
                       v-model="resource.model.phone_number">
           </base-input> -->
-          <validation-error :errorsArray="tmpApiValidationErrors.phone_number"/>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.phone_number"/> -->
         </div>
       </div>
       <div class="row">
@@ -148,8 +169,9 @@
 <script>
 import formMixin from "@/mixins/form-mixin";
 import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/components";
-import VuePhoneNumberInput from 'vue-phone-number-input';
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+// import VuePhoneNumberInput from 'vue-phone-number-input';
+// import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import VueCountryCode from "vue-country-code";
 
 export default {
   mixins: [formMixin],
@@ -158,16 +180,14 @@ export default {
     BaseInput,
     BaseSelectorInput,
     Card,
-    VuePhoneNumberInput
+    // VuePhoneNumberInput
+    VueCountryCode
   },
   data() {
     return {
       fileCount: 0,
       assetId: null,
-      // phoneCountryCode: this.resource.model.phone_country_code,
-      phoneCountryCodeInput: "MY",
-      // phoneNumber: this.resource.model.phone_number,
-      // phoneNumber: this.resource.model.phone_number
+      phone_country_code: null,
     }
   },
   props: {
@@ -198,8 +218,7 @@ export default {
     this.assetId = this.$route.query.assetId;
   },
   mounted() {
-    this.phoneCountryCodeInput = "MY";
-    // this.resource = "SG";
+    this.phone_country_code = "60";
   },
   methods: {
     async handleSubmit() {
@@ -217,7 +236,7 @@ export default {
         last_name: this.resource.model.last_name,
         email: this.resource.model.email,
         phone_number: this.resource.model.phone_number,
-        phone_country_code: this.resource.model.phone_country_code,
+        phone_country_code: this.phone_country_code,
         gender: this.resource.model.gender,
         is_business: this.resource.model.is_business == null ? false : this.resource.model.is_business,
         date_of_birth: this.resource.model.date_of_birth,
@@ -225,8 +244,8 @@ export default {
         salary_range: this.resource.model.salary_range
       }
     },
-    updatePhoneNumber(event) {
-      this.resource.model.phone_country_code = event.countryCallingCode;
+    onSelectCountryCode(params) {
+      this.phone_country_code = params.dialCode;
     }
   }
 }

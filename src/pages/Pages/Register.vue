@@ -41,7 +41,30 @@
               <h4 class="card-title text-center text-primary">PROPSTER.IO</h4>
             </template>
 
-            <VuePhoneNumberInput 
+            <div class="row">
+              <div class="col-2">
+                <vue-country-code
+                      @onSelect="onSelectCountryCode"
+                      :only-countries="['MY']"
+                      class="pt-1 pb-1"
+                      >
+                </vue-country-code>
+                <validation-error :errorsArray="apiValidationErrors.phone_country_code" />
+              </div>
+              <div class="col-9 ml-auto">
+                <base-input
+                    v-model="phone_number"
+                    :placeholder="$t('register.phoneNumber')"
+                    addon-left-icon="tim-icons icon-mobile"
+                    type="tel"
+                    pattern="^[0-9]+$"
+                    :error="apiValidationErrors.phone_number ? apiValidationErrors.phone_number[0] : ''">
+                </base-input>
+                <!-- <validation-error :errorsArray="apiValidationErrors.phone_number" /> -->
+              </div>
+            </div>
+
+            <!-- <VuePhoneNumberInput 
                       v-model="phone_number" 
                       :default-country-code="phoneCountryCodeInput"
                       @update="updatePhoneNumber"
@@ -52,7 +75,7 @@
                       :show-code-on-list="true"
                       :only-countries="['MY']"
                       class="pb-2"
-                      />
+                      /> -->
             <!-- <base-input
                 v-model="mobile_number"
                 placeholder="Mobile Number"
@@ -61,33 +84,45 @@
             </base-input> -->
             <validation-error :errorsArray="apiValidationErrors.mobile_number" />
 
-            <base-input
-                v-model="email"
-                :placeholder="$t('register.email')"
-                addon-left-icon="tim-icons icon-email-85"
-                type="email"
-                :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''">
-            </base-input>
-            <!-- <validation-error :errorsArray="apiValidationErrors.email" /> -->
+            <div class="row">
+              <div class="col-12">
+                <base-input
+                    v-model="email"
+                    :placeholder="$t('register.email')"
+                    addon-left-icon="tim-icons icon-email-85"
+                    type="email"
+                    :error="apiValidationErrors.email ? apiValidationErrors.email[0] : ''">
+                </base-input>
+                <!-- <validation-error :errorsArray="apiValidationErrors.email" /> -->
+              </div>
+            </div>
 
-            <base-input
-                v-model="password"
-                :placeholder="$t('register.password')"
-                addon-left-icon="tim-icons icon-lock-circle"
-                type="password"
-                :error="apiValidationErrors.password ? apiValidationErrors.password[0] : ''">
-            </base-input>
-            <!-- <validation-error :errorsArray="apiValidationErrors.password"/> -->
+            <div class="row">
+              <div class="col-12">
+                <base-input
+                    v-model="password"
+                    :placeholder="$t('register.password')"
+                    addon-left-icon="tim-icons icon-lock-circle"
+                    type="password"
+                    :error="apiValidationErrors.password ? apiValidationErrors.password[0] : ''">
+                </base-input>
+                <!-- <validation-error :errorsArray="apiValidationErrors.password"/> -->
+              </div>
+            </div>
 
-            <base-input
-                :placeholder="$t('register.confirmPassowrd')"
-                type="password"
-                name="Password confirmation"
-                v-model="password_confirmation"
-                addon-left-icon="tim-icons icon-lock-circle"
-                :error="apiValidationErrors.password_confirmation ? apiValidationErrors.password_confirmation[0] : ''">
-            </base-input>
-            <!-- <validation-error :errorsArray="apiValidationErrors.password_confirmation" /> -->
+            <div class="row">
+              <div class="col-12">
+                <base-input
+                    :placeholder="$t('register.confirmPassowrd')"
+                    type="password"
+                    name="Password confirmation"
+                    v-model="password_confirmation"
+                    addon-left-icon="tim-icons icon-lock-circle"
+                    :error="apiValidationErrors.password_confirmation ? apiValidationErrors.password_confirmation[0] : ''">
+                </base-input>
+                <!-- <validation-error :errorsArray="apiValidationErrors.password_confirmation" /> -->
+              </div>
+            </div>
 
             <!-- <base-checkbox v-model="boolean" class="text-left">
               I agree to the <a href="#something">terms and conditions</a>.
@@ -115,48 +150,15 @@
         </form>
       </div>
     </div>
-    <!-- <modal
-      :show.sync="registerSuccessful"
-      footerClasses="justify-content-center"
-      type="notice"
-    >
-      <div class="instruction">
-        <p class="description">
-          {{$t('register.registerSuccessfully')}}
-        </p>
-        <p class="description">
-          {{$t('register.verifyEmail')}}
-        </p>
-      </div>
-      <p class="text-center">
-        {{$t('register.moreQuestions')}}
-      </p>
-      <p class="text-center">
-        {{$t('register.noVerificationEmail')}}
-      </p>
-      <div slot="footer" class="justify-content-center">
-        <base-button
-          type="info"
-          round
-          @click="resendVerificationEmail"
-          >{{$t('register.resendVerificationEmail')}}
-        </base-button>
-        <base-button
-          type="info"
-          round
-          @click="backToLoginPage"
-          >OK
-        </base-button>
-      </div>
-    </modal> -->
   </div>
 </template>
 <script>
 import { BaseCheckbox, Card, BaseInput, ValidationError, Modal } from "@/components";
 import formMixin from "@/mixins/form-mixin";
-import axios from "axios";
-import VuePhoneNumberInput from 'vue-phone-number-input';
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+// import axios from "axios";
+// import VuePhoneNumberInput from 'vue-phone-number-input';
+// import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import VueCountryCode from "vue-country-code";
 import swal from "sweetalert2";
 
 export default {
@@ -166,22 +168,23 @@ export default {
     BaseInput,
     ValidationError,
     Modal,
-    VuePhoneNumberInput
+    // VuePhoneNumberInput
+    VueCountryCode
   },
   mixins: [formMixin],
   data() {
     return {
       phone_number: null,
-      boolean: false,
+      // boolean: false,
       email: null,
       password: null,
       password_confirmation: null,
       // registerSuccessful: false,
-      phoneCountryCodeInput: "MY",
+      phone_country_code: null,
     };
   },
   mounted() {
-    this.phoneCountryCodeInput = "MY";
+    this.phone_country_code = "60";
   },
   methods: {
     async register() {
@@ -199,6 +202,7 @@ export default {
         email: this.email,
         password: this.password,
         password_confirmation: this.password_confirmation,
+        phone_country_code: this.phone_country_code
       };
 
       const requestOptions = {
@@ -221,13 +225,6 @@ export default {
             this.$router.push({name: "login"});
           });
         });
-        // this.registerSuccessful = true;
-        // this.$notify({
-        //   type: 'succes',
-        //   message: 'Successfully registered.',
-        //   icon: 'tim-icons icon-bell-55',
-        // })
-        // this.$router.push({name: "login"});
       } catch (error) {
         this.$notify({
           type: 'danger',
@@ -240,11 +237,8 @@ export default {
     async backToLoginPage() {
       this.$router.push({name: "login"});
     },
-    async resendVerificationEmail() {
-      
-    },
-    updatePhoneNumber(event) {
-      // this.phone_country_code = event.countryCallingCode;
+    onSelectCountryCode(params) {
+      this.phone_country_code = params.dialCode;
     }
   }
 };
