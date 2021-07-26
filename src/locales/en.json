@@ -103,6 +103,8 @@
   "alert": {
     "basicTierAssetCount": "You can only add 1 Asset with free tier. Get ADVANCED or PRO version to add more assets.",
     "basicTierTenantCount": "You can only add 3 Tenants per Asset with free tier. Get ADVANCED or PRO version to add more tenants.",
+    "confirmEdit": "Confirm Edit",
+    "confirmEditText": "Are you confirm to edit?",
     "noTenureContractAlert": "There is no tenure contract of this tenant. Please create one.",
     "noBillingRecordAlert": "There is no billing of this tenant. Please create one.",
 

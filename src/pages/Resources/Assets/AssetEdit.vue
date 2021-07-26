@@ -17,6 +17,7 @@ import ValidationError from "@/components/ValidationError.vue";
 import router from "@/router";
 import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
 import AssetAddOrEdit from "@/components/Resources/Assets/AssetAddOrEdit";
+import swal from "sweetalert2";
 
 export default {
   mixins: [formMixin],
@@ -64,38 +65,49 @@ export default {
       }
     },
     async handleSubmit(model) {
-      const assetId = this.resource.data.id
-      if (assetId == null) {
-        this.$notify({
-          message:'Server error',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
-      } else {
-        try {
-          await this.$store.dispatch('asset/update', {'assetId': assetId, 'model': model})
-          this.$notify({
-            message:'Successfully Updated',
-            icon: 'tim-icons icon-bell-55',
-            type: 'success'
-          });
-          this.resetApiValidation();
-          if (this.previousRoute) {
-            router.push({path: this.previousRoute});
+      swal({
+        title: this.$t('alert.confirmEdit'),
+        text: this.$t('alert.confirmEditText'),
+        buttonsStyling: false,
+        showCancelButton: true,
+        confirmButtonText: this.$t('component.yes'),
+        cancelButtonText: this.$t('component.no'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "info",
+      }).then((result) => {
+        if (result.value) {
+          const assetId = this.resource.data.id
+          if (assetId == null) {
+            this.$notify({
+              message:'Server error',
+              icon: 'tim-icons icon-bell-55',
+              type: 'danger'
+            });
           } else {
-            router.go(-1);
+            this.$store.dispatch('asset/update', {'assetId': assetId, 'model': model}).then(() => {
+              this.$notify({
+                message:'Successfully Updated',
+                icon: 'tim-icons icon-bell-55',
+                type: 'success'
+              });
+              this.resetApiValidation();
+              if (this.previousRoute) {
+                router.push({path: this.previousRoute});
+              } else {
+                router.go(-1);
+              }
+            }).catch((e) => {
+              this.$notify({
+                message:'Server error',
+                icon: 'tim-icons icon-bell-55',
+                type: 'danger'
+              });
+              this.setApiValidation(e.response.data.errors)
+            })
           }
-          // router.go(-1);
-          // router.push({path: "/assets"});
-        } catch (e) {
-          this.$notify({
-            message:'Server error',
-            icon: 'tim-icons icon-bell-55',
-            type: 'danger'
-          });
-          this.setApiValidation(e.response.data.errors)
         }
-      }
+      });
     },
     async handleCancel() {
       if (this.previousRoute) {
