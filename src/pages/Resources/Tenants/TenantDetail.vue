@@ -48,23 +48,23 @@
           billingRecordType="All"
         ></billing-record-index-component>
 
-        <payment-record-index-component
+        <!-- <payment-record-index-component
           :resource="receivingPaymentRecordResource"
           :query="{
             tenantId: this.tenantId,
             assetId: this.assetId,
           }"
           :paymentRecordType="receivingPaymentRecordType"
-        ></payment-record-index-component>
+        ></payment-record-index-component> -->
         
-        <!-- <payment-record-index-component
+        <payment-record-index-component
           :resource="sendingPaymentRecordResource"
           :query="{
             tenantId: this.tenantId,
             assetId: this.assetId,
           }"
           :paymentRecordType="sendingPaymentRecordType"
-        ></payment-record-index-component> -->
+        ></payment-record-index-component>
 
         <fab
           position="bottom-right"
@@ -197,15 +197,15 @@ export default {
           this.billingRecordResource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
         })
 
-        await this.$store.dispatch('tenant/getReceivingPaymentRecords',  this.tenantId).then(() => {
-          this.receivingPaymentRecordResource.models = this.$store.getters["tenant/receivingPaymentRecordModels"]
-          this.receivingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/receivingPaymentRecordData"])
-        })
-
-        // await this.$store.dispatch('tenant/getSendingPaymentRecords',  this.tenantId).then(() => {
-        //   this.sendingPaymentRecordResource.models = this.$store.getters["tenant/sendingPaymentRecordModels"]
-        //   this.sendingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/sendingPaymentRecordData"])
+        // await this.$store.dispatch('tenant/getReceivingPaymentRecords',  this.tenantId).then(() => {
+        //   this.receivingPaymentRecordResource.models = this.$store.getters["tenant/receivingPaymentRecordModels"]
+        //   this.receivingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/receivingPaymentRecordData"])
         // })
+
+        await this.$store.dispatch('tenant/getSendingPaymentRecords',  this.tenantId).then(() => {
+          this.sendingPaymentRecordResource.models = this.$store.getters["tenant/sendingPaymentRecordModels"]
+          this.sendingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/sendingPaymentRecordData"])
+        })
 
         await this.$store.dispatch('tenureContract/create', {}).then(() => {
           this.tenureContractResource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])

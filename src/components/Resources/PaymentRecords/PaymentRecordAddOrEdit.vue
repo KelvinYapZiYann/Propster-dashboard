@@ -161,7 +161,6 @@ export default {
       this.$emit('submit', formData)
     },
     translateModel() {
-      console.log(this.resource);
       return {
         // recipient_type: this.resource.model.recipient.recipient_type,
         recipient_type: "LANDLORD",

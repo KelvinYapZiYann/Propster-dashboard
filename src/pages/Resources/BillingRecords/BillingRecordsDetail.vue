@@ -62,7 +62,6 @@ export default {
         this.resource.data = await this.$store.getters["billingRecords/data"]
         this.loadAttachment();
       } catch (e) {
-        console.log(e);
         this.$notify({
           message: 'Server error',
           icon: 'tim-icons icon-bell-55',

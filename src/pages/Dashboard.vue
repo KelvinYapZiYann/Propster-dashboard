@@ -209,11 +209,9 @@ export default {
       return this.resource.rental ? this.resource.rental.collected_rent : 0;
     },
     overdueRent() {
-      console.log(this.resource.rental);
       return this.resource.rental ? this.resource.rental.overdue_rent : 0;
     },
     upcomingRent() {
-      console.log(this.resource.rental);
       return this.resource.rental ? this.resource.rental.upcoming_rent : 0;
     }
   },

@@ -12,7 +12,7 @@
         </strong>
       </div> -->
       <card>
-        <h4 slot="header" class="card-title text-left">{{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{$t('sidebar.paymentRecords')}}</h4>
+        <h4 slot="header" class="card-title text-left">{{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{$t('sidebar.paymentRecords')}}{{paymentRecordType == 'Sending' ? ' from Tenant' : ''}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
@@ -20,7 +20,7 @@
             type="info"
             v-bind:disabled="!resource.data.canAdd"
             v-if="paymentRecordType != 'All'"
-          >{{$t('component.add')}} {{$t('sidebar.paymentRecords')}} {{paymentRecordType == 'Receiving' ? ' from Tenant' : ''}}
+          >{{$t('component.add')}} {{$t('sidebar.paymentRecords')}} {{paymentRecordType == 'Sending' ? ' from Tenant' : ''}}
           </base-button>
         </div>
         <!-- <div class="row">

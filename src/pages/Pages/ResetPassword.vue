@@ -97,7 +97,6 @@ export default {
             router.push({ path: "/login" });
         });
       } catch (e) {
-        console.log(e);
         this.$notify({
           message: 'Oops, Something went wrong.',
           icon: 'tim-icons icon-bell-55',
