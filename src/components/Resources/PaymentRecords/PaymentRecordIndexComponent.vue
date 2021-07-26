@@ -18,8 +18,6 @@
             @click="addModel"
             class="mt-3"
             type="info"
-            v-bind:disabled="!resource.data.canAdd"
-            v-if="paymentRecordType != 'All'"
           >{{$t('component.add')}} {{$t('sidebar.paymentRecords')}} {{paymentRecordType == 'Sending' ? ' from Tenant' : ''}}
           </base-button>
         </div>
@@ -71,6 +69,7 @@
 <script>
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -143,13 +142,16 @@ export default {
       });
     },
     addModel() {
-      // this.$router.push({
-      //   name: 'Add Payment Record',
-      //   query: this.query,
-      //   params: {
-      //     previousRoute: this.$router.currentRoute.fullPath
-      //   }
-      // });
+      if (this.paymentRecordType == 'All') {
+        swal({
+          title: this.$t('alert.paymentRecordFailedAdded'),
+          text: this.$t('alert.paymentRecordFailedAddedTextInTenantDetail'),
+          buttonsStyling: false,
+          confirmButtonClass: "btn btn-info btn-fill",
+          type: "error",
+        });
+        return;
+      }
       this.$router.push({
         name: 'Add Payment Record',
         query: {

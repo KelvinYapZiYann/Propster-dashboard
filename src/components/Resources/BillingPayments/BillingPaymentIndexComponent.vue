@@ -3,6 +3,13 @@
     <div class="col-12">
       <card>
         <h4 slot="header" class="card-title text-left">{{billingPaymentsType == "All" ? "" : (billingPaymentsType + " ")}}{{$t('sidebar.billingPayments')}}</h4>
+        <div class="text-right mb-3">
+          <base-button
+            @click="addModel"
+            class="mt-3"
+            type="info"
+          >{{$t('component.add')}} {{$t('sidebar.billingPayment')}}</base-button>
+        </div>
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
@@ -51,6 +58,7 @@
 <script>
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -167,7 +175,16 @@ export default {
           type: 'danger'
         });
       }
-    }
+    },
+    addModel() {
+      swal({
+        title: this.$t('alert.billingPaymentFailedAdded'),
+        text: this.$t('alert.billingPaymentFailedAddedText'),
+        buttonsStyling: false,
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "error",
+      });
+    },
   },
   watch: {
     searchQuery(value) {

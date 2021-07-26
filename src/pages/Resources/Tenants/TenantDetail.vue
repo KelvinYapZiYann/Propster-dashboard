@@ -66,14 +66,14 @@
           :paymentRecordType="sendingPaymentRecordType"
         ></payment-record-index-component>
 
-        <fab
+        <!-- <fab
           position="bottom-right"
           bg-color="#1d8cf8"
           :actions="fabActions"
           fixed-tooltip="true"
           @tenantPayment="addTenantPaymentRecord"
           @tenantBilling="addTenantBillingRecord"
-        ></fab>
+        ></fab> -->
 
         <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
         <base-button slot="footer" type="info" @click="handleEdit()" fill>{{$t('component.edit')}} {{$t('sidebar.tenant')}}</base-button>

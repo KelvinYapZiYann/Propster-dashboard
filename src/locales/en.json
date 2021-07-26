@@ -122,7 +122,11 @@
     "tenureContractFailedAddedTextInTenantDetail": "Tenure Contract can only be added in Tenant Detail.",
     "billingRecordFailedAdded": "Billing is Failed to be Added",
     "billingRecordFailedAddedText": "There can only be 1 Billing for each Tenure Contract.",
-    "billingRecordFailedAddedTextInTenantDetail": "Billing can only be added in Tenant Detail and Tenure Contract Detail."
+    "billingRecordFailedAddedTextInTenantDetail": "Billing can only be added in Tenant Detail and Tenure Contract Detail.",
+    "billingPaymentFailedAdded": "Billing Record is Failed to be Added",
+    "billingPaymentFailedAddedText": "Billing Record cannot be added manually. It is generated automatically by Billing System.",
+    "paymentRecordFailedAdded": "Payment Record is Failed to be Added",
+    "paymentRecordFailedAddedTextInTenantDetail": "Payment Record can only be added in Tenant Detail."
   },
   "component": {
     "search": "Search",
