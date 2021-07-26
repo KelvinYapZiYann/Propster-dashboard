@@ -108,8 +108,10 @@
 
     "assetSuccessfullyAdded": "Asset is Successfully Added",
     "assetSuccessfullyAddedText": "Do you want to add a Tenant into this asset right now?",
+    "assetFailedAdded": "Asset is Failed to be Added",
     "tenantSuccessfullyAdded": "Tenant is Successfully Added",
     "tenantSuccessfullyAddedText": "Do you want to add a Tenure Contract for this tenant right now?",
+    "tenantFailedAdded": "Tenant is Failed to be Added",
     "tenureContractSuccessfullyAdded": "Tenure Contract is Successfully Added",
     "tenureContractSuccessfullyAddedText": "Do you want to add a Rental Billing for this tenure contract right now?"
   },

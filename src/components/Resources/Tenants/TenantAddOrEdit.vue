@@ -4,12 +4,23 @@
       <h5 slot="header" class="title">{{addOrEdit}} {{$t('sidebar.tenant')}}</h5>
       <div class="row">
         <div class="col-md-6">
-          <div v-for="asset in resource.selector.asset_id" v-bind:key="asset.id">
+          <div v-if="assetId">
+            <div v-for="asset in resource.selector.asset_id" v-bind:key="asset.id" >
               <base-input :label="$t('property.residingIn')"
                         v-if="asset.id == assetId && addOrEdit == 'Add'" 
                         :value="asset.name"
                         :disabled="true">
               </base-input>
+            </div>
+          </div>
+          <div v-if="!assetId && addOrEdit == 'Add'">
+            <base-selector-input :label="$t('property.residingIn')"
+                               :placeholder="$t('property.residingIn')"
+                               v-model="resource.model.asset_id"
+                               :options="resource.selector.asset_id"
+                               :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''"
+            >
+            </base-selector-input>
           </div>
           <base-input :label="$t('property.residingIn')"
                       v-if="addOrEdit != 'Add'" 
@@ -201,7 +212,7 @@ export default {
       console.log(this.resource.model.date_of_birth);
       return {
         asset_id: this.addOrEdit != 'Add' ? (this.resource.model.assets ? (this.resource.model.assets[0] ? this.resource.model.assets[0].id : null) : null) : 
-          (this.assetId ? this.assetId : null),
+          (this.assetId ? this.assetId : this.resource.model.asset_id),
         first_name: this.resource.model.first_name,
         last_name: this.resource.model.last_name,
         email: this.resource.model.email,

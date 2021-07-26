@@ -7,9 +7,11 @@
           <base-button
                 @click="addModel"
                 class="mt-3"
-                type="info"
-                v-bind:disabled="!resource.data.canAdd"
-          >{{$t('component.add')}} {{$t('sidebar.assets')}}</base-button>
+                type="info"      
+          >
+          <!-- v-bind:disabled="!resource.data.canAdd" -->
+            {{$t('component.add')}} {{$t('sidebar.assets')}}
+          </base-button>
         </div>
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -58,6 +60,7 @@
 <script>
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -148,6 +151,16 @@ export default {
       }
     },
     addModel() {
+      if (!this.resource.data.canAdd) {
+        swal({
+          title: this.$t('alert.assetFailedAdded'),
+          text: this.$t('alert.basicTierAssetCount'),
+          buttonsStyling: false,
+          confirmButtonClass: "btn btn-info btn-fill",
+          type: "error",
+        });
+        return;
+      }
       router.push({
         name: "Add Assets",
         params: {

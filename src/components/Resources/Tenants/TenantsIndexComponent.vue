@@ -19,9 +19,11 @@
             @click="addModel"
             class="mt-3"
             type="info"
-            v-if="resource.data.canAdd"
-            v-bind:disabled="!resource.data.canAdd"
-          >{{$t('component.add')}} {{$t('sidebar.tenants')}}</base-button>
+          >
+          <!-- v-if="resource.data.canAdd"
+            v-bind:disabled="!resource.data.canAdd" -->
+            {{$t('component.add')}} {{$t('sidebar.tenants')}}
+          </base-button>
         </div>
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -70,6 +72,7 @@
 <script>
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -192,6 +195,16 @@ export default {
       }
     },
     addModel() {
+      if (!this.resource.data.canAdd) {
+        swal({
+          title: this.$t('alert.tenantFailedAdded'),
+          text: this.$t('alert.basicTierTenantCount'),
+          buttonsStyling: false,
+          confirmButtonClass: "btn btn-info btn-fill",
+          type: "error",
+        });
+        return;
+      }
       this.$router.push({
         name: 'Add Tenant',
         query: this.query,
