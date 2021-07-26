@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-5 ml-auto">
+      <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
         <div class="info-area info-horizontal mt-5">
           <div class="icon icon-warning">
             <i class="tim-icons icon-wifi"></i>
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div class="col-md-7 mr-auto">
+      <div class="col-xl-4 col-lg-5 col-md-6 mr-auto">
         <form @submit.prevent="register">
           <card class="card-register card-white">
             <template slot="header">
@@ -212,42 +212,13 @@ export default {
         await this.$store.dispatch("register", { user, requestOptions }).then(() => {
           this.resetApiValidation();
           swal({
-            title: `Success`,
-            text: this.$t('register.verifyEmail') + "\n" + this.$t('register.noVerificationEmail'),
+            title: this.$t('register.registerSuccessfully'),
+            text: this.$t('register.registerSuccessfullyText') + ' ' + this.$t('register.verifyEmail') + ' ' + this.$t('register.moreQuestions'),
             buttonsStyling: false,
-            showCancelButton: true,
-            confirmButtonText: this.$t('register.resendVerificationEmail'),
-            cancelButtonText: "OK",
             confirmButtonClass: "btn btn-info btn-fill",
-            cancelButtonClass: "btn btn-info btn-fill",
             type: "success",
-            
-            preConfirm: () => {
-              const url = process.env.VUE_APP_API_BASE_URL;
-              return axios({
-                url: `${url}/email-not-verified`,
-                method: 'POST',
-              }).then((response) => {
-                if (response.message != "email successfully sent") {
-                  throw new Error("email has not been sent");
-                }
-                return "email successfully sent";
-              }).catch((error) => {
-                swal.showValidationMessage(
-                  `Request failed: Something went wrong. Verification email has not been resent.`
-                )
-              });
-            },
           }).then((result) => {
-            if (result.value) {
-              swal.fire({
-                title: `Verification Email has been resent`
-              }).then(() => {
-                this.$router.push({name: "login"});
-              });
-            } else {
-              this.$router.push({name: "login"});
-            }
+            this.$router.push({name: "login"});
           });
         });
         // this.registerSuccessful = true;

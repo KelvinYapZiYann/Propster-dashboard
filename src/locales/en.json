@@ -53,7 +53,8 @@
     "desc2": "Free To Use If you're just started to manage your property.",
     "desc3": "We will be helping you as much as needed to familiar and be productive in Propster.io.",
     "registerSuccessfully": "Register Successfully",
-    "verifyEmail": "Please verify the email before logging in.",
+    "registerSuccessfullyText": "You have register an account in Propster.io successfully.",
+    "verifyEmail": "Please make sure to verify the email before logging in.",
     "moreQuestions": "If you have more questions, don't hesitate to contact us. We're here to help!",
     "noVerificationEmail": "If you have not received any verification email, click the Resend Verification Email.",
     "resendVerificationEmail": "Resend Verification Email"
