@@ -5,11 +5,11 @@
       @getResource="getResource"
       billingPaymentsType="Receiving"
     ></billing-payment-index-component>
-    <billing-payment-index-component
+    <!-- <billing-payment-index-component
       :resource="sendingResource"
       @getResource="getResource"
       billingPaymentsType="Sending"
-    ></billing-payment-index-component>
+    ></billing-payment-index-component> -->
   </div>
 </template>
 <script>
@@ -41,11 +41,10 @@ export default {
           this.receivingResource.models = this.$store.getters["billingPayments/receivingBillingPaymentsModels"];
           this.receivingResource.data = Object.assign({}, this.$store.getters["billingPayments/receivingBillingPaymentsData"]);
         });
-        await this.$store.dispatch('billingPayments/getSendingBillingPayments', {}).then(() => {
-          this.sendingResource.models = this.$store.getters["billingPayments/sendingBillingPaymentsModels"];
-          this.sendingResource.data = Object.assign({}, this.$store.getters["billingPayments/sendingBillingPaymentsData"]);
-
-        })
+        // await this.$store.dispatch('billingPayments/getSendingBillingPayments', {}).then(() => {
+        //   this.sendingResource.models = this.$store.getters["billingPayments/sendingBillingPaymentsModels"];
+        //   this.sendingResource.data = Object.assign({}, this.$store.getters["billingPayments/sendingBillingPaymentsData"]);
+        // })
       } catch (e) {
         this.$notify({
           message: 'Server error',
