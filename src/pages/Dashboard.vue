@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
     <div class="row">
       <!-- <div
         class="col-xl-3 col-lg-6 col-md-6 col-sm-6"

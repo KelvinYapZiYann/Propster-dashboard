@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
     <div class="row">
       <div class="col-md-12">
         <user-card :model="resource.model"></user-card>

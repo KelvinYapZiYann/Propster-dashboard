@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
     <transaction-section
       :resource="resource"
     ></transaction-section>
