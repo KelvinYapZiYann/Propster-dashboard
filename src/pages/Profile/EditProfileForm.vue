@@ -96,7 +96,7 @@
       </div>
     </div>
     <template slot="footer">
-      <base-button type="info" @click="handleSubmit()" fill>{{$t('component.save')}}</base-button>
+      <base-button type="info" @click="handleSubmit()" fill v-if="addOrEdit == 'Add'">{{$t('component.save')}}</base-button>
     </template>
   </card>
 </template>

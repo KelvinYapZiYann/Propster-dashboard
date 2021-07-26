@@ -11,6 +11,7 @@
           :model="model"
           @submit="handleSubmit"
           :tmpApiValidationErrors="apiValidationErrors"
+          addOrEdit="Add"
           >
         </edit-profile-form>
       </div>
