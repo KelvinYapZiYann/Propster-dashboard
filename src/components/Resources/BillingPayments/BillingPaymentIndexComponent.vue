@@ -121,7 +121,9 @@ export default {
       });
     },
     async handlePagination(pageId) {
+      console.log(this.resource.data);
       try {
+        
         if (this.$props.query) {
           if (this.$props.query.tenantId) {
             // var param = {
@@ -133,16 +135,30 @@ export default {
             //   this.resource.data = Object.assign({}, this.$store.getters["tenant/billingPaymentData"]);
             // });
           } else {
-            await this.$store.dispatch('billingPayments/get', pageId).then(() => {
-              this.resource.models = this.$store.getters["billingPayments/models"];
-              this.resource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
-            });
+            if (this.billingPaymentsType == "Receiving") {
+              await this.$store.dispatch('billingPayments/getReceivingBillingPayments', pageId).then(() => {
+                this.resource.models = this.$store.getters["billingPayments/receivingBillingPaymentsModels"];
+                this.resource.data = Object.assign({}, this.$store.getters["billingPayments/receivingBillingPaymentsData"]);
+              });
+            } else {
+              await this.$store.dispatch('billingPayments/getSendingBillingPayments', pageId).then(() => {
+                this.resource.models = this.$store.getters["billingPayments/sendingBillingPaymentsModels"];
+                this.resource.data = Object.assign({}, this.$store.getters["billingPayments/sendingBillingPaymentsData"]);
+              });
+            }
           }
         } else {
-          await this.$store.dispatch('billingPayments/get', pageId).then(() => {
-            this.resource.models = this.$store.getters["billingPayments/models"];
-            this.resource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
-          });
+          if (this.billingPaymentsType == "Receiving") {
+            await this.$store.dispatch('billingPayments/getReceivingBillingPayments', pageId).then(() => {
+              this.resource.models = this.$store.getters["billingPayments/receivingBillingPaymentsModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["billingPayments/receivingBillingPaymentsData"]);
+            });
+          } else {
+            await this.$store.dispatch('billingPayments/getSendingBillingPayments', pageId).then(() => {
+              this.resource.models = this.$store.getters["billingPayments/sendingBillingPaymentsModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["billingPayments/sendingBillingPaymentsData"]);
+            });
+          }
         }
       } catch (e) {
         this.$notify({

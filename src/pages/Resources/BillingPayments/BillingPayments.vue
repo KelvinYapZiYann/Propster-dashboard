@@ -1,23 +1,23 @@
 <template>
   <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
-    <!-- <billing-payment-index-component
+    <billing-payment-index-component
       :resource="receivingResource"
       @getResource="getResource"
-      billingPaymentType="Receiving"
-    ></billing-payment-index-component> -->
-    <!-- <billing-payment-index-component
+      billingPaymentsType="Receiving"
+    ></billing-payment-index-component>
+    <billing-payment-index-component
       :resource="sendingResource"
       @getResource="getResource"
-      billingPaymentType="Sending"
-    ></billing-payment-index-component> -->
+      billingPaymentsType="Sending"
+    ></billing-payment-index-component>
   </div>
 </template>
 <script>
-// import BillingPaymentIndexComponent from "@/components/Resources/BillingPayments/BillingPaymentIndexComponent";
+import BillingPaymentIndexComponent from "@/components/Resources/BillingPayments/BillingPaymentIndexComponent";
 
 export default {
   components: {
-    // BillingPaymentIndexComponent
+    BillingPaymentIndexComponent
   },
   data() {
     return {
@@ -37,14 +37,15 @@ export default {
   methods: {
     async getResource() {
       try {
-        // await this.$store.dispatch('billingPayment/getReceivingBillingPayments', {}).then(() => {
-        //   this.receivingResource.models = this.$store.getters["billingPayment/receivingBillingPaymentsModels"]
-        //   this.receivingResource.data = Object.assign({}, this.$store.getters["billingPayment/receivingBillingPaymentsData"])
-        // })
-        // await this.$store.dispatch('billingPayment/getSendingBillingPayments', {}).then(() => {
-        //   this.sendingResource.models = this.$store.getters["billingPayment/sendingBillingPaymentsModels"]
-        //   this.sendingResource.data = Object.assign({}, this.$store.getters["billingPayment/sendingBillingPaymentsData"])
-        // })
+        await this.$store.dispatch('billingPayments/getReceivingBillingPayments', {}).then(() => {
+          this.receivingResource.models = this.$store.getters["billingPayments/receivingBillingPaymentsModels"];
+          this.receivingResource.data = Object.assign({}, this.$store.getters["billingPayments/receivingBillingPaymentsData"]);
+        });
+        await this.$store.dispatch('billingPayments/getSendingBillingPayments', {}).then(() => {
+          this.sendingResource.models = this.$store.getters["billingPayments/sendingBillingPaymentsModels"];
+          this.sendingResource.data = Object.assign({}, this.$store.getters["billingPayments/sendingBillingPaymentsData"]);
+
+        })
       } catch (e) {
         this.$notify({
           message: 'Server error',

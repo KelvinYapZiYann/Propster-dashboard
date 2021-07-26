@@ -11,6 +11,7 @@ import tenant from "./modules/resources/tenants-module"
 import tenureContract from "./modules/resources/tenure-contracts-module"
 import assetExpenses from "./modules/resources/asset-expenses-module"
 import billingRecords from "./modules/resources/billing-records-module"
+import billingPayments from "./modules/resources/billing-payments-module"
 import paymentRecords from "./modules/resources/payment-records-module"
 import selectRole from "./modules/select-role-module"
 import createProfile from "./modules/create-profile-module"
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     tenant,
     assetExpenses,
     billingRecords,
+    billingPayments,
     paymentRecords,
     tenureContract,
     selectRole,

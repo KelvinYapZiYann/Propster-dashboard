@@ -23,49 +23,49 @@ function get(pageId) {
   
 }
 
-function getReceivingBillingRecords(pageId) {
-  const config = {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  };
+// function getReceivingBillingRecords(pageId) {
+//   const config = {
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//     }
+//   };
 
-  if (pageId && typeof pageId == "number") {
-    return axios.get(`${url}/receiving-bill-payments?page=${pageId}`, config)
-      .then(response => {
-        return response.data;
-      });
-  } else {
-    return axios.get(`${url}/receiving-bill-payments`, config)
-      .then(response => {
-        return response.data;
-      });
-  }
+//   if (pageId && typeof pageId == "number") {
+//     return axios.get(`${url}/receiving-bill-payments?page=${pageId}`, config)
+//       .then(response => {
+//         return response.data;
+//       });
+//   } else {
+//     return axios.get(`${url}/receiving-bill-payments`, config)
+//       .then(response => {
+//         return response.data;
+//       });
+//   }
   
-}
+// }
 
-function getSendingBillingRecords(pageId) {
-  const config = {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  };
+// function getSendingBillingRecords(pageId) {
+//   const config = {
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//     }
+//   };
 
-  if (pageId && typeof pageId == "number") {
-    return axios.get(`${url}/sending-bill-payments?page=${pageId}`, config)
-      .then(response => {
-        return response.data;
-      });
-  } else {
-    return axios.get(`${url}/sending-bill-payments`, config)
-      .then(response => {
-        return response.data;
-      });
-  }
+//   if (pageId && typeof pageId == "number") {
+//     return axios.get(`${url}/sending-bill-payments?page=${pageId}`, config)
+//       .then(response => {
+//         return response.data;
+//       });
+//   } else {
+//     return axios.get(`${url}/sending-bill-payments`, config)
+//       .then(response => {
+//         return response.data;
+//       });
+//   }
   
-}
+// }
 
 function getById(Id) {
   const config = {

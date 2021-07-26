@@ -38,11 +38,11 @@
             :link="{ name: $t('sidebar.billingRecords'), path: '/billing-records', icon: 'fas fa-credit-card fa-2x'}"
           ></sidebar-link>
         </el-tooltip>
-        <!-- <el-tooltip :content="$t('sidebar.billingPaymentsDesc')" :open-delay="300" placement="right">
+        <el-tooltip :content="$t('sidebar.billingPaymentsDesc')" :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.billingPayments'), path: '/billing-payments', icon: 'fas fa-history fa-2x'}"
           ></sidebar-link>
-        </el-tooltip> -->
+        </el-tooltip>
         <el-tooltip :content="$t('sidebar.paymentRecordsDesc')" :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.paymentRecords'), path: '/payment-records', icon: 'fas fa-dollar-sign fa-2x'}"
