@@ -101,8 +101,8 @@
     "overdueTenantsList": "Overdue Tenants List"
   },
   "alert": {
-    "basicTierAssetCount": "You can only add 1 Asset with free tier. Get PRO version to add more assets.",
-    "basicTierTenantCount": "You can only add 3 Tenants per Asset with free tier. Get PRO version to add more tenants.",
+    "basicTierAssetCount": "You can only add 1 Asset with free tier. Get ADVANCED or PRO version to add more assets.",
+    "basicTierTenantCount": "You can only add 3 Tenants per Asset with free tier. Get ADVANCED or PRO version to add more tenants.",
     "noTenureContractAlert": "There is no tenure contract of this tenant. Please create one.",
     "noBillingRecordAlert": "There is no billing of this tenant. Please create one.",
 
@@ -113,7 +113,10 @@
     "tenantSuccessfullyAddedText": "Do you want to add a Tenure Contract for this tenant right now?",
     "tenantFailedAdded": "Tenant is Failed to be Added",
     "tenureContractSuccessfullyAdded": "Tenure Contract is Successfully Added",
-    "tenureContractSuccessfullyAddedText": "Do you want to add a Rental Billing for this tenure contract right now?"
+    "tenureContractSuccessfullyAddedText": "Do you want to add a Rental Billing for this tenure contract right now?",
+    "tenureContractFailedAdded": "Tenure Contract is Failed to be Added",
+    "tenureContractFailedAddedText": "There can only be 1 Tenure Contract of this Tenant.",
+    "tenureContractFailedAddedTextInTenantDetail": "Tenure Contract can only be added in Tenant Detail."
   },
   "component": {
     "search": "Search",

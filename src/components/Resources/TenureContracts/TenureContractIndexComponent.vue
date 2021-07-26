@@ -8,11 +8,13 @@
             @click="addModel"
             class="mt-3"
             type="info"
-            v-bind:disabled="!resource.data.canAdd"
-            v-if="resource.data.canAdd"
-          >{{$t('component.add')}} {{$t('sidebar.tenureContracts')}}</base-button>
+          >
+          <!-- v-bind:disabled="!resource.data.canAdd"
+            v-if="resource.data.canAdd" -->
+            {{$t('component.add')}} {{$t('sidebar.tenureContracts')}}
+          </base-button>
         </div>
-        <!-- <div class="row">
+      <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
                     addonLeftIcon="el-icon-search"
@@ -84,6 +86,7 @@
 <script>
 import {BaseInput, BaseTable, BasePagination, BaseSelectorInput, Card} from "@/components";
 import router from "@/router";
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -207,6 +210,26 @@ export default {
     //   }
     // },
     addModel() {
+      if (!this.query) {
+        swal({
+          title: this.$t('alert.tenureContractFailedAdded'),
+          text: this.$t('alert.tenureContractFailedAddedTextInTenantDetail'),
+          buttonsStyling: false,
+          confirmButtonClass: "btn btn-info btn-fill",
+          type: "error",
+        });
+        return;
+      }
+      if (!this.resource.data.canAdd) {
+        swal({
+          title: this.$t('alert.tenureContractFailedAdded'),
+          text: this.$t('alert.tenureContractFailedAddedText'),
+          buttonsStyling: false,
+          confirmButtonClass: "btn btn-info btn-fill",
+          type: "error",
+        });
+        return;
+      }
       this.$router.push({
         name: 'Add Tenure Contract',
         query: this.query,
