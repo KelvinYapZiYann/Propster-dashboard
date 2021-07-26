@@ -191,6 +191,9 @@ export default {
     },
     async profile() {
       try {
+        if (this.$router.currentRoute.path == "/profile") {
+          return;
+        }
         this.$router.push({name: "User Profile"});
       } catch (error) {
         this.$notify({
