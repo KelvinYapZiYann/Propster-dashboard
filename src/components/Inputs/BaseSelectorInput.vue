@@ -149,10 +149,21 @@ export default {
 };
 </script>
 <style>
+.has-danger .el-date-editor {
+  border-color: #ec250d;
+}
+.has-danger .el-date-editor .el-range-input {
+  color: #ec250d;
+}
 .base-selector-input.has-danger::after {
   content: "";
 }
 .base-selector-input.has-danger .el-input__inner {
   border-color: #ec250d;
+}
+.select-primary.el-select .el-input.is-disabled .el-input__inner {
+  background-color: #e9ecef;
+  border-color: rgba(29, 37, 59, 0.5);
+  color: #344675;
 }
 </style>

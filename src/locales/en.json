@@ -118,8 +118,11 @@
     "tenureContractSuccessfullyAdded": "Tenure Contract is Successfully Added",
     "tenureContractSuccessfullyAddedText": "Do you want to add a Rental Billing for this tenure contract right now?",
     "tenureContractFailedAdded": "Tenure Contract is Failed to be Added",
-    "tenureContractFailedAddedText": "There can only be 1 Tenure Contract of this Tenant.",
-    "tenureContractFailedAddedTextInTenantDetail": "Tenure Contract can only be added in Tenant Detail."
+    "tenureContractFailedAddedText": "There can only be 1 Tenure Contract for each Tenant.",
+    "tenureContractFailedAddedTextInTenantDetail": "Tenure Contract can only be added in Tenant Detail.",
+    "billingRecordFailedAdded": "Billing is Failed to be Added",
+    "billingRecordFailedAddedText": "There can only be 1 Billing for each Tenure Contract.",
+    "billingRecordFailedAddedTextInTenantDetail": "Billing can only be added in Tenant Detail and Tenure Contract Detail."
   },
   "component": {
     "search": "Search",

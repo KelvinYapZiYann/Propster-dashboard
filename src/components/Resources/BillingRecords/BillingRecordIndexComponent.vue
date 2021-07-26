@@ -9,8 +9,10 @@
             class="mt-3"
             type="info"
             v-bind:disabled="!resource.data.canAdd"
-            v-if="resource.data.canAdd && billingRecordType != 'All'"
-          >{{$t('component.add')}} {{$t('sidebar.billingRecords')}}</base-button>
+          >
+          <!-- v-if="resource.data.canAdd && billingRecordType != 'All'" -->
+            {{$t('component.add')}} {{$t('sidebar.billingRecords')}}
+          </base-button>
         </div>
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -60,6 +62,7 @@
 <script>
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -76,8 +79,10 @@ export default {
           recipient_name: this.$t('property.recipientName'),
           asset_nickname: this.$t('property.assetNickname'),
           description: this.$t('property.description'),
+          payment_type: this.$t('property.paymentType'),
           amount: this.$t('property.amount'),
-          payment_type: this.$t('property.paymentType')
+          billing_start_at: this.$t('property.startDate'),
+          billing_end_at: this.$t('property.endDate'),
         },
       },
       searchQuery: "",
@@ -125,24 +130,46 @@ export default {
         name: "Billing Record Detail",
         params: {
           billingRecordsId: id,
-          previousRoute: this.$router.currentRoute.fullPath
+          previousRoute: router.currentRoute.fullPath
         }
       });
     },
     addModel() {
-      this.$router.push({
-        name: 'Add Billing Record',
-        query: {
-          senderType: "TENANT",
-          senderId: `${this.$props.query.tenantId}`,
-          recipientType: "LANDLORD",
-          recipientId: `${this.userResource.model.landlord_ids[0]}`,
-          assetId: this.assetId,
-        },
-        params: {
-          previousRoute: this.$router.currentRoute.fullPath
-        }
-      });
+      if (router.currentRoute.name == "Billing Records") {
+        swal({
+          title: this.$t('alert.billingRecordFailedAdded'),
+          text: this.$t('alert.billingRecordFailedAddedTextInTenantDetail'),
+          buttonsStyling: false,
+          confirmButtonClass: "btn btn-info btn-fill",
+          type: "error",
+        });
+        return;
+      }
+      if (!this.resource.data.canAdd) {
+        swal({
+          title: this.$t('alert.billingRecordFailedAdded'),
+          text: this.$t('alert.billingRecordFailedAddedText'),
+          buttonsStyling: false,
+          confirmButtonClass: "btn btn-info btn-fill",
+          type: "error",
+        });
+        return;
+      }
+      if (this.$props.query) {
+        router.push({
+          name: 'Add Billing Record',
+          query: {
+            senderType: "TENANT",
+            senderId: `${this.$props.query.tenantId}`,
+            recipientType: "LANDLORD",
+            recipientId: `${this.userResource.model.landlord_ids[0]}`,
+            assetId: `${this.$props.query.assetId}`,
+          },
+          params: {
+            previousRoute: router.currentRoute.fullPath
+          }
+        });
+      }
     },
     async handlePagination(pageId) {
       try {

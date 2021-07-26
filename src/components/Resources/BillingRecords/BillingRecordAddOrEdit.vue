@@ -260,11 +260,4 @@ export default {
   }
 }
 </script>
-<style>
-.has-danger .el-date-editor {
-  border-color: #ec250d;
-}
-.has-danger .el-date-editor .el-range-input {
-  color: #ec250d;
-}
-</style>
+<style></style>

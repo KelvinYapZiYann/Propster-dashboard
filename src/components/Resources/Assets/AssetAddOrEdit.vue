@@ -322,9 +322,4 @@ export default {
   }
 }
 </script>
-<style>
-.has-danger .el-date-editor .el-input__inner {
-  border-color: #ec250d;
-  color: #ec250d;
-}
-</style>
+<style></style>

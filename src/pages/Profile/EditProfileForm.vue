@@ -8,6 +8,7 @@
         <base-input :label="$t('property.firstName')"
                     :placeholder="$t('property.firstName')"
                     v-model="model.first_name"
+                    :disabled="true"
                     :error="tmpApiValidationErrors.first_name ? tmpApiValidationErrors.first_name[0] : ''">
         </base-input>
         <!-- <validation-error :errorsArray="tmpApiValidationErrors.first_name"/> -->
@@ -16,6 +17,7 @@
         <base-input :label="$t('property.lastName')"
                     :placeholder="$t('property.lastName')"
                     v-model="model.last_name"
+                    :disabled="true"
                     :error="tmpApiValidationErrors.last_name ? tmpApiValidationErrors.last_name[0] : ''">
         </base-input>
         <!-- <validation-error :errorsArray="tmpApiValidationErrors.last_name"/> -->
@@ -26,7 +28,7 @@
         <base-input :label="$t('property.email')"
                     :placeholder="$t('property.email')"
                     type="email"
-                    disabled="true"
+                    :disabled="true"
                     v-model="model.email"
                     :error="tmpApiValidationErrors.email ? tmpApiValidationErrors.email[0] : ''">
         </base-input>
@@ -45,7 +47,7 @@
                   @onSelect="onSelectCountryCode"
                   :only-countries="['MY']"
                   class="pt-1 pb-1"
-                  disabled="true"
+                  :disabled="true"
                   >
             </vue-country-code>
             <validation-error :errorsArray="tmpApiValidationErrors.phone_country_code" />
@@ -56,7 +58,7 @@
                 :placeholder="$t('property.phoneNumber')"
                 type="tel"
                 pattern="^[0-9]+$"
-                disabled="true"
+                :disabled="true"
                 :error="tmpApiValidationErrors.phone_number ? tmpApiValidationErrors.phone_number[0] : ''">
             </base-input>
             <!-- <validation-error :errorsArray="apiValidationErrors.phone_number" /> -->
@@ -89,6 +91,7 @@
                 :placeholder="$t('property.dateOfBirth')"
                 v-model="model.date_of_birth"
                 value-format="yyyy-MM-dd"
+                :disabled="true"
               >
               </el-date-picker>
         </base-input>
@@ -102,6 +105,7 @@
                                 {"id":"FEMALE", "name":"Female"}
                               ]'
                               :error="tmpApiValidationErrors.gender ? tmpApiValidationErrors.gender[0] : ''"
+                              :disabled="true"
         >
         </base-selector-input>
         <!-- <validation-error :errorsArray="tmpApiValidationErrors.gender"/> -->
@@ -113,6 +117,7 @@
                     type="checkbox"
                     v-model="model.is_business"
                     :error="tmpApiValidationErrors.is_business ? tmpApiValidationErrors.is_business[0] : ''"
+                    :disabled="true"
         >
         </base-input>
         <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_business"/> -->
@@ -226,9 +231,6 @@ export default {
 };
 </script>
 <style>
-.has-danger .el-date-editor .el-input__inner {
-  border-color: #ec250d;
-  color: #ec250d;
-}
+
 </style>
 

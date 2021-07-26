@@ -21,19 +21,30 @@
           </drop-zone>
         </card>
 
+        <billing-record-index-component
+          :resource="billingRecordResource"
+          :query="{
+            tenantId: resource.model.tenant ? resource.model.tenant.id : null,
+            assetId: resource.model.asset ? resource.model.asset.id : null,
+          }"
+          billingRecordType="All"
+        ></billing-record-index-component>
+
         <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
         <!-- <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Tenure Contract</base-button> -->
       </div>
 </template>
 <script>
 import { BaseDetailList, Card, DropZone } from "@/components";
+import BillingRecordIndexComponent from "@/components/Resources/BillingRecords/BillingRecordIndexComponent";
 import axios from 'axios';
 
 export default {
   components: {
     BaseDetailList,
     Card,
-    DropZone
+    DropZone,
+    BillingRecordIndexComponent
   },
   data() {
     return {
@@ -41,6 +52,11 @@ export default {
       resource: {
         model: {},
         data: {}
+      },
+      billingRecordResource: {
+        models: [{}],
+        data: {},
+        selector: {}
       },
       table: {
         title: "Tenure Contract",
@@ -84,6 +100,11 @@ export default {
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
           this.loadAttachment();
+        })
+
+        await this.$store.dispatch('billingRecords/get',  {}).then(() => {
+          this.billingRecordResource.models = this.$store.getters["billingRecords/models"]
+          this.billingRecordResource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
         })
       } catch (e) {
         this.$notify({

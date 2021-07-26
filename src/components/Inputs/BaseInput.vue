@@ -126,4 +126,15 @@ export default {
   }
 };
 </script>
-<style></style>
+<style>
+.has-danger .el-date-editor .el-input__inner {
+  border-color: #ec250d;
+  color: #ec250d;
+}
+.el-input.is-disabled .el-input__inner {
+  background-color: #e9ecef;
+  border-color: rgba(29, 37, 59, 0.5);
+  color: #344675;
+  cursor: not-allowed;
+}
+</style>
