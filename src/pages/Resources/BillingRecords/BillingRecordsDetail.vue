@@ -57,7 +57,7 @@ export default {
           billing_start_at: this.$t('property.billingStartDate'),
           billing_end_at: this.$t('property.billingEndDate'),
           end_of_month_billing: this.$t('property.endOfMonthBilling'),
-          grace_priod_in_days: this.$t('property.gracePeriod'),
+          grace_period_in_days: this.$t('property.gracePeriod'),
           remind_before_days: this.$t('property.remindBefore'),
           // status: this.$t('property.status'),
         },

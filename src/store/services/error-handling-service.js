@@ -1,4 +1,5 @@
 import router from "@/router";
+import i18n from '@/i18n.js'
 
 function verifyErrorFromServer(e) {
     if (e.response.data.message) {
@@ -21,6 +22,21 @@ function verifyErrorFromServer(e) {
     throw e;
 }
 
+function displayAlertFromServer(e) {
+    if (e.response.data) {
+        if (e.response.data.message) {
+            switch (e.response.data.message) {
+                case "The given data was invalid.":
+                    return i18n.t('alert.givenDataIsInvalid');
+                case "This action is unauthorized.":
+                    return i18n.t('alert.actionIsUnauthorized');
+            }
+        }
+    }
+    return "Oops! Something wrong..."
+}
+
 export default {
-    verifyErrorFromServer
+    verifyErrorFromServer,
+    displayAlertFromServer
 };

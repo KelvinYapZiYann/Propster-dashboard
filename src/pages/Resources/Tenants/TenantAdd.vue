@@ -19,6 +19,7 @@ import router from "@/router";
 import TenantAddOrEdit from "@/components/Resources/Tenants/TenantAddOrEdit";
 // import TenureContractAddOrEdit from "@/components/Resources/TenureContracts/TenureContractAddOrEdit";
 import swal from "sweetalert2";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   mixins: [formMixin],
@@ -58,7 +59,7 @@ export default {
         })
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
@@ -103,7 +104,7 @@ export default {
           });
         } catch (e) {
           this.$notify({
-            message:'Server error',
+            message: errorHandlingService.displayAlertFromServer(e),
             icon: 'tim-icons icon-bell-55',
             type: 'danger'
           });

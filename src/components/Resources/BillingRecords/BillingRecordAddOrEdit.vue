@@ -11,6 +11,12 @@
                                :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''"
           >
           </base-selector-input>
+          <!-- <base-input :label="$t('property.assetNickname')"
+                          v-if="addOrEdit == 'Add' && (query ? query.assetId : true)"
+                          :value="resource.model.asset ? resource.model.asset.asset_nickname : ''"
+                          :disabled="true"
+                          :error="tmpApiValidationErrors.asset ? tmpApiValidationErrors.asset[0] : ''">
+          </base-input> -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/> -->
           <base-input :label="$t('property.assetNickname')"
                       v-if="addOrEdit != 'Add' || (query ? query.assetId : false)" 

@@ -10,7 +10,7 @@ const actions = {
       }
     };
 
-    return axios.post(`${url}/create-profile`, data, config)
+    return axios.post(`${url}/fill-profile`, data, config)
         .then(response => {
           return response.data;
         });
