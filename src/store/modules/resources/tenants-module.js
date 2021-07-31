@@ -11,11 +11,18 @@ const state = {
 
   tenureContractModels: [],
   tenureContractData: {},
-  receivingPaymentRecordModels: [],
-  receivingPaymentRecordData: {},
-  sendingPaymentRecordModels: [],
-  sendingPaymentRecordData: {}
+  billingRecordModels: [],
+  billingRecordData: {},
+  billigPaymentModels: [],
+  billingPaymentData: {},
+  paymentRecordModels: [],
+  paymentRecordData: {},
 
+
+  // receivingPaymentRecordModels: [],
+  // receivingPaymentRecordData: {},
+  // sendingPaymentRecordModels: [],
+  // sendingPaymentRecordData: {}
 
   // assetExpenseModels: [],
   // assetExpenseData: {},
@@ -118,9 +125,9 @@ const mutations = {
       // 'meta': response.meta
     }
   },
-  SET_RECEIVING_PAYMENT_RECORD_RESOURCES: (state, response) => {
+  SET_BILLING_RECORD_RESOURCES: (state, response) => {
     let data = response.data;
-    state.receivingPaymentRecordModels = [];
+    state.billingRecordModels = [];
     data.forEach(function (item, index) {
       let fields = item.fields;
       let obj = {};
@@ -128,10 +135,10 @@ const mutations = {
         obj[key] = fields[key];
       }
 
-      state.receivingPaymentRecordModels.push(obj);
+      state.billingRecordModels.push(obj);
       obj.id = item.id;
     })
-    state.receivingPaymentRecordData = {
+    state.billingRecordData = {
       'canAdd': response.meta.canAdd,
       'currentPage': response.meta.current_page,
       'from': response.meta.from,
@@ -139,11 +146,12 @@ const mutations = {
       'total': response.meta.total,
       'perPage': response.meta.per_page,
       'links': response.meta.links,
+      // 'meta': response.meta
     }
   },
-  SET_SENDING_PAYMENT_RECORD_RESOURCES: (state, response) => {
+  SET_PAYMENT_RECORD_RESOURCES: (state, response) => {
     let data = response.data;
-    state.sendingPaymentRecordModels = [];
+    state.paymentRecordModels = [];
     data.forEach(function (item, index) {
       let fields = item.fields;
       let obj = {};
@@ -151,10 +159,10 @@ const mutations = {
         obj[key] = fields[key];
       }
 
-      state.sendingPaymentRecordModels.push(obj);
+      state.paymentRecordModels.push(obj);
       obj.id = item.id;
     })
-    state.sendingPaymentRecordData = {
+    state.paymentRecordData = {
       'canAdd': response.meta.canAdd,
       'currentPage': response.meta.current_page,
       'from': response.meta.from,
@@ -162,8 +170,55 @@ const mutations = {
       'total': response.meta.total,
       'perPage': response.meta.per_page,
       'links': response.meta.links,
+      // 'meta': response.meta
     }
   },
+  // SET_RECEIVING_PAYMENT_RECORD_RESOURCES: (state, response) => {
+  //   let data = response.data;
+  //   state.receivingPaymentRecordModels = [];
+  //   data.forEach(function (item, index) {
+  //     let fields = item.fields;
+  //     let obj = {};
+  //     for (let key in fields) {
+  //       obj[key] = fields[key];
+  //     }
+
+  //     state.receivingPaymentRecordModels.push(obj);
+  //     obj.id = item.id;
+  //   })
+  //   state.receivingPaymentRecordData = {
+  //     'canAdd': response.meta.canAdd,
+  //     'currentPage': response.meta.current_page,
+  //     'from': response.meta.from,
+  //     'to': response.meta.to,
+  //     'total': response.meta.total,
+  //     'perPage': response.meta.per_page,
+  //     'links': response.meta.links,
+  //   }
+  // },
+  // SET_SENDING_PAYMENT_RECORD_RESOURCES: (state, response) => {
+  //   let data = response.data;
+  //   state.sendingPaymentRecordModels = [];
+  //   data.forEach(function (item, index) {
+  //     let fields = item.fields;
+  //     let obj = {};
+  //     for (let key in fields) {
+  //       obj[key] = fields[key];
+  //     }
+
+  //     state.sendingPaymentRecordModels.push(obj);
+  //     obj.id = item.id;
+  //   })
+  //   state.sendingPaymentRecordData = {
+  //     'canAdd': response.meta.canAdd,
+  //     'currentPage': response.meta.current_page,
+  //     'from': response.meta.from,
+  //     'to': response.meta.to,
+  //     'total': response.meta.total,
+  //     'perPage': response.meta.per_page,
+  //     'links': response.meta.links,
+  //   }
+  // },
   // SET_ASSET_EXPENSE_RESOURCES: (state, response) => {
   //   let data = response.data;
   //   state.assetExpenseModels = [];
@@ -287,10 +342,10 @@ const actions = {
       });
   },
 
-  getReceivingPaymentRecords({commit, dispatch}, params) {
-    return  service.getReceivingPaymentRecords(params)
+  getBillingRecords({commit, dispatch}, params) {
+    return  service.getBillingRecords(params)
       .then((response) => {
-        commit('SET_RECEIVING_PAYMENT_RECORD_RESOURCES', response);
+        commit('SET_BILLING_RECORD_RESOURCES', response);
       })
       .catch((e) => {
         try {
@@ -301,10 +356,10 @@ const actions = {
       });
   },
 
-  getSendingPaymentRecords({commit, dispatch}, params) {
-    return  service.getSendingPaymentRecords(params)
+  getPaymentRecords({commit, dispatch}, params) {
+    return  service.getPaymentRecords(params)
       .then((response) => {
-        commit('SET_SENDING_PAYMENT_RECORD_RESOURCES', response);
+        commit('SET_PAYMENT_RECORD_RESOURCES', response);
       })
       .catch((e) => {
         try {
@@ -315,16 +370,31 @@ const actions = {
       });
   },
 
-  // getReceivingPayments({commit, dispatch}, Id) {
-  //   return  service.getAssetExpenses(Id)
-  //     .then((response2) => {
-  //       commit('SET_TENURE_CONTRACT_RESOURCES', response2);
+  // getReceivingPaymentRecords({commit, dispatch}, params) {
+  //   return  service.getReceivingPaymentRecords(params)
+  //     .then((response) => {
+  //       commit('SET_RECEIVING_PAYMENT_RECORD_RESOURCES', response);
+  //     })
+  //     .catch((e) => {
+  //       try {
+  //         errorHandlingService.verifyErrorFromServer(e);
+  //       } catch(e1) {
+  //         throw e1;
+  //       }
   //     });
   // },
-  // getSendingPayments({commit, dispatch}, Id) {
-  //   return  service.getAssetExpenses(Id)
-  //     .then((response2) => {
-  //       commit('SET_TENURE_CONTRACT_RESOURCES', response2);
+
+  // getSendingPaymentRecords({commit, dispatch}, params) {
+  //   return  service.getSendingPaymentRecords(params)
+  //     .then((response) => {
+  //       commit('SET_SENDING_PAYMENT_RECORD_RESOURCES', response);
+  //     })
+  //     .catch((e) => {
+  //       try {
+  //         errorHandlingService.verifyErrorFromServer(e);
+  //       } catch(e1) {
+  //         throw e1;
+  //       }
   //     });
   // },
 
@@ -339,10 +409,18 @@ const getters = {
   assetData: state => state.assetData,
   tenureContractModels: state => state.tenureContractModels,
   tenureContractData: state => state.tenureContractData,
-  receivingPaymentRecordModels: state => state.receivingPaymentRecordModels,
-  receivingPaymentRecordData: state => state.receivingPaymentRecordData,
-  sendingPaymentRecordModels: state => state.sendingPaymentRecordModels,
-  sendingPaymentRecordData: state => state.sendingPaymentRecordData,
+  billingRecordModels: state => state.billingRecordModels,
+  billingRecordData: state => state.billingRecordData,
+  billigPaymentModels: state => state.billigPaymentModels,
+  billingPaymentData: state => state.billingPaymentData,
+  paymentRecordModels: state => state.paymentRecordModels,
+  paymentRecordData: state => state.paymentRecordData,
+
+  // receivingPaymentRecordModels: state => state.receivingPaymentRecordModels,
+  // receivingPaymentRecordData: state => state.receivingPaymentRecordData,
+  // sendingPaymentRecordModels: state => state.sendingPaymentRecordModels,
+  // sendingPaymentRecordData: state => state.sendingPaymentRecordData,
+
   // assetExpenseModels: state => state.assetExpenseModels,
   // assetExpenseData: state => state.assetExpenseData,
 };

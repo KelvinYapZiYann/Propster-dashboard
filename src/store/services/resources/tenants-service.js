@@ -127,7 +127,7 @@ function getTenureContracts(params) {
   }
 }
 
-function getReceivingPaymentRecords(params) {
+function getBillingRecords(params) {
   const config = {
     headers: {
       'Accept': 'application/json',
@@ -136,18 +136,18 @@ function getReceivingPaymentRecords(params) {
   };
 
   if (params && (typeof params == "number" || typeof params == "string")) {
-    return axios.get(`${url}/tenants/${params}/receiving-payment-records`, config)
+    return axios.get(`${url}/tenants/${params}/billing-records`, config)
       .then(response => {
         return response.data;
       });
   } else if (typeof params == "object") {
     if (params.pageId) {
-      return axios.get(`${url}/tenants/${params.id}/receiving-payment-records?page=${params.pageId}`, config)
+      return axios.get(`${url}/tenants/${params.id}/billing-records?page=${params.pageId}`, config)
         .then(response => {
           return response.data;
         });
     } else {
-      return axios.get(`${url}/tenants/${params.id}/receiving-payment-records`, config)
+      return axios.get(`${url}/tenants/${params.id}/billing-records`, config)
         .then(response => {
           return response.data;
         });
@@ -155,33 +155,89 @@ function getReceivingPaymentRecords(params) {
   }
 }
 
-function getSendingPaymentRecords(params) {
+function getPaymentRecords(params) {
   const config = {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     }
   };
-
+  console.log(params);
   if (params && (typeof params == "number" || typeof params == "string")) {
-    return axios.get(`${url}/tenants/${params}/sending-payment-records`, config)
+    return axios.get(`${url}/tenants/${params}/payment-records`, config)
       .then(response => {
         return response.data;
       });
   } else if (typeof params == "object") {
     if (params.pageId) {
-      return axios.get(`${url}/tenants/${params.id}/sending-payment-records?page=${params.pageId}`, config)
+      return axios.get(`${url}/tenants/${params.id}/payment-records?page=${params.pageId}`, config)
         .then(response => {
           return response.data;
         });
     } else {
-      return axios.get(`${url}/tenants/${params.id}/sending-payment-records`, config)
+      return axios.get(`${url}/tenants/${params.id}/payment-records`, config)
         .then(response => {
           return response.data;
         });
     }
   }
 }
+
+// function getReceivingPaymentRecords(params) {
+//   const config = {
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//     }
+//   };
+
+//   if (params && (typeof params == "number" || typeof params == "string")) {
+//     return axios.get(`${url}/tenants/${params}/receiving-payment-records`, config)
+//       .then(response => {
+//         return response.data;
+//       });
+//   } else if (typeof params == "object") {
+//     if (params.pageId) {
+//       return axios.get(`${url}/tenants/${params.id}/receiving-payment-records?page=${params.pageId}`, config)
+//         .then(response => {
+//           return response.data;
+//         });
+//     } else {
+//       return axios.get(`${url}/tenants/${params.id}/receiving-payment-records`, config)
+//         .then(response => {
+//           return response.data;
+//         });
+//     }
+//   }
+// }
+
+// function getSendingPaymentRecords(params) {
+//   const config = {
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//     }
+//   };
+
+//   if (params && (typeof params == "number" || typeof params == "string")) {
+//     return axios.get(`${url}/tenants/${params}/sending-payment-records`, config)
+//       .then(response => {
+//         return response.data;
+//       });
+//   } else if (typeof params == "object") {
+//     if (params.pageId) {
+//       return axios.get(`${url}/tenants/${params.id}/sending-payment-records?page=${params.pageId}`, config)
+//         .then(response => {
+//           return response.data;
+//         });
+//     } else {
+//       return axios.get(`${url}/tenants/${params.id}/sending-payment-records`, config)
+//         .then(response => {
+//           return response.data;
+//         });
+//     }
+//   }
+// }
 
 function getAssets(params) {
   const config = {
@@ -212,33 +268,33 @@ function getAssets(params) {
   
 }
 
-function getReceivingPayments(Id) {
-  const config = {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  };
+// function getReceivingPayments(Id) {
+//   const config = {
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//     }
+//   };
 
-  return axios.get(`${url}/tenants/${Id}/receiving-payment-records`, config)
-    .then(response => {
-      return response.data;
-    });
-}
+//   return axios.get(`${url}/tenants/${Id}/receiving-payment-records`, config)
+//     .then(response => {
+//       return response.data;
+//     });
+// }
 
-function getSendingPayments(Id) {
-  const config = {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  };
+// function getSendingPayments(Id) {
+//   const config = {
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//     }
+//   };
 
-  return axios.get(`${url}/tenants/${Id}/sending-payment-records`, config)
-    .then(response => {
-      return response.data;
-    });
-}
+//   return axios.get(`${url}/tenants/${Id}/sending-payment-records`, config)
+//     .then(response => {
+//       return response.data;
+//     });
+// }
 
 export default {
   get,
@@ -247,9 +303,11 @@ export default {
   update,
   store,
   remove,
-  getTenureContracts,
   getAssets,
-  getReceivingPaymentRecords,
-  getSendingPaymentRecords
+  getTenureContracts,
+  getBillingRecords,
+  getPaymentRecords
+//   getReceivingPaymentRecords,
+//   getSendingPaymentRecords
 };
 

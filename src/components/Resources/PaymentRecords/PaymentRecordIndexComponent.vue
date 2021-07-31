@@ -12,13 +12,13 @@
         </strong>
       </div> -->
       <card>
-        <h4 slot="header" class="card-title text-left">{{paymentRecordType == "All" ? "" : (paymentRecordType + " ")}}{{$t('sidebar.paymentRecords')}}{{paymentRecordType == 'Sending' ? ' from Tenant' : ''}}</h4>
+        <h4 slot="header" class="card-title text-left">{{$t('sidebar.paymentRecords')}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
             class="mt-3"
             type="info"
-          >{{$t('component.add')}} {{$t('sidebar.paymentRecords')}} {{paymentRecordType == 'Sending' ? ' from Tenant' : ''}}
+          >{{$t('component.add')}} {{$t('sidebar.paymentRecords')}}
           </base-button>
         </div>
         <!-- <div class="row">
@@ -54,11 +54,11 @@
             <base-pagination
               class="pagination-no-border"
               v-model="resource.data.currentPage"
-              :per-page="resource.data.perPage"
               :total="resource.data.total"
               @input="handlePagination"
               type="info"
             >
+            <!-- :per-page="resource.data.perPage" -->
             </base-pagination>
           </div>
         </div>
@@ -110,7 +110,7 @@ export default {
           total: 0,
           from: 0,
           to: 0,
-          perPage: 10,
+          // perPage: 10,
           links: []
         }
       },
@@ -119,13 +119,6 @@ export default {
     query: {
       type: Object,
       // default: {},
-    },
-    paymentRecordType: {
-      type: String,
-      required: true,
-      default: function() {
-        return "";
-      }
     }
   },
   mounted() {
@@ -142,16 +135,16 @@ export default {
       });
     },
     addModel() {
-      if (this.paymentRecordType == 'All') {
-        swal({
-          title: this.$t('alert.paymentRecordFailedAdded'),
-          text: this.$t('alert.paymentRecordFailedAddedTextInTenantDetail'),
-          buttonsStyling: false,
-          confirmButtonClass: "btn btn-info btn-fill",
-          type: "error",
-        });
-        return;
-      }
+      // if (this.paymentRecordType == 'All') {
+      //   swal({
+      //     title: this.$t('alert.paymentRecordFailedAdded'),
+      //     text: this.$t('alert.paymentRecordFailedAddedTextInTenantDetail'),
+      //     buttonsStyling: false,
+      //     confirmButtonClass: "btn btn-info btn-fill",
+      //     type: "error",
+      //   });
+      //   return;
+      // }
       this.$router.push({
         name: 'Add Payment Record',
         query: {
@@ -170,7 +163,6 @@ export default {
         if (this.$props.query) {
           if (this.$props.query.tenantId) {
             var param = {
-              tenantId: this.$props.query.tenantId,
               id: this.$props.query.tenantId,
               pageId: pageId
             }

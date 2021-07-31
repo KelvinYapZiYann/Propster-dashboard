@@ -45,25 +45,14 @@
             tenantId: this.tenantId,
             assetId: this.assetId,
           }"
-          billingRecordType="All"
         ></billing-record-index-component>
-
-        <!-- <payment-record-index-component
-          :resource="receivingPaymentRecordResource"
-          :query="{
-            tenantId: this.tenantId,
-            assetId: this.assetId,
-          }"
-          :paymentRecordType="receivingPaymentRecordType"
-        ></payment-record-index-component> -->
         
         <payment-record-index-component
-          :resource="sendingPaymentRecordResource"
+          :resource="paymentRecordResource"
           :query="{
             tenantId: this.tenantId,
             assetId: this.assetId,
           }"
-          :paymentRecordType="sendingPaymentRecordType"
         ></payment-record-index-component>
 
         <!-- <fab
@@ -120,11 +109,7 @@ export default {
         data: {},
         selector: {}
       },
-      receivingPaymentRecordResource: {
-        models: [{}],
-        data: {}
-      },
-      sendingPaymentRecordResource: {
+      paymentRecordResource: {
         models: [{}],
         data: {}
       },
@@ -156,8 +141,6 @@ export default {
           tooltip: this.$t('component.tenantPayment')
         }
       ],
-      receivingPaymentRecordType: "Receiving",
-      sendingPaymentRecordType: "Sending",
       tenantId: this.$route.params.tenantId,
       assetId: this.$route.query ? (this.$route.query.assetId ? this.$route.query.assetId : null) : null,
     };
@@ -192,43 +175,17 @@ export default {
           this.tenureContractResource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"])
         })
 
-        await this.$store.dispatch('billingRecords/get',  {}).then(() => {
-          this.billingRecordResource.models = this.$store.getters["billingRecords/models"]
-          this.billingRecordResource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
+        await this.$store.dispatch('tenant/getBillingRecords', this.tenantId).then(() => {
+          this.billingRecordResource.models = this.$store.getters["tenant/billingRecordModels"]
+          this.billingRecordResource.data = Object.assign({}, this.$store.getters["tenant/billingRecordData"])
         })
 
-        // await this.$store.dispatch('tenant/getReceivingPaymentRecords',  this.tenantId).then(() => {
-        //   this.receivingPaymentRecordResource.models = this.$store.getters["tenant/receivingPaymentRecordModels"]
-        //   this.receivingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/receivingPaymentRecordData"])
-        // })
-
-        await this.$store.dispatch('tenant/getSendingPaymentRecords',  this.tenantId).then(() => {
-          this.sendingPaymentRecordResource.models = this.$store.getters["tenant/sendingPaymentRecordModels"]
-          this.sendingPaymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/sendingPaymentRecordData"])
+        await this.$store.dispatch('tenant/getPaymentRecords',  this.tenantId).then(() => {
+          this.paymentRecordResource.models = this.$store.getters["tenant/paymentRecordModels"]
+          this.paymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"])
         })
-
-        await this.$store.dispatch('tenureContract/create', {}).then(() => {
-          this.tenureContractResource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
-        });
-
-        // await this.$store.dispatch('billingRecords/create', {}).then(() => {
-        //   this.billingRecordResource.selector = Object.assign({}, this.$store.getters["billingRecord/selector"])
-        // });
 
         this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
-        // await this.$store.dispatch('users/get', {}).then(() => {
-          // this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
-          // this.userResource.data = Object.assign({}, this.$store.getters["users/data"])
-          // this.userResource.selector = Object.assign({}, this.$store.getters["users/selector"])
-        // })
-
-        // await this.$store.dispatch('asset/getAssetExpenses', this.$route.params.assetId)
-        // this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
-        // this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
-
-        // await this.$store.dispatch('asset/getTenureContracts', this.$route.params.assetId)
-        // this.tenureContractResource.models = await this.$store.getters["asset/tenureContractModels"]
-        // this.tenureContractResource.data = await this.$store.getters["asset/tenureContractData"]
       } catch (e) {
         this.$notify({
           message:'Server error',

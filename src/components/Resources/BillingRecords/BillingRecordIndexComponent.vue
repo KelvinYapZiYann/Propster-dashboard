@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <card>
-        <h4 slot="header" class="card-title text-left">{{billingRecordType == "All" ? "" : (billingRecordType + " ")}}{{$t('sidebar.billingRecords')}}</h4>
+        <h4 slot="header" class="card-title text-left">{{$t('sidebar.billingRecords')}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
@@ -10,7 +10,6 @@
             type="info"
             v-bind:disabled="!resource.data.canAdd"
           >
-          <!-- v-if="resource.data.canAdd && billingRecordType != 'All'" -->
             {{$t('component.add')}} {{$t('sidebar.billingRecords')}}
           </base-button>
         </div>
@@ -47,11 +46,11 @@
             <base-pagination
               class="pagination-no-border"
               v-model="resource.data.currentPage"
-              :per-page="resource.data.perPage"
               :total="resource.data.total"
               @input="handlePagination"
               type="info"
             >
+            <!-- :per-page="resource.data.perPage" -->
             </base-pagination>
           </div>
         </div>
@@ -104,7 +103,7 @@ export default {
           total: 0,
           from: 0,
           to: 0,
-          perPage: 10,
+          // perPage: 10,
           links: []
         }
       },
@@ -112,13 +111,6 @@ export default {
     query: {
       type: Object,
       // default: {},
-    },
-    billingRecordType: {
-      type: String,
-      required: true,
-      default: function() {
-        return "";
-      }
     }
   },
   mounted() {
@@ -185,10 +177,10 @@ export default {
               id: this.$props.query.tenantId,
               pageId: pageId
             }
-            // await this.$store.dispatch('tenant/getBillingRecords', param).then(() => {
-            //   this.resource.models = this.$store.getters["tenant/billingRecordModels"];
-            //   this.resource.data = Object.assign({}, this.$store.getters["tenant/billingRecordData"]);
-            // });
+            await this.$store.dispatch('tenant/getBillingRecords', param).then(() => {
+              this.resource.models = this.$store.getters["tenant/billingRecordModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["tenant/billingRecordData"]);
+            });
           } else {
             await this.$store.dispatch('billingRecords/get', pageId).then(() => {
               this.resource.models = this.$store.getters["billingRecords/models"];
