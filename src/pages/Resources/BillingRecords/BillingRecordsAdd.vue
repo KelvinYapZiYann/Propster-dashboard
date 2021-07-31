@@ -9,7 +9,7 @@
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
-      @recipientIdOnChange="getBillingRecordDetail"
+      @senderIdOnChange="getBillingRecordDetail"
       addOrEdit="Add"
       :query="this.$route.query"
       :previousRoute="previousRoute"
@@ -37,9 +37,7 @@ export default {
       prevRoute: null,
       resource: {
         model: {
-          asset: {
-            // id: -1
-          }
+          asset: {}
         },
         data: {},
         selector: {}

@@ -9,7 +9,7 @@
                                :options="transactionResource.selector.senders"
                                v-if="addOrEdit == 'Add' && (transactionResource.selector.senders)"
                                :error="tmpApiValidationErrors.sender_id ? tmpApiValidationErrors.sender_id[0] : ''"
-                               @input="recipientIdOnChange"
+                               @input="senderIdOnChange"
           >
           </base-selector-input>
           <base-input :label="$t('property.sender')"
@@ -257,8 +257,8 @@ export default {
     this.endOfMonthBilling = "1";
   },
   methods: {
-    recipientIdOnChange(val) {
-      this.$emit("recipientIdOnChange", val);
+    senderIdOnChange(val) {
+      this.$emit("senderIdOnChange", val);
     },
     async handleBack() {
       if (this.previousRoute) {

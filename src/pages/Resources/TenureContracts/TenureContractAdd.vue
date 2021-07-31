@@ -103,10 +103,10 @@ export default {
                   name: 'Add Billing Record',
                   query: {
                     senderType: "TENANT",
-                    senderId: `${this.resource.model.tenant.id}`,
+                    senderId: this.resource.model.tenant.id,
                     recipientType: "LANDLORD",
-                    recipientId: `${this.userResource.model.landlord_ids[0]}`,
-                    assetId: `${this.resource.model.asset.id}`,
+                    recipientId: this.userResource.model.landlord_ids[0],
+                    assetId: this.resource.model.asset.id,
                   },
                   params: {
                     previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'

@@ -38,7 +38,7 @@ function getById(Id) {
     });
 }
 
-function add(param) {
+function create(param) {
   const config = {
     headers: {
       'Accept': 'application/json',
@@ -107,6 +107,6 @@ export default {
   update,
   store,
   remove,
-  add
+  create
 };
 

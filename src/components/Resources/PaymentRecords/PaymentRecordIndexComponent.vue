@@ -145,13 +145,16 @@ export default {
       //   });
       //   return;
       // }
+      if (!this.userResource.model.landlord_ids) {
+        this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+      }
       this.$router.push({
         name: 'Add Payment Record',
         query: {
           senderType: "TENANT",
-          senderId: `${this.$props.query.tenantId}`,
+          senderId: this.$props.query ? this.$props.query.tenantId : null,
           recipientType: "LANDLORD",
-          recipientId: `${this.userResource.model.landlord_ids[0]}`,
+          recipientId: this.userResource.model.landlord_ids[0],
         },
         params: {
           previousRoute: this.$router.currentRoute.fullPath

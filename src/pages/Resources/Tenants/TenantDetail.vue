@@ -199,9 +199,9 @@ export default {
         name: 'Add Payment Record',
         query: {
           senderType: "TENANT",
-          senderId: `${this.tenantId}`,
+          senderId: this.tenantId,
           recipientType: "LANDLORD",
-          recipientId: `${this.userResource.model.landlord_ids[0]}`,
+          recipientId: this.userResource.model.landlord_ids[0],
           assetId: this.assetId,
         },
         params: {
@@ -214,9 +214,9 @@ export default {
         name: 'Add Billing Record',
         query: {
           senderType: "TENANT",
-          senderId: `${this.tenantId}`,
+          senderId: this.tenantId,
           recipientType: "LANDLORD",
-          recipientId: `${this.userResource.model.landlord_ids[0]}`,
+          recipientId: this.userResource.model.landlord_ids[0],
           assetId: this.assetId,
         },
         params: {

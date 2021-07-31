@@ -75,8 +75,8 @@ const actions = {
         }
       });
   },
-  add({commit, dispatch}, params) {
-    return service.add(params)
+  create({commit, dispatch}, params) {
+    return service.create(params)
       .then((response) => {
         commit('SET_RESOURCE', response);
       })
