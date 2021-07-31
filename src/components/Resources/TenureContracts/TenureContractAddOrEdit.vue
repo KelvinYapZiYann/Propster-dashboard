@@ -8,19 +8,19 @@
                       v-model="resource.model.asset_id"
                       :options="resource.selector.asset_id"
                       v-if="addOrEdit == 'Add' && !assetId"
-                      :error="tmpApiValidationErrors.asset_nickname ? tmpApiValidationErrors.asset_nickname[0] : ''">
+                      :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''">
           </base-selector-input>
           <base-input :label="$t('property.assetNickname')"
                       v-if="addOrEdit == 'Add' && assetId" 
                       :value="getAssetNicknameByAssetIdFromSelector()"
                       :disabled="true"
-                      :error="tmpApiValidationErrors.asset_nickname ? tmpApiValidationErrors.asset_nickname[0] : ''">
+                      :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''">
           </base-input>
           <base-input :label="$t('property.assetNickname')"
                       v-if="addOrEdit != 'Add'" 
                       :value="resource.model.asset ? (resource.model.asset.asset_nickname ? resource.model.asset.asset_nickname : '') : ''"
                       :disabled="true"
-                      :error="tmpApiValidationErrors.asset_nickname ? tmpApiValidationErrors.asset_nickname[0] : ''">
+                      :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/> -->
         </div>
@@ -33,14 +33,26 @@
                       :disabled="true"
                       > 
           </base-selector-input> -->
-          <div v-for="tenant in resource.selector.tenant_id" v-bind:key="tenant.id">
+          <base-selector-input :label="$t('property.tenantName')"
+                      v-model="resource.model.tenant_id"
+                      :options="resource.selector.tenant_id"
+                      v-if="addOrEdit == 'Add' && !tenantId"
+                      :error="tmpApiValidationErrors.tenant_id ? tmpApiValidationErrors.tenant_id[0] : ''">
+          </base-selector-input>
+          <!-- <div v-for="tenant in resource.selector.tenant_id" v-bind:key="tenant.id">
               <base-input :label="$t('property.tenantName')"
                         v-if="tenant.id == tenantId && addOrEdit == 'Add'" 
                         :value="tenant.name"
                         :disabled="true"
-                        :error="tmpApiValidationErrors.tenant_name ? tmpApiValidationErrors.tenant_name[0] : ''">
+                        :error="tmpApiValidationErrors.tenant_id ? tmpApiValidationErrors.tenant_id[0] : ''">
               </base-input>
-          </div>
+          </div> -->
+          <base-input :label="$t('property.tenantName')"
+                      v-if="addOrEdit == 'Add' && tenantId" 
+                      :value="getTenantNameByTenantIdFromSelector()"
+                      :disabled="true"
+                      :error="tmpApiValidationErrors.tenant_id ? tmpApiValidationErrors.tenant_id[0] : ''">
+          </base-input>
           <base-input :label="$t('property.tenantName')"
                       v-if="addOrEdit != 'Add'" 
                       :value="resource.model.tenant ? (resource.model.tenant.first_name + ' ' + resource.model.tenant.last_name) : ''"
@@ -219,7 +231,7 @@ export default {
     translateModel() {
       if (this.addOrEdit == 'Add') {
         return {
-          tenant_id: this.tenantId ? this.tenantId : null,
+          tenant_id: this.tenantId ? this.tenantId : this.resource.model.tenant_id,
           asset_id: this.assetId ? this.assetId : this.resource.model.asset_id,
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
@@ -242,7 +254,7 @@ export default {
     },
     maxFileExceeded() {
       this.$notify({
-        message:'Max file reached',
+        message: this.$t('alert.maxFileReached'),
         icon: 'tim-icons icon-bell-55',
         type: 'danger'
       });
@@ -264,6 +276,20 @@ export default {
       for (var i = 0; i < this.resource.selector.asset_id.length; i++) {
         if (this.resource.selector.asset_id[i].id == this.assetId) {
           return this.resource.selector.asset_id[i].name;
+        }
+      }
+      return "-";
+    },
+    getTenantNameByTenantIdFromSelector() {
+      if (!this.resource.selector) {
+        return "-";
+      }
+      if (!this.resource.selector.tenant_id) {
+        return "-";
+      }
+      for (var i = 0; i < this.resource.selector.tenant_id.length; i++) {
+        if (this.resource.selector.tenant_id[i].id == this.tenantId) {
+          return this.resource.selector.tenant_id[i].name;
         }
       }
       return "-";

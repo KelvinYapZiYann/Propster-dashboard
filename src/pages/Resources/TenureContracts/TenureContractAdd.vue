@@ -16,6 +16,7 @@ import ValidationError from "@/components/ValidationError.vue";
 import router from "@/router";
 import TenureContractAddOrEdit from "@/components/Resources/TenureContracts/TenureContractAddOrEdit";
 import swal from "sweetalert2";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   mixins: [formMixin],
@@ -31,7 +32,6 @@ export default {
         selector: {}
       },
       addOrEdit: "Add",
-      tenantId: null,
       userResource: {
         model: {},
       },
@@ -56,58 +56,74 @@ export default {
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
         });
-        this.tenantId = this.$route.query.tenantId;
         this.userResource.model = Object.assign({}, this.$store.getters["users/model"]);
       } catch (e) {
-        this.$notify({
-          message:'Server error',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
+        if (!errorHandlingService.checkIfActionAuthorized(e)) {
+          swal({
+            title: this.$t('alert.tenureContractFailedAdded'),
+            text: this.$t('alert.redirectingToPreviousPage'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            type: "error",
+          }).then((result) => {
+            if (this.previousRoute) {
+              router.push({path: this.previousRoute});
+            } else {
+              router.go(-1);
+            }
+          });
+        } else {
+          this.$notify({
+            message: errorHandlingService.displayAlertFromServer(e),
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+        }
       }
     },
     async handleSubmit(formData) {
         try {
           await this.$store.dispatch('tenureContract/store', {'model': formData}).then(() => {
-            this.resource.model = Object.assign({}, this.$store.getters["tenureContract/models"])
+            this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
             this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
-          });
-          this.resetApiValidation();
-          swal({
-            title: this.$t('alert.tenureContractSuccessfullyAdded'),
-            text: this.$t('alert.tenureContractSuccessfullyAddedText'),
-            buttonsStyling: false,
-            showCancelButton: true,
-            confirmButtonText: this.$t('component.yes'),
-            cancelButtonText: this.$t('component.no'),
-            cancelButtonClass: "btn btn-info btn-fill",
-            confirmButtonClass: "btn btn-info btn-fill",
-            type: "success",
-          }).then((result) => {
-            if (result.value) {
-              router.push({
-                name: 'Add Billing Record',
-                query: {
-                  senderType: "TENANT",
-                  senderId: `${this.tenantId}`,
-                  recipientType: "LANDLORD",
-                  recipientId: `${this.userResource.model.landlord_ids[0]}`
-                },
-                params: {
-                  previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'
-                }
-              });
-            } else {
-              if (this.previousRoute) {
-                router.push({path: this.previousRoute});
+            this.resetApiValidation();
+            swal({
+              title: this.$t('alert.tenureContractSuccessfullyAdded'),
+              text: this.$t('alert.tenureContractSuccessfullyAddedText'),
+              buttonsStyling: false,
+              showCancelButton: true,
+              confirmButtonText: this.$t('component.yes'),
+              cancelButtonText: this.$t('component.no'),
+              cancelButtonClass: "btn btn-info btn-fill",
+              confirmButtonClass: "btn btn-info btn-fill",
+              type: "success",
+            }).then((result) => {
+              if (result.value) {
+                router.push({
+                  name: 'Add Billing Record',
+                  query: {
+                    senderType: "TENANT",
+                    senderId: `${this.resource.model.tenant.id}`,
+                    recipientType: "LANDLORD",
+                    recipientId: `${this.userResource.model.landlord_ids[0]}`,
+                    assetId: `${this.resource.model.asset.id}`,
+                  },
+                  params: {
+                    previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'
+                  }
+                });
               } else {
-                router.go(-1);
+                if (this.previousRoute) {
+                  router.push({path: this.previousRoute});
+                } else {
+                  router.go(-1);
+                }
               }
-            }
+            });
           });
         } catch (e) {
           this.$notify({
-            message:'Server error',
+            message: errorHandlingService.displayAlertFromServer(e),
             icon: 'tim-icons icon-bell-55',
             type: 'danger'
           });

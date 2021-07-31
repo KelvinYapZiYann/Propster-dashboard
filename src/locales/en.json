@@ -109,6 +109,7 @@
     "noTenureContractAlert": "There is no tenure contract of this tenant. Please create one.",
     "noBillingRecordAlert": "There is no billing of this tenant. Please create one.",
     "redirectingToPreviousPage": "This page is not allowed. Redirecting to the previous page.",
+    "maxFileReached": "Max file count reached",
 
     "assetSuccessfullyAdded": "Asset is Successfully Added",
     "assetSuccessfullyAddedText": "Do you want to add a Tenant into this asset right now?",

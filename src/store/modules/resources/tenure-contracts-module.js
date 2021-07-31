@@ -43,7 +43,13 @@ const mutations = {
       state.model[key] = fields[key];
     }
 
+    if (!response.meta) {
+      return;
+    }
     let selectors = response.meta.selector;
+    if (!selectors) {
+      return;
+    }
     for (let field in selectors) {
       let options = [];
       let selector = selectors[field];
@@ -162,7 +168,9 @@ const actions = {
   },
   store({commit, dispatch}, payload) {
     return service.store(payload)
-      .then((response) => {})
+      .then((response) => {
+        commit('SET_RESOURCE', response);
+      })
       .catch((e) => {
         try {
           errorHandlingService.verifyErrorFromServer(e);

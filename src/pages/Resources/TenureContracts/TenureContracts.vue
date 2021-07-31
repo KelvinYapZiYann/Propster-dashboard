@@ -41,9 +41,9 @@ export default {
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
         })
 
-        await this.$store.dispatch('tenureContract/create', {}).then(() => {
-          this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
-        });
+        // await this.$store.dispatch('tenureContract/create', {}).then(() => {
+        //   this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
+        // });
       } catch (e) {
         this.$notify({
           message:'Server error',

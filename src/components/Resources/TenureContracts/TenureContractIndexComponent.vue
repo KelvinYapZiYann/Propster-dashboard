@@ -210,26 +210,26 @@ export default {
     //   }
     // },
     addModel() {
-      if (!this.query) {
-        swal({
-          title: this.$t('alert.tenureContractFailedAdded'),
-          text: this.$t('alert.tenureContractFailedAddedTextInTenantDetail'),
-          buttonsStyling: false,
-          confirmButtonClass: "btn btn-info btn-fill",
-          type: "error",
-        });
-        return;
-      }
-      if (!this.resource.data.canAdd) {
-        swal({
-          title: this.$t('alert.tenureContractFailedAdded'),
-          text: this.$t('alert.tenureContractFailedAddedText'),
-          buttonsStyling: false,
-          confirmButtonClass: "btn btn-info btn-fill",
-          type: "error",
-        });
-        return;
-      }
+      // if (!this.query) {
+      //   swal({
+      //     title: this.$t('alert.tenureContractFailedAdded'),
+      //     text: this.$t('alert.tenureContractFailedAddedTextInTenantDetail'),
+      //     buttonsStyling: false,
+      //     confirmButtonClass: "btn btn-info btn-fill",
+      //     type: "error",
+      //   });
+      //   return;
+      // }
+      // if (!this.resource.data.canAdd) {
+      //   swal({
+      //     title: this.$t('alert.tenureContractFailedAdded'),
+      //     text: this.$t('alert.tenureContractFailedAddedText'),
+      //     buttonsStyling: false,
+      //     confirmButtonClass: "btn btn-info btn-fill",
+      //     type: "error",
+      //   });
+      //   return;
+      // }
       this.$router.push({
         name: 'Add Tenure Contract',
         query: this.query,
