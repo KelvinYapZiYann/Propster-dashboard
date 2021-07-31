@@ -58,11 +58,27 @@ export default {
           this.resource.selector = Object.assign({}, this.$store.getters["tenant/selector"])
         })
       } catch (e) {
-        this.$notify({
-          message: errorHandlingService.displayAlertFromServer(e),
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
+        if (!errorHandlingService.checkIfActionAuthorized(e)) {
+          swal({
+            title: this.$t('alert.assetFailedAdded'),
+            text: this.$t('alert.redirectingToPreviousPage'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            type: "error",
+          }).then((result) => {
+            if (this.previousRoute) {
+              router.push({path: this.previousRoute});
+            } else {
+              router.go(-1);
+            }
+          });
+        } else {
+          this.$notify({
+            message: errorHandlingService.displayAlertFromServer(e),
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+        }
       }
     },
     async handleSubmit(model) {

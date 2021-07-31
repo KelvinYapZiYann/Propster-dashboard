@@ -5,7 +5,6 @@ function verifyErrorFromServer(e) {
     if (e.response.data.message) {
         switch (e.response.data.message) {
             case 'Unauthenticated.':
-            // case 'This action is unauthorized.':
                 router.push({path: "/login"});
                 return;
             case 'user email not verified.':
@@ -17,9 +16,23 @@ function verifyErrorFromServer(e) {
             case 'Please select a correct role':
                 router.push({path: "/select-role"});
                 return;
+            // case 'This action is unauthorized.':
+            //     router.go(-1);
+            //     return;
         }
     }
     throw e;
+}
+
+function checkIfActionAuthorized(e) {
+    if (e.response.data) {
+        if (e.response.data.message) {
+            if (e.response.data.message == "This action is unauthorized.") {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 function displayAlertFromServer(e) {
@@ -38,5 +51,6 @@ function displayAlertFromServer(e) {
 
 export default {
     verifyErrorFromServer,
+    checkIfActionAuthorized,
     displayAlertFromServer
 };
