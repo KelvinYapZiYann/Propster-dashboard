@@ -10,15 +10,9 @@
       thead-classes="text-primary"
     ></base-detail-list>
 
-    <billing-payment-index-component
-      :resource="receivingResource"
-      @getResource="getResource"
-      billingPaymentsType="Receiving"
-    ></billing-payment-index-component>
     <!-- <billing-payment-index-component
-      :resource="sendingResource"
+      :resource="billingPaymentResource"
       @getResource="getResource"
-      billingPaymentsType="Sending"
     ></billing-payment-index-component> -->
 
     <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
@@ -40,11 +34,7 @@ export default {
         model: {},
         data: {}
       },
-      receivingResource: {
-        models: [{}],
-        data: {}
-      },
-      sendingResource: {
+      billingPaymentResource: {
         models: [{}],
         data: {}
       },
@@ -83,13 +73,9 @@ export default {
           this.resource.data = this.$store.getters["billingRecords/data"]
           this.loadAttachment();
         });
-        await this.$store.dispatch('billingPayments/getReceivingBillingPayments', {}).then(() => {
-          this.receivingResource.models = this.$store.getters["billingPayments/receivingBillingPaymentsModels"];
-          this.receivingResource.data = Object.assign({}, this.$store.getters["billingPayments/receivingBillingPaymentsData"]);
-        });
-        // await this.$store.dispatch('billingPayments/getSendingBillingPayments', {}).then(() => {
-        //   this.sendingResource.models = this.$store.getters["billingPayments/sendingBillingPaymentsModels"];
-        //   this.sendingResource.data = Object.assign({}, this.$store.getters["billingPayments/sendingBillingPaymentsData"]);
+        // await this.$store.dispatch('billingPayments/get', {}).then(() => {
+        //   this.billingPaymentResource.models = this.$store.getters["billingPayments/models"];
+        //   this.billingPaymentResource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
         // });
       } catch (e) {
         this.$notify({

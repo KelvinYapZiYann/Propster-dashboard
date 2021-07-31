@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <card>
-        <h4 slot="header" class="card-title text-left">{{billingPaymentsType == "All" ? "" : (billingPaymentsType + " ")}}{{$t('sidebar.billingPayments')}}</h4>
+        <h4 slot="header" class="card-title text-left">{{$t('sidebar.billingPayments')}}</h4>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
@@ -107,13 +107,13 @@ export default {
       type: Object,
       // default: {},
     },
-    billingPaymentsType: {
-      type: String,
-      required: true,
-      default: function() {
-        return "";
-      }
-    }
+    // billingPaymentsType: {
+    //   type: String,
+    //   required: true,
+    //   default: function() {
+    //     return "";
+    //   }
+    // }
   },
   mounted() {
     this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
@@ -129,45 +129,11 @@ export default {
       });
     },
     async handlePagination(pageId) {
-      console.log(this.resource.data);
       try {
-        
-        if (this.$props.query) {
-          if (this.$props.query.tenantId) {
-            // var param = {
-            //   tenantId: this.$props.query.tenantId,
-            //   pageId: pageId
-            // }
-            // await this.$store.dispatch('tenant/getBillingPayments', param).then(() => {
-            //   this.resource.models = this.$store.getters["tenant/billingPaymentModels"];
-            //   this.resource.data = Object.assign({}, this.$store.getters["tenant/billingPaymentData"]);
-            // });
-          } else {
-            if (this.billingPaymentsType == "Receiving") {
-              await this.$store.dispatch('billingPayments/getReceivingBillingPayments', pageId).then(() => {
-                this.resource.models = this.$store.getters["billingPayments/receivingBillingPaymentsModels"];
-                this.resource.data = Object.assign({}, this.$store.getters["billingPayments/receivingBillingPaymentsData"]);
-              });
-            } else {
-              await this.$store.dispatch('billingPayments/getSendingBillingPayments', pageId).then(() => {
-                this.resource.models = this.$store.getters["billingPayments/sendingBillingPaymentsModels"];
-                this.resource.data = Object.assign({}, this.$store.getters["billingPayments/sendingBillingPaymentsData"]);
-              });
-            }
-          }
-        } else {
-          if (this.billingPaymentsType == "Receiving") {
-            await this.$store.dispatch('billingPayments/getReceivingBillingPayments', pageId).then(() => {
-              this.resource.models = this.$store.getters["billingPayments/receivingBillingPaymentsModels"];
-              this.resource.data = Object.assign({}, this.$store.getters["billingPayments/receivingBillingPaymentsData"]);
-            });
-          } else {
-            await this.$store.dispatch('billingPayments/getSendingBillingPayments', pageId).then(() => {
-              this.resource.models = this.$store.getters["billingPayments/sendingBillingPaymentsModels"];
-              this.resource.data = Object.assign({}, this.$store.getters["billingPayments/sendingBillingPaymentsData"]);
-            });
-          }
-        }
+        await this.$store.dispatch('billingPayments/get', pageId).then(() => {
+          this.resource.models = this.$store.getters["billingPayments/models"];
+          this.resource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
+        });
       } catch (e) {
         this.$notify({
           message:'Server error',
