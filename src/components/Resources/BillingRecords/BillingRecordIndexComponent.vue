@@ -135,16 +135,16 @@ export default {
       });
     },
     addModel() {
-      if (router.currentRoute.name == "Billing Records") {
-        swal({
-          title: this.$t('alert.billingRecordFailedAdded'),
-          text: this.$t('alert.billingRecordFailedAddedTextInTenantDetail'),
-          buttonsStyling: false,
-          confirmButtonClass: "btn btn-info btn-fill",
-          type: "error",
-        });
-        return;
-      }
+      // if (router.currentRoute.name == "Billing Records") {
+      //   swal({
+      //     title: this.$t('alert.billingRecordFailedAdded'),
+      //     text: this.$t('alert.billingRecordFailedAddedTextInTenantDetail'),
+      //     buttonsStyling: false,
+      //     confirmButtonClass: "btn btn-info btn-fill",
+      //     type: "error",
+      //   });
+      //   return;
+      // }
       if (!this.resource.data.canAdd) {
         swal({
           title: this.$t('alert.billingRecordFailedAdded'),
@@ -155,21 +155,26 @@ export default {
         });
         return;
       }
-      if (this.$props.query) {
+      if (!this.userResource.model.landlord_ids) {
+        this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+      }
+      // if (this.$props.query) {
         router.push({
           name: 'Add Billing Record',
           query: {
             senderType: "TENANT",
-            senderId: `${this.$props.query.tenantId}`,
+            senderId: this.$props.query ? this.$props.query.tenantId : null,
             recipientType: "LANDLORD",
-            recipientId: `${this.userResource.model.landlord_ids[0]}`,
-            assetId: `${this.$props.query.assetId}`,
+            recipientId: this.userResource.model.landlord_ids[0],
+            assetId: this.$props.query ? this.$props.query.assetId : null,
           },
           params: {
             previousRoute: router.currentRoute.fullPath
           }
         });
-      }
+      // } else {
+        
+      // }
     },
     async handlePagination(pageId) {
       try {
@@ -180,9 +185,9 @@ export default {
               id: this.$props.query.tenantId,
               pageId: pageId
             }
-            // await this.$store.dispatch('tenant/getPaymentRecords', param).then(() => {
-            //   this.resource.models = this.$store.getters["tenant/paymentRecordModels"];
-            //   this.resource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"]);
+            // await this.$store.dispatch('tenant/getBillingRecords', param).then(() => {
+            //   this.resource.models = this.$store.getters["tenant/billingRecordModels"];
+            //   this.resource.data = Object.assign({}, this.$store.getters["tenant/billingRecordData"]);
             // });
           } else {
             await this.$store.dispatch('billingRecords/get', pageId).then(() => {

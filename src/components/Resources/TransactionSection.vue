@@ -2,7 +2,7 @@
   <div>
       <div class="row">
         <div class="col-md-5">
-          <div class="card card-profile ml-auto mr-auto" style="max-width: 250px; cursor: pointer;" @click="showUserDetail(resource.model.sender.sender_type, resource.model.sender.id)">
+          <div class="card card-profile ml-auto mr-auto" style="max-width: 250px; cursor: pointer;" @click="showUserDetail(resource.model.sender ? resource.model.sender.sender_type : null, resource.model.sender ? resource.model.sender.id : null)">
             <div class="card-header card-header-image">
               <div v-if="resource.model.sender ? resource.model.sender.sender_type == 'LANDLORD' : false">
                 <svg width="315" height="138" viewBox="0 0 315 138" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="col-md-5">
-          <div class="card card-profile ml-auto mr-auto" style="max-width: 250px; cursor: pointer;" @click="showUserDetail(resource.model.recipient.recipient_type, resource.model.recipient.id)">
+          <div class="card card-profile ml-auto mr-auto" style="max-width: 250px; cursor: pointer;" @click="showUserDetail(resource.model.recipient ? resource.model.recipient.recipient_type : null, resource.model.recipient ? resource.model.recipient.id : null)">
             <div class="card-header card-header-image">
               <div v-if="resource.model.recipient ? resource.model.recipient.recipient_type == 'LANDLORD' : false">
                 <svg width="315" height="138" viewBox="0 0 315 138" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
