@@ -40,7 +40,7 @@ export default {
           payment_type: this.$t('property.paymentType'),
           status: this.$t('property.status'),
           is_seen: this.$t('property.isSeen'),
-          is_reference_only: this.$t('property.isReferenceOnly'),
+          // is_reference_only: this.$t('property.isReferenceOnly'),
         },
       },
     };

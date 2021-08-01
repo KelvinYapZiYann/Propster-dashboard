@@ -97,7 +97,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-6">
             <base-input :label="$t('property.isReferenceOnly')"
                         type="checkbox"
@@ -105,9 +105,8 @@
                         v-model="resource.model.is_reference_only"
                         :error="tmpApiValidationErrors.is_reference_only ? tmpApiValidationErrors.is_reference_only[0] : ''">
             </base-input>
-            <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_reference_only"/> -->
           </div>
-        </div>
+        </div> -->
       </div>
     </card>
     <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.cancel')}}</base-button>
