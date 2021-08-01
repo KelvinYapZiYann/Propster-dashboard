@@ -8,7 +8,7 @@
         <base-input :label="$t('property.firstName')"
                     :placeholder="$t('property.firstName')"
                     v-model="model.first_name"
-                    :disabled="true"
+                    :disabled="addOrEdit == 'View'"
                     :error="tmpApiValidationErrors.first_name ? tmpApiValidationErrors.first_name[0] : ''">
         </base-input>
         <!-- <validation-error :errorsArray="tmpApiValidationErrors.first_name"/> -->
@@ -17,7 +17,7 @@
         <base-input :label="$t('property.lastName')"
                     :placeholder="$t('property.lastName')"
                     v-model="model.last_name"
-                    :disabled="true"
+                    :disabled="addOrEdit == 'View'"
                     :error="tmpApiValidationErrors.last_name ? tmpApiValidationErrors.last_name[0] : ''">
         </base-input>
         <!-- <validation-error :errorsArray="tmpApiValidationErrors.last_name"/> -->
@@ -47,7 +47,7 @@
                   @onSelect="onSelectCountryCode"
                   :only-countries="['MY']"
                   class="pt-1 pb-1"
-                  :disabled="true"
+                  :disabled="addOrEdit == 'View'"
                   >
             </vue-country-code>
             <validation-error :errorsArray="tmpApiValidationErrors.phone_country_code" />
@@ -58,7 +58,7 @@
                 :placeholder="$t('property.phoneNumber')"
                 type="tel"
                 pattern="^[0-9]+$"
-                :disabled="true"
+                :disabled="addOrEdit == 'View'"
                 :error="tmpApiValidationErrors.phone_number ? tmpApiValidationErrors.phone_number[0] : ''">
             </base-input>
             <!-- <validation-error :errorsArray="apiValidationErrors.phone_number" /> -->
@@ -76,7 +76,7 @@
           :only-countries="['MY']"
           :disabled="true"
           /> -->
-        <validation-error :errorsArray="tmpApiValidationErrors.phone_number"/>
+        <!-- <validation-error :errorsArray="tmpApiValidationErrors.phone_number"/> -->
       </div>
     </div>
     <div class="row">
@@ -91,7 +91,7 @@
                 :placeholder="$t('property.dateOfBirth')"
                 v-model="model.date_of_birth"
                 value-format="yyyy-MM-dd"
-                :disabled="true"
+                :disabled="addOrEdit == 'View'"
               >
               </el-date-picker>
         </base-input>
@@ -105,7 +105,7 @@
                                 {"id":"FEMALE", "name":"Female"}
                               ]'
                               :error="tmpApiValidationErrors.gender ? tmpApiValidationErrors.gender[0] : ''"
-                              :disabled="true"
+                              :disabled="addOrEdit == 'View'"
         >
         </base-selector-input>
         <!-- <validation-error :errorsArray="tmpApiValidationErrors.gender"/> -->
@@ -117,14 +117,15 @@
                     type="checkbox"
                     v-model="model.is_business"
                     :error="tmpApiValidationErrors.is_business ? tmpApiValidationErrors.is_business[0] : ''"
-                    :disabled="true"
+                    :disabled="addOrEdit == 'View'"
         >
         </base-input>
         <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_business"/> -->
       </div>
     </div>
     <template slot="footer">
-      <base-button type="info" @click="handleSubmit()" fill v-if="addOrEdit == 'Add'">{{$t('component.save')}}</base-button>
+      <base-button type="info" @click="handleCancel()" fill v-if="addOrEdit == 'Edit'">{{$t('component.cancel')}}</base-button>
+      <base-button type="info" @click="handleSubmit()" fill>{{addOrEdit != "View" ? $t('component.save') : $t('component.edit')}}</base-button>
     </template>
   </card>
 </template>
@@ -181,9 +182,12 @@ export default {
     }
   },
   mounted() {
-    this.phone_country_code = "60";
+    this.phone_country_code = "+60";
   },
   methods: {
+    async handleCancel() {
+      this.$emit("cancel");
+    },
     async handleSubmit() {
       // const userId = this.model.id
       // console.log(this.model);
@@ -199,12 +203,11 @@ export default {
       const data = {
         first_name: this.model.first_name,
         last_name: this.model.last_name,
-        // phone_country_code: this.model.phone_country_code,
-        // phone_number: this.model.phone_number,
+        phone_country_code: this.phone_country_code,
+        phone_number: this.model.phone_number,
         date_of_birth: this.model.date_of_birth,
         is_business: this.model.is_business,
-        // gender: this.model.gender,
-        gender: "MALE",
+        gender: this.model.gender,
       }
       this.$emit("submit", data);
       // try {
@@ -225,7 +228,7 @@ export default {
       // }
     },
     onSelectCountryCode(params) {
-      this.phone_country_code = params.dialCode;
+      this.phone_country_code = "+" + params.dialCode;
     }
   }
 };

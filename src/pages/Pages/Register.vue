@@ -184,7 +184,7 @@ export default {
     };
   },
   mounted() {
-    this.phone_country_code = "60";
+    this.phone_country_code = "+60";
   },
   methods: {
     async register() {
@@ -238,7 +238,7 @@ export default {
       this.$router.push({name: "login"});
     },
     onSelectCountryCode(params) {
-      this.phone_country_code = params.dialCode;
+      this.phone_country_code = "+" + params.dialCode;
     }
   }
 };

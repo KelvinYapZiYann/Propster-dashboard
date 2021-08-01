@@ -10,8 +10,9 @@
         <edit-profile-form 
           :model="resource.model"
           @submit="handleSubmit"
+          @cancel="handleCancel"
           :tmpApiValidationErrors="apiValidationErrors"
-          addOrEdit="View"
+          addOrEdit="Edit"
           >
         </edit-profile-form>
       </div>
@@ -40,6 +41,14 @@
         },
       }
     },
+    props: {
+      previousRoute: {
+        type: String,
+        required: false,
+        default: "",
+        description: "Previous Route"
+      }
+    },
     mounted() {
       this.getProfile();
     },
@@ -59,31 +68,41 @@
           });
         }
       },
-      async handleSubmit() {
-        this.$router.push({
-          name: 'User Profile Edit',
-          params: {
-            previousRoute: this.$router.currentRoute.fullPath
+      async handleCancel() {
+        if (this.previousRoute) {
+          this.$router.push({path: this.previousRoute});
+        } else {
+          this.$router.push({
+            name: 'User Profile'
+          });
+        }
+      },
+      async handleSubmit(userData) {
+        try {
+          await this.$store.dispatch('users/update', userData).then(() => {
+            this.resource.model = Object.assign({}, this.$store.getters["users/model"])
+          })
+          this.$notify({
+            message:'Successfully Updated',
+            icon: 'tim-icons icon-bell-55',
+            type: 'success'
+          });
+          this.resetApiValidation();
+          if (this.previousRoute) {
+            this.$router.push({path: this.previousRoute});
+          } else {
+            this.$router.push({
+              name: 'User Profile'
+            });
           }
-        });
-        // try {
-        //   await this.$store.dispatch('users/update', userData).then(() => {
-        //     this.resource.model = Object.assign({}, this.$store.getters["users/model"])
-        //   })
-        //   this.$notify({
-        //     message:'Successfully Updated',
-        //     icon: 'tim-icons icon-bell-55',
-        //     type: 'success'
-        //   });
-        //   this.resetApiValidation();
-        // } catch (e) {
-        //   this.$notify({
-        //     message:'Server error',
-        //     icon: 'tim-icons icon-bell-55',
-        //     type: 'danger'
-        //   });
-        //   this.setApiValidation(e.response.data.errors)
-        // }
+        } catch (e) {
+          this.$notify({
+            message:'Server error',
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+          this.setApiValidation(e.response.data.errors)
+        }
       }
     }
   }

@@ -218,7 +218,7 @@ export default {
     this.assetId = this.$route.query.assetId;
   },
   mounted() {
-    this.phone_country_code = "60";
+    this.phone_country_code = "+60";
   },
   methods: {
     async handleSubmit() {
@@ -244,7 +244,7 @@ export default {
       }
     },
     onSelectCountryCode(params) {
-      this.phone_country_code = params.dialCode;
+      this.phone_country_code = "+" + params.dialCode;
     }
   }
 }

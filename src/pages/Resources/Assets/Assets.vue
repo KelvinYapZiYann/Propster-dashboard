@@ -2,7 +2,7 @@
   <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
     <div class="row">
       <div class="col-12">
-        <div class="pro-feature alert alert-danger" v-if="$store.getters['users/model'].tier == 'BASIC'">
+        <div class="pro-feature alert alert-danger" v-if="$store.getters['users/model'].tier == 'BASIC' || $store.getters['users/model'].tier == 'USER_BASIC'">
           <strong>
             <!-- {{$t('component.proFeature1')}} 1 {{$t('sidebar.asset')}} {{$t('component.proFeature2')}} {{$t('component.proFeature3')}} 
             <a

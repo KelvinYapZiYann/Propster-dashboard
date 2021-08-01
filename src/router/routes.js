@@ -65,6 +65,8 @@ const Dashboard = () =>
 // Pages
 const Profile = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Profile/Profile.vue");
+  const ProfileEdit = () =>
+    import(/* webpackChunkName: "pages" */ "@/pages/Profile/ProfileEdit.vue");
 
 // const Pricing = () =>
 //     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Pricing.vue");
@@ -555,7 +557,17 @@ const routes = [
       {
         path: "profile",
         name: "User Profile",
-        component: Profile
+        component: Profile,
+        meta: { middleware: auth },
+      },
+      {
+        path: "profile/edit",
+        name: "User Profile Edit",
+        component: ProfileEdit,
+        meta: { middleware: auth },
+        props: {
+          default: true
+        }
       },
       // {
       //   path: "Calendar",

@@ -17,17 +17,13 @@ function get() {
 }
 
 function update(params) {
-  const userId = params.userId;
-  const payload = params.data;
-
   const config = {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     }
   };
-
-  return axios.post(`${url}/users/${userId}`, payload, config)
+  return axios.post(`${url}/users/update`, params, config)
     .then(response => {
       return response.data;
     });
