@@ -159,6 +159,7 @@ export default {
             recipientType: "LANDLORD",
             recipientId: this.userResource.model.landlord_ids[0],
             assetId: this.$props.query ? this.$props.query.assetId : null,
+            tenureContractId: this.$props.query ? this.$props.query.tenureContractId : null,
           },
           params: {
             previousRoute: router.currentRoute.fullPath

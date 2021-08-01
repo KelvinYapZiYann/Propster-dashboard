@@ -23,6 +23,8 @@
         <billing-record-index-component
           :resource="billingRecordResource"
           :query="{
+            tenantId: resource.model.tenant ? resource.model.tenant.id : null,
+            assetId: resource.model.asset ? resource.model.asset.id : null,
             tenureContractId: resource.model.id,
           }"
         ></billing-record-index-component>

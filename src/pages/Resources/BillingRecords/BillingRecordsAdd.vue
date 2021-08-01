@@ -23,6 +23,7 @@ import router from "@/router";
 import BillingRecordAddOrEdit from "@/components/Resources/BillingRecords/BillingRecordAddOrEdit";
 // import ValidationError from "@/components/ValidationError.vue";
 import { TransactionSection, ValidationError } from "@/components";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   mixins: [formMixin],
@@ -107,11 +108,27 @@ export default {
           this.resource.selector = Object.assign({}, this.$store.getters["billingRecords/selector"])
         })
       } catch (e) {
-        this.$notify({
-          message:'Server error',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
+        if (!errorHandlingService.checkIfActionAuthorized(e)) {
+          swal({
+            title: this.$t('alert.billingRecordFailedAdded'),
+            text: this.$t('alert.redirectingToPreviousPage'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            type: "error",
+          }).then((result) => {
+            if (this.previousRoute) {
+              router.push({path: this.previousRoute});
+            } else {
+              router.go(-1);
+            }
+          });
+        } else {
+          this.$notify({
+            message: errorHandlingService.displayAlertFromServer(e),
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+        }
       }
     },
     async refreshTransactionDetail() {
@@ -132,10 +149,11 @@ export default {
         });
       } catch (e) {
         this.$notify({
-          message:'Server error',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
+            message: errorHandlingService.displayAlertFromServer(e),
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+          this.setApiValidation(e.response.data.errors)
       }
     },
     async handleSubmit(model) {
@@ -157,11 +175,11 @@ export default {
         }
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
-        this.setApiValidation(e.response.data.errors);
+        this.setApiValidation(e.response.data.errors)
       }
     },
   }

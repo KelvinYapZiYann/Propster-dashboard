@@ -107,6 +107,7 @@ export default {
                     recipientType: "LANDLORD",
                     recipientId: this.userResource.model.landlord_ids[0],
                     assetId: this.resource.model.asset.id,
+                    tenureContractId: this.resource.model.id
                   },
                   params: {
                     previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'

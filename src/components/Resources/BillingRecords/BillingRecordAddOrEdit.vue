@@ -73,13 +73,21 @@
             <base-input :label="$t('property.amount')"
                         :placeholder="$t('property.amount')"
                         v-model="resource.model.amount"
+                        v-if="!query.tenureContractId"
+                        :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
+            </base-input>
+            <base-input :label="$t('property.amount')"
+                        :placeholder="$t('property.amount')"
+                        v-model="tenureContractAmount"
+                        v-if="query.tenureContractId"
+                        :disabled="true"
                         :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
             </base-input>
             <!-- <validation-error :errorsArray="tmpApiValidationErrors.amount"/> -->
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
             <base-selector-input :label="$t('property.paymentMethod')"
                                 :placeholder="$t('property.paymentMethod')"
                                 v-model="resource.model.payment_method"
@@ -88,63 +96,24 @@
                                 :error="tmpApiValidationErrors.payment_method ? tmpApiValidationErrors.payment_method[0] : ''"
             >
             </base-selector-input>
-            <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_method"/> -->
-          </div>
+          </div> -->
           <div class="col-md-6">
-            <!-- <base-selector-input :label="$t('property.paymentType')"
+            <base-selector-input :label="$t('property.paymentType')"
                                 :placeholder="$t('property.paymentType')"
                                 v-model="resource.model.payment_type"
                                 :initialValue="resource.model.payment_type"
                                 :options="resource.selector.payment_type"
+                                v-if="!query.tenureContractId"
                                 :error="tmpApiValidationErrors.payment_type ? tmpApiValidationErrors.payment_type[0] : ''"
             >
-            </base-selector-input> -->
+            </base-selector-input>
             <base-input :label="$t('property.paymentType')"
                         value="Rental"
                         :disabled="true"
+                        v-if="query.tenureContractId"
                         :error="tmpApiValidationErrors.asset ? tmpApiValidationErrors.asset[0] : ''">
             </base-input>
             <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_type"/> -->
-          </div>
-        </div>
-        <div class="row">
-          <!-- <div class="col-md-6"> -->
-            <!-- <base-selector-input :label="$t('property.frequencyType')"
-                                :placeholder="$t('property.frequencyType')"
-                                v-model="resource.model.frequency_type"
-                                :initialValue="resource.model.frequency_type"
-                                :options="resource.selector.frequency_type"
-                                :error="tmpApiValidationErrors.frequency_type ? tmpApiValidationErrors.frequency_type[0] : ''"
-            >
-            </base-selector-input> -->
-            <!-- <validation-error :errorsArray="tmpApiValidationErrors.frequency_type"/> -->
-          <!-- </div> -->
-          <!-- <div class="col-md-6"> -->
-            <!-- <base-input :label="$t('property.billingStartDate')"
-                        :error="tmpApiValidationErrors.billing_start_at ? tmpApiValidationErrors.billing_start_at[0] : ''">
-                  <el-date-picker
-                    type="date"
-                    :placeholder="$t('property.billingStartDate')"
-                    v-model="resource.model.billing_start_at"
-                    value-format="yyyy-MM-dd"
-                  >
-                  </el-date-picker>
-            </base-input> -->
-            <!-- <validation-error :errorsArray="tmpApiValidationErrors.billing_start_at"/> -->
-          <!-- </div> -->
-          <div class="col-md-6">
-            <base-input :label="$t('property.billingDateRange')"
-                        :error="tmpApiValidationErrors.billing_start_at ? (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_start_at[0] + ' ' + tmpApiValidationErrors.billing_end_at[0] : tmpApiValidationErrors.billing_start_at[0]) : (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_end_at[0] : '')">
-                  <el-date-picker
-                    type="daterange"
-                    v-model="billingDateRange"
-                    value-format="yyyy-MM-dd"
-                    range-separator="-"
-                    :start-placeholder="$t('property.billingStartDate')"
-                    :end-placeholder="$t('property.billingEndDate')"
-                  >
-                  </el-date-picker>
-            </base-input>
           </div>
           <div class="col-md-6">
             <base-selector-input :label="$t('property.endOfMonthBilling')"
@@ -177,6 +146,47 @@
             <!-- <validation-error :errorsArray="tmpApiValidationErrors.remind_before_days"/> -->
           </div>
         </div>
+        <div class="row">
+          <!-- <div class="col-md-6"> -->
+            <!-- <base-selector-input :label="$t('property.frequencyType')"
+                                :placeholder="$t('property.frequencyType')"
+                                v-model="resource.model.frequency_type"
+                                :initialValue="resource.model.frequency_type"
+                                :options="resource.selector.frequency_type"
+                                :error="tmpApiValidationErrors.frequency_type ? tmpApiValidationErrors.frequency_type[0] : ''"
+            >
+            </base-selector-input> -->
+            <!-- <validation-error :errorsArray="tmpApiValidationErrors.frequency_type"/> -->
+          <!-- </div> -->
+          <!-- <div class="col-md-6"> -->
+            <!-- <base-input :label="$t('property.billingStartDate')"
+                        :error="tmpApiValidationErrors.billing_start_at ? tmpApiValidationErrors.billing_start_at[0] : ''">
+                  <el-date-picker
+                    type="date"
+                    :placeholder="$t('property.billingStartDate')"
+                    v-model="resource.model.billing_start_at"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+            </base-input> -->
+            <!-- <validation-error :errorsArray="tmpApiValidationErrors.billing_start_at"/> -->
+          <!-- </div> -->
+          <div class="col-md-6">
+            <base-input :label="$t('property.billingDateRange')"
+                        v-if="!query.tenureContractId"
+                        :error="tmpApiValidationErrors.billing_start_at ? (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_start_at[0] + ' ' + tmpApiValidationErrors.billing_end_at[0] : tmpApiValidationErrors.billing_start_at[0]) : (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_end_at[0] : '')">
+                  <el-date-picker
+                    type="daterange"
+                    v-model="billingDateRange"
+                    value-format="yyyy-MM-dd"
+                    range-separator="-"
+                    :start-placeholder="$t('property.billingStartDate')"
+                    :end-placeholder="$t('property.billingEndDate')"
+                  >
+                  </el-date-picker>
+            </base-input>
+          </div>
+        </div>
       </div>
     </card>
     <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.cancel')}}</base-button>
@@ -200,7 +210,8 @@ export default {
     return {
       billingDateRange: [],
       endOfMonthBilling: {},
-      endOfMonthBillingOptions: [{'id': '1', 'name': this.$t('property.endOfMonthBillingTrue')}, {'id': '0', 'name': this.$t('property.endOfMonthBillingFalse')}]
+      endOfMonthBillingOptions: [{'id': '1', 'name': this.$t('property.endOfMonthBillingTrue')}, {'id': '0', 'name': this.$t('property.endOfMonthBillingFalse')}],
+      tenureContractAmount: ""
     }
   },
   props: {
@@ -252,6 +263,13 @@ export default {
     // console.log(this.resource.model.payment_description);
     // console.log(this.resource.data);
     // console.log(this.resource.selector);
+    if (this.query.tenureContractId) {
+      this.$store.dispatch('tenureContract/getById',  this.query.tenureContractId).then(() => {
+        let tmpModel = this.$store.getters["tenureContract/model"];
+        this.tenureContractAmount = tmpModel.monthly_rental_amount;
+        this.billingDateRange = [tmpModel.tenure_start_date, tmpModel.tenure_end_date];
+      });
+    }
   },
   created() {
     this.endOfMonthBilling = "1";
@@ -293,10 +311,11 @@ export default {
         sender_id: this.resource.model.sender.id,
         asset_id: this.resource.model.asset.id,
         description: this.resource.model.description,
-        payment_method: this.resource.model.payment_method,
+        // payment_method: this.resource.model.payment_method,
+        payment_method: "CASH",
         // payment_type: this.resource.model.payment_type,
-        payment_type: "RENTAL",
-        amount: this.resource.model.amount,
+        payment_type: this.query.tenureContractId ? "RENTAL" : this.resource.model.payment_type,
+        amount: this.query.tenureContractId ? this.tenureContractAmount : this.resource.model.amount,
         // frequency_type: this.resource.model.frequency_type,
         frequency_type: "MONTH",
         frequency: 1,

@@ -152,7 +152,6 @@
     </card>
     <base-button slot="footer" type="info" @click="handleCancel()" fill>{{$t('component.cancel')}}</base-button>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{addOrEdit == 'Add' ? $t('component.add') : $t('component.edit')}}</base-button>
-    <base-button slot="footer" native-type="submit" type="info" @click="asd()" fill>asd</base-button>
   </form>
 </template>
 <script>
@@ -212,18 +211,7 @@ export default {
     this.tenantId = this.$route.query.tenantId;
     // this.tenure_start_date = this.resource.model.tenure_start_date + ', ' + this.resource.model.tenure_end_date;
   },
-  mounted() {
-    if (this.addOrEdit == 'Edit') {
-      console.log('zxczxczxc');
-      this.tenureDateRange=[];
-      // this.tenureDateRange = [this.resource.model.tenure_start_date, this.resource.model.tenure_end_date];
-    }
-  },
   methods: {
-    async asd() {
-      this.tenureDateRange=[];
-      this.tenureDateRange = [this.resource.model.tenure_start_date, this.resource.model.tenure_end_date];
-    },
     async handleSubmit() {
       let formData = new FormData();
 
