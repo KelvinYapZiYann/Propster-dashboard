@@ -98,12 +98,43 @@ function store(payload) {
       });
 }
 
+function getBillingRecords(params) {
+  const config = {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  };
+
+  if (params && (typeof params == "number" || typeof params == "string")) {
+    return axios.get(`${url}/tenure-contracts/${params}/billing-records`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else if (typeof params == "object") {
+    if (params.pageId) {
+      return axios.get(`${url}/tenure-contracts/${params.id}/billing-records?page=${params.pageId}`, config)
+        .then(response => {
+          return response.data;
+        });
+    } else {
+      return axios.get(`${url}/tenure-contracts/${params.id}/billing-records`, config)
+        .then(response => {
+          return response.data;
+        });
+    }
+  }
+}
+
+
+
 export default {
   get,
   create,
   getById,
   update,
   store,
-  remove
+  remove,
+  getBillingRecords
 };
 

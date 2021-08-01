@@ -169,11 +169,20 @@ export default {
       // }
     },
     async handlePagination(pageId) {
+      console.log(this.$props.query);
       try {
         if (this.$props.query) {
-          if (this.$props.query.tenantId) {
+          if (this.$props.query.tenureContractId) {
             var param = {
-              tenantId: this.$props.query.tenantId,
+              id: this.$props.query.tenureContractId,
+              pageId: pageId
+            }
+            await this.$store.dispatch('tenureContract/getBillingRecords', param).then(() => {
+              this.resource.models = this.$store.getters["tenureContract/billingRecordModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["tenureContract/billingRecordData"]);
+            });
+          } else if (this.$props.query.tenantId) {
+            var param = {
               id: this.$props.query.tenantId,
               pageId: pageId
             }

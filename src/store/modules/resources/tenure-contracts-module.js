@@ -7,6 +7,9 @@ const state = {
   model: {},
   selector: {},
 
+  billingRecordModels: [],
+  billingRecordData: {},
+
   // assetModels: [],
   // assetData: {},
 };
@@ -39,6 +42,7 @@ const mutations = {
     let item = response.data;
     let fields = item.fields;
 
+    state.model['id'] = item.id;
     for (let key in fields) {
       state.model[key] = fields[key];
     }
@@ -60,6 +64,29 @@ const mutations = {
         })
       }
       state.selector[field] = options;
+    }
+  },
+  SET_BILLING_RECORDS_RESOURCES: (state, response) => {
+    let data = response.data;
+    state.billingRecordModels = [];
+    data.forEach(function (item, index) {
+      let fields = item.fields;
+      let obj = {};
+      for (let key in fields) {
+        obj[key] = fields[key];
+      }
+
+      state.billingRecordModels.push(obj);
+      obj.id = item.id;
+    })
+    state.billingRecordData = {
+      'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+      'links': response.meta.links,
     }
   },
   // SET_ASSET_RESOURCES: (state, response) => {
@@ -205,6 +232,20 @@ const actions = {
       });
   },
 
+  getBillingRecords({commit, dispatch}, params) {
+    return  service.getBillingRecords(params)
+      .then((response) => {
+        commit('SET_BILLING_RECORDS_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
+  },
+
   // getTenureContracts({commit, dispatch}, Id) {
   //   return  service.getAssetExpenses(Id)
   //     .then((response2) => {
@@ -232,6 +273,8 @@ const getters = {
   model: state => state.model,
   data: state => state.data,
   selector: state => state.selector,
+  billingRecordModels: state => state.billingRecordModels,
+  billingRecordData: state => state.billingRecordData,
   // assetModels: state => state.assetModels,
   // assetData: state => state.assetData,
   // assetExpenseModels: state => state.assetExpenseModels,

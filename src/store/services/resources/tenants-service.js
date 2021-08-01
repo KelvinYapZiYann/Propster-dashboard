@@ -162,7 +162,6 @@ function getPaymentRecords(params) {
       'Content-Type': 'application/json',
     }
   };
-  console.log(params);
   if (params && (typeof params == "number" || typeof params == "string")) {
     return axios.get(`${url}/tenants/${params}/payment-records`, config)
       .then(response => {

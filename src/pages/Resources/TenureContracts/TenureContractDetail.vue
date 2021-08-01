@@ -20,14 +20,11 @@
           <!-- :disable="disableDropZone" -->
           </drop-zone>
         </card>
-
         <billing-record-index-component
           :resource="billingRecordResource"
           :query="{
-            tenantId: resource.model.tenant ? resource.model.tenant.id : null,
-            assetId: resource.model.asset ? resource.model.asset.id : null,
+            tenureContractId: resource.model.id,
           }"
-          billingRecordType="All"
         ></billing-record-index-component>
 
         <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
@@ -56,13 +53,13 @@ export default {
       billingRecordResource: {
         models: [{}],
         data: {},
-        selector: {}
       },
       table: {
         title: "Tenure Contract",
         detailHeaders: {
           asset_nickname: this.$t('property.assetNickname'),
           first_name: this.$t('property.firstName'),
+          last_name: this.$t('property.lastName'),
           contract_name: this.$t('property.contractName'),
           monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
           tenure_start_date: this.$t('property.tenureStartDate'),
@@ -102,9 +99,9 @@ export default {
           this.loadAttachment();
         })
 
-        await this.$store.dispatch('billingRecords/get',  {}).then(() => {
-          this.billingRecordResource.models = this.$store.getters["billingRecords/models"]
-          this.billingRecordResource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
+        await this.$store.dispatch('tenureContract/getBillingRecords', this.tenureContractId).then(() => {
+          this.billingRecordResource.models = this.$store.getters["tenureContract/billingRecordModels"]
+          this.billingRecordResource.data = Object.assign({}, this.$store.getters["tenureContract/billingRecordData"])
         })
       } catch (e) {
         this.$notify({
@@ -168,15 +165,15 @@ export default {
         this.$router.go(-1);
       }
     },
-    async handleEdit() {
-      this.$router.push({
-        name: "Edit Tenure Contract",
-        params: {
-          tenureContractId: this.tenureContractId,
-          previousRoute: this.$router.currentRoute.fullPath
-        }
-      });
-    }
+    // async handleEdit() {
+    //   this.$router.push({
+    //     name: "Edit Tenure Contract",
+    //     params: {
+    //       tenureContractId: this.tenureContractId,
+    //       previousRoute: this.$router.currentRoute.fullPath
+    //     }
+    //   });
+    // }
   }
 };
 </script>
