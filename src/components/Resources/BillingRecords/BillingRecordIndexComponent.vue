@@ -169,7 +169,6 @@ export default {
       // }
     },
     async handlePagination(pageId) {
-      console.log(this.$props.query);
       try {
         if (this.$props.query) {
           if (this.$props.query.tenureContractId) {

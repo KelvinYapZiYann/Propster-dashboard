@@ -1,7 +1,7 @@
 <template>
   <card>
     <template slot="header">
-      <h5 class="title">{{$t('sidebar.userProfile')}}</h5>
+      <h5 class="title">{{addOrEdit == 'Edit' ? $t('component.edit') + ' ' : ''}}{{$t('sidebar.userProfile')}}</h5>
     </template>
     <div class="row">
       <div class="col-md-6 ">
