@@ -86,6 +86,7 @@
           <base-input :label="$t('property.monthlyRentalAmount')"
                       :placeholder="$t('property.monthlyRentalAmount')"
                       v-model="resource.model.monthly_rental_amount"
+                      :disabled="addOrEdit == 'Edit'"
                       :error="tmpApiValidationErrors.monthly_rental_amount ? tmpApiValidationErrors.monthly_rental_amount[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.monthly_rental_amount"/> -->
@@ -127,6 +128,7 @@
                   range-separator="-"
                   :start-placeholder="$t('property.tenureStartDate')"
                   :end-placeholder="$t('property.tenureEndDate')"
+                  :disabled="addOrEdit == 'Edit'"
                 >
                 </el-date-picker>
           </base-input>
@@ -149,7 +151,8 @@
       </div>
     </card>
     <base-button slot="footer" type="info" @click="handleCancel()" fill>{{$t('component.cancel')}}</base-button>
-    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{addOrEdit == 'Add' ? $t('component.add') : $t('component.edit')}}</base-button>
+    <base-button slot="footer" native-type="submit" type="info" @click="asd()" fill>asd</base-button>
   </form>
 </template>
 <script>
@@ -209,7 +212,18 @@ export default {
     this.tenantId = this.$route.query.tenantId;
     // this.tenure_start_date = this.resource.model.tenure_start_date + ', ' + this.resource.model.tenure_end_date;
   },
+  mounted() {
+    if (this.addOrEdit == 'Edit') {
+      console.log('zxczxczxc');
+      this.tenureDateRange=[];
+      // this.tenureDateRange = [this.resource.model.tenure_start_date, this.resource.model.tenure_end_date];
+    }
+  },
   methods: {
+    async asd() {
+      this.tenureDateRange=[];
+      this.tenureDateRange = [this.resource.model.tenure_start_date, this.resource.model.tenure_end_date];
+    },
     async handleSubmit() {
       let formData = new FormData();
 
@@ -241,6 +255,7 @@ export default {
         }
       } else {
         return {
+          asset_id: this.resource.model.asset.id,
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,

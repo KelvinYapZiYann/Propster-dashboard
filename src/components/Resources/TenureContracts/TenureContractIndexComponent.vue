@@ -53,10 +53,9 @@
             :columns="table.columns"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
+            v-on:edit-details="editDetails"
             :disableDelete="true"
-            :disableEdit="true"
           >
-          <!-- v-on:edit-details="editDetails" -->
           <!-- v-on:delete-details="deleteDetails" -->
           </base-table>
           <div
@@ -100,9 +99,9 @@ export default {
     return {
       table: {
         columns: {
-          asset_nickname: this.$t('property.assetNickname'),
-          first_name: this.$t('property.firstName'),
           contract_name: this.$t('property.contractName'),
+          asset_nickname: this.$t('property.assetNickname'),
+          first_name: this.$t('property.tenantName'),
           monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
           tenure_start_date: this.$t('property.tenureStartDate'),
           tenure_end_date: this.$t('property.tenureEndDate')
