@@ -62,8 +62,8 @@
         </div>
         <div class="row">
           <div class="col-md-6 ">
-            <base-input :label="$t('property.description')"
-                        :placeholder="$t('property.description')"
+            <base-input :label="$t('property.billingName')"
+                        :placeholder="$t('property.billingName')"
                         v-model="resource.model.description"
                         :error="tmpApiValidationErrors.description ? tmpApiValidationErrors.description[0] : ''">
             </base-input>

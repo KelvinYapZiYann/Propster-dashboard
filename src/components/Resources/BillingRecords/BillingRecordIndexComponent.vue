@@ -77,7 +77,7 @@ export default {
           sender_name: this.$t('property.senderName'),
           recipient_name: this.$t('property.recipientName'),
           asset_nickname: this.$t('property.assetNickname'),
-          description: this.$t('property.description'),
+          description: this.$t('property.billingName'),
           payment_type: this.$t('property.paymentType'),
           amount: this.$t('property.amount'),
           billing_start_at: this.$t('property.startDate'),
