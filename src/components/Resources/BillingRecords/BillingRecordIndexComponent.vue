@@ -5,12 +5,21 @@
         <h4 slot="header" class="card-title text-left">{{$t('sidebar.billingRecords')}}</h4>
         <div class="text-right mb-3">
           <base-button
-            @click="addModel"
+            @click="addModel(true)"
             class="mt-3"
             type="info"
             v-bind:disabled="!resource.data.canAdd"
           >
-            {{$t('component.add')}} {{$t('sidebar.billingRecords')}}
+            {{$t('component.add')}} {{$t('sidebar.recurringBillingRecords')}}
+          </base-button>
+          <base-button
+            @click="addModel(false)"
+            class="mt-3"
+            type="info"
+            v-bind:disabled="!resource.data.canAdd"
+            v-if="query ? !query.tenureContractId : true"
+          >
+            {{$t('component.add')}} {{$t('sidebar.oneTimeBillingRecords')}}
           </base-button>
         </div>
         <!-- <div class="row">
@@ -126,31 +135,110 @@ export default {
         }
       });
     },
-    addModel() {
-      // if (router.currentRoute.name == "Billing Records") {
-      //   swal({
-      //     title: this.$t('alert.billingRecordFailedAdded'),
-      //     text: this.$t('alert.billingRecordFailedAddedTextInTenantDetail'),
-      //     buttonsStyling: false,
-      //     confirmButtonClass: "btn btn-info btn-fill",
-      //     type: "error",
-      //   });
-      //   return;
-      // }
-      if (!this.resource.data.canAdd) {
-        swal({
-          title: this.$t('alert.billingRecordFailedAdded'),
-          text: this.$t('alert.billingRecordFailedAddedText'),
-          buttonsStyling: false,
-          confirmButtonClass: "btn btn-info btn-fill",
-          type: "error",
+    // if (router.currentRoute.name == "Billing Records") {
+    //   swal({
+    //     title: this.$t('alert.billingRecordFailedAdded'),
+    //     text: this.$t('alert.billingRecordFailedAddedTextInTenantDetail'),
+    //     buttonsStyling: false,
+    //     confirmButtonClass: "btn btn-info btn-fill",
+    //     type: "error",
+    //   });
+    //   return;
+    // }
+    addModel(isRecurring) {
+      if (this.$props.query ? !this.$props.query.tenantId : true) {
+        this.$store.dispatch('asset/get').then(() => {
+          if (this.$store.getters["asset/data"].total <= 0) {
+            swal({
+              title: this.$t('alert.billingRecordFailedAdded'),
+              text: this.$t('alert.noAssetAddingBillingRecord'),
+              buttonsStyling: false,
+              showCancelButton: true,
+              confirmButtonText: this.$t('component.add') + ' ' + this.$t('sidebar.asset'),
+              cancelButtonText: this.$t('component.cancel'),
+              cancelButtonClass: "btn btn-info btn-fill",
+              confirmButtonClass: "btn btn-info btn-fill",
+              type: "error",
+            }).then((result) => {
+              if (result.value) {
+                this.$router.push({
+                  name: 'Add Assets',
+                  params: {
+                    previousRoute: this.$router.currentRoute.fullPath
+                  }
+                });
+              }
+            });
+          } else {
+            this.$store.dispatch('tenant/get').then(() => {
+              if (this.$store.getters["tenant/data"].total <= 0) {
+                swal({
+                  title: this.$t('alert.billingRecordFailedAdded'),
+                  text: this.$t('alert.noTenantAddingBillingRecord'),
+                  buttonsStyling: false,
+                  showCancelButton: true,
+                  confirmButtonText: this.$t('component.add') + ' ' + this.$t('sidebar.tenant'),
+                  cancelButtonText: this.$t('component.cancel'),
+                  cancelButtonClass: "btn btn-info btn-fill",
+                  confirmButtonClass: "btn btn-info btn-fill",
+                  type: "error",
+                }).then((result) => {
+                  if (result.value) {
+                    this.$router.push({
+                      name: 'Add Tenant',
+                      params: {
+                        previousRoute: this.$router.currentRoute.fullPath
+                      }
+                    });
+                  }
+                });
+              } else {
+                if (!this.resource.data.canAdd) {
+                  swal({
+                    title: this.$t('alert.billingRecordFailedAdded'),
+                    text: this.$t('alert.billingRecordFailedAddedText'),
+                    buttonsStyling: false,
+                    confirmButtonClass: "btn btn-info btn-fill",
+                    type: "error",
+                  });
+                  return;
+                }
+                if (!this.userResource.model.landlord_ids) {
+                  this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+                }
+                router.push({
+                  name: 'Add Billing Record',
+                  query: {
+                    senderType: "TENANT",
+                    senderId: this.$props.query ? this.$props.query.tenantId : null,
+                    recipientType: "LANDLORD",
+                    recipientId: this.userResource.model.landlord_ids[0],
+                    assetId: this.$props.query ? this.$props.query.assetId : null,
+                    tenureContractId: this.$props.query ? this.$props.query.tenureContractId : null,
+                    billImmediately: !isRecurring
+                  },
+                  params: {
+                    previousRoute: router.currentRoute.fullPath
+                  }
+                });
+              }
+            });
+          }
         });
-        return;
-      }
-      if (!this.userResource.model.landlord_ids) {
-        this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
-      }
-      // if (this.$props.query) {
+      } else {
+        if (!this.resource.data.canAdd) {
+          swal({
+            title: this.$t('alert.billingRecordFailedAdded'),
+            text: this.$t('alert.billingRecordFailedAddedText'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            type: "error",
+          });
+          return;
+        }
+        if (!this.userResource.model.landlord_ids) {
+          this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+        }
         router.push({
           name: 'Add Billing Record',
           query: {
@@ -160,14 +248,13 @@ export default {
             recipientId: this.userResource.model.landlord_ids[0],
             assetId: this.$props.query ? this.$props.query.assetId : null,
             tenureContractId: this.$props.query ? this.$props.query.tenureContractId : null,
+            billImmediately: !isRecurring
           },
           params: {
             previousRoute: router.currentRoute.fullPath
           }
         });
-      // } else {
-        
-      // }
+      }
     },
     async handlePagination(pageId) {
       try {

@@ -254,7 +254,7 @@ export default {
             });
           } else {
             this.$store.dispatch('tenant/get').then(() => {
-              if (this.$store.getters["tenant/data"].total <= 5) {
+              if (this.$store.getters["tenant/data"].total <= 0) {
                 swal({
                   title: this.$t('alert.tenureContractFailedAdded'),
                   text: this.$t('alert.noTenantAddingTenureContract'),

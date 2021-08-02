@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">{{$t('component.add')}} {{$t('sidebar.billingRecord')}}</h5>
+      <h5 slot="header" class="title">{{$t('component.add')}} {{query.billImmediately ? $t('sidebar.oneTimeBillingRecords') : $t('sidebar.recurringBillingRecords')}}</h5>
       <div class="row">
         <div class="col-md-6 ">
           <base-selector-input :label="$t('property.sender')"
@@ -121,6 +121,7 @@
                                 v-model="endOfMonthBilling"
                                 :options="endOfMonthBillingOptions"
                                 value="1"
+                                v-if="!query.billImmediately"
                                 :error="tmpApiValidationErrors.end_of_month_billing ? tmpApiValidationErrors.end_of_month_billing[0] : ''"
             >
             </base-selector-input>
@@ -132,6 +133,7 @@
                         :placeholder="$t('property.gracePeriod')"
                         type="number"
                         v-model="resource.model.grace_period_in_days"
+                        v-if="!query.billImmediately"
                         :error="tmpApiValidationErrors.grace_period_in_days ? tmpApiValidationErrors.grace_period_in_days[0] : ''">
             </base-input>
             <!-- <validation-error :errorsArray="tmpApiValidationErrors.grace_period_in_days"/> -->
@@ -141,6 +143,7 @@
                         :placeholder="$t('property.remindBefore')"
                         type="number"
                         v-model="resource.model.remind_before_days"
+                        v-if="!query.billImmediately"
                         :error="tmpApiValidationErrors.remind_before_days ? tmpApiValidationErrors.remind_before_days[0] : ''">
             </base-input>
             <!-- <validation-error :errorsArray="tmpApiValidationErrors.remind_before_days"/> -->
@@ -173,7 +176,7 @@
           <!-- </div> -->
           <div class="col-md-6">
             <base-input :label="$t('property.billingDateRange')"
-                        v-if="!query.tenureContractId"
+                        v-if="!query.tenureContractId && !query.billImmediately"
                         :error="tmpApiValidationErrors.billing_start_at ? (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_start_at[0] + ' ' + tmpApiValidationErrors.billing_end_at[0] : tmpApiValidationErrors.billing_start_at[0]) : (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_end_at[0] : '')">
                   <el-date-picker
                     type="daterange"
@@ -317,7 +320,6 @@ export default {
           // payment_type: this.resource.model.payment_type,
           payment_type: "RENTAL",
           amount: this.tenureContractAmount,
-          // frequency_type: this.resource.model.frequency_type,
           frequency_type: "MONTH",
           tenure_contract_id: this.query.tenureContractId,
           frequency: 1,
@@ -326,6 +328,30 @@ export default {
           grace_period_in_days: this.resource.model.grace_period_in_days,
           remind_before_days: this.resource.model.remind_before_days,
           end_of_month_billing: this.endOfMonthBilling,
+        }
+      } else if (this.query.billImmediately) {
+        let today = new Date().toISOString().slice(0, 10);
+        return {
+          recipient_type: this.resource.model.recipient.recipient_type,
+          recipient_id: this.resource.model.recipient.id,
+          sender_type: this.resource.model.sender.sender_type,
+          sender_id: this.resource.model.sender.id,
+          asset_id: this.resource.model.asset.id,
+          description: this.resource.model.description,
+          // payment_method: this.resource.model.payment_method,
+          payment_method: "CASH",
+          payment_type: this.resource.model.payment_type,
+          amount: this.resource.model.amount,
+          frequency_type: "MONTH",
+          frequency: 1,
+          
+          bill_immediately: 1,
+
+          end_of_month_billing: '0',
+          grace_period_in_days: '0',
+          remind_before_days: '0',
+          billing_start_at: today,
+          billing_end_at: today,
         }
       } else {
         return {
@@ -337,17 +363,16 @@ export default {
           description: this.resource.model.description,
           // payment_method: this.resource.model.payment_method,
           payment_method: "CASH",
-          // payment_type: this.resource.model.payment_type,
           payment_type: this.resource.model.payment_type,
           amount: this.resource.model.amount,
-          // frequency_type: this.resource.model.frequency_type,
           frequency_type: "MONTH",
           frequency: 1,
-          billing_start_at: this.billingDateRange.length == 2 ? this.billingDateRange[0] : '',
-          billing_end_at: this.billingDateRange.length == 2 ? this.billingDateRange[1] : '',
+
+          end_of_month_billing: this.endOfMonthBilling,
           grace_period_in_days: this.resource.model.grace_period_in_days,
           remind_before_days: this.resource.model.remind_before_days,
-          end_of_month_billing: this.endOfMonthBilling,
+          billing_start_at: this.billingDateRange.length == 2 ? this.billingDateRange[0] : '',
+          billing_end_at: this.billingDateRange.length == 2 ? this.billingDateRange[1] : '',
         }
       }
     }
