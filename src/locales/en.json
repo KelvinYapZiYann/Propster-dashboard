@@ -86,6 +86,20 @@
     "remeberThisSetting": "Remember This Setting",
     "changeRoleLater": "You will be able to select another role later."
   },
+  "dateTime": {
+    "january": "Jan",
+    "february": "Feb",
+    "march": "Mar",
+    "april": "Apr",
+    "may": "May",
+    "june": "Jun",
+    "july": "Jul",
+    "august": "Aug",
+    "september": "Sep",
+    "october": "Oct",
+    "november": "Nov",
+    "december": "Dec"
+  },
   "dashboard": {
     "overdueIncome": "Overdue Income",
     "overdueIncomeDesc": "Income (Rent & Other) that have already been due over the due date (incl. of Grace Period).",
@@ -99,7 +113,17 @@
     "collectedRent": "Collected Rent",
     "overdueRent": "Overdue Rent",
     "upcomingRent": "Upcoming Rent",
-    "overdueTenantsList": "Overdue Tenants List"
+    "overdueTenantsList": "Overdue Tenants List",
+    "assetsValueOverTime": "Assets Value Over Time",
+    "cashflow": "Cashflow",
+    "income": "Income",
+    "expenses": "Expenses",
+    "assetsVacancy": "Assets Vacancy",
+    "blankVacancy": "Blank Vacancy",
+    "currentTenants": "Current Tenants",
+    "assetsMarketRentalRate": "Market Rental Rate",
+    "currentRentalRate": "Current Rental Rate",
+    "currentMarketRentalRate": "Current Market Rental Rate"
   },
   "alert": {
     "basicTierAssetCount": "You can only add 1 Asset with free tier. Get ADVANCED or PRO version to add more assets.",
