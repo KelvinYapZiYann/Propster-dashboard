@@ -142,6 +142,8 @@
     "tenantSuccessfullyAdded": "Tenant is Successfully Added",
     "tenantSuccessfullyAddedText": "Do you want to add a Tenure Contract for this tenant right now?",
     "tenantFailedAdded": "Tenant is Failed to be Added",
+    "noAssetAddingTenureContract": "There is no Asset. Please add an Asset before adding Tenure Contract.",
+    "noTenantAddingTenureContract": "There is no Tenant. Please add a Tenant before adding Tenure Contract.",
     "tenureContractSuccessfullyAdded": "Tenure Contract is Successfully Added",
     "tenureContractSuccessfullyAddedText": "Do you want to add a Rental Billing for this tenure contract right now?",
     "tenureContractFailedAdded": "Tenure Contract is Failed to be Added",

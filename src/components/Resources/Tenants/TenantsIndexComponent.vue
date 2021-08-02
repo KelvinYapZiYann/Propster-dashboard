@@ -212,14 +212,12 @@ export default {
               if (result.value) {
                 this.$router.push({
                   name: 'Add Assets',
-                  query: this.query,
                   params: {
                     previousRoute: this.$router.currentRoute.fullPath
                   }
                 });
               }
             });
-            return;
           } else {
             if (!this.resource.data.canAdd) {
               swal({

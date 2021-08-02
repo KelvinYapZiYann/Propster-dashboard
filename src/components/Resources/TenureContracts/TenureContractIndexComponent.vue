@@ -229,13 +229,73 @@ export default {
       //   });
       //   return;
       // }
-      this.$router.push({
-        name: 'Add Tenure Contract',
-        query: this.query,
-        params: {
-          previousRoute: this.$router.currentRoute.fullPath
-        }
-      });
+      if (this.$props.query ? !this.$props.query.tenantId : true) {
+        this.$store.dispatch('asset/get').then(() => {
+          if (this.$store.getters["asset/data"].total <= 0) {
+            swal({
+              title: this.$t('alert.tenureContractFailedAdded'),
+              text: this.$t('alert.noAssetAddingTenureContract'),
+              buttonsStyling: false,
+              showCancelButton: true,
+              confirmButtonText: this.$t('component.add') + ' ' + this.$t('sidebar.asset'),
+              cancelButtonText: this.$t('component.cancel'),
+              cancelButtonClass: "btn btn-info btn-fill",
+              confirmButtonClass: "btn btn-info btn-fill",
+              type: "error",
+            }).then((result) => {
+              if (result.value) {
+                this.$router.push({
+                  name: 'Add Assets',
+                  params: {
+                    previousRoute: this.$router.currentRoute.fullPath
+                  }
+                });
+              }
+            });
+          } else {
+            this.$store.dispatch('tenant/get').then(() => {
+              if (this.$store.getters["tenant/data"].total <= 5) {
+                swal({
+                  title: this.$t('alert.tenureContractFailedAdded'),
+                  text: this.$t('alert.noTenantAddingTenureContract'),
+                  buttonsStyling: false,
+                  showCancelButton: true,
+                  confirmButtonText: this.$t('component.add') + ' ' + this.$t('sidebar.tenant'),
+                  cancelButtonText: this.$t('component.cancel'),
+                  cancelButtonClass: "btn btn-info btn-fill",
+                  confirmButtonClass: "btn btn-info btn-fill",
+                  type: "error",
+                }).then((result) => {
+                  if (result.value) {
+                    this.$router.push({
+                      name: 'Add Tenant',
+                      params: {
+                        previousRoute: this.$router.currentRoute.fullPath
+                      }
+                    });
+                  }
+                });
+              } else {
+                this.$router.push({
+                  name: 'Add Tenure Contract',
+                  query: this.query,
+                  params: {
+                    previousRoute: this.$router.currentRoute.fullPath
+                  }
+                });
+              }
+            });
+          }
+        });
+      } else {
+        this.$router.push({
+          name: 'Add Tenure Contract',
+          query: this.query,
+          params: {
+            previousRoute: this.$router.currentRoute.fullPath
+          }
+        });
+      }
     },
     getResource() {
       this.$emit('getResource')
