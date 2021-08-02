@@ -195,23 +195,70 @@ export default {
       }
     },
     addModel() {
-      if (!this.resource.data.canAdd) {
-        swal({
-          title: this.$t('alert.tenantFailedAdded'),
-          text: this.$t('alert.basicTierTenantCount'),
-          buttonsStyling: false,
-          confirmButtonClass: "btn btn-info btn-fill",
-          type: "error",
+      if (this.$props.query ? !this.$props.query.assetId : true) {
+        this.$store.dispatch('asset/get').then(() => {
+          if (this.$store.getters["asset/data"].total <= 0) {
+            swal({
+              title: this.$t('alert.tenantFailedAdded'),
+              text: this.$t('alert.noAssetAddingTenant'),
+              buttonsStyling: false,
+              showCancelButton: true,
+              confirmButtonText: this.$t('component.add') + ' ' + this.$t('sidebar.asset'),
+              cancelButtonText: this.$t('component.cancel'),
+              cancelButtonClass: "btn btn-info btn-fill",
+              confirmButtonClass: "btn btn-info btn-fill",
+              type: "error",
+            }).then((result) => {
+              if (result.value) {
+                this.$router.push({
+                  name: 'Add Assets',
+                  query: this.query,
+                  params: {
+                    previousRoute: this.$router.currentRoute.fullPath
+                  }
+                });
+              }
+            });
+            return;
+          } else {
+            if (!this.resource.data.canAdd) {
+              swal({
+                title: this.$t('alert.tenantFailedAdded'),
+                text: this.$t('alert.basicTierTenantCount'),
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-info btn-fill",
+                type: "error",
+              });
+              return;
+            }
+            this.$router.push({
+              name: 'Add Tenant',
+              query: this.query,
+              params: {
+                previousRoute: this.$router.currentRoute.fullPath
+              }
+            });
+          }
         });
-        return;
-      }
-      this.$router.push({
-        name: 'Add Tenant',
-        query: this.query,
-        params: {
-          previousRoute: this.$router.currentRoute.fullPath
+      } else {
+        if (!this.resource.data.canAdd) {
+          swal({
+            title: this.$t('alert.tenantFailedAdded'),
+            text: this.$t('alert.basicTierTenantCount'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            type: "error",
+          });
+          return;
         }
-      });
+        this.$router.push({
+          name: 'Add Tenant',
+          query: this.query,
+          params: {
+            previousRoute: this.$router.currentRoute.fullPath
+          }
+        });
+      }
     },
     getResource() {
       this.$emit('getResource')

@@ -138,6 +138,7 @@
     "assetSuccessfullyAdded": "Asset is Successfully Added",
     "assetSuccessfullyAddedText": "Do you want to add a Tenant into this asset right now?",
     "assetFailedAdded": "Asset is Failed to be Added",
+    "noAssetAddingTenant": "There is no Asset. Please add an Asset before adding Tenant.",
     "tenantSuccessfullyAdded": "Tenant is Successfully Added",
     "tenantSuccessfullyAddedText": "Do you want to add a Tenure Contract for this tenant right now?",
     "tenantFailedAdded": "Tenant is Failed to be Added",
