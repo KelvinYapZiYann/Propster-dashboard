@@ -157,9 +157,11 @@
     "billingPaymentFailedAdded": "Billing Record is Failed to be Added",
     "billingPaymentFailedAddedText": "Billing Record cannot be added manually. It is generated automatically by Billing System.",
     "noAssetAddingBillingRecord": "There is no Asset. Please add an Asset before adding Billing.",
-    "noTenantAddingBillingRecord": "There is no Tenant. Please add a Tenant before adding Billing Contract.",
+    "noTenantAddingBillingRecord": "There is no Tenant. Please add a Tenant before adding Billing.",
     "paymentRecordFailedAdded": "Payment Record is Failed to be Added",
     "paymentRecordFailedAddedTextInTenantDetail": "Payment Record can only be added in Tenant Detail.",
+    "noAssetAddingPaymentRecord": "There is no Asset. Please add an Asset before adding Payment Record.",
+    "noTenantAddingPaymentRecord": "There is no Tenant. Please add a Tenant before adding Payment Record.",
 
     "givenDataIsInvalid": "Given data is invalid. Please check the input field(s).",
     "actionIsUnauthorized": "Oops! Something wrong. Please refresh the page."

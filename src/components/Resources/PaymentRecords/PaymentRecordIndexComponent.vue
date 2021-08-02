@@ -145,21 +145,89 @@ export default {
       //   });
       //   return;
       // }
-      if (!this.userResource.model.landlord_ids) {
-        this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
-      }
-      this.$router.push({
-        name: 'Add Payment Record',
-        query: {
-          senderType: "TENANT",
-          senderId: this.$props.query ? this.$props.query.tenantId : null,
-          recipientType: "LANDLORD",
-          recipientId: this.userResource.model.landlord_ids[0],
-        },
-        params: {
-          previousRoute: this.$router.currentRoute.fullPath
+      if (this.$props.query ? !this.$props.query.tenantId : true) {
+        this.$store.dispatch('asset/get').then(() => {
+          if (this.$store.getters["asset/data"].total <= 0) {
+            swal({
+              title: this.$t('alert.paymentRecordFailedAdded'),
+              text: this.$t('alert.noAssetAddingPaymentRecord'),
+              buttonsStyling: false,
+              showCancelButton: true,
+              confirmButtonText: this.$t('component.add') + ' ' + this.$t('sidebar.asset'),
+              cancelButtonText: this.$t('component.cancel'),
+              cancelButtonClass: "btn btn-info btn-fill",
+              confirmButtonClass: "btn btn-info btn-fill",
+              type: "error",
+            }).then((result) => {
+              if (result.value) {
+                this.$router.push({
+                  name: 'Add Assets',
+                  params: {
+                    previousRoute: this.$router.currentRoute.fullPath
+                  }
+                });
+              }
+            });
+          } else {
+            this.$store.dispatch('tenant/get').then(() => {
+              if (this.$store.getters["tenant/data"].total <= 0) {
+                swal({
+                  title: this.$t('alert.paymentRecordFailedAdded'),
+                  text: this.$t('alert.noTenantAddingPaymentRecord'),
+                  buttonsStyling: false,
+                  showCancelButton: true,
+                  confirmButtonText: this.$t('component.add') + ' ' + this.$t('sidebar.tenant'),
+                  cancelButtonText: this.$t('component.cancel'),
+                  cancelButtonClass: "btn btn-info btn-fill",
+                  confirmButtonClass: "btn btn-info btn-fill",
+                  type: "error",
+                }).then((result) => {
+                  if (result.value) {
+                    this.$router.push({
+                      name: 'Add Tenant',
+                      params: {
+                        previousRoute: this.$router.currentRoute.fullPath
+                      }
+                    });
+                  }
+                });
+              } else {
+                if (!this.userResource.model.landlord_ids) {
+                  this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+                }
+                this.$router.push({
+                  name: 'Add Payment Record',
+                  query: {
+                    senderType: "TENANT",
+                    senderId: this.$props.query ? this.$props.query.tenantId : null,
+                    recipientType: "LANDLORD",
+                    recipientId: this.userResource.model.landlord_ids[0],
+                  },
+                  params: {
+                    previousRoute: this.$router.currentRoute.fullPath
+                  }
+                });
+              }
+            });
+          }
+        });
+      } else {
+        if (!this.userResource.model.landlord_ids) {
+          this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
         }
-      });
+        this.$router.push({
+          name: 'Add Payment Record',
+          query: {
+            senderType: "TENANT",
+            senderId: this.$props.query ? this.$props.query.tenantId : null,
+            recipientType: "LANDLORD",
+            recipientId: this.userResource.model.landlord_ids[0],
+          },
+          params: {
+            previousRoute: this.$router.currentRoute.fullPath
+          }
+        });
+      }
     },
     async handlePagination(pageId) {
       try {
