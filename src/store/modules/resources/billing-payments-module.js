@@ -17,18 +17,18 @@ const mutations = {
       state.model[key] = fields[key];
     }
 
-    let selectors = response.meta.selector;
-    for (let field in selectors) {
-      let options = [];
-      let selector = selectors[field];
-      for (let key in selector) {
-        options.push({
-          id: key,
-          name: selector[key]
-        })
-      }
-      state.selector[field] = options;
-    }
+    // let selectors = response.meta.selector;
+    // for (let field in selectors) {
+    //   let options = [];
+    //   let selector = selectors[field];
+    //   for (let key in selector) {
+    //     options.push({
+    //       id: key,
+    //       name: selector[key]
+    //     })
+    //   }
+    //   state.selector[field] = options;
+    // }
   },
   SET_RESOURCES: (state, response) => {
     let data = response.data;

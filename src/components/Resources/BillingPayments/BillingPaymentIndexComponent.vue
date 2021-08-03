@@ -120,13 +120,13 @@ export default {
   },
   methods: {
     showDetails(id) {
-      // router.push({
-      //   name: "Billing Payment Detail",
-      //   params: {
-      //     billingPaymentsId: id,
-      //     previousRoute: this.$router.currentRoute.fullPath
-      //   }
-      // });
+      router.push({
+        name: "Billing Payment Detail",
+        params: {
+          billingPaymentId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     async handlePagination(pageId) {
       if (this.$props.query) {

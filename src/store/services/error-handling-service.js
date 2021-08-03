@@ -2,6 +2,7 @@ import router from "@/router";
 import i18n from '@/i18n.js'
 
 function verifyErrorFromServer(e) {
+    console.log(e);
     if (e.response.data.message) {
         switch (e.response.data.message) {
             case 'Unauthenticated.':

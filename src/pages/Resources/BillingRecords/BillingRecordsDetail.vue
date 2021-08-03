@@ -38,7 +38,7 @@ export default {
         data: {}
       },
       billingPaymentResource: {
-        models: [{}],
+        models: [],
         data: {}
       },
       table: {
