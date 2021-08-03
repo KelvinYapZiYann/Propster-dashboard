@@ -129,7 +129,7 @@ export default {
       router.push({
         name: "Payment Record Detail",
         params: {
-          paymentRecordsId: id,
+          paymentRecordId: id,
           previousRoute: this.$router.currentRoute.fullPath
         }
       });

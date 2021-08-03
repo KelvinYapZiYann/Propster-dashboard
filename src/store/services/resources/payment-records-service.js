@@ -54,7 +54,7 @@ function create(param) {
 }
 
 function update(payload) {
-  const paymentRecordId = payload.paymentRecordsId;
+  const paymentRecordId = payload.paymentRecordId;
   const model = payload.model;
 
   const config = {

@@ -6,6 +6,8 @@ const state = {
   data: {},
   model: {},
   selector: {},
+  billingPaymentModels: [],
+  billingPaymentData: {},
 
   // assetModels: [],
   // assetData: {},
@@ -54,6 +56,29 @@ const mutations = {
         })
       }
       state.selector[field] = options;
+    }
+  },
+  SET_BILLING_PAYMENTS_RESOURCE: (state, response) => {
+    let data = response.data;
+    state.billingPaymentModels = [];
+    data.forEach(function (item, index) {
+      let fields = item.fields;
+      let obj = {};
+      for (let key in fields) {
+        obj[key] = fields[key];
+      }
+
+      state.billingPaymentModels.push(obj);
+      obj.id = item.id;
+    })
+    state.billingPaymentData = {
+      'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+      'links': response.meta.links,
     }
   },
   // SET_RECEIVING_BILLING_RECORDS_RESOURCES: (state, response) => {
@@ -202,7 +227,21 @@ const actions = {
           throw e1;
         }
       });
-  }
+  },
+  
+  getBillingPayments({commit, dispatch}, Id) {
+    return service.getBillingPayments(Id)
+      .then((response) => {
+        commit('SET_BILLING_PAYMENTS_RESOURCE', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
+  },
 
 };
 
@@ -211,6 +250,8 @@ const getters = {
   model: state => state.model,
   data: state => state.data,
   selector: state => state.selector,
+  billingPaymentModels: state => state.billingPaymentModels,
+  billingPaymentData: state => state.billingPaymentData,
   // receivingBillingRecordsModels: state => state.receivingBillingRecordsModels,
   // receivingBillingRecordsData: state => state.receivingBillingRecordsData,
   // sendingBillingRecordsModels: state => state.sendingBillingRecordsModels,

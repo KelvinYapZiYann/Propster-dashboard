@@ -2,10 +2,10 @@ import service from '@/store/services/resources/billing-payments-service';
 import errorHandlingService from '@/store/services/error-handling-service';
 
 const state = {
+  models: [],
   data: {},
   model: {},
   selector: {},
-  models: []
 };
 
 const mutations = {

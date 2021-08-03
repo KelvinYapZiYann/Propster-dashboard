@@ -114,7 +114,7 @@ const BillingRecordsDetail = () => import("@/pages/Resources/BillingRecords/Bill
 const BillingRecordsAdd = () => import("@/pages/Resources/BillingRecords/BillingRecordsAdd");
 
 const BillingPayments = () => import("@/pages/Resources/BillingPayments/BillingPayments");
-// const BillingPaymentsDetail = () => import("@/pages/Resources/BillingPayments/BillingPaymentsDetail");
+const BillingPaymentsDetail = () => import("@/pages/Resources/BillingPayments/BillingPaymentsDetail");
 // const BillingPaymentsAdd = () => import("@/pages/Resources/BillingPayments/BillingPaymentsAdd");
 
 let resources = {
@@ -252,7 +252,7 @@ let resources = {
       }
     },
     {
-      path: "payment-records/:paymentRecordsId",
+      path: "payment-records/:paymentRecordId",
       name: "Payment Record Detail",
       components: { default: PaymentRecordsDetail },
       meta: { middleware: auth },
@@ -276,7 +276,7 @@ let resources = {
       }
     },
     {
-      path: "billing-records/:billingRecordsId",
+      path: "billing-records/:billingRecordId",
       name: "Billing Record Detail",
       components: { default: BillingRecordsDetail },
       meta: { middleware: auth },
@@ -299,15 +299,15 @@ let resources = {
     //     default: true
     //   }
     // },
-    // {
-    //   path: "billing-payments/:billingPaymentsId",
-    //   name: "Billing Payment Detail",
-    //   components: { default: BillingPaymentsDetail },
-    //   meta: { middleware: auth },
-    //   props: {
-    //     default: true
-    //   }
-    // }
+    {
+      path: "billing-payments/:billingPaymentId",
+      name: "Billing Payment Detail",
+      components: { default: BillingPaymentsDetail },
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
+    }
   ]
 };
 

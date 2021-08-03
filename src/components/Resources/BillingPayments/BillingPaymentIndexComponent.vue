@@ -3,13 +3,13 @@
     <div class="col-12">
       <card>
         <h4 slot="header" class="card-title text-left">{{$t('sidebar.billingPayments')}}</h4>
-        <div class="text-right mb-3">
+        <!-- <div class="text-right mb-3">
           <base-button
             @click="addModel"
             class="mt-3"
             type="info"
           >{{$t('component.add')}} {{$t('sidebar.billingPayment')}}</base-button>
-        </div>
+        </div> -->
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
@@ -43,11 +43,11 @@
             <base-pagination
               class="pagination-no-border"
               v-model="resource.data.currentPage"
-              :per-page="resource.data.perPage"
               :total="resource.data.total"
               @input="handlePagination"
               type="info"
             >
+            <!-- :per-page="resource.data.perPage" -->
             </base-pagination>
           </div>
         </div>
@@ -91,14 +91,14 @@ export default {
       type: Object,
       required: true,
       default: {
-        models: [{}],
+        models: [],
         data: {
           canAdd: false,
           currentPage: 1,
           total: 0,
           from: 0,
           to: 0,
-          perPage: 10,
+          // perPage: 15,
           links: []
         }
       },
@@ -120,26 +120,60 @@ export default {
   },
   methods: {
     showDetails(id) {
-      router.push({
-        name: "Billing Payment Detail",
-        params: {
-          billingPaymentsId: id,
-          previousRoute: this.$router.currentRoute.fullPath
-        }
-      });
+      // router.push({
+      //   name: "Billing Payment Detail",
+      //   params: {
+      //     billingPaymentsId: id,
+      //     previousRoute: this.$router.currentRoute.fullPath
+      //   }
+      // });
     },
     async handlePagination(pageId) {
-      try {
-        await this.$store.dispatch('billingPayments/get', pageId).then(() => {
-          this.resource.models = this.$store.getters["billingPayments/models"];
-          this.resource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
-        });
-      } catch (e) {
-        this.$notify({
-          message:'Server error',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
+      if (this.$props.query) {
+        if (this.$props.query.billingRecordId) {
+          try {
+            var param = {
+              id: this.$props.query.billingRecordId,
+              pageId: pageId
+            }
+            await this.$store.dispatch('billingRecords/getBillingPayments', param).then(() => {
+              this.resource.models = this.$store.getters["billingRecords/billingPaymentModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["billingRecords/billingPaymentData"]);
+            });
+          } catch (e) {
+            this.$notify({
+              message:'Server error',
+              icon: 'tim-icons icon-bell-55',
+              type: 'danger'
+            });
+          }
+        } else {
+          try {
+            await this.$store.dispatch('billingPayments/get', pageId).then(() => {
+              this.resource.models = this.$store.getters["billingPayments/models"];
+              this.resource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
+            });
+          } catch (e) {
+            this.$notify({
+              message:'Server error',
+              icon: 'tim-icons icon-bell-55',
+              type: 'danger'
+            });
+          }
+        }
+      } else {
+        try {
+          await this.$store.dispatch('billingPayments/get', pageId).then(() => {
+            this.resource.models = this.$store.getters["billingPayments/models"];
+            this.resource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
+          });
+        } catch (e) {
+          this.$notify({
+            message:'Server error',
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+        }
       }
     },
     addModel() {

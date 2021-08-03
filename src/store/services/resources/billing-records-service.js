@@ -143,12 +143,42 @@ function store(payload) {
       });
 }
 
+function getBillingPayments(params) {
+  const config = {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  };
+
+  if (params && (typeof params == "number" || typeof params == "string")) {
+    return axios.get(`${url}/billing-records/${params}/billing-payment-records`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else if (typeof params == "object") {
+    if (params.pageId) {
+      return axios.get(`${url}/billing-records/${params.id}/billing-payment-records?page=${params.pageId}`, config)
+        .then(response => {
+          return response.data;
+        });
+    } else {
+      return axios.get(`${url}/billing-records/${params.id}/billing-payment-records`, config)
+        .then(response => {
+          return response.data;
+        });
+    }
+  }
+  
+}
+
 export default {
   get,
   create,
   getById,
   update,
   store,
-  remove
+  remove,
+  getBillingPayments
 };
 

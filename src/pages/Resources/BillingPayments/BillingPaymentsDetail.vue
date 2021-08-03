@@ -4,41 +4,32 @@
       :resource="resource"
     ></transaction-section>
     <base-detail-list
-      :category="$t('property.billingRecordDetails')"
+      :category="$t('property.billingPaymentDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
       thead-classes="text-primary"
     ></base-detail-list>
 
-    <billing-payment-index-component
+    <!-- <billing-payment-index-component
       :resource="billingPaymentResource"
       @getResource="getResource"
-      :query="{
-        billingRecordId: $route.params.billingRecordId,
-      }"
-    ></billing-payment-index-component>
+    ></billing-payment-index-component> -->
 
     <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
   </div>
 </template>
 <script>
 import { BaseDetailList, TransactionSection } from "@/components";
-import BillingPaymentIndexComponent from "@/components/Resources/BillingPayments/BillingPaymentIndexComponent";
 
 export default {
   components: {
     TransactionSection,
     BaseDetailList,
-    BillingPaymentIndexComponent
   },
   data() {
     return {
       resource: {
         model: {},
-        data: {}
-      },
-      billingPaymentResource: {
-        models: [{}],
         data: {}
       },
       table: {
@@ -71,15 +62,15 @@ export default {
   methods: {
     async getResource() {
       try {
-        await this.$store.dispatch('billingRecords/getById', this.$route.params.billingRecordId).then(() => {
-          this.resource.model = this.$store.getters["billingRecords/model"]
-          this.resource.data = this.$store.getters["billingRecords/data"]
+        await this.$store.dispatch('billingPayments/getBillingPayments', this.$route.params.billingRecordId).then(() => {
+          this.resource.model = this.$store.getters["billingRecords/billingPaymentModels"]
+          this.resource.data = this.$store.getters["billingRecords/billingPaymentData"]
           this.loadAttachment();
         });
-        await this.$store.dispatch('billingRecords/getBillingPayments', this.$route.params.billingRecordId).then(() => {
-          this.billingPaymentResource.models = this.$store.getters["billingRecords/billingPaymentModels"];
-          this.billingPaymentResource.data = Object.assign({}, this.$store.getters["billingRecords/billingPaymentData"]);
-        });
+        // await this.$store.dispatch('billingPayments/get', {}).then(() => {
+        //   this.billingPaymentResource.models = this.$store.getters["billingPayments/models"];
+        //   this.billingPaymentResource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
+        // });
       } catch (e) {
         this.$notify({
           message: 'Server error',

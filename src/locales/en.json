@@ -243,6 +243,7 @@
     "tenureStartDate": "Tenure Start Date",
     "tenureEndDate": "Tenure End Date",
     "billingRecordDetails": "Billing Details",
+    "billingPaymentDetails": "Billing Record Details",
     "paymentRecordDetails": "Payment Record Details",
     "assetExpenseDetails": "Asset Expense Details",
     "sender": "Sender",

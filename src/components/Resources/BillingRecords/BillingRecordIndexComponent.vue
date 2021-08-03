@@ -130,7 +130,7 @@ export default {
       router.push({
         name: "Billing Record Detail",
         params: {
-          billingRecordsId: id,
+          billingRecordId: id,
           previousRoute: router.currentRoute.fullPath
         }
       });

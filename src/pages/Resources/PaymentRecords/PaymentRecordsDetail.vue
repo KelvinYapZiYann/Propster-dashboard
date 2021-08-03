@@ -59,7 +59,7 @@ export default {
   methods: {
     async getResource() {
       try {
-        await this.$store.dispatch('paymentRecords/getById', this.$route.params.paymentRecordsId)
+        await this.$store.dispatch('paymentRecords/getById', this.$route.params.paymentRecordId)
         this.resource.model = await this.$store.getters["paymentRecords/model"]
         this.resource.data = await this.$store.getters["paymentRecords/data"]
         this.loadAttachment();

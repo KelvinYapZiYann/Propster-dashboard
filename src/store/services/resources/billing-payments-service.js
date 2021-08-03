@@ -76,12 +76,11 @@ function getById(Id) {
     }
   };
 
-  return axios.get(`${url}/receiving-bill-payments/${Id}`, config)
+  return axios.get(`${url}/billing-record-payments/${Id}`, config)
     .then(response => {
       return response.data;
     });
 }
-
 
 export default {
     // getReceivingBillingPayments,
