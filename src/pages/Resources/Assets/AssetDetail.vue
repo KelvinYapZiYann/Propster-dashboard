@@ -38,13 +38,13 @@
          }'
    ></tenants-index-component>
 
-   <fab
+   <!-- <fab
      :position="position"
      :bg-color="bgColor"
      :actions="fabActions"
      :fixed-tooltip="fixedTooltip"
      @generateReport="reportModalVisible = true"
-   ></fab>
+   ></fab> -->
 
    <modal :show.sync="reportModalVisible"
           class="modal-search"

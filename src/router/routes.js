@@ -5,6 +5,7 @@ import NotFound from "@/pages/NotFoundPage.vue";
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import AuthLayout from "@/pages/Pages/AuthLayout.vue";
 import auth from "@/middleware/auth";
+import authSession from "@/middleware/authSession";
 import SelectRole from "@/pages/Pages/SelectRole";
 import FirstTimeProfile from "@/pages/Profile/FirstTimeProfile";
 
@@ -342,7 +343,8 @@ let authPages = {
     {
       path: "login",
       name: "login",
-      component: Login
+      component: Login,
+      meta: { middleware: authSession }
     },
     {
       path: "forgot-password",
