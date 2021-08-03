@@ -36,6 +36,8 @@ import "element-ui/lib/theme-chalk/index.css";
 import './registerServiceWorker'
 import VueMeta from 'vue-meta'
 
+import VueFbCustomerChat from 'vue-fb-customer-chat'
+
 // element ui language configuration
 import lang from "element-ui/lib/locale/lang/en";
 import locale from "element-ui/lib/locale";
@@ -60,6 +62,12 @@ Vue.use(RTLPlugin);
 Vue.use(SideBar);
 Vue.use(Notify);
 Vue.use(VueMeta, { keyName: 'head' })
+
+Vue.use(VueFbCustomerChat, {
+  page_id: '101684032086334', //  change 'null' to your Facebook Page ID,
+  theme_color: '#1d8cf8', // theme color in HEX
+  locale: 'en_US', // default 'en_US'
+})
 
 new Vue({
   store: store,
