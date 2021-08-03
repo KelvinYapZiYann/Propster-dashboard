@@ -118,17 +118,33 @@
                 </el-date-picker>
           </base-input>
         </div> -->
+
         <div class="col-md-12">
           <base-input :label="$t('property.tenureDateRange')"
+                      v-if="addOrEdit == 'Add'"
                       :error="tmpApiValidationErrors.tenure_start_date ? (tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_start_date[0] + ' ' + tmpApiValidationErrors.tenure_end_date[0] : tmpApiValidationErrors.tenure_start_date[0]) : (tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_end_date[0] : '')">
                 <el-date-picker
                   type="daterange"
-                  v-model="tenureDateRange"
+                  v-model="addTenureDateRange"
                   value-format="yyyy-MM-dd"
                   range-separator="-"
                   :start-placeholder="$t('property.tenureStartDate')"
                   :end-placeholder="$t('property.tenureEndDate')"
-                  :disabled="addOrEdit == 'Edit'"
+                >
+                </el-date-picker>
+          </base-input>
+
+          <base-input :label="$t('property.tenureDateRange')"
+                      v-if="addOrEdit == 'Edit'"
+                      :error="tmpApiValidationErrors.tenure_start_date ? (tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_start_date[0] + ' ' + tmpApiValidationErrors.tenure_end_date[0] : tmpApiValidationErrors.tenure_start_date[0]) : (tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_end_date[0] : '')">
+                <el-date-picker
+                  type="daterange"
+                  v-model="editTenureDateRange"
+                  value-format="yyyy-MM-dd"
+                  range-separator="-"
+                  :start-placeholder="$t('property.tenureStartDate')"
+                  :end-placeholder="$t('property.tenureEndDate')"
+                  :disabled="true"
                 >
                 </el-date-picker>
           </base-input>
@@ -179,7 +195,7 @@ export default {
         addRemoveLinks: true,
         maxFiles: 1
       },
-      tenureDateRange: []
+      addTenureDateRange: []
     }
   },
   props: {
@@ -209,7 +225,19 @@ export default {
   created() {
     this.assetId = this.$route.query.assetId;
     this.tenantId = this.$route.query.tenantId;
-    // this.tenure_start_date = this.resource.model.tenure_start_date + ', ' + this.resource.model.tenure_end_date;
+  },
+  computed: {
+    editTenureDateRange: {
+      get() {
+        if (!this.resource.model.tenure_start_date) {
+          return [];
+        }
+        if (!this.resource.model.tenure_end_date) {
+          return [];
+        }
+        return [this.resource.model.tenure_start_date, this.resource.model.tenure_end_date];
+      },
+    }
   },
   methods: {
     async handleSubmit() {
@@ -217,6 +245,7 @@ export default {
 
       if (this.resource.model.file) {
         formData.append('file', this.resource.model.file);
+        console.log('appending file');
       }
 
       for (const [key, value] of Object.entries(this.translateModel())) {
@@ -238,8 +267,8 @@ export default {
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
-          tenure_start_date: this.tenureDateRange.length == 2 ? this.tenureDateRange[0] : '',
-          tenure_end_date: this.tenureDateRange.length == 2 ? this.tenureDateRange[1] : ''
+          tenure_start_date: this.addTenureDateRange.length == 2 ? this.addTenureDateRange[0] : '',
+          tenure_end_date: this.addTenureDateRange.length == 2 ? this.addTenureDateRange[1] : ''
         }
       } else {
         return {
@@ -247,13 +276,15 @@ export default {
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
-          tenure_start_date: this.tenureDateRange.length == 2 ? this.tenureDateRange[0] : '',
-          tenure_end_date: this.tenureDateRange.length == 2 ? this.tenureDateRange[1] : ''
+          tenure_start_date: this.editTenureDateRange.length == 2 ? this.editTenureDateRange[0] : '',
+          tenure_end_date: this.editTenureDateRange.length == 2 ? this.editTenureDateRange[1] : ''
         }
       }
     },
     sendingFile(file, xhr, formData) {
+      console.log('sendingFile');
       this.resource.model.file = file;
+      console.log(this.resource.model.file);
     },
     maxFileExceeded() {
       this.$notify({

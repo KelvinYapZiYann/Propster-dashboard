@@ -14,16 +14,32 @@
       thead-classes="text-primary"
     ></base-detail-list>
 
+    <card v-show="showMedia">
+      <div class="card-header mb-3">
+        <h5 class="card-category">{{$t('component.media')}}</h5>
+      </div>
+      <drop-zone
+                @click.native="downloadFile" 
+                ref="myVueDropzone"
+                id="dropzone"
+                :options="dropzoneOptions"
+      >
+      <!-- :disable="disableDropZone" -->
+      </drop-zone>
+    </card>
+
     <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
   </div>
 </template>
 <script>
-import { BaseDetailList, TransactionSection } from "@/components";
+import { BaseDetailList, TransactionSection, DropZone, Card } from "@/components";
 
 export default {
   components: {
     TransactionSection,
-    BaseDetailList
+    BaseDetailList,
+    DropZone,
+    Card
   },
   data() {
     return {
@@ -43,6 +59,15 @@ export default {
           // is_reference_only: this.$t('property.isReferenceOnly'),
         },
       },
+      dropzoneOptions: {
+        url: 'https://httpbin.org/post',
+        thumbnailWidth: 200,
+        addRemoveLinks: false,
+        maxFiles: 1,
+        maxFilesize: 1,
+        clickable: false
+      },
+      showMedia: false,
     };
   },
   props: {
@@ -64,8 +89,9 @@ export default {
         this.resource.data = await this.$store.getters["paymentRecords/data"]
         this.loadAttachment();
       } catch (e) {
+        console.log(e);
         this.$notify({
-          message: 'Server error',
+          message: 'Server error asd',
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
@@ -79,6 +105,9 @@ export default {
         this.$refs.myVueDropzone.removeEventListeners()
         this.$refs.myVueDropzone.setupEventListeners()
       }
+    },
+    downloadFile() {
+
     },
     async handleBack() {
       if (this.previousRoute) {

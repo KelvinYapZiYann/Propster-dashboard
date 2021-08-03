@@ -57,9 +57,9 @@
               v-model="resource.data.currentPage"
               :total="resource.data.total"
               @input="handlePagination"
+              :per-page="resource.data.perPage"
               type="info"
             >
-            <!-- :per-page="resource.data.perPage" -->
             </base-pagination>
           </div>
         </div>
@@ -112,7 +112,7 @@ export default {
           total: 0,
           from: 0,
           to: 0,
-          // perPage: 10,
+          perPage: 10,
           links: []
         }
       },

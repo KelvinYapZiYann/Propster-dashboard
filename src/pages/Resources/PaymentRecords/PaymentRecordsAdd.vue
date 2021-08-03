@@ -155,8 +155,9 @@ export default {
           router.go(-1);
         }
       } catch (e) {
+        console.log(e);
         this.$notify({
-          message:'Server error',
+          message:'Server error 123',
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

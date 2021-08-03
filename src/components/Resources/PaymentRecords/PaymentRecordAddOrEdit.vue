@@ -109,22 +109,50 @@
         </div> -->
       </div>
     </card>
+
+    <card v-if="resource.model.recipient">
+      <div class="row">
+        <div class="col-md-12">
+          <drop-zone ref="myVueDropzone"
+                     id="dropzone"
+                     :options="dropzoneOptions"
+                     :duplicateCheck="true"
+                     v-on:vdropzone-max-files-exceeded="maxFileExceeded"
+                     v-on:vdropzone-sending="sendingFile"
+          >
+          </drop-zone>
+          <validation-error :errorsArray="tmpApiValidationErrors.file"/>
+        </div>
+      </div>
+    </card>
+
     <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.cancel')}}</base-button>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{$t('component.add')}}</base-button>
   </form>
 </template>
 <script>
 import formMixin from "@/mixins/form-mixin";
-import { BaseInput, BaseSelectorInput, Card } from "@/components";
+import { BaseInput, BaseSelectorInput, Card, DropZone, ValidationError } from "@/components";
 
 export default {
   mixins: [formMixin],
   components: {
     // AssetForm,
-    // ValidationError,
+    ValidationError,
     BaseInput,
     BaseSelectorInput,
-    Card
+    Card,
+    DropZone
+  },
+  data() {
+    return {
+      dropzoneOptions: {
+        url: 'https://httpbin.org/post',
+        thumbnailWidth: 200,
+        addRemoveLinks: true,
+        maxFiles: 1
+      },
+    }
   },
   props: {
     resource: {
@@ -190,9 +218,9 @@ export default {
     async handleSubmit() {
       let formData = new FormData();
 
-      // if (this.resource.model.file) {
-      //   formData.append('file', this.resource.model.file);
-      // }
+      if (this.resource.model.file) {
+        formData.append('file', this.resource.model.file);
+      }
 
       for (const [key, value] of Object.entries(this.translateModel())) {
         if (value) {
@@ -221,7 +249,26 @@ export default {
         amount: this.resource.model.amount,
         is_reference_only: this.resource.model.is_reference_only == null ? false : this.resource.model.is_reference_only,
       }
-    }
+    },
+    sendingFile(file, xhr, formData) {
+      console.log('sendingFile');
+      this.resource.model.file = file;
+      console.log(this.resource.model.file);
+    },
+    maxFileExceeded() {
+      this.$notify({
+        message: this.$t('alert.maxFileReached'),
+        icon: 'tim-icons icon-bell-55',
+        type: 'danger'
+      });
+    },
+    getFileCount() {
+      if ('undefined' !== typeof this.$refs.myVueDropzone.dropzone) {
+        this.fileCount = this.$refs.myVueDropzone.dropzone.files.length
+      } else {
+        this.fileCount = 0;
+      }
+    },
   }
 }
 </script>

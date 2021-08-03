@@ -63,8 +63,8 @@ export default {
     async getResource() {
       try {
         await this.$store.dispatch('billingPayments/getById', this.$route.params.billingPaymentId).then(() => {
-          this.resource.model = this.$store.getters["billingRecords/model"]
-          this.resource.data = this.$store.getters["billingRecords/data"]
+          this.resource.model = this.$store.getters["billingPayments/model"]
+          this.resource.data = this.$store.getters["billingPayments/data"]
           // this.loadAttachment();
         });
         // await this.$store.dispatch('billingPayments/get', {}).then(() => {
