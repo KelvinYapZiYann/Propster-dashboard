@@ -67,6 +67,14 @@
             <base-input :label="$t('property.amount')"
                         :placeholder="$t('property.amount')"
                         v-model="resource.model.amount"
+                        v-if="query ? !query.amount : true"
+                        :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
+            </base-input>
+            <base-input :label="$t('property.amount')"
+                        :placeholder="$t('property.amount')"
+                        :value="query ? query.amount : ''"
+                        v-if="query ? query.amount : false"
+                        :disabled="true"
                         :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
             </base-input>
             <!-- <validation-error :errorsArray="tmpApiValidationErrors.amount"/> -->
@@ -90,10 +98,21 @@
                                 v-model="resource.model.payment_type"
                                 :initialValue="resource.model.payment_type"
                                 :options="resource.selector.payment_type"
+                                v-if="(query ? !query.paymentType : true)" 
                                 :error="tmpApiValidationErrors.payment_type ? tmpApiValidationErrors.payment_type[0] : ''"
             >
             </base-selector-input>
             <!-- <validation-error :errorsArray="tmpApiValidationErrors.payment_type"/> -->
+            <div v-if="query ? query.paymentType : false">
+              <div v-for="paymentType in resource.selector.payment_type" v-bind:key="paymentType.id" >
+                <base-input :label="$t('property.paymentType')"
+                          v-if="paymentType.id == query.paymentType" 
+                          :value="paymentType.name"
+                          :disabled="true"
+                          :error="tmpApiValidationErrors.payment_type ? tmpApiValidationErrors.payment_type[0] : ''">
+                </base-input>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -245,15 +264,13 @@ export default {
         asset_id: this.resource.model.asset.id,
         payment_description: this.resource.model.payment_description,
         payment_method: this.resource.model.payment_method,
-        payment_type: this.resource.model.payment_type,
-        amount: this.resource.model.amount,
+        payment_type: this.query ? this.query.paymentType : this.resource.model.payment_type,
+        amount: this.query ? this.query.amount : this.resource.model.amount,
         is_reference_only: this.resource.model.is_reference_only == null ? false : this.resource.model.is_reference_only,
       }
     },
     sendingFile(file, xhr, formData) {
-      console.log('sendingFile');
       this.resource.model.file = file;
-      console.log(this.resource.model.file);
     },
     maxFileExceeded() {
       this.$notify({

@@ -15,6 +15,10 @@
       @getResource="getResource"
       :query="{
         billingPaymentId: $route.params.billingPaymentId,
+        tenantId: resource.model.sender ? resource.model.sender.id : null,
+        assetId: resource.model.asset ? resource.model.asset.id : null,
+        paymentType: resource.model.payment_type ? resource.model.payment_type : null,
+        amount: resource.model.amount ? resource.model.amount : null,
       }"
     ></payment-record-index-component>
 
@@ -81,7 +85,6 @@ export default {
           this.paymentRecordResource.data = Object.assign({}, this.$store.getters["billingPayments/paymentRecordData"]);
         });
       } catch (e) {
-        console.log(e);
         this.$notify({
           message: 'Server error',
           icon: 'tim-icons icon-bell-55',

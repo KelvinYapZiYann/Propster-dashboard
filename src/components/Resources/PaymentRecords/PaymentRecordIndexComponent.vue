@@ -202,6 +202,9 @@ export default {
                     senderId: this.$props.query ? this.$props.query.tenantId : null,
                     recipientType: "LANDLORD",
                     recipientId: this.userResource.model.landlord_ids[0],
+                    assetId: this.$props.query ? this.$props.query.assetId : null,
+                    paymentType: this.$props.query ? this.$props.query.paymentType : null,
+                    amount: this.$props.query ? this.$props.query.amount : null,
                   },
                   params: {
                     previousRoute: this.$router.currentRoute.fullPath
@@ -222,6 +225,9 @@ export default {
             senderId: this.$props.query ? this.$props.query.tenantId : null,
             recipientType: "LANDLORD",
             recipientId: this.userResource.model.landlord_ids[0],
+            assetId: this.$props.query ? this.$props.query.assetId : null,
+            paymentType: this.$props.query ? this.$props.query.paymentType : null,
+            amount: this.$props.query ? this.$props.query.amount : null,
           },
           params: {
             previousRoute: this.$router.currentRoute.fullPath
@@ -232,16 +238,7 @@ export default {
     async handlePagination(pageId) {
       try {
         if (this.$props.query) {
-          if (this.$props.query.tenantId) {
-            var param = {
-              id: this.$props.query.tenantId,
-              pageId: pageId
-            }
-            await this.$store.dispatch('tenant/getPaymentRecords', param).then(() => {
-              this.resource.models = this.$store.getters["tenant/paymentRecordModels"];
-              this.resource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"]);
-            });
-          } else if (this.$props.query.billingPaymentId) {
+          if (this.$props.query.billingPaymentId) {
             var param = {
               id: this.$props.query.billingPaymentId,
               pageId: pageId
@@ -249,6 +246,15 @@ export default {
             await this.$store.dispatch('billingPayments/getPaymentRecords', param).then(() => {
               this.resource.models = this.$store.getters["billingPayments/paymentRecordModels"];
               this.resource.data = Object.assign({}, this.$store.getters["billingPayments/paymentRecordData"]);
+            });
+          } else if (this.$props.query.tenantId) {
+            var param = {
+              id: this.$props.query.tenantId,
+              pageId: pageId
+            }
+            await this.$store.dispatch('tenant/getPaymentRecords', param).then(() => {
+              this.resource.models = this.$store.getters["tenant/paymentRecordModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"]);
             });
           } else {
             await this.$store.dispatch('paymentRecords/get', pageId).then(() => {
