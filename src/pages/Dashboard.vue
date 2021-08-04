@@ -92,15 +92,45 @@
       @getResource="getResource"
     ></overdue-tenants-index-component>
 
+    <div class="row">
+      <div class="col-12">
+        <div class="pro-feature alert alert-danger">
+          <strong>
+            {{$t('alert.featureDeveloping')}}
+          </strong>
+        </div>
+      </div>
+    </div>
+
     <assets-value-index-component
       :resource="resource.assetsValueList"
       @getResource="getResource"
     ></assets-value-index-component>
 
+    <div class="row">
+      <div class="col-12">
+        <div class="pro-feature alert alert-danger">
+          <strong>
+            {{$t('alert.featureDeveloping')}}
+          </strong>
+        </div>
+      </div>
+    </div>
+
     <assets-rental-rate-index-component
       :resource="resource.rentalRateList"
       @getResource="getResource"
     ></assets-rental-rate-index-component>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="pro-feature alert alert-danger">
+          <strong>
+            {{$t('alert.featureDeveloping')}}
+          </strong>
+        </div>
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-md-12 mr-auto">
@@ -123,6 +153,16 @@
             </bar-chart>
           </div>
         </card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="pro-feature alert alert-danger">
+          <strong>
+            {{$t('alert.featureDeveloping')}}
+          </strong>
+        </div>
       </div>
     </div>
 

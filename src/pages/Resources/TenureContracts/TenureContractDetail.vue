@@ -139,23 +139,23 @@ export default {
       if (this.resource.model.media.length <= 0) {
         return;
       }
-      axios({
-        url: this.resource.model.media[0].temporary_url,
-        method: 'GET',
-        responseType: 'blob'
-      }).then((response) => {
-        console.log(response);
-        // let fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        // let fileLink = document.createElement('a');
+      // axios({
+      //   url: this.resource.model.media[0].temporary_url,
+      //   method: 'GET',
+      //   responseType: 'blob'
+      // }).then((response) => {
+      //   console.log(response);
+      //   // let fileURL = window.URL.createObjectURL(new Blob([response.data]));
+      //   // let fileLink = document.createElement('a');
 
-        // fileLink.href = fileURL;
-        // fileLink.setAttribute('download', fileName);
-        // document.body.appendChild(fileLink);
+      //   // fileLink.href = fileURL;
+      //   // fileLink.setAttribute('download', fileName);
+      //   // document.body.appendChild(fileLink);
 
-        // fileLink.click();
-      }).catch((error) => {
-        console.log(error);
-      });
+      //   // fileLink.click();
+      // }).catch((error) => {
+      //   console.log(error);
+      // });
     },
     // disableDropZone() {
     //   return true;
