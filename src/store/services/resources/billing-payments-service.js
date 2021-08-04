@@ -82,10 +82,40 @@ function getById(Id) {
     });
 }
 
+function getPaymentRecords(params) {
+  const config = {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  };
+
+  if (params && (typeof params == "number" || typeof params == "string")) {
+    return axios.get(`${url}/billing-record-payments/${params}/payment-records`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else if (typeof params == "object") {
+    if (params.pageId) {
+      return axios.get(`${url}/billing-record-payments/${params.id}/payment-records?page=${params.pageId}`, config)
+        .then(response => {
+          return response.data;
+        });
+    } else {
+      return axios.get(`${url}/billing-record-payments/${params.id}/payment-records`, config)
+        .then(response => {
+          return response.data;
+        });
+    }
+  }
+  
+}
+
 export default {
     // getReceivingBillingPayments,
     // getSendingBillingPayments,
     get,
-    getById
+    getById,
+    getPaymentRecords
 };
 

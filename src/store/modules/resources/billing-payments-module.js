@@ -6,6 +6,8 @@ const state = {
   data: {},
   model: {},
   selector: {},
+  paymentRecordModels: [],
+  paymentRecordData: {},
 };
 
 const mutations = {
@@ -99,6 +101,29 @@ const mutations = {
   //     'links': response.meta.links,
   //   }
   // }
+  SET_PAYMENT_RECORD_RESOURCES: (state, response) => {
+    let data = response.data;
+    state.paymentRecordModels = [];
+    data.forEach(function (item, index) {
+      let fields = item.fields;
+      let obj = {};
+      for (let key in fields) {
+        obj[key] = fields[key];
+      }
+
+      state.paymentRecordModels.push(obj);
+      obj.id = item.id;
+    })
+    state.paymentRecordData = {
+      'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+      'links': response.meta.links,
+    }
+  },
 };
 
 const actions = {
@@ -154,6 +179,19 @@ const actions = {
         }
       });
   },
+  getPaymentRecords({commit, dispatch}, params) {
+    return service.getPaymentRecords(params)
+      .then((response) => {
+        commit('SET_PAYMENT_RECORD_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
+  },
 };
 
 const getters = {
@@ -161,6 +199,8 @@ const getters = {
   model: state => state.model,
   data: state => state.data,
   selector: state => state.selector,
+  paymentRecordModels: state => state.paymentRecordModels,
+  paymentRecordData: state => state.paymentRecordData,
   // receivingBillingPaymentsModels: state => state.receivingBillingPaymentsModels,
   // receivingBillingPaymentsData: state => state.receivingBillingPaymentsData,
   // sendingBillingPaymentsModels: state => state.sendingBillingPaymentsModels,

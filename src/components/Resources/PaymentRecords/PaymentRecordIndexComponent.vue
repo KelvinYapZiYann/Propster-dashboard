@@ -241,6 +241,15 @@ export default {
               this.resource.models = this.$store.getters["tenant/paymentRecordModels"];
               this.resource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"]);
             });
+          } else if (this.$props.query.billingPaymentId) {
+            var param = {
+              id: this.$props.query.billingPaymentId,
+              pageId: pageId
+            }
+            await this.$store.dispatch('billingPayments/getPaymentRecords', param).then(() => {
+              this.resource.models = this.$store.getters["billingPayments/paymentRecordModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["billingPayments/paymentRecordData"]);
+            });
           } else {
             await this.$store.dispatch('paymentRecords/get', pageId).then(() => {
               this.resource.models = this.$store.getters["paymentRecords/models"];

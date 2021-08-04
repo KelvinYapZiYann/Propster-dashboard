@@ -10,26 +10,35 @@
       thead-classes="text-primary"
     ></base-detail-list>
 
-    <!-- <billing-payment-index-component
-      :resource="billingPaymentResource"
+    <payment-record-index-component
+      :resource="paymentRecordResource"
       @getResource="getResource"
-    ></billing-payment-index-component> -->
+      :query="{
+        billingPaymentId: $route.params.billingPaymentId,
+      }"
+    ></payment-record-index-component>
 
     <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
   </div>
 </template>
 <script>
 import { BaseDetailList, TransactionSection } from "@/components";
+import PaymentRecordIndexComponent from "@/components/Resources/PaymentRecords/PaymentRecordIndexComponent";
 
 export default {
   components: {
     TransactionSection,
     BaseDetailList,
+    PaymentRecordIndexComponent
   },
   data() {
     return {
       resource: {
         model: {},
+        data: {}
+      },
+      paymentRecordResource: {
+        models: [],
         data: {}
       },
       table: {
@@ -67,10 +76,10 @@ export default {
           this.resource.data = this.$store.getters["billingPayments/data"]
           // this.loadAttachment();
         });
-        // await this.$store.dispatch('billingPayments/get', {}).then(() => {
-        //   this.billingPaymentResource.models = this.$store.getters["billingPayments/models"];
-        //   this.billingPaymentResource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
-        // });
+        await this.$store.dispatch('billingPayments/getPaymentRecords', this.$route.params.billingPaymentId).then(() => {
+          this.paymentRecordResource.models = this.$store.getters["billingPayments/paymentRecordModels"];
+          this.paymentRecordResource.data = Object.assign({}, this.$store.getters["billingPayments/paymentRecordData"]);
+        });
       } catch (e) {
         console.log(e);
         this.$notify({
