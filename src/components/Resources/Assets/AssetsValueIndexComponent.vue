@@ -16,6 +16,7 @@
           <base-table
             :data="resource.models"
             :columns="table.columns"
+            :columnsDisplayPrefix="table.columnsDisplayPrefix"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             :disableEdit="true"
@@ -67,6 +68,10 @@ export default {
           asset_nickname: this.$t('property.assetNickname'),
           asset_purchased_value: this.$t('property.assetPurchasedValue'),
           asset_current_value: this.$t('property.assetCurrentValue'),
+        },
+        columnsDisplayPrefix: {
+          asset_purchased_value: "RM",
+          asset_current_value: "RM",
         },
       },
       searchQuery: "",

@@ -16,6 +16,7 @@
           <base-table
             :data="resource.models"
             :columns="table.columns"
+            :columnsDisplayPrefix="table.columnsDisplayPrefix"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             :disableEdit="true"
@@ -67,6 +68,10 @@ export default {
           asset_nickname: this.$t('property.assetNickname'),
           current_rental_rate: this.$t('dashboard.currentRentalRate'),
           current_market_rental_rate: this.$t('dashboard.currentMarketRentalRate'),
+        },
+        columnsDisplayPrefix: {
+          current_rental_rate: "RM",
+          current_market_rental_rate: "RM",
         },
       },
       searchQuery: "",
