@@ -28,6 +28,7 @@
             :data="resource.models"
             :columns="table.columns"
             :columnsDisplayPrefix="table.columnsDisplayPrefix"
+            :columnsDisplayValue="table.columnsDisplayValue"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
           >
@@ -87,6 +88,18 @@ export default {
         },
         columnsDisplayPrefix: {
           amount: "RM"
+        },
+        columnsDisplayValue: {
+          status: {
+            RECEIVED: "Received"
+          },
+          payment_method: {
+            BANK_TRANSFER: "Bank Transfer",
+            CASH: "Cash Only",
+            CREDIT_CARD: "Credit Card",
+            EWALLET_C2B: "E-Wallet(C2B)",
+            EWALLET_P2P: "E-Wallet(P2P)",
+          }
         }
       },
       searchQuery: "",

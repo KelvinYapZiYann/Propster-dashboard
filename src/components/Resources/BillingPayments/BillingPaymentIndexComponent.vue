@@ -26,6 +26,7 @@
             :data="resource.models"
             :columns="table.columns"
             :columnsDisplayPrefix="table.columnsDisplayPrefix"
+            :columnsDisplayValue="table.columnsDisplayValue"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
           >
@@ -81,6 +82,31 @@ export default {
         },
         columnsDisplayPrefix: {
           amount: "RM"
+        },
+        columnsDisplayValue: {
+          payment_type: {
+            APPLIANCES: "Appliances",
+            BILL_ELECTRICITY: "Electricity bill",
+            BILL_GAS: "Gas bill",
+            BILL_INSURANCE: "Insurance Bill",
+            BILL_INTERNET: " Internet bill",
+            BILL_MANAGEMENT: "Management fee",
+            BILL_REPAIR: "Repair Bill",
+            BILL_SINKING_FUND: "Sinking fund",
+            BILL_TV_PROGRAMME: "TV Programme bill",
+            BILL_WATER: "Water bill",
+            DEPOSIT: "Deposit",
+            FURNITURE: "Furniture",
+            LATE_FEE_PENALTY: "Late Fee Penalty",
+            LOAN_INSTALLMENT: "Loan Installment",
+            MAINTENANCE_COST: "Maintenance cost",
+            OTHERS: "Others",
+            PARKING_RENTAL: "Parking Rental",
+            RENOVATION: "Renovation",
+            RENTAL: "Rental",
+            TAX_CUKAI_PINTU: "Cukai Pintu",
+            TAX_CUKAI_TANAH: "Cukai Tanah",
+          }
         }
       },
       searchQuery: "",
