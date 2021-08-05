@@ -100,10 +100,12 @@ export default {
     loadAttachment() {
       if (this.resource.model.media.length > 0) {
         this.showMedia = true;
-        let file = { size: 123, name: "Icon", type: "image/png" };
-        this.$refs.myVueDropzone.manuallyAddFile(file, this.resource.model.media[0].temporary_url);
+        let fileData = this.resource.model.media[0].temporary_url;
+        // console.log(fileData);
+        let file = { name: this.resource.model.media[0].file_name, type: this.resource.model.media[0].mime_type };
+        this.$refs.myVueDropzone.manuallyAddFile(file, fileData);
         this.$refs.myVueDropzone.removeEventListeners()
-        this.$refs.myVueDropzone.setupEventListeners()
+        // this.$refs.myVueDropzone.setupEventListeners()
       }
     },
     downloadFile() {

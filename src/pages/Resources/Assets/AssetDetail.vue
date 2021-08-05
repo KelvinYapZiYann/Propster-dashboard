@@ -22,6 +22,13 @@
      thead-classes="text-primary"
    ></base-detail-list>
 
+   <tenants-index-component
+     :resource="tenantResource"
+     :query='{
+           assetId: `${assetId}`
+         }'
+   ></tenants-index-component>
+
    <asset-expenses-index-component
      :resource="assetExpensesResource"
      @getResource="getResource"
@@ -30,13 +37,6 @@
         assetNickname: resource.model.asset_nickname
       }'
    ></asset-expenses-index-component>
-
-   <tenants-index-component
-     :resource="tenantResource"
-     :query='{
-           assetId: `${assetId}`
-         }'
-   ></tenants-index-component>
 
    <!-- <fab
      :position="position"

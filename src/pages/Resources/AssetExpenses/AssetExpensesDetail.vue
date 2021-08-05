@@ -17,7 +17,9 @@
       <div class="card-header mb-3">
         <h5 class="card-category">{{$t('component.media')}}</h5>
       </div>
-        <drop-zone ref="myVueDropzone"
+        <drop-zone 
+                   ref="myVueDropzone"
+                   @click.native="downloadFile" 
                    id="dropzone"
                    :options="dropzoneOptions"
         >
@@ -57,7 +59,9 @@ export default {
         url: 'https://httpbin.org/post',
         thumbnailWidth: 200,
         addRemoveLinks: false,
-        maxFiles: 1
+        maxFiles: 1,
+        maxFilesize: 1,
+        clickable: false
       },
     };
   },
@@ -90,11 +94,16 @@ export default {
     loadAttachment() {
       if (this.resource.model.media.length > 0) {
         this.showMedia = true;
-        let file = { size: 123, name: "Icon", type: "image/png" };
-        this.$refs.myVueDropzone.manuallyAddFile(file, this.resource.model.media[0].temporary_url);
+        let fileData = this.resource.model.media[0].temporary_url;
+        // console.log(fileData);
+        let file = { name: this.resource.model.media[0].file_name, type: this.resource.model.media[0].mime_type };
+        this.$refs.myVueDropzone.manuallyAddFile(file, fileData);
         this.$refs.myVueDropzone.removeEventListeners()
-        this.$refs.myVueDropzone.setupEventListeners()
+        // this.$refs.myVueDropzone.setupEventListeners()
       }
+    },
+    downloadFile() {
+
     },
     async handleBack() {
       if (this.previousRoute) {
