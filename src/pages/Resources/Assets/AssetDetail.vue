@@ -5,6 +5,8 @@
      :title="resource.model.asset_nickname"
      :model="resource.model"
      :headers="table.detailHeaders"
+     :detailDisplayValue="table.detailDisplayValue"
+     :detailDisplaySuffix="table.detailDisplaySuffix"
      thead-classes="text-primary"
    ></base-detail-list>
 
@@ -12,6 +14,7 @@
      :category="$t('property.locationDetails')"
      :model="resource.model.location_details"
      :headers="table.locationDetailHeaders"
+     :detailDisplayValue="table.locationDetailDisplayValue"
      thead-classes="text-primary"
    ></base-detail-list>
 
@@ -19,6 +22,9 @@
      :category="$t('property.financialDetails')"
      :model="resource.model.financial_details"
      :headers="table.financialDetailHeaders"
+     :detailDisplayValue="table.financialDetailDisplayValue"
+     :detailDisplayPrefix="table.financialDetailDisplayPrefix"
+     :detailDisplaySuffix="table.financialDetailDisplaySuffix"
      thead-classes="text-primary"
    ></base-detail-list>
 
@@ -107,6 +113,23 @@ export default {
           is_multi_unit: this.$t('property.isMultiUnit'),
           asset_type: this.$t('property.assetType'),
         },
+        detailDisplayValue: {
+          asset_type: {
+            RESIDENTIAL: "Residential",
+            Commercial: "Commercial",
+          },
+          is_multi_unit: {
+            true: "Yes",
+            false: "No",
+          },
+          is_occupied: {
+            true: "Yes",
+            false: "No",
+          }
+        },
+        detailDisplaySuffix: {
+          asset_size: " sq.ft"
+        },
         locationDetailHeaders: {
           asset_unit_no: this.$t('property.unitNo'),
           asset_address_line: this.$t('property.addressLine'),
@@ -114,6 +137,11 @@ export default {
           asset_state: this.$t('property.state'),
           asset_postal_code: this.$t('property.postalCode'),
           asset_country: this.$t('property.country'),
+        },
+        locationDetailDisplayValue: {
+          asset_country: {
+            MY: "Malaysia",
+          },
         },
         financialDetailHeaders: {
           asset_purchased_value: this.$t('property.assetPurchasedValue'),
@@ -125,6 +153,22 @@ export default {
           loan_outstanding_amount: this.$t('property.loanOutstandingAmount'),
           // loan_remaining_year: this.$t('property.loanRemainingYear'),
           loan_total_year: this.$t('property.loanTotalYear'),
+        },
+        financialDetailDisplayValue: {
+          loan_is_active: {
+            true: "Active",
+            false: "Inactive"
+          }
+        },
+        financialDetailDisplayPrefix: {
+          asset_current_value: "RM",
+          asset_purchased_tax: "RM",
+          loan_outstanding_amount: "RM",
+          asset_purchased_value: "RM",
+        },
+        financialDetailDisplaySuffix: {
+          loan_interest_rate: "%",
+          loan_total_year: " yrs"
         }
       },
       fabActions: [

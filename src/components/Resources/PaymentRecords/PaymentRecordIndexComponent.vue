@@ -101,7 +101,7 @@ export default {
           },
           payment_method: {
             BANK_TRANSFER: "Bank Transfer",
-            CASH: "Cash Only",
+            CASH: "Cash",
             CREDIT_CARD: "Credit Card",
             EWALLET_C2B: "E-Wallet(C2B)",
             EWALLET_P2P: "E-Wallet(P2P)",

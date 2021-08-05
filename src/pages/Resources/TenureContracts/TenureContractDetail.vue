@@ -4,6 +4,7 @@
           :category="$t('property.tenureContractDetails')"
           :model="resource.model"
           :headers="table.detailHeaders"
+          :detailDisplayPrefix="table.detailDisplayPrefix"
           thead-classes="text-primary"
         ></base-detail-list>
 
@@ -66,6 +67,9 @@ export default {
           monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
           tenure_start_date: this.$t('property.tenureStartDate'),
           tenure_end_date: this.$t('property.tenureEndDate'),
+        },
+        detailDisplayPrefix: {
+          monthly_rental_amount: "RM",
         },
       },
       dropzoneOptions: {

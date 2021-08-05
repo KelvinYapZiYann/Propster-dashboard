@@ -41,12 +41,32 @@
       model: {
         type: Object,
         default: () => {},
-        description: "Table data"
+        description: "Detail Data"
       },
       headers: {
         type: Object,
         default: () => {},
-        description: "Table data"
+        description: "Detail Headers"
+      },
+      detailDisplayValue: {
+        type: Object,
+        default: () => {},
+        description: "Detail display value"
+      },
+      detailDisplayColor: {
+        type: Object,
+        default: () => {},
+        description: "Detail display color"
+      },
+      detailDisplayPrefix: {
+        type: Object,
+        default: () => {},
+        description: "Detail display prefix"
+      },
+      detailDisplaySuffix: {
+        type: Object,
+        default: () => {},
+        description: "Detail display suffix"
       },
     },
     computed: {
@@ -72,28 +92,72 @@
         if (!item) {
           return '-';
         }
-        if (typeof item[column.toLowerCase()] == 'boolean') {
-          return item[column.toLowerCase()];
-        } else if (typeof item[column.toLowerCase()] == 'number') {
-          return item[column.toLowerCase()];
-        } else if (typeof item[column.toLowerCase()] == 'string') {
-          return item[column.toLowerCase()];
+        let prefix;
+        if (this.detailDisplayPrefix) {
+          prefix = this.detailDisplayPrefix[column.toLowerCase()];
+          if (!prefix) {
+            prefix = '';
+          }
+        } else {
+          prefix = '';
+        }
+        let suffix;
+        if (this.detailDisplaySuffix) {
+          suffix = this.detailDisplaySuffix[column.toLowerCase()];
+          if (!suffix) {
+            suffix = '';
+          }
+        } else {
+          suffix = '';
+        }
+        let itemValue = item[column.toLowerCase()];
+        if (typeof itemValue == 'boolean') {
+          if (this.detailDisplayValue) {
+            let displayValueObject = this.detailDisplayValue[column.toLowerCase()];
+            if (displayValueObject) {
+              if (displayValueObject[itemValue]) {
+                itemValue = displayValueObject[itemValue];
+              }
+            }
+          }
+          return prefix + itemValue + suffix;
+        } else if (itemValue) {
+          if (this.detailDisplayValue) {
+            let displayValueObject = this.detailDisplayValue[column.toLowerCase()];
+            if (displayValueObject) {
+              if (displayValueObject[itemValue]) {
+                itemValue = displayValueObject[itemValue];
+              }
+            }
+          }
+          if (typeof itemValue == 'boolean') {
+            return prefix + itemValue + suffix;
+          } else if (typeof itemValue == 'number') {
+            return prefix + itemValue + suffix;
+          } else if (typeof itemValue == 'string') {
+            return prefix + itemValue + suffix;
+          } else {
+            return '-';
+          }
         } else {
           for (const objectValue of Object.values(item)) {
-            if (objectValue) {
-              if (typeof objectValue == 'object') {
-                if (typeof objectValue[column.toLowerCase()] == 'boolean') {
-                  return objectValue[column.toLowerCase()];
-                } else if (typeof objectValue[column.toLowerCase()] == 'number') {
-                  return objectValue[column.toLowerCase()];
-                } else if (typeof objectValue[column.toLowerCase()] == 'string') {
-                  return objectValue[column.toLowerCase()];
+            if (typeof objectValue == 'object') {
+              if (objectValue) {
+                itemValue = objectValue[column.toLowerCase()];
+                if (itemValue) {
+                  if (typeof itemValue == 'boolean') {
+                    return prefix + itemValue + suffix;
+                  } else if (typeof itemValue == 'number') {
+                    return prefix + itemValue + suffix;
+                  } else if (typeof itemValue == 'string') {
+                    return prefix + itemValue + suffix;
+                  }
                 }
               }
             }
           }
-          return '-';
         }
+        return '-';
       },
       // showDetails: function (id) {
       //   this.$emit('show-details', id)

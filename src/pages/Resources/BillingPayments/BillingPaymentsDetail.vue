@@ -7,6 +7,8 @@
       :category="$t('property.billingPaymentDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
+      :detailDisplayValue="table.detailDisplayValue"
+      :detailDisplayPrefix="table.detailDisplayPrefix"
       thead-classes="text-primary"
     ></base-detail-list>
 
@@ -57,6 +59,34 @@ export default {
           // grace_period_in_days: this.$t('property.gracePeriod'),
           // remind_before_days: this.$t('property.remindBefore'),
           // status: this.$t('property.status'),
+        },
+        detailDisplayValue: {
+          payment_type: {
+            APPLIANCES: "Appliances",
+            BILL_ELECTRICITY: "Electricity bill",
+            BILL_GAS: "Gas bill",
+            BILL_INSURANCE: "Insurance Bill",
+            BILL_INTERNET: " Internet bill",
+            BILL_MANAGEMENT: "Management fee",
+            BILL_REPAIR: "Repair Bill",
+            BILL_SINKING_FUND: "Sinking fund",
+            BILL_TV_PROGRAMME: "TV Programme bill",
+            BILL_WATER: "Water bill",
+            DEPOSIT: "Deposit",
+            FURNITURE: "Furniture",
+            LATE_FEE_PENALTY: "Late Fee Penalty",
+            LOAN_INSTALLMENT: "Loan Installment",
+            MAINTENANCE_COST: "Maintenance cost",
+            OTHERS: "Others",
+            PARKING_RENTAL: "Parking Rental",
+            RENOVATION: "Renovation",
+            RENTAL: "Rental",
+            TAX_CUKAI_PINTU: "Cukai Pintu",
+            TAX_CUKAI_TANAH: "Cukai Tanah",
+          }
+        },
+        detailDisplayPrefix: {
+          amount: "RM",
         },
       },
     };

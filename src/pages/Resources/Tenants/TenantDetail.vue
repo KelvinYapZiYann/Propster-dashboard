@@ -4,6 +4,7 @@
           :category="$t('property.tenantDetails')"
           :model="resource.model"
           :headers="table.detailHeaders"
+          :detailDisplayValue="table.detailDisplayValue"
           thead-classes="text-primary"
         ></base-detail-list>
 
@@ -127,6 +128,22 @@ export default {
           date_of_birth: this.$t('property.dateOfBirth'),
           // reputation: "Reputation",
           salary_range: this.$t('property.salaryRange'),
+        },
+        detailDisplayValue: {
+          gender: {
+            MALE: "Male",
+            FEMALE: "Female",
+          },
+          is_business: {
+            true: "Yes",
+            false: "No",
+          },
+          salary_range: {
+            "1_TO_5000": "RM 1 to RM 5000",
+            "5001_TO_10000": "RM 5001 to RM 10000",
+            "ABOVE_10000": "Above RM 10000"
+
+          },
         },
       },
       fabActions: [
