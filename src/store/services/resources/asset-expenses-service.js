@@ -37,6 +37,20 @@ function getById(Id) {
     });
 }
 
+function create() {
+  const config = {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  };
+
+  return axios.get(`${url}/asset-expenses/create`, config)
+    .then(response => {
+      return response.data;
+    });
+}
+
 function update(payload) {
   const assetExpenseId = payload.assetExpenseId;
   const model = payload.model;
@@ -88,6 +102,7 @@ function store(payload) {
 export default {
   get,
   getById,
+  create,
   update,
   store,
   remove

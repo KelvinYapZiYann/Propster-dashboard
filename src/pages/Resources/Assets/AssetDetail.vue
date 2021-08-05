@@ -22,17 +22,17 @@
      thead-classes="text-primary"
    ></base-detail-list>
 
-   <!-- <asset-expenses-index-component
+   <asset-expenses-index-component
      :resource="assetExpensesResource"
-     :table="table"
+     @getResource="getResource"
      :query='{
-           assetId: `${assetId}`
-         }'
-   ></asset-expenses-index-component> -->
+        assetId: `${assetId}`,
+        assetNickname: resource.model.asset_nickname
+      }'
+   ></asset-expenses-index-component>
 
    <tenants-index-component
      :resource="tenantResource"
-     :table="table"
      :query='{
            assetId: `${assetId}`
          }'
@@ -196,9 +196,9 @@ export default {
         this.resource.model = await this.$store.getters["asset/model"]
         this.resource.data = await this.$store.getters["asset/data"]
 
-        // await this.$store.dispatch('asset/getAssetExpenses', this.assetId)
-        // this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
-        // this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
+        await this.$store.dispatch('asset/getAssetExpenses', this.assetId)
+        this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
+        this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
 
         await this.$store.dispatch('asset/getTenants', this.assetId)
         this.tenantResource.models = await this.$store.getters["asset/tenantModels"]

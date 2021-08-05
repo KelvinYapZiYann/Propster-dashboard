@@ -105,6 +105,7 @@ const TenureContractAdd = () => import("@/pages/Resources/TenureContracts/Tenure
 
 const AssetExpenses = () => import("@/pages/Resources/AssetExpenses/AssetExpenses");
 const AssetExpensesDetail = () => import("@/pages/Resources/AssetExpenses/AssetExpensesDetail");
+const AssetExpensesAdd = () => import("@/pages/Resources/AssetExpenses/AssetExpensesAdd");
 
 const PaymentRecords = () => import("@/pages/Resources/PaymentRecords/PaymentRecords");
 const PaymentRecordsDetail = () => import("@/pages/Resources/PaymentRecords/PaymentRecordsDetail");
@@ -227,6 +228,15 @@ let resources = {
       name: "Asset Expenses",
       components: { default: AssetExpenses },
       meta: { middleware: auth }
+    },
+    {
+      path: "asset-expenses/add",
+      name: "Add Asset Expenses",
+      components: { default: AssetExpensesAdd },
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
     },
     {
       path: "asset-expenses/:assetExpenseId",

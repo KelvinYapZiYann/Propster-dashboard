@@ -41,7 +41,6 @@ const mutations = {
     }
 
     state.data = {
-      'category': "Asset Expenses Details",
       'id': item.id
     }
 
@@ -76,6 +75,19 @@ const actions = {
   },
   getById({commit, dispatch}, Id) {
     return service.getById(Id)
+      .then((response) => {
+        commit('SET_RESOURCE', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
+  },
+  create({commit, dispatch}) {
+    return service.create()
       .then((response) => {
         commit('SET_RESOURCE', response);
       })

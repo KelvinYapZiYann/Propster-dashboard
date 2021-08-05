@@ -3,6 +3,15 @@
     <div class="col-12">
       <card>
         <h4 slot="header" class="card-title text-left">{{$t('sidebar.assetExpenses')}}</h4>
+        <div class="text-right mb-3">
+          <base-button
+            @click="addModel"
+            class="mt-3"
+            type="info"
+          >
+            {{$t('component.add')}} {{$t('sidebar.assetExpense')}}
+          </base-button>
+        </div>
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 
@@ -49,6 +58,7 @@
 <script>
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
+import swal from "sweetalert2";
 
 let tableColumns = {
   payment_description: "Payment Description",
@@ -68,6 +78,7 @@ export default {
     return {
       table: {
         columns: {
+          asset_nickname: this.$t('property.assetNickname'),
           payment_description: this.$t('property.description'),
           amount: this.$t('property.amount'),
           status: this.$t('property.status'),
@@ -110,6 +121,60 @@ export default {
           previousRoute: this.$router.currentRoute.fullPath
         }
       });
+    },
+    addModel() {
+      if (this.$props.query ? !this.$props.query.assetId : true) {
+        this.$store.dispatch('asset/get').then(() => {
+          if (this.$store.getters["asset/data"].total <= 0) {
+            swal({
+              title: this.$t('alert.assetExpenseFailedAdded'),
+              text: this.$t('alert.noAssetAddingAssetExpense'),
+              buttonsStyling: false,
+              showCancelButton: true,
+              confirmButtonText: this.$t('component.add') + ' ' + this.$t('sidebar.asset'),
+              cancelButtonText: this.$t('component.cancel'),
+              cancelButtonClass: "btn btn-info btn-fill",
+              confirmButtonClass: "btn btn-info btn-fill",
+              type: "error",
+            }).then((result) => {
+              if (result.value) {
+                this.$router.push({
+                  name: 'Add Assets',
+                  params: {
+                    previousRoute: this.$router.currentRoute.fullPath
+                  }
+                });
+              }
+            });
+          } else {
+            if (!this.resource.data.canAdd) {
+              swal({
+                title: this.$t('alert.assetExpenseFailedAdded'),
+                text: this.$t('alert.noAssetAddingAssetExpense'),
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-info btn-fill",
+                type: "error",
+              });
+              return;
+            }
+            this.$router.push({
+              name: 'Add Asset Expenses',
+              query: this.query,
+              params: {
+                previousRoute: this.$router.currentRoute.fullPath
+              }
+            });
+          }
+        });
+      } else {
+        this.$router.push({
+          name: 'Add Asset Expenses',
+          query: this.query,
+          params: {
+            previousRoute: this.$router.currentRoute.fullPath
+          }
+        });
+      }
     },
     async handlePagination(pageId) {
       try {

@@ -163,6 +163,9 @@
     "noAssetAddingPaymentRecord": "There is no Asset. Please add an Asset before adding Payment Record.",
     "noTenantAddingPaymentRecord": "There is no Tenant. Please add a Tenant before adding Payment Record.",
 
+    "assetExpenseFailedAdded": "Asset Expense is Failed to be Added",
+    "noAssetAddingAssetExpense": "There is no Asset. Please add an Asset before adding Asset Expense.",
+
     "givenDataIsInvalid": "Given data is invalid. Please check the input field(s).",
     "actionIsUnauthorized": "Oops! Something wrong. Please refresh the page.",
 

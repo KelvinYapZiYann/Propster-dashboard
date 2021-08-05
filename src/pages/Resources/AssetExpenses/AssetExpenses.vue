@@ -2,6 +2,7 @@
   <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
     <asset-expenses-index-component
       :resource="resource"
+      @getResource="getResource"
     ></asset-expenses-index-component>
   </div>
 </template>

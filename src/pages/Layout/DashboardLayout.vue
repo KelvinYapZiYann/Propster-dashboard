@@ -48,11 +48,11 @@
             :link="{ name: $t('sidebar.paymentRecords'), path: '/payment-records', icon: 'fas fa-dollar-sign fa-2x'}"
           ></sidebar-link>
         </el-tooltip>
-        <!-- <el-tooltip :content="$t('sidebar.assetExpensesDesc')" :open-delay="300" placement="right">
+        <el-tooltip :content="$t('sidebar.assetExpensesDesc')" :open-delay="300" placement="right">
           <sidebar-link
             :link="{ name: $t('sidebar.assetExpenses'), path: '/asset-expenses', icon: 'fas fa-newspaper fa-2x'}"
           ></sidebar-link>
-        </el-tooltip> -->
+        </el-tooltip>
         <el-tooltip :content="$t('sidebar.userProfileDesc')" :open-delay="300" placement="right">
           <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
           <sidebar-link
