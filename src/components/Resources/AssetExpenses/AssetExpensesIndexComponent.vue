@@ -27,6 +27,7 @@
             :disableDelete="true"
             :data="resource.models"
             :columns="table.columns"
+            :columnsDisplayPrefix="table.columnsDisplayPrefix"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
           >
@@ -84,6 +85,9 @@ export default {
           status: this.$t('property.status'),
           payment_method: this.$t('property.paymentMethod')
         },
+        columnsDisplayPrefix: {
+          amount: "RM"
+        }
       },
       searchQuery: "",
       searchQueryTimeout: null,

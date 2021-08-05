@@ -37,6 +37,7 @@
             :disableDelete="true"
             :data="resource.models"
             :columns="table.columns"
+            :columnsDisplayPrefix="table.columnsDisplayPrefix"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
           >
@@ -92,6 +93,9 @@ export default {
           billing_start_at: this.$t('property.startDate'),
           billing_end_at: this.$t('property.endDate'),
         },
+        columnsDisplayPrefix: {
+          amount: "RM"
+        }
       },
       searchQuery: "",
       searchQueryTimeout: null,

@@ -66,6 +66,21 @@ export default {
       default: () => {},
       description: "Table columns"
     },
+    columnsDisplayValue: {
+      type: Object,
+      default: () => {},
+      description: "Table columns display value"
+    },
+    columnsDisplayColor: {
+      type: Object,
+      default: () => {},
+      description: "Table columns display color"
+    },
+    columnsDisplayPrefix: {
+      type: Object,
+      default: () => {},
+      description: "Table columns display prefix"
+    },
     data: {
       type: Array,
       default: () => [],
@@ -109,27 +124,92 @@ export default {
       return item[column.toLowerCase()] !== "undefined";
     },
     itemValue(item, column) {
-      if (item[column.toLowerCase()]) {
-        if (typeof item[column.toLowerCase()] == 'boolean') {
-          return item[column.toLowerCase()];
-        } else if (typeof item[column.toLowerCase()] == 'number') {
-          return item[column.toLowerCase()];
-        } else if (typeof item[column.toLowerCase()] == 'string') {
-          return item[column.toLowerCase()];
+      let itemValue = item[column.toLowerCase()];
+      if (this.columnsDisplayPrefix) {
+        let prefix = this.columnsDisplayPrefix[column.toLowerCase()];
+        if (prefix) {
+          if (itemValue) {
+            if (typeof itemValue == 'boolean') {
+              return prefix + itemValue;
+            } else if (typeof itemValue == 'number') {
+              return prefix + itemValue;
+            } else if (typeof itemValue == 'string') {
+              return prefix + itemValue;
+            } else {
+              return '-';
+            }
+          } else {
+            for (const objectValue of Object.values(item)) {
+              if (typeof objectValue == 'object') {
+                if (objectValue) {
+                  itemValue = objectValue[column.toLowerCase()];
+                  if (itemValue) {
+                    if (typeof itemValue == 'boolean') {
+                      return prefix + itemValue;
+                    } else if (typeof itemValue == 'number') {
+                      return prefix + itemValue;
+                    } else if (typeof itemValue == 'string') {
+                      return prefix + itemValue;
+                    }
+                  }
+                }
+              }
+            }
+          }
         } else {
-          return '-';
+          if (itemValue) {
+            if (typeof itemValue == 'boolean') {
+              return itemValue;
+            } else if (typeof itemValue == 'number') {
+              return itemValue;
+            } else if (typeof itemValue == 'string') {
+              return itemValue;
+            } else {
+              return '-';
+            }
+          } else {
+            for (const objectValue of Object.values(item)) {
+              if (typeof objectValue == 'object') {
+                if (objectValue) {
+                  itemValue = objectValue[column.toLowerCase()];
+                  if (itemValue) {
+                    if (typeof itemValue == 'boolean') {
+                      return itemValue;
+                    } else if (typeof itemValue == 'number') {
+                      return itemValue;
+                    } else if (typeof itemValue == 'string') {
+                      return itemValue;
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       } else {
-        for (const objectValue of Object.values(item)) {
-          if (typeof objectValue == 'object') {
-            if (objectValue) {
-              if (objectValue[column.toLowerCase()]) {
-                if (typeof objectValue[column.toLowerCase()] == 'boolean') {
-                  return objectValue[column.toLowerCase()];
-                } else if (typeof objectValue[column.toLowerCase()] == 'number') {
-                  return objectValue[column.toLowerCase()];
-                } else if (typeof objectValue[column.toLowerCase()] == 'string') {
-                  return objectValue[column.toLowerCase()];
+        if (itemValue) {
+          if (typeof itemValue == 'boolean') {
+            return itemValue;
+          } else if (typeof itemValue == 'number') {
+            return itemValue;
+          } else if (typeof itemValue == 'string') {
+            return itemValue;
+          } else {
+            return '-';
+          }
+        } else {
+          for (const objectValue of Object.values(item)) {
+            if (typeof objectValue == 'object') {
+              if (objectValue) {
+                itemValue = objectValue[column.toLowerCase()];
+                if (itemValue) {
+                  if (typeof itemValue == 'boolean') {
+                    return itemValue;
+                  } else if (typeof itemValue == 'number') {
+                    return itemValue;
+                  } else if (typeof itemValue == 'string') {
+                    return itemValue;
+                  }
                 }
               }
             }

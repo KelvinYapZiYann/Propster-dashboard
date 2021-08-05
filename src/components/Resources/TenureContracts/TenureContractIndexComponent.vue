@@ -51,6 +51,7 @@
           <base-table
             :data="resource.models"
             :columns="table.columns"
+            :columnsDisplayPrefix="table.columnsDisplayPrefix"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
@@ -105,6 +106,9 @@ export default {
           monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
           tenure_start_date: this.$t('property.tenureStartDate'),
           tenure_end_date: this.$t('property.tenureEndDate')
+        },
+        columnsDisplayPrefix: {
+          monthly_rental_amount: "RM"
         }
       },
       searchQuery: "",
