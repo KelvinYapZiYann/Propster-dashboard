@@ -59,6 +59,9 @@
                         :error="tmpApiValidationErrors.asset ? tmpApiValidationErrors.asset[0] : ''">
             </base-input>
           </div>
+          <div class="col-md-6 ">
+            tenure contract id
+          </div>
         </div>
         <div class="row">
           <div class="col-md-6 ">
@@ -105,6 +108,7 @@
                                 :options="resource.selector.payment_type"
                                 v-if="!query.tenureContractId"
                                 :error="tmpApiValidationErrors.payment_type ? tmpApiValidationErrors.payment_type[0] : ''"
+                                @input="onPaymentTypeChange"
             >
             </base-selector-input>
             <base-input :label="$t('property.paymentType')"
@@ -375,6 +379,9 @@ export default {
           billing_end_at: this.billingDateRange.length == 2 ? this.billingDateRange[1] : '',
         }
       }
+    },
+    onPaymentTypeChange(value) {
+      console.log(value);
     }
   }
 }

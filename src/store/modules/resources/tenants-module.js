@@ -13,7 +13,7 @@ const state = {
   tenureContractData: {},
   billingRecordModels: [],
   billingRecordData: {},
-  billigPaymentModels: [],
+  billingPaymentModels: [],
   billingPaymentData: {},
   paymentRecordModels: [],
   paymentRecordData: {},
@@ -139,6 +139,30 @@ const mutations = {
       obj.id = item.id;
     })
     state.billingRecordData = {
+      'canAdd': response.meta.canAdd,
+      'currentPage': response.meta.current_page,
+      'from': response.meta.from,
+      'to': response.meta.to,
+      'total': response.meta.total,
+      'perPage': response.meta.per_page,
+      'links': response.meta.links,
+      // 'meta': response.meta
+    }
+  },
+  SET_BILLING_PAYMENT_RESOURCES: (state, response) => {
+    let data = response.data;
+    state.billingPaymentModels = [];
+    data.forEach(function (item, index) {
+      let fields = item.fields;
+      let obj = {};
+      for (let key in fields) {
+        obj[key] = fields[key];
+      }
+
+      state.billingPaymentModels.push(obj);
+      obj.id = item.id;
+    })
+    state.billingPaymentData = {
       'canAdd': response.meta.canAdd,
       'currentPage': response.meta.current_page,
       'from': response.meta.from,
@@ -356,6 +380,20 @@ const actions = {
       });
   },
 
+  getBillingPayments({commit, dispatch}, params) {
+    return  service.getBillingPayments(params)
+      .then((response) => {
+        commit('SET_BILLING_PAYMENT_RESOURCES', response);
+      })
+      .catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          throw e1;
+        }
+      });
+  },
+
   getPaymentRecords({commit, dispatch}, params) {
     return  service.getPaymentRecords(params)
       .then((response) => {
@@ -411,7 +449,7 @@ const getters = {
   tenureContractData: state => state.tenureContractData,
   billingRecordModels: state => state.billingRecordModels,
   billingRecordData: state => state.billingRecordData,
-  billigPaymentModels: state => state.billigPaymentModels,
+  billingPaymentModels: state => state.billingPaymentModels,
   billingPaymentData: state => state.billingPaymentData,
   paymentRecordModels: state => state.paymentRecordModels,
   paymentRecordData: state => state.paymentRecordData,

@@ -47,6 +47,14 @@
             assetId: this.assetId,
           }"
         ></billing-record-index-component>
+
+        <billing-payment-index-component
+          :resource="billingPaymentResource"
+          :query="{
+            tenantId: this.tenantId,
+            assetId: this.assetId,
+          }"
+        ></billing-payment-index-component>
         
         <payment-record-index-component
           :resource="paymentRecordResource"
@@ -75,6 +83,7 @@ import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/As
 import AssetsIndexComponent from "@/components/Resources/Assets/AssetsIndexComponent";
 import TenureContractIndexComponent from "@/components/Resources/TenureContracts/TenureContractIndexComponent";
 import BillingRecordIndexComponent from "@/components/Resources/BillingRecords/BillingRecordIndexComponent";
+import BillingPaymentIndexComponent from "@/components/Resources/BillingPayments/BillingPaymentIndexComponent";
 import PaymentRecordIndexComponent from "@/components/Resources/PaymentRecords/PaymentRecordIndexComponent";
 import fab from "vue-fab";
 
@@ -85,6 +94,7 @@ export default {
     AssetExpensesIndexComponent,
     TenureContractIndexComponent,
     BillingRecordIndexComponent,
+    BillingPaymentIndexComponent,
     PaymentRecordIndexComponent,
     Card,
     fab
@@ -97,21 +107,26 @@ export default {
         data: {}
       },
       assetResource: {
-        models: [{}],
+        models: [],
         data: {}
       },
       tenureContractResource: {
-        models: [{}],
+        models: [],
         data: {},
         selector: {}
       },
       billingRecordResource: {
-        models: [{}],
+        models: [],
+        data: {},
+        selector: {}
+      },
+      billingPaymentResource: {
+        models: [],
         data: {},
         selector: {}
       },
       paymentRecordResource: {
-        models: [{}],
+        models: [],
         data: {}
       },
       userResource: {
@@ -195,6 +210,11 @@ export default {
         await this.$store.dispatch('tenant/getBillingRecords', this.tenantId).then(() => {
           this.billingRecordResource.models = this.$store.getters["tenant/billingRecordModels"]
           this.billingRecordResource.data = Object.assign({}, this.$store.getters["tenant/billingRecordData"])
+        })
+
+        await this.$store.dispatch('tenant/getBillingPayments', this.tenantId).then(() => {
+          this.billingPaymentResource.models = this.$store.getters["tenant/billingPaymentModels"]
+          this.billingPaymentResource.data = Object.assign({}, this.$store.getters["tenant/billingPaymentData"])
         })
 
         await this.$store.dispatch('tenant/getPaymentRecords',  this.tenantId).then(() => {

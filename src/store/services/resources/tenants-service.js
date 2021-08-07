@@ -155,6 +155,34 @@ function getBillingRecords(params) {
   }
 }
 
+function getBillingPayments(params) {
+  const config = {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  };
+
+  if (params && (typeof params == "number" || typeof params == "string")) {
+    return axios.get(`${url}/tenants/${params}/billing-payment-records`, config)
+      .then(response => {
+        return response.data;
+      });
+  } else if (typeof params == "object") {
+    if (params.pageId) {
+      return axios.get(`${url}/tenants/${params.id}/billing-payment-records?page=${params.pageId}`, config)
+        .then(response => {
+          return response.data;
+        });
+    } else {
+      return axios.get(`${url}/tenants/${params.id}/billing-payment-records`, config)
+        .then(response => {
+          return response.data;
+        });
+    }
+  }
+}
+
 function getPaymentRecords(params) {
   const config = {
     headers: {
@@ -305,6 +333,7 @@ export default {
   getAssets,
   getTenureContracts,
   getBillingRecords,
+  getBillingPayments,
   getPaymentRecords
 //   getReceivingPaymentRecords,
 //   getSendingPaymentRecords

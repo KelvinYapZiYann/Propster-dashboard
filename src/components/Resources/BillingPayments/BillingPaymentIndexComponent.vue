@@ -159,9 +159,9 @@ export default {
       });
     },
     async handlePagination(pageId) {
-      if (this.$props.query) {
-        if (this.$props.query.billingRecordId) {
-          try {
+      try {
+        if (this.$props.query) {
+          if (this.$props.query.billingRecordId) {
             var param = {
               id: this.$props.query.billingRecordId,
               pageId: pageId
@@ -170,40 +170,33 @@ export default {
               this.resource.models = this.$store.getters["billingRecords/billingPaymentModels"];
               this.resource.data = Object.assign({}, this.$store.getters["billingRecords/billingPaymentData"]);
             });
-          } catch (e) {
-            this.$notify({
-              message:'Server error',
-              icon: 'tim-icons icon-bell-55',
-              type: 'danger'
+          } else if (this.$props.query.tenantId) {
+            var param = {
+              id: this.$props.query.tenantId,
+              pageId: pageId
+            }
+            await this.$store.dispatch('tenant/getBillingPayments', param).then(() => {
+              this.resource.models = this.$store.getters["tenant/billingPaymentModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["tenant/billingPaymentData"]);
             });
-          }
-        } else {
-          try {
+          } else {
             await this.$store.dispatch('billingPayments/get', pageId).then(() => {
               this.resource.models = this.$store.getters["billingPayments/models"];
               this.resource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
             });
-          } catch (e) {
-            this.$notify({
-              message:'Server error',
-              icon: 'tim-icons icon-bell-55',
-              type: 'danger'
-            });
           }
-        }
-      } else {
-        try {
+        } else {
           await this.$store.dispatch('billingPayments/get', pageId).then(() => {
             this.resource.models = this.$store.getters["billingPayments/models"];
             this.resource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
           });
-        } catch (e) {
-          this.$notify({
-            message:'Server error',
-            icon: 'tim-icons icon-bell-55',
-            type: 'danger'
-          });
         }
+      } catch (e) {
+        this.$notify({
+          message:'Server error',
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
       }
     },
     addModel() {
