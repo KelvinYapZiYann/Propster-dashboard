@@ -92,7 +92,10 @@ export default {
             EWALLET_P2P: "E-Wallet(P2P)",
           },
           status: {
-            RECEIVED: "Received"
+            RECEIVED: "Received",
+            AWAITING_ACKNOWLEDGEMENT: "Awaiting Acknowledgement",
+            PROCESSING: "Processing",
+            CREATED: "Created",
           },
           is_seen: {
             true: "Seen",

@@ -91,7 +91,10 @@ export default {
         },
         columnsDisplayValue: {
           status: {
-            RECEIVED: "Received"
+            RECEIVED: "Received",
+            AWAITING_ACKNOWLEDGEMENT: "Awaiting Acknowledgement",
+            PROCESSING: "Processing",
+            CREATED: "Created",
           },
           payment_method: {
             BANK_TRANSFER: "Bank Transfer",

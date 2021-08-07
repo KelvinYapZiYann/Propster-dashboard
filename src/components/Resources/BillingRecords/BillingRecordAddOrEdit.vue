@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent>
     <card>
-      <h5 slot="header" class="title">{{$t('component.add')}} {{query.billImmediately ? $t('sidebar.oneTimeBillingRecords') : $t('sidebar.recurringBillingRecords')}}</h5>
+      <h5 slot="header" class="title">{{$t('component.add')}} {{query.billImmediately ? $t('sidebar.oneTimeBillingRecords') : $t('sidebar.billingRecord')}}</h5>
       <div class="row">
         <div class="col-md-6 ">
           <base-selector-input :label="$t('property.sender')"
@@ -348,7 +348,7 @@ export default {
           bill_immediately: 1,
 
           end_of_month_billing: '0',
-          grace_period_in_days: '0',
+          grace_period_in_days: '1',
           remind_before_days: '0',
           billing_start_at: today,
           billing_end_at: today,

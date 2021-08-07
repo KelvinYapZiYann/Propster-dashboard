@@ -5,14 +5,14 @@
         <h4 slot="header" class="card-title text-left">{{$t('sidebar.billingRecords')}}</h4>
         <div class="text-right mb-3">
           <base-button
-            @click="addModel(true)"
+            @click="addModel"
             class="mt-3"
             type="info"
             v-bind:disabled="!resource.data.canAdd"
           >
-            {{$t('component.add')}} {{$t('sidebar.recurringBillingRecords')}}
+            {{$t('component.add')}} {{$t('sidebar.billingRecord')}}
           </base-button>
-          <base-button
+          <!-- <base-button
             @click="addModel(false)"
             class="mt-3"
             type="info"
@@ -20,7 +20,7 @@
             v-if="query ? !query.tenureContractId : true"
           >
             {{$t('component.add')}} {{$t('sidebar.oneTimeBillingRecords')}}
-          </base-button>
+          </base-button> -->
         </div>
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -175,7 +175,7 @@ export default {
     //   });
     //   return;
     // }
-    addModel(isRecurring) {
+    addModel() {
       if (this.$props.query ? !this.$props.query.tenantId : true) {
         this.$store.dispatch('asset/get').then(() => {
           if (this.$store.getters["asset/data"].total <= 0) {
@@ -245,7 +245,7 @@ export default {
                     recipientId: this.userResource.model.landlord_ids[0],
                     assetId: this.$props.query ? this.$props.query.assetId : null,
                     tenureContractId: this.$props.query ? this.$props.query.tenureContractId : null,
-                    billImmediately: !isRecurring
+                    // billImmediately: !isRecurring
                   },
                   params: {
                     previousRoute: router.currentRoute.fullPath
@@ -278,7 +278,7 @@ export default {
             recipientId: this.userResource.model.landlord_ids[0],
             assetId: this.$props.query ? this.$props.query.assetId : null,
             tenureContractId: this.$props.query ? this.$props.query.tenureContractId : null,
-            billImmediately: !isRecurring
+            // billImmediately: !isRecurring
           },
           params: {
             previousRoute: router.currentRoute.fullPath
