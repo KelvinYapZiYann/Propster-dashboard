@@ -157,6 +157,14 @@ export default {
           if (typeof objectValue == 'object') {
             if (objectValue) {
               itemValue = objectValue[column.toLowerCase()];
+              if (this.columnsDisplayValue) {
+                let displayValueObject = this.columnsDisplayValue[column.toLowerCase()];
+                if (displayValueObject) {
+                  if (displayValueObject[itemValue]) {
+                    itemValue = displayValueObject[itemValue];
+                  }
+                }
+              }
               if (itemValue) {
                 if (typeof itemValue == 'boolean') {
                   return prefix + itemValue;
