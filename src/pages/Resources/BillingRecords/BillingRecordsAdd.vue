@@ -6,10 +6,12 @@
     ></transaction-section>
     <billing-record-add-or-edit
       :transactionResource="transactionResource"
+      :tenureContractResource="tenureContractResource"
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       @submit="handleSubmit"
       @senderIdOnChange="getBillingRecordDetail"
+      @tenureContractIdOnChange="getTenureContractDetail"
       addOrEdit="Add"
       :query="this.$route.query"
       :previousRoute="previousRoute"
@@ -52,6 +54,10 @@ export default {
         selector: {
           senders: undefined
         }
+      },
+      tenureContractResource: {
+        model: {},
+        selector: []
       }
     };
   },
@@ -130,6 +136,9 @@ export default {
           });
         }
       }
+    },
+    async getTenureContractDetail(tenureContractId) {
+
     },
     async refreshTransactionDetail() {
       try {

@@ -222,10 +222,15 @@ export default {
             confirmButtonClass: "btn btn-info btn-fill",
             type: "success",
           }).then((result) => {
-            this.$router.push({name: "login"});
+            if (this.$store.getters.isAuthenticated) {
+              this.$store.dispatch("logout").then(() => {});
+            } else {
+              this.$router.push({name: "Login"});
+            }
           });
         });
       } catch (error) {
+        console.log(error);
         this.$notify({
           type: 'danger',
           message: 'Oops, something went wrong!',
@@ -235,7 +240,7 @@ export default {
       }
     },
     async backToLoginPage() {
-      this.$router.push({name: "login"});
+      this.$router.push({name: "Login"});
     },
     onSelectCountryCode(params) {
       this.phone_country_code = "+" + params.dialCode;

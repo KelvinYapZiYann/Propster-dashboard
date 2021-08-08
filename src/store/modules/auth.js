@@ -9,7 +9,7 @@ Vue.use(VueAxios, axios);
 const API_URL = process.env.VUE_APP_API_BASE_URL;
 
 const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
-  baseUrl: process.env.VUE_APP_API_BASE_URL ? process.env.VUE_APP_API_BASE_URL : API_URL,
+  baseUrl: API_URL,
   tokenName: "access_token",
   loginUrl: "/login",
   registerUrl: "/register"
@@ -58,7 +58,7 @@ export default {
         context.commit("isAuthenticated", {
           isAuthenticated: vueAuth.isAuthenticated()
         });
-        router.push({name: "login"});
+        router.push({name: "Login"});
       });
     },
 

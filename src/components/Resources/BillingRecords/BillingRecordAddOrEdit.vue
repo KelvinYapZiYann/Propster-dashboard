@@ -60,7 +60,13 @@
             </base-input>
           </div>
           <div class="col-md-6 ">
-            tenure contract id
+            <base-input :label="$t('sidebar.tenureContract')"
+                        v-if="(query ? query.tenureContractId : false)" 
+                        :value="tenureContractResource.model.contract_name ? tenureContractResource.model.contract_name : ''"
+                        :disabled="true"
+                        >
+            </base-input>
+            <!-- :error="tmpApiValidationErrors.asset ? tmpApiValidationErrors.asset[0] : ''" -->
           </div>
         </div>
         <div class="row">
@@ -241,6 +247,15 @@ export default {
       },
       description: "Transaction resource info"
     },
+    tenureContractResource: {
+      type: Object,
+      required: true,
+      default: {
+        model: {},
+        selector: []
+      },
+      description: "Tenure contract resource info"
+    },
     tmpApiValidationErrors: {
       type: Object,
       required: true,
@@ -284,6 +299,9 @@ export default {
   methods: {
     senderIdOnChange(val) {
       this.$emit("senderIdOnChange", val);
+    },
+    tenureContractIdOnChange(val) {
+      this.$emit("tenureContractIdOnChange", val);
     },
     async handleBack() {
       if (this.previousRoute) {

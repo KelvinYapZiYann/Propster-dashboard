@@ -352,7 +352,7 @@ let authPages = {
     // },
     {
       path: "login",
-      name: "login",
+      name: "Login",
       component: Login,
       meta: { middleware: authSession }
     },
@@ -368,7 +368,7 @@ let authPages = {
     },
     {
       path: "register",
-      name: "register",
+      name: "Register",
       component: Register
     },
     // {
