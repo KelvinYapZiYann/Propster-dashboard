@@ -57,7 +57,9 @@ export default {
       },
       tenureContractResource: {
         model: {},
-        selector: []
+        selector: {
+          tenureContracts: undefined
+        }
       }
     };
   },
@@ -78,6 +80,9 @@ export default {
     if (!this.$route.query.senderId) {
       this.refreshTransactionDetail();
       return;
+    }
+    if (this.$route.query.tenureContractId) {
+      this.getTenureContractDetail(this.$route.query.tenureContractId);
     }
     this.getBillingRecordDetail();
   },
@@ -113,6 +118,11 @@ export default {
           this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["billingRecords/selector"])
         })
+        if (typeof tenantId == 'number') {
+          this.refreshTenureContractDetail(tenantId);
+        } else {
+          this.refreshTenureContractDetail(this.$route.query.senderId);
+        }
       } catch (e) {
         if (!errorHandlingService.checkIfActionAuthorized(e)) {
           swal({
@@ -138,7 +148,33 @@ export default {
       }
     },
     async getTenureContractDetail(tenureContractId) {
-
+      try {
+        await this.$store.dispatch('tenureContract/getById', tenureContractId).then(() => {
+          this.tenureContractResource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
+        })
+      } catch (e) {
+        if (!errorHandlingService.checkIfActionAuthorized(e)) {
+          swal({
+            title: this.$t('alert.billingRecordFailedAdded'),
+            text: this.$t('alert.redirectingToPreviousPage'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            type: "error",
+          }).then((result) => {
+            if (this.previousRoute) {
+              router.push({path: this.previousRoute});
+            } else {
+              router.go(-1);
+            }
+          });
+        } else {
+          this.$notify({
+            message: errorHandlingService.displayAlertFromServer(e),
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+        }
+      }
     },
     async refreshTransactionDetail() {
       try {
@@ -155,6 +191,32 @@ export default {
             });
           }
           this.transactionResource.selector.senders = tenantSelector;
+        });
+      } catch (e) {
+        this.$notify({
+            message: errorHandlingService.displayAlertFromServer(e),
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+          this.setApiValidation(e.response.data.errors)
+      }
+    },
+    async refreshTenureContractDetail(tenantId) {
+      try {
+        this.tenureContractResource.model = {};
+        await this.$store.dispatch('tenant/getTenureContracts', tenantId).then(() => {
+          let tenureContractModels = this.$store.getters["tenant/tenureContractModels"];
+          if (!tenureContractModels) {
+            return;
+          }
+          let tenureContractSelector = [];
+          for (let i = 0; i < tenureContractModels.length; i++) {
+            tenureContractSelector.push({
+              "id": tenureContractModels[i].id,
+              "name": tenureContractModels[i].contract_name
+            });
+          }
+          this.tenureContractResource.selector.tenureContracts = tenureContractSelector;
         });
       } catch (e) {
         this.$notify({

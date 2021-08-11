@@ -13,7 +13,7 @@
           >
           </base-selector-input>
           <base-input :label="$t('property.sender')"
-                      v-if="addOrEdit != 'Add' || (!transactionResource.selector.senders)" 
+                      v-else
                       :value="resource.model.sender ? (resource.model.sender.id ? resource.model.sender.sender_name : '') : ''"
                       :disabled="true"
                       :error="tmpApiValidationErrors.sender_id ? tmpApiValidationErrors.sender_id[0] : ''">
@@ -28,7 +28,7 @@
           >
           </base-selector-input>
           <base-input :label="$t('property.recipient')"
-                      v-if="addOrEdit != 'Add' || (!transactionResource.selector.recipients)" 
+                      v-else
                       :value="resource.model.recipient ? (resource.model.recipient.id ? resource.model.recipient.recipient_name : '') : (transactionResource.model.recipient_id ? transactionResource.model.recipient_name : '')"
                       :disabled="true"
                       :error="tmpApiValidationErrors.recipient_id ? tmpApiValidationErrors.recipient_id[0] : ''">
@@ -41,10 +41,16 @@
             <base-selector-input :label="$t('property.assetNickname')"
                                 v-model="resource.model.asset.id"
                                 :options="resource.selector.assets"
-                                v-if="addOrEdit == 'Add' && (query ? !query.assetId : true)"
+                                v-if="addOrEdit == 'Add' && (query ? !query.assetId : true) && resource.model.payment_type != 'RENTAL'"
                                 :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''"
             >
             </base-selector-input>
+            <base-input :label="$t('property.assetNickname')"
+                        v-else-if="addOrEdit == 'Add' && (query ? !query.assetId : true) && resource.model.payment_type == 'RENTAL'" 
+                        :value="tenureContractResource.model.asset ? tenureContractResource.model.asset.asset_nickname : ''"
+                        :disabled="true"
+                        :error="tmpApiValidationErrors.asset ? tmpApiValidationErrors.asset[0] : ''">
+            </base-input>
             <!-- <base-input :label="$t('property.assetNickname')"
                             v-if="addOrEdit == 'Add' && (query ? query.assetId : true)"
                             :value="resource.model.asset ? resource.model.asset.asset_nickname : ''"
@@ -53,13 +59,20 @@
             </base-input> -->
             <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/> -->
             <base-input :label="$t('property.assetNickname')"
-                        v-if="addOrEdit != 'Add' || (query ? query.assetId : false)" 
+                        v-else
                         :value="resource.model.asset ? resource.model.asset.asset_nickname : ''"
                         :disabled="true"
                         :error="tmpApiValidationErrors.asset ? tmpApiValidationErrors.asset[0] : ''">
             </base-input>
           </div>
           <div class="col-md-6 ">
+            <base-selector-input :label="$t('sidebar.tenureContract')"
+                                v-if="(query ? !query.tenureContractId : true) && (resource.model.payment_type == 'RENTAL')" 
+                                v-model="tenureContractResource.model.id"
+                                :options="tenureContractResource.selector.tenureContracts"
+                                @input="tenureContractIdOnChange"
+            >
+            </base-selector-input>
             <base-input :label="$t('sidebar.tenureContract')"
                         v-if="(query ? query.tenureContractId : false)" 
                         :value="tenureContractResource.model.contract_name ? tenureContractResource.model.contract_name : ''"
@@ -82,13 +95,20 @@
             <base-input :label="$t('property.amount')"
                         :placeholder="$t('property.amount')"
                         v-model="resource.model.amount"
-                        v-if="!query.tenureContractId"
+                        v-if="!query.tenureContractId && resource.model.payment_type != 'RENTAL'"
+                        :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
+            </base-input>
+            <base-input :label="$t('property.amount')"
+                        :placeholder="$t('property.amount')"
+                        v-model="tenureContractResource.model.monthly_rental_amount"
+                        v-else-if="!query.tenureContractId && resource.model.payment_type == 'RENTAL'"
+                        :disabled="true"
                         :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
             </base-input>
             <base-input :label="$t('property.amount')"
                         :placeholder="$t('property.amount')"
                         v-model="tenureContractAmount"
-                        v-if="query.tenureContractId"
+                        v-else
                         :disabled="true"
                         :error="tmpApiValidationErrors.amount ? tmpApiValidationErrors.amount[0] : ''">
             </base-input>
@@ -114,7 +134,6 @@
                                 :options="resource.selector.payment_type"
                                 v-if="!query.tenureContractId"
                                 :error="tmpApiValidationErrors.payment_type ? tmpApiValidationErrors.payment_type[0] : ''"
-                                @input="onPaymentTypeChange"
             >
             </base-selector-input>
             <base-input :label="$t('property.paymentType')"
@@ -186,7 +205,7 @@
           <!-- </div> -->
           <div class="col-md-6">
             <base-input :label="$t('property.billingDateRange')"
-                        v-if="!query.tenureContractId && !query.billImmediately"
+                        v-if="!query.tenureContractId && !query.billImmediately && resource.model.payment_type != 'RENTAL'"
                         :error="tmpApiValidationErrors.billing_start_at ? (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_start_at[0] + ' ' + tmpApiValidationErrors.billing_end_at[0] : tmpApiValidationErrors.billing_start_at[0]) : (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_end_at[0] : '')">
                   <el-date-picker
                     type="daterange"
@@ -347,6 +366,28 @@ export default {
           frequency: 1,
           billing_start_at: this.billingDateRange.length == 2 ? this.billingDateRange[0] : '',
           billing_end_at: this.billingDateRange.length == 2 ? this.billingDateRange[1] : '',
+          grace_period_in_days: this.resource.model.grace_period_in_days,
+          remind_before_days: this.resource.model.remind_before_days,
+          end_of_month_billing: this.endOfMonthBilling,
+        }
+      } else if (this.resource.model.payment_type == "RENTAL") {
+        return {
+          recipient_type: this.resource.model.recipient.recipient_type,
+          recipient_id: this.resource.model.recipient.id,
+          sender_type: this.resource.model.sender.sender_type,
+          sender_id: this.resource.model.sender.id,
+          asset_id: this.tenureContractResource.model.asset.id,
+          description: this.resource.model.description,
+          // payment_method: this.resource.model.payment_method,
+          payment_method: "CASH",
+          // payment_type: this.resource.model.payment_type,
+          payment_type: "RENTAL",
+          amount: this.tenureContractResource.model.monthly_rental_amount,
+          frequency_type: "MONTH",
+          tenure_contract_id: this.tenureContractResource.model.id,
+          frequency: 1,
+          billing_start_at: this.tenureContractResource.model.tenure_start_date,
+          billing_end_at: this.tenureContractResource.model.tenure_end_date,
           grace_period_in_days: this.resource.model.grace_period_in_days,
           remind_before_days: this.resource.model.remind_before_days,
           end_of_month_billing: this.endOfMonthBilling,
