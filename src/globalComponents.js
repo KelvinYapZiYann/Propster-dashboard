@@ -6,6 +6,8 @@ import DropDown from "./components/Dropdown.vue";
 import Notify from "./components/NotificationPlugin";
 import { Tooltip, Popover } from "element-ui";
 import VeeValidate from "vee-validate";
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 import "@/assets/scss/white-dashboard.scss";
 import "@/assets/css/nucleo-icons.css";
@@ -27,6 +29,7 @@ const GlobalComponents = {
     Vue.use(Tooltip);
     Vue.use(Popover);
     Vue.use(VeeValidate, { fieldsBagName: "veeFields" });
+    Vue.use(VueLoading);
   }
 };
 

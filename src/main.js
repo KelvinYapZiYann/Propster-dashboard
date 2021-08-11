@@ -61,7 +61,7 @@ Vue.use(GlobalDirectives);
 Vue.use(RTLPlugin);
 Vue.use(SideBar);
 Vue.use(Notify);
-Vue.use(VueMeta, { keyName: 'head' })
+Vue.use(VueMeta, { keyName: 'head' });
 
 Vue.use(VueFbCustomerChat, {
   page_id: '101684032086334', //  change 'null' to your Facebook Page ID,

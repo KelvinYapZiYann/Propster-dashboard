@@ -102,10 +102,15 @@ export default {
           'Content-Type': 'application/vnd.api+json',
         }
       }
-
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch("login", {user, requestOptions});
       } catch (e) {
+        
         this.$notify({
           message: 'Invalid credentials!',
           icon: 'tim-icons icon-bell-55',
@@ -113,6 +118,8 @@ export default {
         });
         this.setApiValidation(e.response.data.errors);
         return;
+      } finally {
+        loader.hide();
       }
 
       try {
