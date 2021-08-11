@@ -115,6 +115,7 @@
       <div class="col-md-6 pr-md-1">
         <base-input :label="$t('property.isBusiness')"
                     type="checkbox"
+                    :checked="model.is_business"
                     v-model="model.is_business"
                     :error="tmpApiValidationErrors.is_business ? tmpApiValidationErrors.is_business[0] : ''"
                     :disabled="addOrEdit == 'View'"
@@ -199,6 +200,7 @@ export default {
         // });
       //   return;
       // }
+      console.log();
 
       const data = {
         first_name: this.model.first_name,
