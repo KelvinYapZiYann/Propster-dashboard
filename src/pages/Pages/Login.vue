@@ -121,7 +121,11 @@ export default {
       } finally {
         loader.hide();
       }
-
+      loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch("verifyMiddleware");
       } catch (e) {
@@ -173,6 +177,8 @@ export default {
           });
         }
         return;
+      } finally {
+        loader.hide();
       }
       // try {
       //   await this.$store.dispatch('users/get', {});

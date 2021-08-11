@@ -235,6 +235,11 @@ export default {
       }
     },
     async getResource() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('asset/getById', this.assetId)
         this.resource.model = await this.$store.getters["asset/model"]
@@ -257,6 +262,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     },
     async handleBack() {

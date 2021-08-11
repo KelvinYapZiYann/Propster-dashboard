@@ -130,6 +130,11 @@ export default {
   },
   methods: {
     async getResource() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('paymentRecords/getById', this.$route.params.paymentRecordId)
         this.resource.model = await this.$store.getters["paymentRecords/model"]
@@ -142,6 +147,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     },
     loadAttachment() {

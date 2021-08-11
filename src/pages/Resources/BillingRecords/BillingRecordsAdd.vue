@@ -88,6 +88,11 @@ export default {
   },
   methods: {
     async getBillingRecordDetail(tenantId) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         var billingRecordCreateParam;
         if (typeof tenantId == 'number') {
@@ -145,9 +150,16 @@ export default {
             type: 'danger'
           });
         }
+      } finally {
+        loader.hide();
       }
     },
     async getTenureContractDetail(tenureContractId) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('tenureContract/getById', tenureContractId).then(() => {
           this.tenureContractResource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
@@ -174,9 +186,16 @@ export default {
             type: 'danger'
           });
         }
+      } finally {
+        loader.hide();
       }
     },
     async refreshTransactionDetail() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('tenant/get').then(() => {
           let tenantModels = this.$store.getters["tenant/models"];
@@ -199,9 +218,16 @@ export default {
             type: 'danger'
           });
           this.setApiValidation(e.response.data.errors)
+      } finally {
+        loader.hide();
       }
     },
     async refreshTenureContractDetail(tenantId) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         this.tenureContractResource.model = {};
         await this.$store.dispatch('tenant/getTenureContracts', tenantId).then(() => {
@@ -225,9 +251,16 @@ export default {
             type: 'danger'
           });
           this.setApiValidation(e.response.data.errors)
+      } finally {
+        loader.hide();
       }
     },
     async handleSubmit(model) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('billingRecords/store', {'model': model}).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
@@ -251,6 +284,8 @@ export default {
           type: 'danger'
         });
         this.setApiValidation(e.response.data.errors)
+      } finally {
+        loader.hide();
       }
     },
   }

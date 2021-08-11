@@ -305,6 +305,11 @@ export default {
   },
   methods: {
     async getResource() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         if (this.$route.params.fromLogin) {
           await this.$store.dispatch('users/get', {});
@@ -338,6 +343,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     },
     

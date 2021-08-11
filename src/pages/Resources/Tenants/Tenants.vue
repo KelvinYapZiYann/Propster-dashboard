@@ -28,6 +28,11 @@ export default {
   },
   methods: {
     async getResource() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('tenant/get', {}).then(() => {
           this.resource.models = this.$store.getters["tenant/models"]
@@ -39,6 +44,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     }
   }

@@ -74,6 +74,11 @@ export default {
   },
   methods: {
     async getPaymentRecordDetail(tenantId) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         var paymentRecordsAddParam;
         if (typeof tenantId == 'number') {
@@ -110,9 +115,16 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     },
     async refreshTransactionDetail() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('tenant/get').then(() => {
           let tenantModels = this.$store.getters["tenant/models"];
@@ -134,9 +146,16 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     },
     async handleSubmit(model) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('paymentRecords/store', {'model': model}).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["paymentRecords/model"])
@@ -162,6 +181,8 @@ export default {
           type: 'danger'
         });
         this.setApiValidation(e.response.data.errors)
+      } finally {
+        loader.hide();
       }
     },
   }

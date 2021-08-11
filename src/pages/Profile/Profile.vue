@@ -45,6 +45,11 @@
     },
     methods: {
       async getProfile() {
+        let loader = this.$loading.show({
+          canCancel: false,
+          color: '#1d8cf8',
+          loader: 'spinner',
+        });
         try {
           await this.$store.dispatch('users/get', {}).then(() => {
             this.resource.model = Object.assign({}, this.$store.getters["users/model"])
@@ -57,6 +62,8 @@
             icon: 'tim-icons icon-bell-55',
             type: 'danger'
           });
+        } finally {
+          loader.hide();
         }
       },
       async handleSubmit() {

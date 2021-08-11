@@ -58,7 +58,7 @@
                     addon-left-icon="tim-icons icon-mobile"
                     type="tel"
                     pattern="^[0-9]+$"
-                    :error="apiValidationErrors.phone_number ? apiValidationErrors.phone_number[0] : ''">
+                    :error="apiValidationErrors.mobile_number ? apiValidationErrors.mobile_number[0] : ''">
                 </base-input>
                 <!-- <validation-error :errorsArray="apiValidationErrors.phone_number" /> -->
               </div>
@@ -82,7 +82,7 @@
                 addon-left-icon="tim-icons icon-mobile"
                 type="text">
             </base-input> -->
-            <validation-error :errorsArray="apiValidationErrors.mobile_number" />
+            <!-- <validation-error :errorsArray="apiValidationErrors.mobile_number" /> -->
 
             <div class="row">
               <div class="col-12">
@@ -211,7 +211,11 @@ export default {
           "Content-Type": "application/vnd.api+json",
         },
       };
-
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch("register", { user, requestOptions }).then(() => {
           this.resetApiValidation();
@@ -237,6 +241,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
         })
         this.setApiValidation(error.response.data.errors);
+      } finally {
+        loader.hide();
       }
     },
     async backToLoginPage() {

@@ -80,6 +80,11 @@ export default {
   },
   methods: {
     async resetPassword() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch("resetPassword", {
             email: router.currentRoute.query.email,
@@ -103,6 +108,8 @@ export default {
           type: 'danger'
         });
         this.setApiValidation(e.response.data.errors)
+      } finally {
+        loader.hide();
       }
     }
   }

@@ -68,6 +68,11 @@ export default {
   },
   methods: {
     async forgotPassword() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('forgotPassword', {
           email: this.model.email,
@@ -90,6 +95,8 @@ export default {
           type: 'danger'
         });
         this.setApiValidation(e.response.data.errors)
+      } finally {
+        loader.hide();
       }
     }
   }

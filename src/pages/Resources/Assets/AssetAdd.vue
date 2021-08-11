@@ -48,6 +48,11 @@ export default {
   },
   methods: {
     async getAsset() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('asset/create').then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["asset/model"])
@@ -76,9 +81,16 @@ export default {
             type: 'danger'
           });
         }
+      } finally {
+        loader.hide();
       }
     },
     async handleSubmit(model) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
         try {
           await this.$store.dispatch('asset/store', {'model': model}).then(() => {
             this.resource.model = Object.assign({}, this.$store.getters["asset/model"])
@@ -121,6 +133,8 @@ export default {
             type: 'danger'
           });
           this.setApiValidation(e.response.data.errors)
+        } finally {
+          loader.hide();
         }
     },
     async handleCancel() {

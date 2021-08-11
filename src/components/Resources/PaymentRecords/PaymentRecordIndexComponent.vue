@@ -259,6 +259,11 @@ export default {
       }
     },
     async handlePagination(pageId) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         if (this.$props.query) {
           if (this.$props.query.billingPaymentId) {
@@ -297,6 +302,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     }
   },

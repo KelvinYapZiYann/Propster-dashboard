@@ -50,6 +50,11 @@ export default {
   },
   methods: {
     async getAsset() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('asset/getById', this.$route.params.assetId).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["asset/model"])
@@ -62,6 +67,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     },
     async handleSubmit(model) {

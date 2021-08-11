@@ -50,6 +50,11 @@ export default {
   },
   methods: {
     async getTenureContract() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('tenureContract/create').then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/models"])
@@ -79,9 +84,16 @@ export default {
             type: 'danger'
           });
         }
+      } finally {
+        loader.hide();
       }
     },
     async handleSubmit(formData) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
         try {
           await this.$store.dispatch('tenureContract/store', {'model': formData}).then(() => {
             this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
@@ -129,6 +141,8 @@ export default {
             type: 'danger'
           });
           this.setApiValidation(e.response.data.errors)
+        } finally {
+          loader.hide();
         }
     },
     async handleCancel() {

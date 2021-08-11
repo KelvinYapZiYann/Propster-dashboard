@@ -104,6 +104,11 @@ export default {
   },
   methods: {
     async getResource() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('billingPayments/getById', this.$route.params.billingPaymentId).then(() => {
           this.resource.model = this.$store.getters["billingPayments/model"]
@@ -120,6 +125,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     },
     // loadAttachment() {

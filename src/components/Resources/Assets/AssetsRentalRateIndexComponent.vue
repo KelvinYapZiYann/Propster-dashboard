@@ -149,6 +149,11 @@ export default {
       this.$emit('getResource')
     },
     async handlePagination(pageId) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('asset/get', pageId).then(() => {
             this.resource.models = this.$store.getters["asset/models"];
@@ -164,6 +169,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     }
   },

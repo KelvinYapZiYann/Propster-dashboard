@@ -115,6 +115,11 @@ export default {
         });
         return;
       }
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         let data = {
           "role": this.selectedRole,
@@ -134,6 +139,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     }
   }

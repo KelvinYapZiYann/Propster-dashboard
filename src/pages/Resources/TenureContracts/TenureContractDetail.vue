@@ -97,6 +97,11 @@ export default {
   },
   methods: {
     async getResource() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
       try {
         await this.$store.dispatch('tenureContract/getById',  this.tenureContractId).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
@@ -115,6 +120,8 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
+      } finally {
+        loader.hide();
       }
     },
     loadAttachment() {

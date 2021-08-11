@@ -49,6 +49,11 @@
     },
     methods: {
         async handleSubmit(userData) {
+            let loader = this.$loading.show({
+              canCancel: false,
+              color: '#1d8cf8',
+              loader: 'spinner',
+            });
             try {
                 await this.$store.dispatch('createProfile/submit', userData);
                 this.$notify({
@@ -72,6 +77,8 @@
                     type: 'danger'
                 });
                 this.setApiValidation(e.response.data.errors);
+            } finally {
+              loader.hide();
             }
         }
     }
