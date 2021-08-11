@@ -24,14 +24,14 @@
                                v-model="transactionResource.model.recipient_id"
                                :options="transactionResource.selector.recipients"
                                v-if="addOrEdit == 'Add' && (transactionResource.selector.recipients)"
-                               :error="tmpApiValidationErrors.recipient_id ? tmpApiValidationErrors.recipient_id[0] : ''"
           >
+          <!-- :error="tmpApiValidationErrors.recipient_id ? tmpApiValidationErrors.recipient_id[0] : ''" -->
           </base-selector-input>
           <base-input :label="$t('property.recipient')"
                       v-if="addOrEdit != 'Add' || (!transactionResource.selector.recipients)" 
                       :value="resource.model.recipient ? (resource.model.recipient.id ? resource.model.recipient.recipient_name : '') : (transactionResource.model.recipient_id ? transactionResource.model.recipient_name : '')"
-                      :disabled="true"
-                      :error="tmpApiValidationErrors.recipient_id ? tmpApiValidationErrors.recipient_id[0] : ''">
+                      :disabled="true">
+                      <!-- :error="tmpApiValidationErrors.recipient_id ? tmpApiValidationErrors.recipient_id[0] : ''" -->
           </base-input>
         </div>
       </div>
@@ -257,10 +257,10 @@ export default {
       return {
         // recipient_type: this.resource.model.recipient.recipient_type,
         recipient_type: "LANDLORD",
-        recipient_id: this.resource.model.recipient.id,
+        recipient_id: this.resource.model.recipient ? this.resource.model.recipient.id : '',
         // sender_type: this.resource.model.sender.sender_type,
         sender_type: "TENANT",
-        sender_id: this.resource.model.sender.id,
+        sender_id: this.resource.model.sender ? this.resource.model.sender.id : '',
         asset_id: this.resource.model.asset.id,
         payment_description: this.resource.model.payment_description,
         payment_method: this.resource.model.payment_method,
