@@ -171,7 +171,7 @@ export default {
           errorHandlingService.verifyErrorFromServer(e);
         } catch(e1) {
           this.$notify({
-            message: 'Server error',
+            message: errorHandlingService.displayAlertFromServer(e1),
             icon: 'tim-icons icon-bell-55',
             type: 'danger'
           });
@@ -183,11 +183,11 @@ export default {
       // try {
       //   await this.$store.dispatch('users/get', {});
       // } catch(e) {
-      //   this.$notify({
-      //     message: 'Server error',
-      //     icon: 'tim-icons icon-bell-55',
-      //     type: 'danger'
-      //   });
+        // this.$notify({
+        //   message: errorHandlingService.displayAlertFromServer(e),
+        //   icon: 'tim-icons icon-bell-55',
+        //   type: 'danger'
+        // });
       // }
       router.push({
         name: 'Dashboard',

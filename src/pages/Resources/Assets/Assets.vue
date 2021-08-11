@@ -23,6 +23,7 @@
 </template>
 <script>
 import AssetsIndexComponent from "@/components/Resources/Assets/AssetsIndexComponent";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   components: {
@@ -53,7 +54,7 @@ export default {
         })
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

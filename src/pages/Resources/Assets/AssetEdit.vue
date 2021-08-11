@@ -18,6 +18,7 @@ import router from "@/router";
 import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
 import AssetAddOrEdit from "@/components/Resources/Assets/AssetAddOrEdit";
 import swal from "sweetalert2";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   mixins: [formMixin],
@@ -63,7 +64,7 @@ export default {
         })
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
@@ -87,7 +88,7 @@ export default {
           const assetId = this.resource.data.id
           if (assetId == null) {
             this.$notify({
-              message:'Server error',
+              message: errorHandlingService.displayAlertFromServer(e),
               icon: 'tim-icons icon-bell-55',
               type: 'danger'
             });
@@ -106,7 +107,7 @@ export default {
               }
             }).catch((e) => {
               this.$notify({
-                message:'Server error',
+                message: errorHandlingService.displayAlertFromServer(e),
                 icon: 'tim-icons icon-bell-55',
                 type: 'danger'
               });

@@ -206,6 +206,7 @@ import BarChart from "@/components/Charts/BarChart";
 import OverdueTenantsIndexComponent from "@/components/Resources/Tenants/OverdueTenantsIndexComponent";
 import AssetsValueIndexComponent from "@/components/Resources/Assets/AssetsValueIndexComponent";
 import AssetsRentalRateIndexComponent from "@/components/Resources/Assets/AssetsRentalRateIndexComponent";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   components: {
@@ -339,7 +340,7 @@ export default {
         });
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

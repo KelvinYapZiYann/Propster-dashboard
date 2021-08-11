@@ -86,6 +86,7 @@ import BillingRecordIndexComponent from "@/components/Resources/BillingRecords/B
 import BillingPaymentIndexComponent from "@/components/Resources/BillingPayments/BillingPaymentIndexComponent";
 import PaymentRecordIndexComponent from "@/components/Resources/PaymentRecords/PaymentRecordIndexComponent";
 import fab from "vue-fab";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   components: {
@@ -230,7 +231,7 @@ export default {
         this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

@@ -8,6 +8,7 @@
 </template>
 <script>
 import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/AssetExpensesIndexComponent";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   components: {
@@ -37,7 +38,7 @@ export default {
         this.resource.data = await this.$store.getters["assetExpenses/data"]
       } catch (e) {
         this.$notify({
-          message: 'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

@@ -24,6 +24,7 @@
   import UserCard from "@/pages/Profile/UserCard";
   import formMixin from "@/mixins/form-mixin";
   import ValidationError from "@/components/ValidationError.vue";
+  import errorHandlingService from "@/store/services/error-handling-service";
 
   export default {
     mixins: [formMixin],
@@ -67,7 +68,7 @@
           })
         } catch (e) {
           this.$notify({
-            message:'Server error',
+            message: errorHandlingService.displayAlertFromServer(e),
             icon: 'tim-icons icon-bell-55',
             type: 'danger'
           });
@@ -104,7 +105,7 @@
           }
         } catch (e) {
           this.$notify({
-            message:'Server error',
+            message: errorHandlingService.displayAlertFromServer(e),
             icon: 'tim-icons icon-bell-55',
             type: 'danger'
           });

@@ -16,6 +16,7 @@ import router from "@/router";
 import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
 import TenantAddOrEdit from "@/components/Resources/Tenants/TenantAddOrEdit";
 import swal from "sweetalert2";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   mixins: [formMixin],
@@ -60,7 +61,7 @@ export default {
         })
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
@@ -84,10 +85,10 @@ export default {
           const tenantId = this.$route.params.tenantId
           if (tenantId == null) {
             this.$notify({
-              message:'Server error',
-              icon: 'tim-icons icon-bell-55',
-              type: 'danger'
-            });
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
           } else {
             this.$store.dispatch('tenant/update', {'tenantId': tenantId, 'model': model}).then(() => {
               this.$notify({
@@ -103,7 +104,7 @@ export default {
               }
             }).catch((e) => {
               this.$notify({
-                message:'Server error',
+                message: errorHandlingService.displayAlertFromServer(e),
                 icon: 'tim-icons icon-bell-55',
                 type: 'danger'
               });

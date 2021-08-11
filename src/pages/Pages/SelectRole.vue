@@ -80,6 +80,7 @@ import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
 import { BaseCheckbox, BaseInput } from "@/components/index";
 import router from "@/router";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 import {
   TabPane,
@@ -135,7 +136,7 @@ export default {
         router.push({ path: "/dashboard" });
       } catch (e) {
         this.$notify({
-          message: 'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

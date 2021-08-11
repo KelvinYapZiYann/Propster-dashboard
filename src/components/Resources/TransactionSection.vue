@@ -204,11 +204,11 @@ export default {
     // },
     // deleteDetails(id) {
     //   if (id == null) {
-    //     this.$notify({
-    //       message: 'Server error',
-    //       icon: 'tim-icons icon-bell-55',
-    //       type: 'danger'
-    //     });
+        // this.$notify({
+        //   message: errorHandlingService.displayAlertFromServer(e),
+        //   icon: 'tim-icons icon-bell-55',
+        //   type: 'danger'
+        // });
     //   } else {
     //     try {
     //       this.$store.dispatch('paymentRecords/remove', id)
@@ -219,11 +219,11 @@ export default {
     //       });
     //       this.getResource();
     //     } catch (e) {
-    //       this.$notify({
-    //         message: 'Server error',
-    //         icon: 'tim-icons icon-bell-55',
-    //         type: 'danger'
-    //       });
+          // tthis.$notify({
+          //   message: errorHandlingService.displayAlertFromServer(e),
+          //   icon: 'tim-icons icon-bell-55',
+          //   type: 'danger'
+          // });
     //     }
     //   }
     // },

@@ -16,6 +16,7 @@ import router from "@/router";
 // import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
 // import TenantAddOrEdit from "@/components/Resources/Tenants/TenantAddOrEdit";
 import TenureContractAddOrEdit from "@/components/Resources/TenureContracts/TenureContractAddOrEdit";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   mixins: [formMixin],
@@ -61,7 +62,7 @@ export default {
         })
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
@@ -72,7 +73,7 @@ export default {
     async handleSubmit(model) {
       if (this.tenureContractId == null) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
@@ -99,7 +100,7 @@ export default {
           // router.push({path: "/tenants"});
         } catch (e) {
           this.$notify({
-            message:'Server error',
+            message: errorHandlingService.displayAlertFromServer(e),
             icon: 'tim-icons icon-bell-55',
             type: 'danger'
           });

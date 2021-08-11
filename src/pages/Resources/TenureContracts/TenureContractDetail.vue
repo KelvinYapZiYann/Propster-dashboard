@@ -37,7 +37,8 @@
 <script>
 import { BaseDetailList, Card, DropZone } from "@/components";
 import BillingRecordIndexComponent from "@/components/Resources/BillingRecords/BillingRecordIndexComponent";
-import axios from 'axios';
+// import axios from 'axios';
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   components: {
@@ -116,7 +117,7 @@ export default {
         })
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

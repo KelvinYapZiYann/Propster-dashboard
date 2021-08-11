@@ -73,6 +73,7 @@
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 import swal from "sweetalert2";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   components: {
@@ -172,7 +173,7 @@ export default {
     deleteDetails(id) {
       if (id == null) {
         this.$notify({
-          message: 'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
@@ -187,10 +188,10 @@ export default {
           this.getResource();
         } catch (e) {
           this.$notify({
-            message: 'Server error',
-            icon: 'tim-icons icon-bell-55',
-            type: 'danger'
-          });
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
         }
       }
     },
@@ -292,7 +293,7 @@ export default {
         }
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

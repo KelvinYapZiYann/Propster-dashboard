@@ -51,6 +51,7 @@
 <script>
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   components: {
@@ -132,11 +133,11 @@ export default {
                 this.resource.data = Object.assign({}, this.$store.getters["tenant/data"]);
             });
         } catch (e) {
-            this.$notify({
-                message:'Server error',
-                icon: 'tim-icons icon-bell-55',
-                type: 'danger'
-            });
+          this.$notify({
+            message: errorHandlingService.displayAlertFromServer(e),
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
         } finally {
           loader.hide();
         }

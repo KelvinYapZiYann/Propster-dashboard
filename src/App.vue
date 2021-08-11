@@ -27,7 +27,7 @@ export default {
         await this.$store.dispatch('users/get', {});
       } catch (e) {
         // this.$notify({
-        //   message:'Server error',
+        //   message: errorHandlingService.displayAlertFromServer(e),
         //   icon: 'tim-icons icon-bell-55',
         //   type: 'danger'
         // });

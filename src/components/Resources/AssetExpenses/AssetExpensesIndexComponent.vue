@@ -61,13 +61,14 @@
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 import swal from "sweetalert2";
+import errorHandlingService from "@/store/services/error-handling-service";
 
-let tableColumns = {
-  payment_description: "Payment Description",
-  amount: "Amount (RM)",
-  status: "Status",
-  payment_method: "Payment Method"
-};
+// let tableColumns = {
+//   payment_description: "Payment Description",
+//   amount: "Amount (RM)",
+//   status: "Status",
+//   payment_method: "Payment Method"
+// };
 
 export default {
   components: {
@@ -227,7 +228,7 @@ export default {
         }
       } catch (e) {
         this.$notify({
-          message:'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

@@ -8,6 +8,7 @@
 </template>
 <script>
 import BillingPaymentIndexComponent from "@/components/Resources/BillingPayments/BillingPaymentIndexComponent";
+import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {
   components: {
@@ -37,9 +38,8 @@ export default {
           this.resource.data = Object.assign({}, this.$store.getters["billingPayments/data"]);
         });
       } catch (e) {
-        console.log(e);
         this.$notify({
-          message: 'Server error',
+          message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
