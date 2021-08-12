@@ -31,7 +31,9 @@
     "toggleSidebar": "Toggle Sidebar"
   },
   "topbar": {
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "logout": "Logout",
+    "changeRole": "Change Role"
   },
   "footer": {
     "aboutUs": "About Us"
@@ -170,7 +172,9 @@
     "givenDataIsInvalid": "Given data is invalid. Please check the input field(s).",
     "actionIsUnauthorized": "Oops! Something wrong. Please refresh the page.",
 
-    "featureDeveloping": "This feature is still being developed. Please stay tuned."
+    "featureDeveloping": "This feature is still being developed. Please stay tuned.",
+
+    "logoutText": "Are you sure to logout?"
   },
   "component": {
     "search": "Search",

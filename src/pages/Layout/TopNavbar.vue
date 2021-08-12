@@ -100,7 +100,7 @@
             <ul class="dropdown-menu dropdown-navbar">
               <li class="nav-link">
                 <a href="javascript:void(0)" @click="profile" class="nav-item dropdown-item"
-                  >User Profile</a
+                  >{{$t('sidebar.userProfile')}}</a
                 >
               </li>
               <!-- <li class="nav-link">
@@ -110,13 +110,13 @@
               </li> -->
               <li class="nav-link">
                 <a href="/select-role" class="nav-item dropdown-item"
-                >Change Role</a
+                >{{$t('topbar.changeRole')}}</a
                 >
               </li>
               <li class="dropdown-divider"></li>
               <li class="nav-link">
                 <a href="javascript:void(0)" @click="logout" class="nav-item dropdown-item"
-                  >Log out</a
+                  >{{$t('topbar.logout')}}</a
                 >
               </li>
             </ul>
@@ -130,6 +130,7 @@
 import DropDown from "@/components/Dropdown.vue";
 import Modal from "@/components/Modal.vue";
 import SidebarToggleButton from "./SidebarToggleButton.vue";
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -188,14 +189,28 @@ export default {
       this.showMenu = !this.showMenu;
     },
     async logout() {
-      try {
-        this.$store.dispatch("logout");
-      } catch (error) {
-        this.$notify({
-          type: "danger",
-          message: "Oops, something went wrong!",
-        });
-      }
+      swal({
+        title: this.$t('topbar.logout'),
+        text: this.$t('alert.logoutText'),
+        buttonsStyling: false,
+        showCancelButton: true,
+        confirmButtonText: this.$t('topbar.logout'),
+        cancelButtonText: this.$t('component.cancel'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "warning",
+      }).then((result) => {
+        if (result.value) {
+          try {
+            this.$store.dispatch("logout");
+          } catch (error) {
+            this.$notify({
+              type: "danger",
+              message: "Oops, something went wrong!",
+            });
+          }
+        }
+      });
     },
     async profile() {
       try {

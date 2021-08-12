@@ -18,39 +18,39 @@
 
         <el-tooltip :content="$t('sidebar.assetsDesc')" :open-delay="300" placement="right">
           <sidebar-link
-            :link="{ name: $t('sidebar.assets'), path: '/assets', icon: 'fas fa-home fa-2x'}"
+            :link="{ name: $t('sidebar.assets'), path: '/assets', icon: 'fas fa-home'}"
           ></sidebar-link>
         </el-tooltip>
         <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
         <el-tooltip :content="$t('sidebar.tenantsDesc')" :open-delay="300" placement="right">
           <sidebar-link
-            :link="{ name: $t('sidebar.tenants'), path: '/tenants', icon: 'fas fa-child fa-2x'}"
+            :link="{ name: $t('sidebar.tenants'), path: '/tenants', icon: 'fas fa-child'}"
           ></sidebar-link>
         </el-tooltip>
           <!-- v-if="$store.getters['users/model'].selected_role ? $store.getters['users/model'].selected_role == 'LANDLORD' : false" -->
         <el-tooltip :content="$t('sidebar.tenureContractsDesc')" :open-delay="300" placement="right">
           <sidebar-link
-            :link="{ name: $t('sidebar.tenureContracts'), path: '/tenure-contracts', icon: 'fas fa-file fa-2x'}"
+            :link="{ name: $t('sidebar.tenureContracts'), path: '/tenure-contracts', icon: 'fas fa-file'}"
           ></sidebar-link>
         </el-tooltip>
         <el-tooltip :content="$t('sidebar.billingRecordsDesc')" :open-delay="300" placement="right">
           <sidebar-link
-            :link="{ name: $t('sidebar.billingRecords'), path: '/billing-records', icon: 'fas fa-credit-card fa-2x'}"
+            :link="{ name: $t('sidebar.billingRecords'), path: '/billing-records', icon: 'fas fa-credit-card'}"
           ></sidebar-link>
         </el-tooltip>
         <el-tooltip :content="$t('sidebar.billingPaymentsDesc')" :open-delay="300" placement="right">
           <sidebar-link
-            :link="{ name: $t('sidebar.billingPayments'), path: '/billing-payments', icon: 'fas fa-history fa-2x'}"
+            :link="{ name: $t('sidebar.billingPayments'), path: '/billing-payments', icon: 'fas fa-history'}"
           ></sidebar-link>
         </el-tooltip>
         <el-tooltip :content="$t('sidebar.paymentRecordsDesc')" :open-delay="300" placement="right">
           <sidebar-link
-            :link="{ name: $t('sidebar.paymentRecords'), path: '/payment-records', icon: 'fas fa-dollar-sign fa-2x'}"
+            :link="{ name: $t('sidebar.paymentRecords'), path: '/payment-records', icon: 'fas fa-dollar-sign'}"
           ></sidebar-link>
         </el-tooltip>
         <el-tooltip :content="$t('sidebar.assetExpensesDesc')" :open-delay="300" placement="right">
           <sidebar-link
-            :link="{ name: $t('sidebar.assetExpenses'), path: '/asset-expenses', icon: 'fas fa-newspaper fa-2x'}"
+            :link="{ name: $t('sidebar.assetExpenses'), path: '/asset-expenses', icon: 'fas fa-newspaper'}"
           ></sidebar-link>
         </el-tooltip>
         <el-tooltip :content="$t('sidebar.userProfileDesc')" :open-delay="300" placement="right">
@@ -60,8 +60,14 @@
           ></sidebar-link>
         </el-tooltip>
         <!-- <sidebar-link
-          :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog fa-2x'}"
+          :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog'}"
         ></sidebar-link> -->
+        <li class="align-bottom">
+          <a href="javascript:void(0)" class="nav-link " @click="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <p>{{$t('topbar.logout')}}</p>
+          </a>
+        </li>
       </template>
     </side-bar>
 
@@ -82,6 +88,7 @@ import DashboardContent from "./DashboardContent.vue";
 import SideBar from "@/components/SidebarPlugin/SideBar.vue";
 import SidebarLink from "@/components/SidebarPlugin/SidebarLink.vue";
 import SidebarFixedToggleButton from "./SidebarFixedToggleButton.vue";
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -107,7 +114,32 @@ export default {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.displaySidebar(false);
       }
-    }
+    },
+    async logout() {
+      swal({
+        title: this.$t('topbar.logout'),
+        text: this.$t('alert.logoutText'),
+        buttonsStyling: false,
+        showCancelButton: true,
+        confirmButtonText: this.$t('topbar.logout'),
+        cancelButtonText: this.$t('component.cancel'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "warning",
+      }).then((result) => {
+        if (result.value) {
+          try {
+            this.$store.dispatch("logout");
+          } catch (error) {
+            this.$notify({
+              type: "danger",
+              message: "Oops, something went wrong!",
+            });
+          }
+        }
+      });
+      
+    },
   }
 };
 </script>
