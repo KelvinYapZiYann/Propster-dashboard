@@ -76,9 +76,11 @@ export default {
         }
       });
     },
-    async dashboard() {
+    dashboard() {
       try {
-        this.$router.push({name: "Home"});
+        if (this.$router.currentRoute.fullPath != '/dashboard') {
+          this.$router.push({name: "Home"});
+        }
       } catch (error) {
         this.$notify({
           type: "danger",
