@@ -1,7 +1,7 @@
 <template>
   <nav
     class="navbar navbar-expand-lg navbar-absolute"
-    :class="{ 'bg-white': showMenu, 'navbar-transparent': !showMenu }"
+    :class="{ 'bg-white': showMenu, 'navbar-transparent': !showMenu, 'border-bottom border-primary': showMenu }"
   >
     <div class="container-fluid">
       <div class="navbar-wrapper">

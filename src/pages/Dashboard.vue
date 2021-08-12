@@ -262,8 +262,8 @@ export default {
       },
       barChartExtraOptions: chartConfigs.barChartOptionsGradient,
       pieChartExtraOptions: chartConfigs.pieChartOptions,
-      doesAssetExist: false,
-      doesTenantExist: false,
+      doesAssetExist: true,
+      doesTenantExist: true,
     };
   },
   computed: {

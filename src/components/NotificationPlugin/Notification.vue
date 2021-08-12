@@ -168,7 +168,8 @@ export default {
   text-align: left;
 
   &[data-notify="container"] {
-    width: 480px;
+    width: calc(#{100%} - 40px);
+    max-width: 600px;
     cursor: pointer;
   }
 
