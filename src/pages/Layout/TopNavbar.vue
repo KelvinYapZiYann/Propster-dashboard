@@ -94,7 +94,7 @@
               </div>
               <b class="caret d-none d-lg-block d-xl-block"></b>
               <p class="d-lg-none">
-                {{$store.getters["users/model"].full_name}}
+                {{userFullname}}
               </p>
             </a>
             <ul class="dropdown-menu dropdown-navbar">
@@ -169,8 +169,16 @@ export default {
           title: "Notification 1 email sent",
           link: "https://propster.io/api/dashboard/notifications/5"
         },
-      ]
+      ],
+      userFullname: this.$store.getters["users/model"].full_name
     };
+  },
+  mounted() {
+    if (!this.$store.getters["users/model"].full_name) {
+      this.$store.dispatch('users/get').then(() => {
+        this.userFullname = this.$store.getters["users/model"].full_name;
+      });
+    }
   },
   methods: {
     toggleSidebar() {

@@ -67,6 +67,11 @@ export default {
   //   })
   // },
   mounted() {
+    if (!this.$store.getters["users/model"].full_name) {
+      this.$store.dispatch('users/get').then(() => {
+        this.transactionResource.model.recipient_name = this.$store.getters["users/model"].full_name;
+      });
+    }
     if (!this.$route.query.senderId) {
       this.refreshTransactionDetail();
       return;
