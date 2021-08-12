@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <div class="pro-feature alert alert-danger" v-if="$store.getters['users/model'].tier == 'BASIC' || $store.getters['users/model'].tier == 'USER_BASIC'">
+      <div class="pro-feature alert alert-danger" v-if="userTier == 'BASIC' || userTier == 'USER_BASIC'">
         <strong>
           <!-- {{$t('component.proFeature1')}} 3 {{$t('sidebar.tenants')}} {{$t('component.proFeature21')}} {{$t('component.proFeature3')}} 
           <a
@@ -82,6 +82,13 @@ export default {
     BasePagination,
     Card
   },
+  mounted() {
+    if (!this.$store.getters["users/model"].tier) {
+      this.$store.dispatch('users/get').then(() => {
+        this.userTier = this.$store.getters["users/model"].tier;
+      });
+    }
+  },
   data() {
     return {
       table: {
@@ -94,6 +101,7 @@ export default {
       },
       searchQuery: "",
       searchQueryTimeout: null,
+      userTier: this.$store.getters["users/model"].tier
     };
   },
   props: {
