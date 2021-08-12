@@ -47,7 +47,7 @@
         </div>
         <div class="col-md-2 align-self-center justify-content-center">
           <div class="text-center">
-            <i class="fas fa-arrow-right fa-3x" style="text-align: center;"></i>
+            <i class="fas fa-arrow-right fa-3x" style="text-align: center;color:#1d8cf8"></i>
           </div>
         </div>
         <div class="col-md-5">

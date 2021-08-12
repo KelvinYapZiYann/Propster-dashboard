@@ -1,199 +1,212 @@
 <template>
   <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
-    <div class="row">
-      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-        <el-tooltip
-          :content="$t('dashboard.overdueIncomeDesc')"
-          :open-delay="300"
-        >
-          <stats-card
-            :title="`RM${resource.general ? resource.general.overdue_income : ''}`"
-            :sub-title="$t('dashboard.overdueIncome')"
-            type="warning"
-            icon="fas fa-clock"
+    <div v-if="doesAssetExist && doesTenantExist">
+      <div class="row">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+          <el-tooltip
+            :content="$t('dashboard.overdueIncomeDesc')"
+            :open-delay="300"
           >
-          </stats-card>
-        </el-tooltip>
-      </div>
-      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-        <el-tooltip
-          :content="$t('dashboard.upcomingIncomeDesc')"
-          :open-delay="300"
-        >
-          <stats-card
-            :title="`RM${resource.general ? resource.general.upcoming_income : ''}`"
-            :sub-title="$t('dashboard.upcomingIncome')"
-            type="primary"
-            icon="fas fa-building"
-          >
-          </stats-card>
-        </el-tooltip>
-      </div>
-      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-        <el-tooltip
-          :content="$t('dashboard.overdueExpensesDesc')"
-          :open-delay="300"
-        >
-          <stats-card
-            :title="`RM${resource.general ? resource.general.overdue_expenses : ''}`"
-            :sub-title="$t('dashboard.overdueExpenses')"
-            type="warning"
-            icon="fas fa-clock"
-          >
-          </stats-card>
-        </el-tooltip>
-      </div>
-      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-        <el-tooltip
-          :content="$t('dashboard.upcomingExpensesDesc')"
-          :open-delay="300"
-        >
-          <stats-card
-            :title="`RM${resource.general ? resource.general.upcoming_expenses : ''}`"
-            :sub-title="$t('dashboard.upcomingExpenses')"
-            type="primary"
-            icon="fas fa-dollar-sign"
-          >
-          </stats-card>
-        </el-tooltip>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 mr-auto">
-        <card class="card-chart card-chart-pie">
-          <h5 slot="header" class="card-category text-left">
-            {{$t('dashboard.rent')}}
-          </h5>
-
-          <div class="row">
-            <div class="col-6">
-              <div class="chart-area">
-                <pie-chart
-                  :chart-data="rentChart"
-                  :extra-options="pieChartExtraOptions"
-                  :height="120"
-                >
-                </pie-chart>
-              </div>
-            </div>
-
-            <div class="col-6">
-              <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.collectedRent')}}: RM{{resource.rental ? resource.rental.collected_rent : ''}}</p>
-              <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.overdueRent')}}: RM{{resource.rental ? resource.rental.overdue_rent : ''}}</p>
-              <p class="category text-left"><i class="tim-icons icon-tag text-light"></i> {{$t('dashboard.upcomingRent')}}: RM{{resource.rental ? resource.rental.upcoming_rent : ''}}</p>
-            </div>
-          </div>
-        </card>
-      </div>
-    </div>
-
-    <overdue-tenants-index-component
-      :resource="resource.overdueTenantList"
-      @getResource="getResource"
-    ></overdue-tenants-index-component>
-
-    <div class="row">
-      <div class="col-12">
-        <div class="pro-feature alert alert-danger">
-          <strong>
-            {{$t('alert.featureDeveloping')}}
-          </strong>
-        </div>
-      </div>
-    </div>
-
-    <assets-value-index-component
-      :resource="resource.assetsValueList"
-      @getResource="getResource"
-    ></assets-value-index-component>
-
-    <div class="row">
-      <div class="col-12">
-        <div class="pro-feature alert alert-danger">
-          <strong>
-            {{$t('alert.featureDeveloping')}}
-          </strong>
-        </div>
-      </div>
-    </div>
-
-    <assets-rental-rate-index-component
-      :resource="resource.rentalRateList"
-      @getResource="getResource"
-    ></assets-rental-rate-index-component>
-
-    <div class="row">
-      <div class="col-12">
-        <div class="pro-feature alert alert-danger">
-          <strong>
-            {{$t('alert.featureDeveloping')}}
-          </strong>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12 mr-auto">
-        <card class="card-chart card-chart-pie">
-          <h5 slot="header" class="card-category text-left">
-            {{$t('dashboard.cashflow')}}
-          </h5>
-          <div class="row ml-3">
-            <div class="col-12">
-              <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}}</p>
-              <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.expenses')}}</p>
-            </div>
-          </div>
-          <div class="chart-area">
-            <bar-chart
-              :chart-data="cashflowChart"
-              :extra-options="barChartExtraOptions"
-              :height="200"
+            <stats-card
+              :title="`RM${resource.general ? resource.general.overdue_income : ''}`"
+              :sub-title="$t('dashboard.overdueIncome')"
+              type="warning"
+              icon="fas fa-clock"
             >
-            </bar-chart>
-          </div>
-        </card>
+            </stats-card>
+          </el-tooltip>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+          <el-tooltip
+            :content="$t('dashboard.upcomingIncomeDesc')"
+            :open-delay="300"
+          >
+            <stats-card
+              :title="`RM${resource.general ? resource.general.upcoming_income : ''}`"
+              :sub-title="$t('dashboard.upcomingIncome')"
+              type="primary"
+              icon="fas fa-building"
+            >
+            </stats-card>
+          </el-tooltip>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+          <el-tooltip
+            :content="$t('dashboard.overdueExpensesDesc')"
+            :open-delay="300"
+          >
+            <stats-card
+              :title="`RM${resource.general ? resource.general.overdue_expenses : ''}`"
+              :sub-title="$t('dashboard.overdueExpenses')"
+              type="warning"
+              icon="fas fa-clock"
+            >
+            </stats-card>
+          </el-tooltip>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+          <el-tooltip
+            :content="$t('dashboard.upcomingExpensesDesc')"
+            :open-delay="300"
+          >
+            <stats-card
+              :title="`RM${resource.general ? resource.general.upcoming_expenses : ''}`"
+              :sub-title="$t('dashboard.upcomingExpenses')"
+              type="primary"
+              icon="fas fa-dollar-sign"
+            >
+            </stats-card>
+          </el-tooltip>
+        </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="col-md-12 mr-auto">
+          <card class="card-chart card-chart-pie">
+            <h5 slot="header" class="card-category text-left">
+              {{$t('dashboard.rent')}}
+            </h5>
 
-    <div class="row">
-      <div class="col-12">
-        <div class="pro-feature alert alert-danger">
-          <strong>
-            {{$t('alert.featureDeveloping')}}
-          </strong>
+            <div class="row">
+              <div class="col-6">
+                <div class="chart-area">
+                  <pie-chart
+                    :chart-data="rentChart"
+                    :extra-options="pieChartExtraOptions"
+                    :height="120"
+                  >
+                  </pie-chart>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.collectedRent')}}: RM{{resource.rental ? resource.rental.collected_rent : ''}}</p>
+                <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.overdueRent')}}: RM{{resource.rental ? resource.rental.overdue_rent : ''}}</p>
+                <p class="category text-left"><i class="tim-icons icon-tag text-light"></i> {{$t('dashboard.upcomingRent')}}: RM{{resource.rental ? resource.rental.upcoming_rent : ''}}</p>
+              </div>
+            </div>
+          </card>
+        </div>
+      </div>
+
+      <overdue-tenants-index-component
+        :resource="resource.overdueTenantList"
+        @getResource="getResource"
+      ></overdue-tenants-index-component>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="pro-feature alert alert-danger">
+            <strong>
+              {{$t('alert.featureDeveloping')}}
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      <assets-value-index-component
+        :resource="resource.assetsValueList"
+        @getResource="getResource"
+      ></assets-value-index-component>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="pro-feature alert alert-danger">
+            <strong>
+              {{$t('alert.featureDeveloping')}}
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      <assets-rental-rate-index-component
+        :resource="resource.rentalRateList"
+        @getResource="getResource"
+      ></assets-rental-rate-index-component>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="pro-feature alert alert-danger">
+            <strong>
+              {{$t('alert.featureDeveloping')}}
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mr-auto">
+          <card class="card-chart card-chart-pie">
+            <h5 slot="header" class="card-category text-left">
+              {{$t('dashboard.cashflow')}}
+            </h5>
+            <div class="row ml-3">
+              <div class="col-12">
+                <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}}</p>
+                <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.expenses')}}</p>
+              </div>
+            </div>
+            <div class="chart-area">
+              <bar-chart
+                :chart-data="cashflowChart"
+                :extra-options="barChartExtraOptions"
+                :height="200"
+              >
+              </bar-chart>
+            </div>
+          </card>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="pro-feature alert alert-danger">
+            <strong>
+              {{$t('alert.featureDeveloping')}}
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mr-auto">
+          <card class="card-chart card-chart-pie">
+            <h5 slot="header" class="card-category text-left">
+              {{$t('dashboard.assetsVacancy')}}
+            </h5>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="chart-area">
+                  <pie-chart
+                    :chart-data="assetsVacancyChart"
+                    :extra-options="pieChartExtraOptions"
+                    :height="120"
+                  >
+                  </pie-chart>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}</p>
+                <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}</p>
+              </div>
+            </div>
+          </card>
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-12 mr-auto">
-        <card class="card-chart card-chart-pie">
-          <h5 slot="header" class="card-category text-left">
-            {{$t('dashboard.assetsVacancy')}}
-          </h5>
-
-          <div class="row">
-            <div class="col-6">
-              <div class="chart-area">
-                <pie-chart
-                  :chart-data="assetsVacancyChart"
-                  :extra-options="pieChartExtraOptions"
-                  :height="120"
-                >
-                </pie-chart>
-              </div>
-            </div>
-
-            <div class="col-6">
-              <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}</p>
-              <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}</p>
-            </div>
-          </div>
-        </card>
-      </div>
+    <div v-if="!doesAssetExist && !doesTenantExist">
+      <asset-empty
+        :resource="resource.assetsValueList"
+      >
+      </asset-empty>
     </div>
-    
+    <div v-if="doesAssetExist && !doesTenantExist">
+      <tenant-empty
+        :resource="resource.tenants"
+      >
+      </tenant-empty>
+    </div>
   </div>
 </template>
 <script>
@@ -208,6 +221,9 @@ import AssetsValueIndexComponent from "@/components/Resources/Assets/AssetsValue
 import AssetsRentalRateIndexComponent from "@/components/Resources/Assets/AssetsRentalRateIndexComponent";
 import errorHandlingService from "@/store/services/error-handling-service";
 
+import AssetEmpty from "@/components/Resources/Assets/AssetEmpty";
+import TenantEmpty from "@/components/Resources/Tenants/TenantEmpty";
+
 export default {
   components: {
     Card,
@@ -216,7 +232,9 @@ export default {
     BarChart,
     OverdueTenantsIndexComponent,
     AssetsValueIndexComponent,
-    AssetsRentalRateIndexComponent
+    AssetsRentalRateIndexComponent,
+    AssetEmpty,
+    TenantEmpty
   },
   data() {
     return {
@@ -237,10 +255,15 @@ export default {
         },
         assetsVacancy: {
           currentTenants: 0
+        },
+        tenants: {
+          data: {}
         }
       },
       barChartExtraOptions: chartConfigs.barChartOptionsGradient,
       pieChartExtraOptions: chartConfigs.pieChartOptions,
+      doesAssetExist: false,
+      doesTenantExist: false,
     };
   },
   computed: {
@@ -327,6 +350,7 @@ export default {
         await this.$store.dispatch('asset/get', {}).then(() => {
           this.resource.assetsValueList.models = this.$store.getters["asset/models"]
           this.resource.assetsValueList.data = Object.assign({}, this.$store.getters["asset/data"]);
+          this.doesAssetExist = this.$store.getters["asset/models"].length > 0;
 
           this.resource.rentalRateList.models = this.$store.getters["asset/models"];
             for (let i = 0; i < this.resource.rentalRateList.models.length; i++) {
@@ -336,7 +360,9 @@ export default {
             this.resource.rentalRateList.data = Object.assign({}, this.$store.getters["asset/data"]);
         });
         await this.$store.dispatch('tenant/get', {}).then(() => {
+          this.resource.tenants.data = this.$store.getters["tenant/data"]
           this.resource.assetsVacancy.currentTenants = this.$store.getters["tenant/data"].total;
+          this.doesTenantExist = this.resource.assetsVacancy.currentTenants > 0;
         });
       } catch (e) {
         this.$notify({
