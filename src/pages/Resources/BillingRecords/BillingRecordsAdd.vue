@@ -99,29 +99,21 @@ export default {
         loader: 'spinner',
       });
       try {
-        var billingRecordCreateParam;
+        var billingRecordCreateParam = {
+          'sender_type': this.$route.query.senderType,
+          'recipient_type': this.$route.query.recipientType,
+          'recipient_id': this.$route.query.recipientId,
+        };
         if (typeof tenantId == 'number') {
-          billingRecordCreateParam = {
-            'sender_type': this.$route.query.senderType,
-            'sender_id': tenantId,
-            'recipient_type': this.$route.query.recipientType,
-            'recipient_id': this.$route.query.recipientId,
-          }
+          billingRecordCreateParam['sender_id'] = tenantId;
         } else {
-          billingRecordCreateParam = this.$route.query.assetId ?
-          {
-            'sender_type': this.$route.query.senderType,
-            'sender_id': this.$route.query.senderId,
-            'recipient_type': this.$route.query.recipientType,
-            'recipient_id': this.$route.query.recipientId,
-            'asset_id': this.$route.query.assetId,
-          } : 
-          {
-            'sender_type': this.$route.query.senderType,
-            'sender_id': this.$route.query.senderId,
-            'recipient_type': this.$route.query.recipientType,
-            'recipient_id': this.$route.query.recipientId,
-          };
+          billingRecordCreateParam['sender_id'] = this.$route.query.senderId;
+        }
+        if (this.$route.query.assetId) {
+          billingRecordCreateParam['asset_id'] = this.$route.query.assetId;
+        }
+        if (this.$route.query.billImmediately) {
+          billingRecordCreateParam['bill_immediately'] = "1";
         }
         await this.$store.dispatch('billingRecords/create', billingRecordCreateParam).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
