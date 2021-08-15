@@ -114,7 +114,14 @@ export default {
             //   isMiddlewareVerified: response.data.message
             // });
             return response.data;
-          });
+          })
+          // .catch((e) => {
+          //   try {
+          //     errorHandlingService.verifyErrorFromServer(e);
+          //   } catch(e1) {
+          //     throw e1;
+          //   }
+          // });
     },
   }
 };

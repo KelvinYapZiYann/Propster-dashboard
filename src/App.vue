@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import errorHandlingService from "@/store/services/error-handling-service";
+
 export default {
   methods: {
     disableRTL() {
@@ -18,6 +20,21 @@ export default {
     toggleNavOpen() {
       let root = document.getElementsByTagName("html")[0];
       root.classList.toggle("nav-open");
+    },
+    async verifyMiddleware() {
+      await this.$store.dispatch('verifyMiddleware').then(() => {
+        this.getProfile();
+      }).catch((e) => {
+        try {
+          errorHandlingService.verifyErrorFromServer(e);
+        } catch(e1) {
+          this.$notify({
+            message: errorHandlingService.displayAlertFromServer(e1),
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+        }
+      });
     },
     async getProfile() {
       if (this.$router.currentRoute.name == 'login') {
@@ -38,7 +55,7 @@ export default {
     this.$watch("$route", this.disableRTL, { immediate: true });
     this.$watch("$sidebar.showSidebar", this.toggleNavOpen);
     if (this.$store.getters.isAuthenticated) {
-      this.getProfile();
+      this.verifyMiddleware();
     }
   }
 };

@@ -11,10 +11,11 @@ function verifyErrorFromServer(e) {
                 router.push({path: "/login"});
                 return;
             case 'user profile is not filled.':
-                router.push({path: "/first-time-profile"});
+                router.push({name: "First Time User Profile"});
                 return;
             case 'Please select a correct role':
-                router.push({path: "/select-role"});
+                // router.push({path: "/select-role"});
+                router.push({name: "First Time User Profile"});
                 return;
             // case 'This action is unauthorized.':
             //     router.go(-1);
