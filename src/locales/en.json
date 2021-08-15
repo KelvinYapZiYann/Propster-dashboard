@@ -112,6 +112,10 @@
     "overdueExpensesDesc": "Expenses that you are been due to. For eg. Maintaince fees that is overdue.",
     "upcomingExpenses": "Upcoming Expenses",
     "upcomingExpensesDesc": "Expenses that you are expected to pay in the set given time range.",
+    "projectedMonthlyIncome": "Projected Monthly Income",
+    "projectedMonthlyIncomeDesc": "Projected Monthly Income.",
+    "projectedMonthlyExpenses": "Projected Monthly Expenses",
+    "projectedMonthlyExpensesDesc": "Projected Monthly Expenses.",
     "rent": "Rent",
     "collectedRent": "Collected Rent",
     "overdueRent": "Overdue Rent",
@@ -126,7 +130,8 @@
     "currentTenants": "Current Tenants",
     "assetsMarketRentalRate": "Market Rental Rate",
     "currentRentalRate": "Current Rental Rate",
-    "currentMarketRentalRate": "Current Market Rental Rate"
+    "currentMarketRentalRate": "Current Market Rental Rate",
+    "todoList": "To-Do List"
   },
   "alert": {
     "basicTierAssetCount": "You can only add 1 Asset with free tier. Get ADVANCED or PRO version to add more assets.",

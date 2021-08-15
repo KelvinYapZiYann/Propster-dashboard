@@ -60,7 +60,34 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12 mr-auto">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+          <el-tooltip
+            :content="$t('dashboard.projectedMonthlyIncomeDesc')"
+            :open-delay="300"
+          >
+            <stats-card
+              :title="`RM500`"
+              :sub-title="$t('dashboard.projectedMonthlyIncome')"
+              type="primary"
+              icon="fas fa-dollar-sign"
+            >
+            </stats-card>
+          </el-tooltip>
+          <el-tooltip
+            :content="$t('dashboard.projectedMonthlyExpensesDesc')"
+            :open-delay="300"
+          >
+            <stats-card
+              :title="`RM0`"
+              :sub-title="$t('dashboard.projectedMonthlyExpenses')"
+              type="warning"
+              icon="fas fa-clock"
+            >
+            </stats-card>
+          </el-tooltip>
+        </div>
+
+        <div class="col-xl-9 col-lg-6 col-md-6 col-sm-6 mr-auto">
           <card class="card-chart card-chart-pie">
             <h5 slot="header" class="card-category text-left">
               {{$t('dashboard.rent')}}
@@ -88,10 +115,45 @@
         </div>
       </div>
 
-      <overdue-tenants-index-component
-        :resource="resource.overdueTenantList"
-        @getResource="getResource"
-      ></overdue-tenants-index-component>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 mr-auto">
+          <overdue-tenants-index-component
+            :resource="resource.overdueTenantList"
+            @getResource="getResource"
+          ></overdue-tenants-index-component>
+        </div>
+        <div class="col-xl-6 col-lg-6 mr-auto">
+          <card type="tasks" headerClasses="text-left">
+            <template slot="header">
+              <!-- <template>
+                <h6 class="title d-inline mr-2">Tasks(5)</h6>
+              </template> -->
+              <template>
+                <p class="card-category d-inline">{{$t('dashboard.todoList')}}</p>
+              </template>
+              <!-- <drop-down tag="div">
+                <button
+                  aria-label="Settings menu"
+                  data-toggle="dropdown"
+                  class="dropdown-toggle btn-rotate btn btn-link btn-icon"
+                >
+                  <i class="tim-icons icon-settings-gear-63"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <a href="#pablo" class="dropdown-item">Action</a>
+                  <a href="#pablo" class="dropdown-item">Another Action</a>
+                  <a href="#pablo" class="dropdown-item">Something else</a>
+                </ul>
+              </drop-down> -->
+            </template>
+            <div class="table-full-width table-responsive">
+              <task-list
+                :tableData="taskListTableData"
+              ></task-list>
+            </div>
+          </card>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-12">
@@ -210,7 +272,11 @@
   </div>
 </template>
 <script>
-import { Card } from "@/components/index";
+import { 
+  Card,
+  // TimeLine,
+  // TimeLineItem 
+} from "@/components/index";
 
 import * as chartConfigs from "@/components/Charts/config";
 import StatsCard from "@/components/Cards/StatsCard";
@@ -224,6 +290,8 @@ import errorHandlingService from "@/store/services/error-handling-service";
 import AssetEmpty from "@/components/Resources/Assets/AssetEmpty";
 import TenantEmpty from "@/components/Resources/Tenants/TenantEmpty";
 
+import TaskList from "./Dashboard/TaskList";
+
 export default {
   components: {
     Card,
@@ -234,7 +302,10 @@ export default {
     AssetsValueIndexComponent,
     AssetsRentalRateIndexComponent,
     AssetEmpty,
-    TenantEmpty
+    TenantEmpty,
+    // TimeLine,
+    // TimeLineItem,
+    TaskList
   },
   data() {
     return {
@@ -264,6 +335,23 @@ export default {
       pieChartExtraOptions: chartConfigs.pieChartOptions,
       doesAssetExist: true,
       doesTenantExist: true,
+      taskListTableData: [
+        {
+          title: "Contact Vendor",
+          description: "Contact Wi-Fi provider to fix the internet issue.",
+          done: false
+        },
+        {
+          title: "Contact Tenant",
+          description: "Contact tenant to confirm if he want to extend his contract.",
+          done: true
+        },
+        {
+          title: "Replace Table",
+          description: "Buy a new table for tenant that is broken.",
+          done: false
+        }
+      ]
     };
   },
   computed: {

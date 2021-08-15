@@ -1,5 +1,11 @@
 <template>
-  <base-table :data="tableData" thead-classes="text-primary">
+  <base-table 
+    :data="tableData" 
+    thead-classes="text-primary"
+    :disableView="true"
+    :disableEdit="true"
+    :disableDelete="true"
+  >
     <template slot-scope="{ row }">
       <td>
         <base-checkbox v-model="row.done"> </base-checkbox>
@@ -8,11 +14,11 @@
         <p class="title">{{ row.title }}</p>
         <p class="text-muted">{{ row.description }}</p>
       </td>
-      <td class="td-actions text-right">
+      <!-- <td class="td-actions text-right">
         <base-button type="link" artia-label="edit button">
           <i class="tim-icons icon-pencil"></i>
         </base-button>
-      </td>
+      </td> -->
     </template>
   </base-table>
 </template>
@@ -27,12 +33,20 @@ export default {
     BaseTable,
     BaseCheckbox
   },
-
-  computed: {
-    tableData() {
-      return this.$t("dashboard.taskList");
+  props: {
+    tableData: {
+      type: Array,
+      required: true,
+      default: [],
+      description: "Task List Table Data"
     }
-  }
+  },
+
+  // computed: {
+  //   tableData() {
+  //     return this.$t("dashboard.taskList");
+  //   }
+  // }
 };
 </script>
 <style></style>

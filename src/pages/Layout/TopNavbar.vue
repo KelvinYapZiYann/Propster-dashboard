@@ -60,7 +60,7 @@
               placeholder="SEARCH"
             />
           </modal>
-          <!-- <drop-down>
+          <drop-down>
             <a
               href="javascript:void(0)"
               data-toggle="dropdown"
@@ -86,7 +86,7 @@
                 </router-link>
               </li>
             </ul>
-          </drop-down> -->
+          </drop-down>
           <drop-down>
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <div class="photo" :title="userFullname">
