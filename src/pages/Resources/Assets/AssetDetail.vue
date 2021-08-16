@@ -65,6 +65,7 @@
 
    <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
    <base-button slot="footer" type="info" @click="handleEdit()" fill>{{$t('component.edit')}} {{$t('sidebar.asset')}}</base-button>
+   <base-button slot="footer" type="info" @click="reportModalVisible = true" fill>{{$t('component.generateReport')}}</base-button>
   </div>
 </template>
 <script>
@@ -212,6 +213,7 @@ export default {
             'end_date': data.end_date
           }
         }).then((response) => {
+          this.resetApiValidation();
           let fileURL = window.URL.createObjectURL(new Blob([response.data]));
           let fileLink = document.createElement('a');
 
@@ -221,11 +223,14 @@ export default {
 
           fileLink.click();
         }).catch((e) => {
+          new Blob([e.response.data]).text().then((data) => {
+            this.setApiValidation(JSON.parse(data).errors);
+          });
           this.$notify({
-          message: errorHandlingService.displayAlertFromServer(e),
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
+            message: errorHandlingService.displayAlertFromServer(e),
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
         });
       } catch (e) {
         this.$notify({
