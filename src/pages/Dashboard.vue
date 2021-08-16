@@ -389,7 +389,7 @@ export default {
             borderWidth: 2,
             borderDash: [],
             borderDashOffset: 0.0,
-            data: [60, 110, 90, 70, 90, 100]
+            data: [40, 110, 90, 70, 90, 100]
           }
         ]
       }
@@ -447,13 +447,13 @@ export default {
           this.resource.assetsVacancy.currentTenants = this.$store.getters["tenant/data"].total;
           this.doesTenantExist = this.resource.assetsVacancy.currentTenants > 0;
         });
-        await this.$store.dispatch('tenureContract/get', {}).then(() => {
-          let tenureContractModels = this.$store.getters["tenureContract/models"];
-          let totalRentalAmount = 0;
-          for (let i = 0; i < tenureContractModels.length; i++) {
-            totalRentalAmount += parseFloat(tenureContractModels[i].monthly_rental_amount);
+        await this.$store.dispatch('billingRecords/get', {}).then(() => {
+          let billingRecordsModels = this.$store.getters["billingRecords/models"];
+          let totalAmount = 0;
+          for (let i = 0; i < billingRecordsModels.length; i++) {
+            totalAmount += parseFloat(billingRecordsModels[i].amount);
           }
-          this.resource.projectedMonthlyIncome = totalRentalAmount;
+          this.resource.projectedMonthlyIncome = totalAmount;
         });
       } catch (e) {
         this.$notify({
