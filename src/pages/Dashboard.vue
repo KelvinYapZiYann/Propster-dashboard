@@ -123,14 +123,14 @@
           ></overdue-tenants-index-component>
         </div>
         <div class="col-xl-6 col-lg-6 mr-auto">
-          <card type="tasks" headerClasses="text-left">
-            <template slot="header">
+          <!-- <card type="tasks" headerClasses="text-left"> -->
+            <!-- <template slot="header"> -->
               <!-- <template>
                 <h6 class="title d-inline mr-2">Tasks(5)</h6>
               </template> -->
-              <template>
+              <!-- <template>
                 <p class="card-category d-inline">{{$t('dashboard.todoList')}}</p>
-              </template>
+              </template> -->
               <!-- <drop-down tag="div">
                 <button
                   aria-label="Settings menu"
@@ -145,13 +145,16 @@
                   <a href="#pablo" class="dropdown-item">Something else</a>
                 </ul>
               </drop-down> -->
-            </template>
-            <div class="table-full-width table-responsive">
-              <task-list
+            <!-- </template> -->
+            <!-- <div class="table-full-width table-responsive"> -->
+              <!-- <task-list
                 :tableData="taskListTableData"
-              ></task-list>
-            </div>
-          </card>
+              ></task-list> -->
+              <to-do-list-index-component
+                :tableData="taskListTableData"
+              ></to-do-list-index-component>
+            <!-- </div> -->
+          <!-- </card> -->
         </div>
       </div>
 
@@ -290,7 +293,8 @@ import errorHandlingService from "@/store/services/error-handling-service";
 import AssetEmpty from "@/components/Resources/Assets/AssetEmpty";
 import TenantEmpty from "@/components/Resources/Tenants/TenantEmpty";
 
-import TaskList from "./Dashboard/TaskList";
+// import TaskList from "./Dashboard/TaskList";
+import ToDoListIndexComponent from "./Dashboard/ToDoListIndexComponent";
 
 export default {
   components: {
@@ -305,7 +309,8 @@ export default {
     TenantEmpty,
     // TimeLine,
     // TimeLineItem,
-    TaskList
+    // TaskList,
+    ToDoListIndexComponent
   },
   data() {
     return {
