@@ -62,6 +62,20 @@
         <!-- <sidebar-link
           :link="{ name: $t('sidebar.settings'), path: '/settings', icon: 'fas fa-cog'}"
         ></sidebar-link> -->
+        <sidebar-link
+          :link="{
+            name: $t('sidebar.more'),
+            icon: 'tim-icons icon-bullet-list-67',
+            path: '/profile',
+          }"
+        >
+          <sidebar-link
+            :link="{
+              name: $t('sidebar.todoList'),
+              path: '/todo-list'
+            }"
+          ></sidebar-link>
+        </sidebar-link>
         <li class="align-bottom">
           <a href="javascript:void(0)" class="nav-link " @click="logout">
             <i class="fas fa-sign-out-alt"></i>

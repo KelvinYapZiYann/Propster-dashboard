@@ -148,10 +148,10 @@
             <!-- </template> -->
             <!-- <div class="table-full-width table-responsive"> -->
               <!-- <task-list
-                :tableData="taskListTableData"
+                :tableData="todoListTableData"
               ></task-list> -->
               <to-do-list-index-component
-                :tableData="taskListTableData"
+                :tableData="todoListTableData"
               ></to-do-list-index-component>
             <!-- </div> -->
           <!-- </card> -->
@@ -199,7 +199,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-12 mr-auto">
+        <div class="col-md-6 mr-auto">
           <card class="card-chart card-chart-pie">
             <h5 slot="header" class="card-category text-left">
               {{$t('dashboard.cashflow')}}
@@ -220,20 +220,8 @@
             </div>
           </card>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <div class="pro-feature alert alert-danger">
-            <strong>
-              {{$t('alert.featureDeveloping')}}
-            </strong>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12 mr-auto">
+        <div class="col-md-6 mr-auto">
           <card class="card-chart card-chart-pie">
             <h5 slot="header" class="card-category text-left">
               {{$t('dashboard.assetsVacancy')}}
@@ -260,6 +248,7 @@
         </div>
       </div>
     </div>
+
     <div v-if="!doesAssetExist && !doesTenantExist">
       <asset-empty
         :resource="resource.assetsValueList"
@@ -341,7 +330,7 @@ export default {
       pieChartExtraOptions: chartConfigs.pieChartOptions,
       doesAssetExist: true,
       doesTenantExist: true,
-      taskListTableData: [
+      todoListTableData: [
         {
           title: "Contact Vendor",
           description: "Contact Wi-Fi provider to fix the internet issue.",

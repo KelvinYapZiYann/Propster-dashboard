@@ -66,8 +66,10 @@ const Dashboard = () =>
 // Pages
 const Profile = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Profile/Profile.vue");
-  const ProfileEdit = () =>
-    import(/* webpackChunkName: "pages" */ "@/pages/Profile/ProfileEdit.vue");
+const ProfileEdit = () =>
+  import(/* webpackChunkName: "pages" */ "@/pages/Profile/ProfileEdit.vue");
+const ToDoList = () =>
+  import(/* webpackChunkName: "pages" */ "@/pages/Dashboard/ToDoList.vue");
 
 // const Pricing = () =>
 //     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Pricing.vue");
@@ -580,6 +582,12 @@ const routes = [
         props: {
           default: true
         }
+      },
+      {
+        path: "todo-list",
+        name: "ToDo List",
+        component: ToDoList,
+        meta: { middleware: auth },
       },
       // {
       //   path: "Calendar",

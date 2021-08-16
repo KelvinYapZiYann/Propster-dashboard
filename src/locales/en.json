@@ -28,7 +28,9 @@
     "settingsDesc": "Settings.",
     "userProfile": "User Profile",
     "userProfileDesc": "User profile.",
-    "toggleSidebar": "Toggle Sidebar"
+    "toggleSidebar": "Toggle Sidebar",
+    "more": "More",
+    "todoList": "To-Do List"
   },
   "topbar": {
     "notifications": "Notifications",
