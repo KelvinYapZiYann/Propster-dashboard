@@ -56,14 +56,22 @@
               loader: 'spinner',
             });
             try {
-                await this.$store.dispatch('createProfile/submit', userData);
-                this.$notify({
-                    message:'Successfully Updated',
-                    icon: 'tim-icons icon-bell-55',
-                    type: 'success'
-                });
-                this.resetApiValidation();
-                this.$router.push({name: "Select Role"});
+              let data = {
+                "role": 'LANDLORD',
+                "remember_role": true
+              };
+
+              await this.$store.dispatch('selectRole/submit', data).then(() => {
+                 this.$store.dispatch('createProfile/submit', userData).then(() => {
+                   this.$notify({
+                      message:'Successfully Updated',
+                      icon: 'tim-icons icon-bell-55',
+                      type: 'success'
+                  });
+                  this.resetApiValidation();
+                  this.$router.push({name: "Select Role"});
+                 });
+              });
             } catch (e) {
               if (e.response.data.message) {
                 if (e.response.data.message == 'profile already filled.') {

@@ -14,8 +14,8 @@ function verifyErrorFromServer(e) {
                 router.push({name: "First Time User Profile"});
                 return;
             case 'Please select a correct role':
-                // router.push({path: "/select-role"});
-                router.push({name: "First Time User Profile"});
+                router.push({path: "/select-role"});
+                // router.push({name: "First Time User Profile"});
                 return;
             // case 'This action is unauthorized.':
             //     router.go(-1);
