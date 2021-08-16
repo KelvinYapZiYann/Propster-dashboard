@@ -66,7 +66,7 @@
             :open-delay="300"
           >
             <stats-card
-              :title="`RM500`"
+              :title="`RM${resource.projectedMonthlyIncome}`"
               :sub-title="$t('dashboard.projectedMonthlyIncome')"
               type="primary"
               icon="fas fa-dollar-sign"
@@ -334,7 +334,8 @@ export default {
         },
         tenants: {
           data: {}
-        }
+        },
+        projectedMonthlyIncome: 0
       },
       barChartExtraOptions: chartConfigs.barChartOptionsGradient,
       pieChartExtraOptions: chartConfigs.pieChartOptions,
@@ -456,6 +457,14 @@ export default {
           this.resource.tenants.data = this.$store.getters["tenant/data"]
           this.resource.assetsVacancy.currentTenants = this.$store.getters["tenant/data"].total;
           this.doesTenantExist = this.resource.assetsVacancy.currentTenants > 0;
+        });
+        await this.$store.dispatch('tenureContract/get', {}).then(() => {
+          let tenureContractModels = this.$store.getters["tenureContract/models"];
+          let totalRentalAmount = 0;
+          for (let i = 0; i < tenureContractModels.length; i++) {
+            totalRentalAmount += parseFloat(tenureContractModels[i].monthly_rental_amount);
+          }
+          this.resource.projectedMonthlyIncome = totalRentalAmount;
         });
       } catch (e) {
         this.$notify({
