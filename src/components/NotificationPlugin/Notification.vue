@@ -59,6 +59,13 @@ export default {
         return acceptedValues.indexOf(value) !== -1;
       }
     },
+    bottomMargin: {
+      type: Number,
+      default: 0,
+      validator: value => {
+        return value >= 0;
+      }
+    },
     horizontalAlign: {
       type: String,
       default: "right",
@@ -130,7 +137,7 @@ export default {
       if (this.verticalAlign === "top") {
         styles.top = `${pixels}px`;
       } else {
-        styles.bottom = `${pixels}px`;
+        styles.bottom = `${pixels + this.bottomMargin}px`;
       }
       return styles;
     }
