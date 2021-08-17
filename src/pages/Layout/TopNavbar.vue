@@ -16,7 +16,7 @@
             <span class="navbar-toggler-bar bar3"></span>
           </button>
         </div>
-        <!-- <a class="navbar-brand" href="javascript:void(0)"> {{ $route.name }}</a> -->
+        <a class="navbar-brand" href="javascript:void(0)">Propster.io</a>
       </div>
       <button
         class="navbar-toggler"
@@ -68,7 +68,7 @@
               :title="$t('topbar.notifications')"
             >
               <div class="notification d-none d-lg-block d-xl-block" v-if="notifications.length > 0"></div>
-              <i class="fa fa-bell text-info"></i>
+              <i class="fa fa-bell text-muted"></i>
               <p class="d-lg-none text-left">
                 Notifications
               </p>

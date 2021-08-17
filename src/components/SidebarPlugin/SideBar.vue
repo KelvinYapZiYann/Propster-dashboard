@@ -45,7 +45,7 @@ export default {
     // },
     title: {
       type: String,
-      default: "Propster",
+      default: "Propster.io",
       description: "Sidebar title"
     },
     backgroundColor: {
