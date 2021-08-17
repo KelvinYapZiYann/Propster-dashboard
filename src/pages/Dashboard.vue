@@ -10,8 +10,8 @@
             <stats-card
               :title="`RM${resource.general ? resource.general.overdue_income : ''}`"
               :sub-title="$t('dashboard.overdueIncome')"
-              type="warning"
-              icon="fas fa-clock"
+              type="primary"
+              icon="tim-icons icon-time-alarm"
             >
             </stats-card>
           </el-tooltip>
@@ -25,7 +25,7 @@
               :title="`RM${resource.general ? resource.general.upcoming_income : ''}`"
               :sub-title="$t('dashboard.upcomingIncome')"
               type="primary"
-              icon="fas fa-building"
+              icon="tim-icons icon-money-coins"
             >
             </stats-card>
           </el-tooltip>
@@ -39,7 +39,7 @@
               :title="`RM${resource.general ? resource.general.overdue_expenses : ''}`"
               :sub-title="$t('dashboard.overdueExpenses')"
               type="warning"
-              icon="fas fa-clock"
+              icon="tim-icons icon-time-alarm"
             >
             </stats-card>
           </el-tooltip>
@@ -52,8 +52,8 @@
             <stats-card
               :title="`RM${resource.general ? resource.general.upcoming_expenses : ''}`"
               :sub-title="$t('dashboard.upcomingExpenses')"
-              type="primary"
-              icon="fas fa-dollar-sign"
+              type="warning"
+              icon="tim-icons icon-money-coins"
             >
             </stats-card>
           </el-tooltip>
@@ -69,8 +69,9 @@
               :title="`RM${resource.projectedMonthlyIncome}`"
               :sub-title="$t('dashboard.projectedMonthlyIncome')"
               type="primary"
-              icon="fas fa-dollar-sign"
+              icon="tim-icons icon-spaceship"
             >
+            <!-- image="/img/dollar_up.png" -->
             </stats-card>
           </el-tooltip>
           <el-tooltip
@@ -81,7 +82,7 @@
               :title="`RM0`"
               :sub-title="$t('dashboard.projectedMonthlyExpenses')"
               type="warning"
-              icon="fas fa-clock"
+              icon="tim-icons icon-user-run"
             >
             </stats-card>
           </el-tooltip>
@@ -89,13 +90,13 @@
 
         <div class="col-xl-9 col-lg-6 col-md-6 col-sm-6 mr-auto">
           <card class="card-chart card-chart-pie">
-            <h5 slot="header" class="card-category text-left">
+            <h5 slot="header" class="card-category text-left chart-header">
               {{$t('dashboard.rent')}}
             </h5>
-
             <div class="row">
               <div class="col-6">
                 <div class="chart-area">
+                  <div v-if="rentChartAlertText">{{$t('alert.pieChartNoValueAlert')}}</div>
                   <pie-chart
                     :chart-data="rentChart"
                     :extra-options="pieChartExtraOptions"
@@ -123,6 +124,15 @@
           ></overdue-tenants-index-component>
         </div>
         <div class="col-xl-6 col-lg-6 mr-auto">
+          <div class="row">
+            <div class="col-12">
+              <div class="pro-feature alert alert-danger">
+                <strong>
+                  {{$t('alert.featureDeveloping')}}
+                </strong>
+              </div>
+            </div>
+          </div>
           <!-- <card type="tasks" headerClasses="text-left"> -->
             <!-- <template slot="header"> -->
               <!-- <template>
@@ -151,7 +161,7 @@
                 :tableData="todoListTableData"
               ></task-list> -->
               <to-do-list-index-component
-                :tableData="todoListTableData"
+                :resource="todoListResource"
               ></to-do-list-index-component>
             <!-- </div> -->
           <!-- </card> -->
@@ -201,7 +211,7 @@
       <div class="row">
         <div class="col-md-6 mr-auto">
           <card class="card-chart card-chart-pie">
-            <h5 slot="header" class="card-category text-left">
+            <h5 slot="header" class="card-category text-left chart-header">
               {{$t('dashboard.cashflow')}}
             </h5>
             <div class="row ml-3">
@@ -223,12 +233,12 @@
 
         <div class="col-md-6 mr-auto">
           <card class="card-chart card-chart-pie">
-            <h5 slot="header" class="card-category text-left">
+            <h5 slot="header" class="card-category text-left chart-header">
               {{$t('dashboard.assetsVacancy')}}
             </h5>
-
             <div class="row">
               <div class="col-6">
+                <div v-if="assetVacancyChartAlertText">{{$t('alert.pieChartNoValueAlert')}}</div>
                 <div class="chart-area">
                   <pie-chart
                     :chart-data="assetsVacancyChart"
@@ -330,23 +340,38 @@ export default {
       pieChartExtraOptions: chartConfigs.pieChartOptions,
       doesAssetExist: true,
       doesTenantExist: true,
-      todoListTableData: [
-        {
-          title: "Contact Vendor",
-          description: "Contact Wi-Fi provider to fix the internet issue.",
-          done: false
-        },
-        {
-          title: "Contact Tenant",
-          description: "Contact tenant to confirm if he want to extend his contract.",
-          done: true
-        },
-        {
-          title: "Replace Table",
-          description: "Buy a new table for tenant that is broken.",
-          done: false
+      todoListResource: {
+        models: [
+          {
+            title: "Contact Vendor",
+            description: "Contact Wi-Fi provider to fix the internet issue.",
+            done: false
+          },
+          {
+            title: "Contact Tenant",
+            description: "Contact tenant to confirm if he want to extend his contract.",
+            done: true
+          },
+          {
+            title: "Replace Table",
+            description: "Buy a new table for tenant that is broken.",
+            done: false
+          },
+          {
+            title: "Replace Chair",
+            description: "Buy a new chair for tenant that is broken.",
+            done: false
+          }
+        ],
+        data: {
+          currentPage: 1,
+          total: 0,
+          from: 0,
+          to: 0,
+          perPage: 10,
+          links: []
         }
-      ]
+      }
     };
   },
   computed: {
@@ -364,6 +389,9 @@ export default {
           }
         ]
       }
+    },
+    rentChartAlertText() {
+      return this.resource.rental.collected_rent == 0 && this.resource.rental.overdue_rent == 0 && this.resource.rental.upcoming_rent == 0;
     },
     cashflowChart() {
       return {
@@ -409,6 +437,9 @@ export default {
         ]
       }
     },
+    assetVacancyChartAlertText() {
+      return this.resource.assetsVacancy.currentTenants <= 0;
+    }
   },
   methods: {
     async getResource() {
@@ -428,7 +459,8 @@ export default {
           this.resource.rental = this.$store.getters["dashboard/rental"]
         });
         await this.$store.dispatch('dashboard/getOverdueTenantList', {}).then(() => {
-          this.resource.overdueTenantList.models = this.$store.getters["dashboard/overdueTenantList"]
+          this.resource.overdueTenantList.models = this.$store.getters["dashboard/overdueTenantListModels"]
+          this.resource.overdueTenantList.data = this.$store.getters["dashboard/overdueTenantListData"]
         });
         await this.$store.dispatch('asset/get', {}).then(() => {
           this.resource.assetsValueList.models = this.$store.getters["asset/models"]
@@ -477,5 +509,9 @@ export default {
 <style>
 #worldMap .datamap {
   left: 0 !important;
+}
+.chart-header {
+  font-size: 1.0625rem !important;
+  font-weight: 100;
 }
 </style>

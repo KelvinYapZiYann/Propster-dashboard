@@ -1,6 +1,7 @@
 <template>
   <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
     <billing-payment-index-component
+      :isBillingRecordsPayment="false"
       :resource="resource"
       @getResource="getResource"
     ></billing-payment-index-component>

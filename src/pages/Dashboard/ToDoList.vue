@@ -1,7 +1,16 @@
 <template>
   <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
+    <div class="row">
+        <div class="col-12">
+          <div class="pro-feature alert alert-danger">
+            <strong>
+              {{$t('alert.featureDeveloping')}}
+            </strong>
+          </div>
+        </div>
+      </div>
     <to-do-list-index-component
-        :tableData="resource.todoListTableData"
+        :resource="resource"
     ></to-do-list-index-component>
   </div>
 </template>
@@ -16,7 +25,7 @@ export default {
   data() {
     return {
       resource: {
-        todoListTableData: [
+        models: [
             {
             title: "Contact Vendor",
             description: "Contact Wi-Fi provider to fix the internet issue.",
@@ -32,7 +41,15 @@ export default {
             description: "Buy a new table for tenant that is broken.",
             done: false
             }
-        ]
+        ],
+        data: {
+          currentPage: 1,
+          total: 0,
+          from: 0,
+          to: 0,
+          perPage: 10,
+          links: []
+        }
       },
     };
   },

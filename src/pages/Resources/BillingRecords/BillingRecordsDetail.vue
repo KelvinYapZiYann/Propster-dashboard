@@ -14,6 +14,7 @@
     ></base-detail-list>
 
     <billing-payment-index-component
+      :isBillingRecordsPayment="true"
       :resource="billingPaymentResource"
       @getResource="getResource"
       :query="{

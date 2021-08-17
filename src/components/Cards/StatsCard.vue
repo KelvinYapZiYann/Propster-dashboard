@@ -1,12 +1,17 @@
 <template>
   <card class="card-stats" :show-footer-line="true">
     <div class="row">
-      <div class="col-5" v-if="$slots.icon || icon">
+      <div class="col-5 col-xl-3 col-lg-3 col-md-4 col-sm-5" v-if="$slots.icon || icon">
         <div class="info-icon text-center" :class="`icon-${type}`">
           <slot name="icon"><i :class="icon"></i></slot>
         </div>
       </div>
-      <div class="col-7" v-if="$slots.content || title || subTitle">
+      <!-- <div class="col-5" v-if="$slots.icon || icon">
+        <div class="info-icon text-center" :class="`icon-${type}`">
+          <slot name="icon"><img :src="image" alt="" v-if="image"></slot>
+        </div>
+      </div> -->
+      <div class="col-7 col-xl-9 col-lg-9 col-md-8 col-sm-7" v-if="$slots.content || title || subTitle">
         <div class="numbers">
           <slot>
             <p v-if="subTitle" class="card-category">{{ subTitle }}</p>
@@ -35,7 +40,8 @@ export default {
     },
     icon: String,
     title: String,
-    subTitle: String
+    subTitle: String,
+    image: String
   }
 };
 </script>

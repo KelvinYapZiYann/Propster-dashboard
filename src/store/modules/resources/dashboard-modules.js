@@ -4,7 +4,8 @@ import errorHandlingService from '@/store/services/error-handling-service';
 const state = {
     general: {},
     rental: {},
-    overdueTenantList: []
+    overdueTenantListModels: [],
+    overdueTenantListData: {},
 };
 
 const mutations = {
@@ -19,14 +20,24 @@ const mutations = {
         }
     },
     SET_OVERDUE_TENANT_LIST: (state, response) => {
-        response.forEach(function (item, index) {
+        response.data.forEach(function (item, index) {
             let fields = item.fields;
             let obj = {};
             for (let key in fields) {
                 obj[key] = fields[key];
             }
-            state.overdueTenantList.push(obj);
+            state.overdueTenantListModels.push(obj);
           })
+        state.overdueTenantListData = {
+            'canAdd': response.meta.canAdd,
+            // 'currentPage': response.meta.current_page,
+            // 'from': response.meta.from,
+            // 'to': response.meta.to,
+            // 'total': response.meta.total,
+            // 'perPage': response.meta.per_page,
+            // 'links': response.meta.links,
+            // 'meta': response.meta
+        }
     },
 };
 
@@ -60,7 +71,7 @@ const actions = {
     getOverdueTenantList({commit, dispatch}) {
         return service.getOverdueTenantList()
         .then((response) => {
-            commit('SET_OVERDUE_TENANT_LIST', response.data);
+            commit('SET_OVERDUE_TENANT_LIST', response);
         })
         .catch((e) => {
             try {
@@ -75,7 +86,8 @@ const actions = {
 const getters = {
     general: state => state.general,
     rental: state => state.rental,
-    overdueTenantList: state => state.overdueTenantList,
+    overdueTenantListModels: state => state.overdueTenantListModels,
+    overdueTenantListData: state => state.overdueTenantListData,
 };
 
 const store = {

@@ -14,7 +14,7 @@
             </base-input>
           </div>
         </div> -->
-        <div class="table-responsive">
+        <div class="table-responsive custom-table-height">
           <base-table
             :data="resource.models"
             :columns="table.columns"
@@ -25,7 +25,7 @@
           >
           </base-table>
         </div>
-        <!-- <div
+        <div
           slot="footer"
           class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
         >
@@ -43,7 +43,7 @@
             type="info"
           >
           </base-pagination>
-        </div> -->
+        </div>
       </card>
     </div>
   </div>
@@ -82,7 +82,7 @@ export default {
       type: Object,
       required: true,
       default: {
-        models: [{}],
+        models: [],
         data: {
           currentPage: 1,
           total: 0,
@@ -128,10 +128,10 @@ export default {
         loader: 'spinner',
       });
         try {
-            await this.$store.dispatch('tenant/get', pageId).then(() => {
-                this.resource.models = this.$store.getters["tenant/models"];
-                this.resource.data = Object.assign({}, this.$store.getters["tenant/data"]);
-            });
+          await this.$store.dispatch('dashboard/getOverdueTenantList', {}).then(() => {
+            this.resource.models = this.$store.getters["dashboard/overdueTenantListModels"]
+            this.resource.data = this.$store.getters["dashboard/overdueTenantListModels"]
+          });
         } catch (e) {
           this.$notify({
             message: errorHandlingService.displayAlertFromServer(e),
@@ -156,4 +156,14 @@ export default {
 };
 </script>
 <style>
+.custom-table-height {
+  min-height: 500px;
+}
+@media (max-width:991px) {
+  .custom-table-height {
+    min-height: 10px;
+  }
+}
+
+
 </style>

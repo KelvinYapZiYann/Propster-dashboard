@@ -49,6 +49,7 @@
         ></billing-record-index-component>
 
         <billing-payment-index-component
+          :isBillingRecordsPayment="false"
           :resource="billingPaymentResource"
           :query="{
             tenantId: this.tenantId,

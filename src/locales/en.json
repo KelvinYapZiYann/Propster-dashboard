@@ -182,7 +182,8 @@
     "featureDeveloping": "This feature is still being developed. Please stay tuned.",
 
     "logoutText": "Are you sure to logout?",
-    "facebookMessengerAlert": "Feel free to give us a feedback. We will attend to you ASAP!"
+    "facebookMessengerAlert": "Feel free to give us a feedback. We will attend to you ASAP!",
+    "pieChartNoValueAlert": "There is no value."
   },
   "component": {
     "search": "Search",

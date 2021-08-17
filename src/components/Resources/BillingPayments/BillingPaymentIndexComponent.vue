@@ -8,6 +8,7 @@
             @click="addModel"
             class="mt-3"
             type="info"
+            v-if="!isBillingRecordsPayment"
           >{{$t('component.add')}} {{$t('sidebar.oneTimeBillingRecords')}}</base-button>
         </div>
         <!-- <div class="row">
@@ -133,6 +134,11 @@ export default {
           links: []
         }
       },
+    },
+    isBillingRecordsPayment: {
+      type: Boolean,
+      required: true,
+      default: false
     },
     query: {
       type: Object,

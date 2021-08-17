@@ -12,9 +12,9 @@
             {{$t('component.add')}} {{$t('dashboard.todoList')}}
           </base-button>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive custom-body-height">
           <base-table 
-            :data="tableData" 
+            :data="resource.models" 
             thead-classes="text-primary"
             :disableView="true"
             v-on:edit-details="editDetails"
@@ -36,26 +36,56 @@
             </template>
           </base-table>
         </div>
+        <div
+          slot="footer"
+          class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
+        >
+          <div class="">
+            <p class="card-category">
+              {{$t('component.showing')}} {{ resource.data.from ? resource.data.from : "0" }} {{$t('component.to')}} {{ resource.data.to ? resource.data.to : "0" }} {{$t('component.of')}} {{ resource.data.total }} {{$t('component.entries')}}
+            </p>
+          </div>
+          <base-pagination
+            class="pagination-no-border"
+            v-model="resource.data.currentPage"
+            :per-page="resource.data.perPage"
+            :total="resource.data.total"
+            @input="handlePagination"
+            type="info"
+          >
+          </base-pagination>
+        </div>
       </card>
     </div>
   </div>
 </template>
 <script>
 
-import {BaseButton, BaseCheckbox, BaseTable, Card} from "@/components";
+import {BaseButton, BaseCheckbox, BaseTable, BasePagination, Card} from "@/components";
 
 export default {
   components: {
     BaseButton,
     BaseTable,
     BaseCheckbox,
+    BasePagination,
     Card
   },
   props: {
-    tableData: {
-      type: Array,
+    resource: {
+      type: Object,
       required: true,
-      default: [],
+      default: {
+        models: [],
+        data: {
+          currentPage: 1,
+          total: 0,
+          from: 0,
+          to: 0,
+          perPage: 10,
+          links: []
+        }
+      },
       description: "Task List Table Data"
     }
   },
@@ -96,6 +126,27 @@ export default {
     },
     addModel() {
 
+    },
+    async handlePagination(pageId) {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
+        try {
+          // await this.$store.dispatch('dashboard/getOverdueTenantList', {}).then(() => {
+          //   this.resource.models = this.$store.getters["dashboard/overdueTenantListModels"]
+          //   this.resource.data = this.$store.getters["dashboard/overdueTenantListModels"]
+          // });
+        } catch (e) {
+          this.$notify({
+            message: errorHandlingService.displayAlertFromServer(e),
+            icon: 'tim-icons icon-bell-55',
+            type: 'danger'
+          });
+        } finally {
+          loader.hide();
+        }
     }
   }
 
@@ -112,5 +163,14 @@ export default {
 }
 .disabled .text-muted {
   color: #b7babb !important;
+}
+
+.custom-body-height {
+  min-height: 350px;
+}
+@media (max-width:991px) {
+  .custom-body-height {
+    min-height: 10px;
+  }
 }
 </style>
