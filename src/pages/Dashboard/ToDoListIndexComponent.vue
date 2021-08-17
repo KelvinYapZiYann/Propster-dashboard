@@ -62,6 +62,7 @@
 <script>
 
 import {BaseButton, BaseCheckbox, BaseTable, BasePagination, Card} from "@/components";
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -91,6 +92,13 @@ export default {
   },
   methods: {
     editDetails(id) {
+      swal({
+        title: this.$t('alert.notEditable'),
+        text: this.$t('alert.dummyData'),
+        buttonsStyling: false,
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "error",
+      });
       // router.push({
       //   name: "Edit Assets",
       //   params: {
@@ -100,6 +108,13 @@ export default {
       // });
     },
     deleteDetails(id) {
+      swal({
+        title: this.$t('alert.notDeletable'),
+        text: this.$t('alert.dummyData'),
+        buttonsStyling: false,
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "error",
+      });
       // if (id == null) {
       //   this.$notify({
       //     message:'Server error del id == null',
@@ -125,7 +140,13 @@ export default {
       // }
     },
     addModel() {
-
+      swal({
+        title: this.$t('alert.todoListFailedAdded'),
+        text: this.$t('alert.featureDeveloping'),
+        buttonsStyling: false,
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "error",
+      });
     },
     async handlePagination(pageId) {
       let loader = this.$loading.show({

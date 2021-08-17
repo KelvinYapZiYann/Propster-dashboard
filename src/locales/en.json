@@ -183,7 +183,12 @@
 
     "logoutText": "Are you sure to logout?",
     "facebookMessengerAlert": "Feel free to give us a feedback. We will attend to you ASAP!",
-    "pieChartNoValueAlert": "There is no data."
+    "pieChartNoValueAlert": "There is no data.",
+
+    "todoListFailedAdded": "To-Do List is Failed to be Added",
+    "notEditable": "Not Editable",
+    "notDeletable": "Not Deletable",
+    "dummyData": "This is just a dummy data for displaying purpose."
   },
   "component": {
     "search": "Search",
