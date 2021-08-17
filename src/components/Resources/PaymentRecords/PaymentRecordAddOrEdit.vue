@@ -254,6 +254,25 @@ export default {
       this.$emit('submit', formData)
     },
     translateModel() {
+      if (this.query) {
+        if (this.query.billingPaymentId) {
+          return {
+            // recipient_type: this.resource.model.recipient.recipient_type,
+            recipient_type: "LANDLORD",
+            recipient_id: this.resource.model.recipient ? this.resource.model.recipient.id : '',
+            // sender_type: this.resource.model.sender.sender_type,
+            sender_type: "TENANT",
+            sender_id: this.resource.model.sender ? this.resource.model.sender.id : '',
+            asset_id: this.resource.model.asset.id,
+            payment_description: this.resource.model.payment_description,
+            payment_method: this.resource.model.payment_method,
+            payment_type: this.query ? this.query.paymentType : this.resource.model.payment_type,
+            amount: this.query ? this.query.amount : this.resource.model.amount,
+            is_reference_only: this.resource.model.is_reference_only == null ? false : this.resource.model.is_reference_only,
+            billing_record_payment_id: this.query.billingPaymentId,
+          }
+        }
+      }
       return {
         // recipient_type: this.resource.model.recipient.recipient_type,
         recipient_type: "LANDLORD",

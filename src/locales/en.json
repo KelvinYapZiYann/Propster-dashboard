@@ -183,7 +183,7 @@
 
     "logoutText": "Are you sure to logout?",
     "facebookMessengerAlert": "Feel free to give us a feedback. We will attend to you ASAP!",
-    "pieChartNoValueAlert": "There is no value."
+    "pieChartNoValueAlert": "There is no data."
   },
   "component": {
     "search": "Search",

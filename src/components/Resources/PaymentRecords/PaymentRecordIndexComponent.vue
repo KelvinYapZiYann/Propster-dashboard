@@ -229,6 +229,7 @@ export default {
                     assetId: this.$props.query ? this.$props.query.assetId : null,
                     paymentType: this.$props.query ? this.$props.query.paymentType : null,
                     amount: this.$props.query ? this.$props.query.amount : null,
+                    billingPaymentId: this.$props.query ? this.$props.query.billingPaymentId : null
                   },
                   params: {
                     previousRoute: this.$router.currentRoute.fullPath
@@ -252,6 +253,7 @@ export default {
             assetId: this.$props.query ? this.$props.query.assetId : null,
             paymentType: this.$props.query ? this.$props.query.paymentType : null,
             amount: this.$props.query ? this.$props.query.amount : null,
+            billingPaymentId: this.$props.query ? this.$props.query.billingPaymentId : null
           },
           params: {
             previousRoute: this.$router.currentRoute.fullPath
