@@ -75,6 +75,12 @@
               path: '/todo-list'
             }"
           ></sidebar-link>
+          <sidebar-link
+            :link="{
+              name: $t('topbar.changeRole'),
+              path: '/select-role'
+            }"
+          ></sidebar-link>
         </sidebar-link>
         <li class="align-bottom">
           <a href="javascript:void(0)" class="nav-link " @click="logout">

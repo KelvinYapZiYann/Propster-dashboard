@@ -90,7 +90,8 @@
           <drop-down>
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <div class="photo" :title="userFullname">
-                <img src="@/assets/img/anime3.png" alt="Profile Photo" />
+                <img v-if="userGender == 'FEMALE'" src="@/assets/img/anime6.png" alt="Profile Photo" />
+                <img v-else src="@/assets/img/anime3.png" alt="Profile Photo" />
               </div>
               <b class="caret d-none d-lg-block d-xl-block"></b>
               <p class="d-lg-none">
@@ -171,13 +172,15 @@ export default {
           link: "https://propster.io/api/dashboard/notifications/5"
         },
       ],
-      userFullname: this.$store.getters["users/model"].full_name
+      userFullname: this.$store.getters["users/model"].full_name,
+      userGender: this.$store.getters["users/model"].gender,
     };
   },
   mounted() {
     if (!this.$store.getters["users/model"].full_name) {
       this.$store.dispatch('users/get').then(() => {
         this.userFullname = this.$store.getters["users/model"].full_name;
+        this.userGender = this.$store.getters["users/model"].gender;
       });
     }
   },
