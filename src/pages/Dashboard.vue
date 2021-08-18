@@ -294,6 +294,7 @@ import TenantEmpty from "@/components/Resources/Tenants/TenantEmpty";
 
 // import TaskList from "./Dashboard/TaskList";
 import ToDoListIndexComponent from "./Dashboard/ToDoListIndexComponent";
+import swal from "sweetalert2";
 
 export default {
   components: {
@@ -466,6 +467,16 @@ export default {
           this.resource.assetsValueList.models = this.$store.getters["asset/models"]
           this.resource.assetsValueList.data = Object.assign({}, this.$store.getters["asset/data"]);
           this.doesAssetExist = this.$store.getters["asset/models"].length > 0;
+          if (!this.doesAssetExist) {
+            swal({
+              title: this.$t('dashboard.welcome'),
+              text: this.$t('dashboard.welcomeText'),
+              buttonsStyling: false,
+              confirmButtonClass: "btn btn-info btn-fill",
+              confirmButtonText: this.$t('component.gotIt'),
+              type: "success",
+            });
+          }
 
           this.resource.rentalRateList.models = this.$store.getters["asset/models"];
             for (let i = 0; i < this.resource.rentalRateList.models.length; i++) {

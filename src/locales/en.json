@@ -112,6 +112,8 @@
     "december": "Dec"
   },
   "dashboard": {
+    "welcome": "Welcome",
+    "welcomeText": "Welcome to Propster.io. It is our honour to serve you. If you have any inquiry or feedback, please leave us a message using the Facebook Messenger at the bottom right. We will attend to you ASAP! Thank you!",
     "overdueIncome": "Overdue Income",
     "overdueIncomeDesc": "Income (Rent & Other) that have already been due over the due date (incl. of Grace Period).",
     "upcomingIncome": "Upcoming Income",
@@ -212,6 +214,7 @@
     "save": "Save",
     "yes": "Yes",
     "no": "No",
+    "gotIt": "Got It!",
 
     "showing": "Showing",
     "to": "To",
