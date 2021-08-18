@@ -13,14 +13,15 @@
         :class="[
           `nav-pills-${type}`,
           { 'nav-pills-icons': square },
-          { 'flex-column': vertical },
           { 'justify-content-center': centered },
           tabNavClasses
         ]"
       >
+      <!-- { 'flex-column': vertical }, -->
         <li
           v-for="tab in tabs"
           class="nav-item active"
+          :class="tabNavButtonClasses"
           data-toggle="tab"
           role="tablist"
           aria-expanded="true"
@@ -94,6 +95,10 @@ export default {
       default: ""
     },
     tabNavClasses: {
+      type: [String, Object],
+      default: ""
+    },
+    tabNavButtonClasses: {
       type: [String, Object],
       default: ""
     },

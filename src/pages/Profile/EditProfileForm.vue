@@ -1,6 +1,7 @@
 <template>
   <card>
     <template slot="header">
+      <h3 class="card-title text-left" v-if="addOrEdit == 'Add'">{{$t('alert.firstTimeProfileTitle')}}</h3>
       <h5 class="title">{{addOrEdit == 'Edit' ? $t('component.edit') + ' ' : ''}}{{$t('sidebar.userProfile')}}</h5>
     </template>
     <div class="row">

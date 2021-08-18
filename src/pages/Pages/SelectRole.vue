@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class=" col-md-6 ml-auto mr-auto">
+    <div class=" col-md-10 ml-auto mr-auto">
         <card>
           <template slot="header">
             <!-- <h5 class="card-category text-left">Before we start..</h5> -->
@@ -8,15 +8,17 @@
           </template>
           <tabs
               type="info"
-              tabNavWrapperClasses="col-lg-3 col-md-6"
-              tabContentClasses="col-md-8"
+              tabNavWrapperClasses="col-12"
+              tabNavButtonClasses="col-lg-3 col-md-6 col-sm-6"
+              tabContentClasses="col-12 mt-5"
               vertical
               square
               class="row text-left"
           >
             <tab-pane>
               <span slot="label" @click="selectRole('LANDLORD')">
-                <i class="tim-icons icon-istanbul"></i>{{$t('selectRole.landlord')}}
+                <i class="tim-icons icon-istanbul"></i>
+                  {{$t('selectRole.landlord')}}
               </span>
               {{$t('selectRole.landlordDesc')}}
               <br /><br />
@@ -56,7 +58,6 @@
                 @click="submitRole"
                 slot="footer"
                 type="info"
-                round
                 block
                 size="lg"
             >
@@ -75,16 +76,17 @@
   </div>
 </template>
 <script>
-import {Card} from "@/components/index";
 import formMixin from "@/mixins/form-mixin";
 import ValidationError from "@/components/ValidationError.vue";
-import { BaseCheckbox, BaseInput } from "@/components/index";
 import router from "@/router";
 import errorHandlingService from "@/store/services/error-handling-service";
 
 import {
+  Card,
   TabPane,
   Tabs,
+  BaseCheckbox, 
+  BaseInput
 } from "@/components/index";
 
 export default {

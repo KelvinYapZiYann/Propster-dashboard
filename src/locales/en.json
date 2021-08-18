@@ -196,7 +196,9 @@
     "notEditableText": "This data is not editable for now. Please contact us for details.",
     "notDeletable": "Not Deletable",
     "notDeletableText": "This data is not deletable for now. Please contact us for details.",
-    "dummyData": "This is just a dummy data for displaying purpose."
+    "dummyData": "This is just a dummy data for displaying purpose.",
+
+    "firstTimeProfileTitle": "Please Fill Up Your Basic Info"
   },
   "component": {
     "search": "Search",

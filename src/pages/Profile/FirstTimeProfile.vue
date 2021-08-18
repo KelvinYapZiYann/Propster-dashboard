@@ -46,7 +46,7 @@
       }
     },
     mounted() {
-      
+
     },
     methods: {
         async handleSubmit(userData) {
@@ -70,6 +70,20 @@
                   });
                   this.resetApiValidation();
                   this.$router.push({name: "Select Role"});
+                 }).catch((e)=> {
+                   if (e.response.data.message) {
+                    if (e.response.data.message == 'profile already filled.') {
+                      this.resetApiValidation();
+                      this.$router.push({name: "Select Role"});
+                      return;
+                    }
+                  }
+                  this.$notify({
+                    message: errorHandlingService.displayAlertFromServer(e),
+                    icon: 'tim-icons icon-bell-55',
+                    type: 'danger'
+                  });
+                  this.setApiValidation(e.response.data.errors);
                  });
               });
             } catch (e) {
