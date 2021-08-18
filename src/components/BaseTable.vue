@@ -8,10 +8,11 @@
     </tr>
     </thead>
     <tbody :class="tbodyClasses">
-    <tr v-for="(item, index) in data" :key="index">
+    <tr v-for="(item, index) in data" :key="index" :class="{viewableRow: !disableView}">
       <slot :row="item">
         <td v-for="(column, index) in columns"
             :key="index"
+            @click="showDetails(item.id)"
             >
             <!-- v-if="hasValue(item, index)" -->
           {{itemValue(item, index)}}
@@ -181,7 +182,9 @@ export default {
       return '-';
     },
     showDetails: function (id) {
-      this.$emit('show-details', id)
+      if (!this.disableView) {
+        this.$emit('show-details', id)
+      }
     },
     editDetails: function (id) {
       this.$emit('edit-details', id)
@@ -193,4 +196,10 @@ export default {
 };
 </script>
 <style>
+.viewableRow {
+  cursor: pointer;
+}
+.viewableRow:hover {
+  background-color: #1d8cf411;
+}
 </style>
