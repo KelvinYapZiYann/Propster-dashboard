@@ -30,8 +30,8 @@
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
-            :disableDelete="true"
           >
+          <!-- :disableDelete="true" -->
           </base-table>
           <div
             slot="footer"
@@ -127,29 +127,36 @@ export default {
       });
     },
     deleteDetails(id) {
-      if (id == null) {
-        this.$notify({
-          message:'Server error del id == null',
-          icon: 'tim-icons icon-bell-55',
-          type: 'danger'
-        });
-      } else {
-        try {
-          this.$store.dispatch('asset/remove', id)
-          this.$notify({
-            message:'Successfully Deleted',
-            icon: 'tim-icons icon-bell-55',
-            type: 'success'
-          });
-          this.getResource();
-        } catch (e) {
-          this.$notify({
-            message:'Server error when del',
-            icon: 'tim-icons icon-bell-55',
-            type: 'danger'
-          });
-        }
-      }
+      swal({
+        title: this.$t('alert.notDeletable'),
+        text: this.$t('alert.notDeletableText'),
+        buttonsStyling: false,
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "error",
+      });
+      // if (id == null) {
+      //   this.$notify({
+      //     message:'Server error del id == null',
+      //     icon: 'tim-icons icon-bell-55',
+      //     type: 'danger'
+      //   });
+      // } else {
+      //   try {
+      //     this.$store.dispatch('asset/remove', id)
+      //     this.$notify({
+      //       message:'Successfully Deleted',
+      //       icon: 'tim-icons icon-bell-55',
+      //       type: 'success'
+      //     });
+      //     this.getResource();
+      //   } catch (e) {
+      //     this.$notify({
+      //       message:'Server error when del',
+      //       icon: 'tim-icons icon-bell-55',
+      //       type: 'danger'
+      //     });
+      //   }
+      // }
     },
     addModel() {
       if (!this.resource.data.canAdd) {

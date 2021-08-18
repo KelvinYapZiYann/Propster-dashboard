@@ -148,7 +148,7 @@ export default {
       notifications: [
         {
           id: 1,
-          title: "Notification 1 email sent testing testing testing testing",
+          title: "Notification 1 email sent",
           link: "https://propster.io/api/dashboard/notifications/1"
         },
         {

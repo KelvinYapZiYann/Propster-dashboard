@@ -55,9 +55,9 @@
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
-            :disableDelete="true"
+            v-on:delete-details="deleteDetails"
           >
-          <!-- v-on:delete-details="deleteDetails" -->
+          <!-- :disableDelete="true" -->
           </base-table>
           <div
             slot="footer"
@@ -188,7 +188,14 @@ export default {
         }
       });
     },
-    // deleteDetails(id) {
+    deleteDetails(id) {
+      swal({
+        title: this.$t('alert.notDeletable'),
+        text: this.$t('alert.notDeletableText'),
+        buttonsStyling: false,
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "error",
+      });
     //   if (id == null) {
         // this.$notify({
         //   message: errorHandlingService.displayAlertFromServer(e),
@@ -212,7 +219,7 @@ export default {
           // });
     //     }
     //   }
-    // },
+    },
     addModel() {
       // if (!this.query) {
       //   swal({

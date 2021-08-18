@@ -187,7 +187,9 @@
 
     "todoListFailedAdded": "To-Do List is Failed to be Added",
     "notEditable": "Not Editable",
+    "notEditableText": "This data is not editable. Please contact us for details.",
     "notDeletable": "Not Deletable",
+    "notDeletableText": "This data is not deletable. Please contact us for details.",
     "dummyData": "This is just a dummy data for displaying purpose."
   },
   "component": {

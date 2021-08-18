@@ -32,17 +32,17 @@
         </div> -->
         <div class="table-responsive">
           <base-table
-            :disableEdit="true"
-            :disableDelete="true"
             :data="resource.models"
             :columns="table.columns"
             :columnsDisplayPrefix="table.columnsDisplayPrefix"
             :columnsDisplayValue="table.columnsDisplayValue"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
+            v-on:edit-details="editDetails"
+            v-on:delete-details="deleteDetails"
           >
-          <!-- v-on:edit-details="editDetails" -->
-          <!-- v-on:delete-details="deleteDetails" -->
+          <!-- :disableEdit="true" -->
+          <!-- :disableDelete="true" -->
           </base-table>
           <div
             slot="footer"
@@ -156,6 +156,24 @@ export default {
           paymentRecordId: id,
           previousRoute: this.$router.currentRoute.fullPath
         }
+      });
+    },
+    editDetails(id) {
+      swal({
+        title: this.$t('alert.notEditable'),
+        text: this.$t('alert.notEditableText'),
+        buttonsStyling: false,
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "error",
+      });
+    },
+    deleteDetails(id) {
+      swal({
+        title: this.$t('alert.notDeletable'),
+        text: this.$t('alert.notDeletableText'),
+        buttonsStyling: false,
+        confirmButtonClass: "btn btn-info btn-fill",
+        type: "error",
       });
     },
     addModel() {
