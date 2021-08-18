@@ -116,7 +116,8 @@ export default {
           billingRecordCreateParam['bill_immediately'] = "1";
         }
         await this.$store.dispatch('billingRecords/create', billingRecordCreateParam).then(() => {
-          this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
+          this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"]);
+          this.resource.model.remind_before_days = 1;
           this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["billingRecords/selector"])
         })
