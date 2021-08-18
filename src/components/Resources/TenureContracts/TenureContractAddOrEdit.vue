@@ -272,6 +272,7 @@ export default {
         }
       } else {
         return {
+          tenant_id: this.resource.model.tenant.id,
           asset_id: this.resource.model.asset.id,
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
