@@ -15,10 +15,10 @@
 
       <h5 class="title"></h5>
       <p class="description">
-        Tier: {{model.tier}}
+        Tier: {{displayTier(model.tier)}}
       </p>
       <p class="description">
-        Current Role: {{model.selected_role}}
+        Current Role: {{displayRole(model.selected_role)}}
       </p>
     </div>
   </card>
@@ -45,6 +45,28 @@ export default {
       default: () => {
         return {};
       }
+    }
+  },
+  methods: {
+    displayTier(tier) {
+      switch (tier) {
+        case "BASIC":
+        case "USER_BASIC":
+          return this.$t("tier.basic");
+        case "PRO":
+        case "USER_PRO":
+          return this.$t("tier.pro");
+      }
+      return this.$t("component.unknown");
+    },
+    displayRole(role) {
+      switch (role) {
+        case "LANDLORD":
+          return this.$t("selectRole.landlord");
+        case "TENANT":
+          return this.$t("selectRole.tenant");
+      }
+      return this.$t("component.unknown");
     }
   }
 };

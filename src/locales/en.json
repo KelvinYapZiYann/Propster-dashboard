@@ -41,6 +41,11 @@
     "aboutUs": "About Us",
     "contactUs": "Contact Us"
   },
+  "tier": {
+    "basic": "Basic",
+    "advanced": "Advanced",
+    "pro": "Pro"
+  },
   "login": {
     "login": "Login",
     "email": "Email",
@@ -213,7 +218,8 @@
     
     "generateReport": "Generate Report",
     "tenantBilling": "Bill this Tenant on rental",
-    "tenantPayment": "Record Payment from this Tenant"
+    "tenantPayment": "Record Payment from this Tenant",
+    "unknown": "Unknown"
   },
   "property": {
     "firstName": "First Name",
