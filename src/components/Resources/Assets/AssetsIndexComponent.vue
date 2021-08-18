@@ -46,6 +46,9 @@
                 {{ row.location_details ? row.location_details.asset_city : '' }}
               </td>
               <td @click="showDetails(row.id)">
+                <base-room-indicator :value="row.number_of_rooms"></base-room-indicator>
+              </td>
+              <td @click="showDetails(row.id)">
                 <base-tenant-indicator :value="row.tenantCount"></base-tenant-indicator>
               </td>
               <!-- <td>
@@ -78,7 +81,7 @@
   </div>
 </template>
 <script>
-import {BaseInput, BaseTable, BasePagination, Card, BaseTenantIndicator } from "@/components";
+import {BaseInput, BaseTable, BasePagination, Card, BaseTenantIndicator, BaseRoomIndicator } from "@/components";
 import router from "@/router";
 import swal from "sweetalert2";
 import errorHandlingService from "@/store/services/error-handling-service";
@@ -89,7 +92,8 @@ export default {
     BaseTable,
     BasePagination,
     Card,
-    BaseTenantIndicator
+    BaseTenantIndicator,
+    BaseRoomIndicator
   },
   data() {
     return {
@@ -99,6 +103,7 @@ export default {
           asset_unit_no: this.$t('property.unitNo'),
           asset_address_line: this.$t('property.addressLine'),
           asset_city: this.$t('property.city'),
+          rooms: this.$t('property.rooms'),
           tenants: this.$t('sidebar.tenants'),
         },
       },

@@ -265,6 +265,7 @@
     "isOccupied": "Is Occupied?",
     "assetType": "Asset Type",
     "numberOfRooms": "Number Of Rooms",
+    "rooms": "Rooms",
     "numberOfBathrooms": "Number Of Bathrooms",
 
     "tenantDetails": "Tenant Details",
