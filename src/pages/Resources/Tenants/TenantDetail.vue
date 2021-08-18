@@ -205,8 +205,11 @@ export default {
         })
 
         await this.$store.dispatch('tenant/getAssets',  this.tenantId).then(() => {
-          this.assetResource.models = this.$store.getters["tenant/assetModels"]
-          this.assetResource.data = Object.assign({}, this.$store.getters["tenant/assetData"])
+          // this.assetResource.models = this.$store.getters["tenant/assetModels"]
+          let models = this.$store.getters["tenant/assetModels"];
+          for (let i = 0; i < models.length; i++) {
+            this.getAssetTenants(models, i, models[i].id);
+          }
         })
 
         await this.$store.dispatch('tenant/getTenureContracts',  this.tenantId).then(() => {
@@ -238,6 +241,23 @@ export default {
         });
       } finally {
         loader.hide();
+      }
+    },
+    async getAssetTenants(models, id, assetId) {
+      try {
+        await this.$store.dispatch('asset/getTenants', assetId).then(() => {
+          models[id]['tenantCount'] = this.$store.getters["asset/tenantData"].total;
+          if (models.length - 1 == id) {
+            this.assetResource.models = models;
+            this.assetResource.data = Object.assign({}, this.$store.getters["tenant/assetData"])
+          }
+        })
+      } catch (e) {
+        this.$notify({
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
       }
     },
     addTenantPaymentRecord() {

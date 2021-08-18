@@ -215,19 +215,29 @@ export default {
               pageId: pageId
             }
             await this.$store.dispatch('tenant/getAssets', param).then(() => {
-              this.resource.models = this.$store.getters["tenant/assetModels"];
-              this.resource.data = Object.assign({}, this.$store.getters["tenant/assetData"]);
+              // this.resource.models = this.$store.getters["tenant/assetModels"];
+              // this.resource.data = Object.assign({}, this.$store.getters["tenant/assetData"]);
+              let models = this.$store.getters["tenant/assetModels"];
+              for (let i = 0; i < models.length; i++) {
+                this.getAssetTenantsFromTenant(models, i, models[i].id);
+              }
             });
           } else {
             await this.$store.dispatch('asset/get', pageId).then(() => {
-              this.resource.models = this.$store.getters["asset/models"];
-              this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+              // this.resource.models = this.$store.getters["asset/models"];
+              let models = this.$store.getters["asset/models"];
+              for (let i = 0; i < models.length; i++) {
+                this.getAssetTenantsFromAsset(models, i, models[i].id);
+              }
             });
           }
         } else {
           await this.$store.dispatch('asset/get', pageId).then(() => {
-            this.resource.models = this.$store.getters["asset/models"];
-            this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+            // this.resource.models = this.$store.getters["asset/models"];
+            let models = this.$store.getters["asset/models"];
+            for (let i = 0; i < models.length; i++) {
+              this.getAssetTenantsFromAsset(models, i, models[i].id);
+            }
           });
         }
       } catch (e) {
@@ -238,6 +248,40 @@ export default {
         });
       } finally {
         loader.hide();
+      }
+    },
+    async getAssetTenantsFromAsset(models, id, assetId) {
+      try {
+        await this.$store.dispatch('asset/getTenants', assetId).then(() => {
+          models[id]['tenantCount'] = this.$store.getters["asset/tenantData"].total;
+          if (models.length - 1 == id) {
+            this.resource.models = models;
+            this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+          }
+        })
+      } catch (e) {
+        this.$notify({
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      }
+    },
+    async getAssetTenantsFromTenant(models, id, assetId) {
+      try {
+        await this.$store.dispatch('asset/getTenants', assetId).then(() => {
+          models[id]['tenantCount'] = this.$store.getters["asset/tenantData"].total;
+          if (models.length - 1 == id) {
+            this.resource.models = models;
+            this.resource.data = Object.assign({}, this.$store.getters["tenant/assetData"]);
+          }
+        })
+      } catch (e) {
+        this.$notify({
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
       }
     }
   },
