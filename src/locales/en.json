@@ -38,7 +38,8 @@
     "changeRole": "Change Role"
   },
   "footer": {
-    "aboutUs": "About Us"
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us"
   },
   "login": {
     "login": "Login",

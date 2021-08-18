@@ -12,11 +12,11 @@
             {{$t('footer.aboutUs')}}
           </a>
         </li>
-        <!-- <li class="nav-item">
-          <a href="javascript:void(0)" class="nav-link">
-            Blog
+        <li class="nav-item">
+          <a href="https://propster.io/collaboration" target="_blank" rel="noopener" class="nav-link">
+            {{$t('footer.contactUs')}}
           </a>
-        </li> -->
+        </li>
       </ul>
       <copyright-ink></copyright-ink>
     </div>
