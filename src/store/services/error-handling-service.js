@@ -5,16 +5,24 @@ function verifyErrorFromServer(e) {
     if (e.response.data.message) {
         switch (e.response.data.message) {
             case 'Unauthenticated.':
-                router.push({path: "/login"});
+                if (router.currentRoute.name != "Login") {
+                    router.push({path: "/login"});
+                }
                 return;
             case 'user email not verified.':
-                router.push({path: "/login"});
+                if (router.currentRoute.name != "Login") {
+                    router.push({path: "/login"});
+                }
                 return;
             case 'user profile is not filled.':
-                router.push({name: "First Time User Profile"});
+                if (router.currentRoute.name != "First Time User Profile") {
+                    router.push({name: "First Time User Profile"});
+                }
                 return;
             case 'Please select a correct role':
-                router.push({path: "/select-role"});
+                if (router.currentRoute.name != "Select Role" && router.currentRoute.name != "First Time User Profile") {
+                    router.push({path: "/select-role"});
+                }
                 // router.push({name: "First Time User Profile"});
                 return;
             // case 'This action is unauthorized.':
