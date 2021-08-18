@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       resource: {
-        models: [{}],
+        models: [],
         data: {}
       },
       userTier: this.$store.getters["users/model"].tier
@@ -55,8 +55,13 @@ export default {
       });
       try {
         await this.$store.dispatch('asset/get', {}).then(() => {
-          this.resource.models = this.$store.getters["asset/models"]
-          this.resource.data = Object.assign({}, this.$store.getters["asset/data"])
+          // this.resource.models = this.$store.getters["asset/models"]
+
+          let models = this.$store.getters["asset/models"];
+
+          for (let i = 0; i < models.length; i++) {
+            this.getAssetTenants(models, i, models[i].id);
+          }
         })
       } catch (e) {
         this.$notify({
@@ -66,6 +71,23 @@ export default {
         });
       } finally {
         loader.hide();
+      }
+    },
+    async getAssetTenants(models, id, assetId) {
+      try {
+        await this.$store.dispatch('asset/getTenants', assetId).then(() => {
+          models[id]['tenantCount'] = this.$store.getters["asset/tenantData"].total;
+          if (models.length - 1 == id) {
+            this.resource.models = models;
+            this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+          }
+        })
+      } catch (e) {
+        this.$notify({
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
       }
     }
   }

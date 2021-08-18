@@ -32,6 +32,26 @@
             v-on:delete-details="deleteDetails"
           >
           <!-- :disableDelete="true" -->
+            <template slot-scope="{ row }">
+              <td @click="showDetails(row.id)">
+                {{ row.asset_nickname }}
+              </td>
+              <td @click="showDetails(row.id)">
+                {{ row.location_details ? row.location_details.asset_unit_no : '' }}
+              </td>
+              <td @click="showDetails(row.id)">
+                {{ row.location_details ? row.location_details.asset_address_line : '' }}
+              </td>
+              <td @click="showDetails(row.id)">
+                {{ row.location_details ? row.location_details.asset_city : '' }}
+              </td>
+              <td @click="showDetails(row.id)">
+                <base-tenant-indicator :value="row.tenantCount"></base-tenant-indicator>
+              </td>
+              <!-- <td>
+                <base-checkbox v-model="row.done"> </base-checkbox>
+              </td> -->
+            </template>
           </base-table>
           <div
             slot="footer"
@@ -58,7 +78,7 @@
   </div>
 </template>
 <script>
-import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
+import {BaseInput, BaseTable, BasePagination, Card, BaseTenantIndicator } from "@/components";
 import router from "@/router";
 import swal from "sweetalert2";
 import errorHandlingService from "@/store/services/error-handling-service";
@@ -68,7 +88,8 @@ export default {
     BaseInput,
     BaseTable,
     BasePagination,
-    Card
+    Card,
+    BaseTenantIndicator
   },
   data() {
     return {
@@ -78,6 +99,7 @@ export default {
           asset_unit_no: this.$t('property.unitNo'),
           asset_address_line: this.$t('property.addressLine'),
           asset_city: this.$t('property.city'),
+          tenants: this.$t('sidebar.tenants'),
         },
       },
       searchQuery: "",
@@ -89,7 +111,7 @@ export default {
       type: Object,
       required: true,
       default: {
-        models: [{}],
+        models: [],
         data: {
           canAdd: false,
           currentPage: 1,

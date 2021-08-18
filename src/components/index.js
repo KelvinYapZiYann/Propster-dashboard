@@ -37,6 +37,7 @@ import Badge from "./Badge";
 import BaseSelectorInput from "@/components/Inputs/BaseSelectorInput";
 import ValidationError from "@/components/ValidationError";
 import TransactionSection from "@/components/Resources/TransactionSection";
+import BaseTenantIndicator from "@/components/Resources/Tenants/BaseTenantIndicator";
 
 export {
   Card,
@@ -77,5 +78,6 @@ export {
   Badge,
   BaseSelectorInput,
   ValidationError,
-  TransactionSection
+  TransactionSection,
+  BaseTenantIndicator
 };
