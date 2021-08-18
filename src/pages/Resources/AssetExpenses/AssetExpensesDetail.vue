@@ -11,6 +11,8 @@
       :category="$t('property.assetExpenseDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
+      :detailDisplayValue="table.detailDisplayValue"
+      :detailDisplayPrefix="table.detailDisplayPrefix"
       thead-classes="text-primary"
     ></base-detail-list>
     <card v-show="showMedia">
@@ -54,6 +56,51 @@ export default {
           amount: this.$t('property.amount'),
           payment_method:this.$t('property.paymentMethod'),
           payment_type: this.$t('property.paymentType'),
+        },
+        detailDisplayValue: {
+          payment_type: {
+            APPLIANCES: "Appliances",
+            BILL_ELECTRICITY: "Electricity bill",
+            BILL_GAS: "Gas bill",
+            BILL_INSURANCE: "Insurance Bill",
+            BILL_INTERNET: " Internet bill",
+            BILL_MANAGEMENT: "Management fee",
+            BILL_REPAIR: "Repair Bill",
+            BILL_SINKING_FUND: "Sinking fund",
+            BILL_TV_PROGRAMME: "TV Programme bill",
+            BILL_WATER: "Water bill",
+            DEPOSIT: "Deposit",
+            FURNITURE: "Furniture",
+            LATE_FEE_PENALTY: "Late Fee Penalty",
+            LOAN_INSTALLMENT: "Loan Installment",
+            MAINTENANCE_COST: "Maintenance cost",
+            OTHERS: "Others",
+            PARKING_RENTAL: "Parking Rental",
+            RENOVATION: "Renovation",
+            RENTAL: "Rental",
+            TAX_CUKAI_PINTU: "Cukai Pintu",
+            TAX_CUKAI_TANAH: "Cukai Tanah",
+          },
+          payment_method: {
+            BANK_TRANSFER: "Bank Transfer",
+            CASH: "Cash",
+            CREDIT_CARD: "Credit Card",
+            EWALLET_C2B: "E-Wallet(C2B)",
+            EWALLET_P2P: "E-Wallet(P2P)",
+          },
+          status: {
+            RECEIVED: "Received",
+            AWAITING_ACKNOWLEDGEMENT: "Awaiting Acknowledgement",
+            PROCESSING: "Processing",
+            CREATED: "Created",
+          },
+          is_seen: {
+            true: "Seen",
+            false: "Not Seen",
+          }
+        },
+        detailDisplayPrefix: {
+          amount: "RM",
         },
       },
       dropzoneOptions: {
