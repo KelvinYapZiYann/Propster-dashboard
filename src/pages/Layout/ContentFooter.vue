@@ -9,12 +9,17 @@
         </li> -->
         <li class="nav-item">
           <a href="https://propster.io/about-us" target="_blank" rel="noopener" class="nav-link">
-            {{$t('footer.aboutUs')}}
+            <i class="fas fa-address-card"></i> {{$t('footer.aboutUs')}}
           </a>
         </li>
         <li class="nav-item">
           <a href="https://propster.io/collaboration" target="_blank" rel="noopener" class="nav-link">
-            {{$t('footer.contactUs')}}
+            <i class="fas fa-phone"></i> {{$t('footer.contactUs')}}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="https://www.facebook.com/Propster.io" target="_blank" rel="noopener" class="nav-link">
+            <i class="fab fa-facebook-f"></i> {{$t('footer.facebook')}}
           </a>
         </li>
       </ul>

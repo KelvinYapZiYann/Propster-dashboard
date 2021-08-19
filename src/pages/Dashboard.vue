@@ -250,8 +250,8 @@
               </div>
 
               <div class="col-6">
-                <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}</p>
-                <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}</p>
+                <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}: 3</p>
+                <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}: {{resource.assetsVacancy ? resource.assetsVacancy.currentTenants : ''}}</p>
               </div>
             </div>
           </card>

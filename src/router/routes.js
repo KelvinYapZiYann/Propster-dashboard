@@ -70,6 +70,8 @@ const ProfileEdit = () =>
   import(/* webpackChunkName: "pages" */ "@/pages/Profile/ProfileEdit.vue");
 const ToDoList = () =>
   import(/* webpackChunkName: "pages" */ "@/pages/Dashboard/ToDoList.vue");
+const Roadmap = () =>
+  import(/* webpackChunkName: "pages" */ "@/pages/Pages/Roadmap.vue");
 
 // const Pricing = () =>
 //     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Pricing.vue");
@@ -587,6 +589,12 @@ const routes = [
         path: "todo-list",
         name: "ToDo List",
         component: ToDoList,
+        meta: { middleware: auth },
+      },
+      {
+        path: "roadmap",
+        name: "Roadmap",
+        component: Roadmap,
         meta: { middleware: auth },
       },
       // {

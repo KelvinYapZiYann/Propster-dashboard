@@ -39,7 +39,8 @@
   },
   "footer": {
     "aboutUs": "About Us",
-    "contactUs": "Contact Us"
+    "contactUs": "Contact Us",
+    "facebook": "Facebook"
   },
   "tier": {
     "basic": "Basic",
@@ -110,6 +111,21 @@
     "october": "Oct",
     "november": "Nov",
     "december": "Dec"
+  },
+  "roadmap": {
+    "title": "Roadmap",
+    "planning": "Planning",
+    "planningText": "The idea of Propster.io has been come out at April 2021 from our team. Propster.io will be all-in-one property management tool that includes managing property, rental, tenants, vendor, and generating dashboard and report.",
+    "webBasedReportingTools": "Web Based Reporting Tools",
+    "webBasedReportingToolsText": "Web Based Reporting Tools",
+    "mobileAppDeployment": "Mobile Application Deployment",
+    "mobileAppDeploymentText": "Mobile Application Deployment",
+    "vendorRecruitmentPropertyInsight": "Vendor Recruitment & Property Insight",
+    "vendorRecruitmentPropertyInsightText": "Vendor Recruitment and Property Insight",
+    "rentalRewardSystem": "Rental Reward System",
+    "rentalRewardSystemText": "Rental Reward System",
+    "customerServicesOpsTeam": "Customer Services Operation Team",
+    "customerServicesOpsTeamText": "Customer Services Operation Team"
   },
   "dashboard": {
     "welcome": "Welcome",
@@ -187,7 +203,7 @@
     "givenDataIsInvalid": "Given data is invalid. Please check the input field(s).",
     "actionIsUnauthorized": "Oops! Something wrong. Please refresh the page.",
 
-    "featureDeveloping": "This feature is still being developed. Please stay tuned.",
+    "featureDeveloping": "This feature is still being developed. Please stay tuned or contact us for more details.",
 
     "logoutText": "Are you sure to logout?",
     "facebookMessengerAlert": "Feel free to give us a feedback. We will attend to you ASAP!",

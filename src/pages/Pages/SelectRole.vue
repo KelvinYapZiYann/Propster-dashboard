@@ -112,7 +112,7 @@ export default {
     async submitRole() {
       if (this.selectedRole != 'LANDLORD') {
         this.$notify({
-          message: 'This role is not yet developed. Please stay tuned.',
+          message: 'This role is not yet developed. Please stay tuned or contact us for more details.',
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });

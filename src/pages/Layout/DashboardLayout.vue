@@ -81,6 +81,12 @@
               path: '/select-role'
             }"
           ></sidebar-link>
+          <sidebar-link
+            :link="{
+              name: $t('roadmap.title'),
+              path: '/roadmap'
+            }"
+          ></sidebar-link>
         </sidebar-link>
         <li class="align-bottom">
           <a href="javascript:void(0)" class="nav-link " @click="logout">
