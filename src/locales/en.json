@@ -33,6 +33,7 @@
     "todoList": "To-Do List"
   },
   "topbar": {
+    "messages": "Messages",
     "notifications": "Notifications",
     "logout": "Logout",
     "changeRole": "Change Role"
@@ -125,7 +126,8 @@
     "rentalRewardSystem": "Rental Reward System",
     "rentalRewardSystemText": "Rental Reward System",
     "customerServicesOpsTeam": "Customer Services Operation Team",
-    "customerServicesOpsTeamText": "Customer Services Operation Team"
+    "customerServicesOpsTeamText": "Customer Services Operation Team",
+    "toTheMoon": "TO THE MOON!!!"
   },
   "dashboard": {
     "welcome": "Welcome",

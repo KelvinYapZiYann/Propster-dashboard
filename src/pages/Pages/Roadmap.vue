@@ -103,6 +103,7 @@
         </time-line>
       </div>
     </div>
+    <div class="text-center"><h3 class="title">{{$t('roadmap.toTheMoon')}}</h3></div>
   </div>
 </template>
 <script>

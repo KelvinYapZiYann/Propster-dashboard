@@ -65,12 +65,39 @@
               href="javascript:void(0)"
               data-toggle="dropdown"
               class="dropdown-toggle nav-link"
+              :title="$t('topbar.messages')"
+            >
+              <div class="notification d-none d-lg-block d-xl-block" v-if="messages.length > 0"></div>
+              <i class="fa fa-comments text-muted"></i>
+              <p class="d-lg-none text-left">
+                {{$t('topbar.messages')}}
+              </p>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
+              <li class="nav-link" v-for="(value, key) in messages" :key="key">
+                <a :href="value.link" class="nav-item dropdown-item"
+                  >{{value.title}}</a
+                >
+              </li>
+              <div class="dropdown-divider"></div>
+              <li class="nav-link">
+                <router-link class="nav-item dropdown-item" to="/messages" v-slot="{ navigate, href }" custom>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">All Messages</a>
+                </router-link>
+              </li>
+            </ul>
+          </drop-down>
+          <drop-down>
+            <a
+              href="javascript:void(0)"
+              data-toggle="dropdown"
+              class="dropdown-toggle nav-link"
               :title="$t('topbar.notifications')"
             >
               <div class="notification d-none d-lg-block d-xl-block" v-if="notifications.length > 0"></div>
               <i class="fa fa-bell text-muted"></i>
               <p class="d-lg-none text-left">
-                Notifications
+                {{$t('topbar.notifications')}}
               </p>
             </a>
             <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
@@ -145,6 +172,33 @@ export default {
       searchQuery: "",
       showMenu: false,
       hasNotification: false,
+      messages: [
+        {
+          id: 1,
+          title: "Message 1 email sent",
+          link: "https://propster.io/api/dashboard/message/1"
+        },
+        {
+          id: 2,
+          title: "Message 2 email sent",
+          link: "https://propster.io/api/dashboard/message/2"
+        },
+        {
+          id: 3,
+          title: "Message 3 email sent",
+          link: "https://propster.io/api/dashboard/message/3"
+        },
+        {
+          id: 4,
+          title: "Message 1 email sent",
+          link: "https://propster.io/api/dashboard/message/4"
+        },
+        {
+          id: 5,
+          title: "Message 1 email sent",
+          link: "https://propster.io/api/dashboard/message/5"
+        },
+      ],
       notifications: [
         {
           id: 1,
