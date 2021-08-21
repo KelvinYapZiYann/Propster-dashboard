@@ -107,9 +107,9 @@
               </div>
 
               <div class="col-6">
-                <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.collectedRent')}}: RM{{resource.rental ? resource.rental.collected_rent : ''}}</p>
-                <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.overdueRent')}}: RM{{resource.rental ? resource.rental.overdue_rent : ''}}</p>
-                <p class="category text-left"><i class="tim-icons icon-tag text-light"></i> {{$t('dashboard.upcomingRent')}}: RM{{resource.rental ? resource.rental.upcoming_rent : ''}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.collectedRent')}}: RM{{resource.rental ? resource.rental.collected_rent : ''}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.overdueRent')}}: RM{{resource.rental ? resource.rental.overdue_rent : ''}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-light"></i> {{$t('dashboard.upcomingRent')}}: RM{{resource.rental ? resource.rental.upcoming_rent : ''}}</p>
               </div>
             </div>
           </card>
@@ -117,13 +117,13 @@
       </div>
 
       <div class="row">
-        <div class="col-xl-6 col-lg-6 mr-auto">
+        <div class="col-xl-8 col-lg-6 mr-auto">
           <overdue-tenants-index-component
             :resource="resource.overdueTenantList"
             @getResource="getResource"
           ></overdue-tenants-index-component>
         </div>
-        <div class="col-xl-6 col-lg-6 mr-auto">
+        <div class="col-xl-4 col-lg-6 mr-auto">
           <div class="row">
             <div class="col-12">
               <div class="pro-feature alert alert-danger">
@@ -216,8 +216,8 @@
             </h5>
             <div class="row ml-3">
               <div class="col-12">
-                <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}}</p>
-                <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.expenses')}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.expenses')}}</p>
               </div>
             </div>
             <div class="chart-area">
@@ -250,8 +250,8 @@
               </div>
 
               <div class="col-6">
-                <p class="category text-left"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}: 3</p>
-                <p class="category text-left"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}: {{resource.assetsVacancy ? resource.assetsVacancy.currentTenants : ''}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}: 3</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}: {{resource.assetsVacancy ? resource.assetsVacancy.currentTenants : ''}}</p>
               </div>
             </div>
           </card>
@@ -527,5 +527,8 @@ export default {
 .chart-header {
   font-size: 1.0625rem !important;
   font-weight: 100;
+}
+.category.chart-text {
+  font-size: 1em;
 }
 </style>
