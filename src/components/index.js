@@ -39,6 +39,7 @@ import ValidationError from "@/components/ValidationError";
 import TransactionSection from "@/components/Resources/TransactionSection";
 import BaseTenantIndicator from "@/components/Resources/Tenants/BaseTenantIndicator";
 import BaseRoomIndicator from "@/components/Resources/Assets/BaseRoomIndicator";
+import TutorialComponent from "@/components/Tutorial/TutorialComponent";
 
 export {
   Card,
@@ -82,4 +83,5 @@ export {
   TransactionSection,
   BaseTenantIndicator,
   BaseRoomIndicator,
+  TutorialComponent
 };

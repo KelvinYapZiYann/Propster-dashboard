@@ -264,6 +264,7 @@
         :resource="resource.assetsValueList"
       >
       </asset-empty>
+      <tutorial-component></tutorial-component>
     </div>
     <div v-if="doesAssetExist && !doesTenantExist">
       <tenant-empty
@@ -291,6 +292,7 @@ import errorHandlingService from "@/store/services/error-handling-service";
 
 import AssetEmpty from "@/components/Resources/Assets/AssetEmpty";
 import TenantEmpty from "@/components/Resources/Tenants/TenantEmpty";
+import TutorialComponent from "@/components/Tutorial/TutorialComponent";
 
 // import TaskList from "./Dashboard/TaskList";
 import ToDoListIndexComponent from "./Dashboard/ToDoListIndexComponent";
@@ -310,7 +312,8 @@ export default {
     // TimeLine,
     // TimeLineItem,
     // TaskList,
-    ToDoListIndexComponent
+    ToDoListIndexComponent,
+    TutorialComponent
   },
   data() {
     return {

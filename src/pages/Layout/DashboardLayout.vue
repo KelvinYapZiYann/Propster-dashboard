@@ -87,6 +87,12 @@
               path: '/roadmap'
             }"
           ></sidebar-link>
+          <sidebar-link
+            :link="{
+              name: $t('tutorial.title'),
+              path: '/tutorial'
+            }"
+          ></sidebar-link>
         </sidebar-link>
         <li class="align-bottom">
           <a href="javascript:void(0)" class="nav-link " @click="logout">

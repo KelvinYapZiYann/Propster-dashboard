@@ -129,6 +129,10 @@
     "customerServicesOpsTeamText": "Customer Services Operation Team",
     "toTheMoon": "TO THE MOON!!!"
   },
+  "tutorial": {
+    "title": "Tutorial",
+    "learnTutorialText": "Check out this tutorial for learning to use Propster.io."
+  },
   "dashboard": {
     "welcome": "Welcome",
     "welcomeText": "Welcome to Propster.io. It is our honour to serve you. If you have any inquiry or feedback, please leave us a message using the Facebook Messenger at the bottom right. We will attend to you ASAP! Thank you!",
