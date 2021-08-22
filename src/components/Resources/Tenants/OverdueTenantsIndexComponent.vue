@@ -69,8 +69,8 @@ export default {
           last_name: this.$t('property.lastName'),
           email: this.$t('property.email'),
           phone_number: this.$t('property.phoneNumber'),
-          due_date: this.$t('property.dueDate'),
-          due_amount: this.$t('property.dueAmount')
+          latest_due_date: this.$t('property.dueDate'),
+          total_due_amount: this.$t('property.dueAmount')
         }
       },
       searchQuery: "",
@@ -130,7 +130,7 @@ export default {
         try {
           await this.$store.dispatch('dashboard/getOverdueTenantList', {}).then(() => {
             this.resource.models = this.$store.getters["dashboard/overdueTenantListModels"]
-            this.resource.data = this.$store.getters["dashboard/overdueTenantListModels"]
+            this.resource.data = Object.assign({}, this.$store.getters["dashboard/overdueTenantListData"]);
           });
         } catch (e) {
           this.$notify({

@@ -20,6 +20,7 @@ const mutations = {
         }
     },
     SET_OVERDUE_TENANT_LIST: (state, response) => {
+        state.overdueTenantListModels = [];
         response.data.forEach(function (item, index) {
             let fields = item.fields;
             let obj = {};

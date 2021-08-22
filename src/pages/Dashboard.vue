@@ -464,7 +464,7 @@ export default {
         });
         await this.$store.dispatch('dashboard/getOverdueTenantList', {}).then(() => {
           this.resource.overdueTenantList.models = this.$store.getters["dashboard/overdueTenantListModels"]
-          this.resource.overdueTenantList.data = this.$store.getters["dashboard/overdueTenantListData"]
+          this.resource.overdueTenantList.data = Object.assign({}, this.$store.getters["dashboard/overdueTenantListData"]);
         });
         await this.$store.dispatch('asset/get', {}).then(() => {
           this.resource.assetsValueList.models = this.$store.getters["asset/models"]
