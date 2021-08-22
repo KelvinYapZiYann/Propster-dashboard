@@ -13,7 +13,9 @@
           </div>
           <span class="col-sm-9 mb-3">
             <!-- v-if="hasValue(model, key)" -->
-            {{ itemValue(model, key) }}
+            <span :class="itemClass(key)">
+              {{ itemValue(model, key) }}
+            </span>
           </span>
         </div>
       </div>
@@ -67,6 +69,11 @@
         type: Object,
         default: () => {},
         description: "Detail display suffix"
+      },
+      detailClass: {
+        type: Object,
+        default: () => {},
+        description: "Detail class"
       },
     },
     computed: {
@@ -158,6 +165,14 @@
           }
         }
         return '-';
+      },
+      itemClass(column) {
+        if (this.detailClass) {
+          if (this.detailClass[column]) {
+            return this.detailClass[column];
+          }
+        }
+        return '';
       },
       // showDetails: function (id) {
       //   this.$emit('show-details', id)

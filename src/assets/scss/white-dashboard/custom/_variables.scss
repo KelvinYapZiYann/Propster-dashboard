@@ -847,7 +847,8 @@ $breadcrumb-active-color:           $black-states !default;
 
 // Badges
 
-$badge-font-size:                   $font-size-xs !default;
+$badge-font-size:                   0.875rem !default;
+// $badge-font-size:                   $font-size-xs !default;
 $badge-font-weight:                 $font-weight-extra-bold !default;
 $badge-padding-y:                   .25rem !default;
 $badge-padding-x:                   .5rem !default;

@@ -13,6 +13,7 @@
       :headers="table.detailHeaders"
       :detailDisplayValue="table.detailDisplayValue"
       :detailDisplayPrefix="table.detailDisplayPrefix"
+      :detailClass="table.detailClass"
       thead-classes="text-primary"
     ></base-detail-list>
 
@@ -105,6 +106,9 @@ export default {
         detailDisplayPrefix: {
           amount: "RM",
         },
+        detailClass: {
+          status: ""
+        }
       },
       dropzoneOptions: {
         url: 'https://httpbin.org/post',
@@ -140,6 +144,11 @@ export default {
         this.resource.model = await this.$store.getters["paymentRecords/model"]
         this.resource.data = await this.$store.getters["paymentRecords/data"]
         this.loadAttachment();
+        if (this.resource.model.status == 'RECEIVED') {
+          this.table.detailClass.status = "badge badge-pill badge-success";
+        } else if (this.resource.model.status == 'AWAITING_ACKNOWLEDGEMENT') {
+          this.table.detailClass.status = "badge badge-pill badge-warning";
+        }
       } catch (e) {
         console.log(e);
         this.$notify({

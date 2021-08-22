@@ -118,7 +118,4 @@ export default {
 };
 </script>
 <style>
-.badge {
-  font-size: 0.875rem;
-}
 </style>

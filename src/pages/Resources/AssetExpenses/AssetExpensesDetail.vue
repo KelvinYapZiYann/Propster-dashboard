@@ -13,6 +13,7 @@
       :headers="table.detailHeaders"
       :detailDisplayValue="table.detailDisplayValue"
       :detailDisplayPrefix="table.detailDisplayPrefix"
+      :detailClass="table.detailClass"
       thead-classes="text-primary"
     ></base-detail-list>
     <card v-show="showMedia">
@@ -56,6 +57,7 @@ export default {
           amount: this.$t('property.amount'),
           payment_method:this.$t('property.paymentMethod'),
           payment_type: this.$t('property.paymentType'),
+          status: this.$t('property.status'),
         },
         detailDisplayValue: {
           payment_type: {
@@ -102,6 +104,9 @@ export default {
         detailDisplayPrefix: {
           amount: "RM",
         },
+        detailClass: {
+          status: ""
+        }
       },
       dropzoneOptions: {
         url: 'https://httpbin.org/post',
@@ -136,6 +141,11 @@ export default {
         this.resource.model = await this.$store.getters["assetExpenses/model"]
         this.resource.data = await this.$store.getters["assetExpenses/data"]
         this.loadAttachment();
+        if (this.resource.model.status == 'RECEIVED') {
+          this.table.detailClass.status = "badge badge-pill badge-success";
+        } else if (this.resource.model.status == 'AWAITING_ACKNOWLEDGEMENT') {
+          this.table.detailClass.status = "badge badge-pill badge-warning";
+        }
       } catch (e) {
         this.$notify({
           message: errorHandlingService.displayAlertFromServer(e),
