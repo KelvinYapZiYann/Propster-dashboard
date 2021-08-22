@@ -8,7 +8,7 @@
     </tr>
     </thead>
     <tbody :class="tbodyClasses">
-    <tr v-for="(item, index) in data" :key="index" :class="{viewableRow: !disableView}">
+    <tr v-for="(item, index) in data" :key="index" :class="{viewableRow: !disableView}" :style="rowColor[index]">
       <slot :row="item">
         <td v-for="(column, index) in columns"
             :key="index"
@@ -82,6 +82,11 @@ export default {
       default: () => {},
       description: "Table columns display prefix"
     },
+    rowColor: {
+      type: Array,
+      default: () => [],
+      description: "Table row color"
+    },
     data: {
       type: Array,
       default: () => [],
@@ -118,7 +123,7 @@ export default {
   computed: {
     tableClass() {
       return this.type && `table-${this.type}`;
-    }
+    },
   },
   methods: {
     hasValue(item, column) {
@@ -191,7 +196,10 @@ export default {
     },
     deleteDetails: function (id) {
       this.$emit('delete-details', id)
-    }
+    },
+    // rowColorCallback: function (item, index) {
+    //   this.$emit('rowColorCallback', item, index);
+    // }
   }
 };
 </script>

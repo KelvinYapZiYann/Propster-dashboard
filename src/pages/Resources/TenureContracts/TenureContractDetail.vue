@@ -28,6 +28,7 @@
             assetId: resource.model.asset ? resource.model.asset.id : null,
             tenureContractId: resource.model.id,
           }"
+          :tableData="{'rowColor': rowColor}"
         ></billing-record-index-component>
 
         <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
@@ -54,6 +55,7 @@ export default {
         model: {},
         data: {}
       },
+      rowColor: [],
       billingRecordResource: {
         models: [{}],
         data: {},
@@ -114,6 +116,16 @@ export default {
         await this.$store.dispatch('tenureContract/getBillingRecords', this.tenureContractId).then(() => {
           this.billingRecordResource.models = this.$store.getters["tenureContract/billingRecordModels"]
           this.billingRecordResource.data = Object.assign({}, this.$store.getters["tenureContract/billingRecordData"])
+          this.rowColor = [];
+          let today = new Date();
+          for (let i = 0; i < this.billingRecordResource.models.length; i++) {
+            let date = new Date(this.billingRecordResource.models[i].billing_end_at);
+            if (date > today) {
+              this.rowColor.push({});
+            } else {
+              this.rowColor.push({'backgroundColor': '#00000011'});
+            }
+          }
         })
       } catch (e) {
         this.$notify({

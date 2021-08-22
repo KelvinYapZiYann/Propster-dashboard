@@ -37,6 +37,7 @@
             :columns="table.columns"
             :columnsDisplayPrefix="table.columnsDisplayPrefix"
             :columnsDisplayValue="table.columnsDisplayValue"
+            :rowColor="tableData.rowColor"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
@@ -151,7 +152,14 @@ export default {
     query: {
       type: Object,
       // default: {},
-    }
+    },
+    tableData: {
+      type: Object,
+      required: true,
+      default: () => {
+        rowColor: []
+      }
+    },
   },
   mounted() {
     this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
@@ -321,6 +329,17 @@ export default {
             await this.$store.dispatch('tenureContract/getBillingRecords', param).then(() => {
               this.resource.models = this.$store.getters["tenureContract/billingRecordModels"];
               this.resource.data = Object.assign({}, this.$store.getters["tenureContract/billingRecordData"]);
+              let tmpRowColor = [];
+              let today = new Date();
+              for (let i = 0; i < this.resource.models.length; i++) {
+                let date = new Date(this.resource.models[i].billing_end_at);
+                if (date > today) {
+                  tmpRowColor.push({});
+                } else {
+                  tmpRowColor.push({'backgroundColor': '#00000011'});
+                }
+              }
+              this.tableData.rowColor = tmpRowColor;
             });
           } else if (this.$props.query.tenantId) {
             var param = {
@@ -329,18 +348,52 @@ export default {
             }
             await this.$store.dispatch('tenant/getBillingRecords', param).then(() => {
               this.resource.models = this.$store.getters["tenant/billingRecordModels"];
-              this.resource.data = Object.assign({}, this.$store.getters["tenant/billingRecordData"]);
+              this.resource.data = Object.assign({}, this.$store.getters["tenant/billingRecordData"])
+              ;
+              let tmpRowColor = [];
+              let today = new Date();
+              for (let i = 0; i < this.resource.models.length; i++) {
+                let date = new Date(this.resource.models[i].billing_end_at);
+                if (date > today) {
+                  tmpRowColor.push({});
+                } else {
+                  tmpRowColor.push({'backgroundColor': '#00000011'});
+                }
+              }
+              this.tableData.rowColor = tmpRowColor;
             });
           } else {
             await this.$store.dispatch('billingRecords/get', pageId).then(() => {
               this.resource.models = this.$store.getters["billingRecords/models"];
               this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"]);
+              let tmpRowColor = [];
+              let today = new Date();
+              for (let i = 0; i < this.resource.models.length; i++) {
+                let date = new Date(this.resource.models[i].billing_end_at);
+                if (date > today) {
+                  tmpRowColor.push({});
+                } else {
+                  tmpRowColor.push({'backgroundColor': '#00000011'});
+                }
+              }
+              this.tableData.rowColor = tmpRowColor;
             });
           }
         } else {
           await this.$store.dispatch('billingRecords/get', pageId).then(() => {
             this.resource.models = this.$store.getters["billingRecords/models"];
             this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"]);
+            let tmpRowColor = [];
+            let today = new Date();
+            for (let i = 0; i < this.resource.models.length; i++) {
+              let date = new Date(this.resource.models[i].billing_end_at);
+              if (date > today) {
+                tmpRowColor.push({});
+              } else {
+                tmpRowColor.push({'backgroundColor': '#00000011'});
+              }
+            }
+            this.tableData.rowColor = tmpRowColor;
           });
         }
       } catch (e) {

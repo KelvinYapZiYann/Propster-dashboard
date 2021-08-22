@@ -30,6 +30,7 @@
           }"
           :assetId="assetId"
           :tenantId="tenantId"
+          :tableData="{'rowColor': tenureContractRowColor}"
           @assetIdChange="assetIdChange"
           @tenantIdChange="tenantIdChange"
         ></tenure-contract-index-component>
@@ -46,6 +47,7 @@
             tenantId: this.tenantId,
             assetId: this.assetId,
           }"
+          :tableData="{'rowColor': billingRecordRowColor}"
         ></billing-record-index-component>
 
         <billing-payment-index-component
@@ -117,6 +119,8 @@ export default {
         data: {},
         selector: {}
       },
+      tenureContractRowColor: [],
+      billingRecordRowColor: [],
       billingRecordResource: {
         models: [],
         data: {},
@@ -215,11 +219,31 @@ export default {
         await this.$store.dispatch('tenant/getTenureContracts',  this.tenantId).then(() => {
           this.tenureContractResource.models = this.$store.getters["tenant/tenureContractModels"]
           this.tenureContractResource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"])
+          this.tenureContractRowColor = [];
+          let today = new Date();
+          for (let i = 0; i < this.tenureContractResource.models.length; i++) {
+            let date = new Date(this.tenureContractResource.models[i].tenure_end_date);
+            if (date > today) {
+              this.tenureContractRowColor.push({});
+            } else {
+              this.tenureContractRowColor.push({'backgroundColor': '#00000011'});
+            }
+          }
         })
 
         await this.$store.dispatch('tenant/getBillingRecords', this.tenantId).then(() => {
           this.billingRecordResource.models = this.$store.getters["tenant/billingRecordModels"]
           this.billingRecordResource.data = Object.assign({}, this.$store.getters["tenant/billingRecordData"])
+          this.billingRecordRowColor = [];
+          let today = new Date();
+          for (let i = 0; i < this.billingRecordResource.models.length; i++) {
+            let date = new Date(this.billingRecordResource.models[i].billing_end_at);
+            if (date > today) {
+              this.billingRecordRowColor.push({});
+            } else {
+              this.billingRecordRowColor.push({'backgroundColor': '#00000011'});
+            }
+          }
         })
 
         await this.$store.dispatch('tenant/getBillingPayments', this.tenantId).then(() => {

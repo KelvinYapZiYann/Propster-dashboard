@@ -52,12 +52,14 @@
             :data="resource.models"
             :columns="table.columns"
             :columnsDisplayPrefix="table.columnsDisplayPrefix"
+            :rowColor="tableData.rowColor"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
           >
           <!-- :disableDelete="true" -->
+          <!-- @rowColorCallback="rowColorCallback" -->
           </base-table>
           <div
             slot="footer"
@@ -110,7 +112,7 @@ export default {
         },
         columnsDisplayPrefix: {
           monthly_rental_amount: "RM"
-        }
+        },
       },
       searchQuery: "",
       searchQueryTimeout: null,
@@ -121,7 +123,7 @@ export default {
       type: Object,
       required: true,
       default: {
-        models: [{}],
+        models: [],
         data: {
           canAdd: false,
           currentPage: 1,
@@ -134,6 +136,13 @@ export default {
         selector: {}
       },
       description: "Resource info"
+    },
+    tableData: {
+      type: Object,
+      required: true,
+      default: () => {
+        rowColor: []
+      }
     },
     query: {
       type: Object,
@@ -328,17 +337,50 @@ export default {
             await this.$store.dispatch('tenant/getTenureContracts', param).then(() => {
               this.resource.models = this.$store.getters["tenant/tenureContractModels"];
               this.resource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"]);
+              let tmpRowColor = [];
+              let today = new Date();
+              for (let i = 0; i < this.resource.models.length; i++) {
+                let date = new Date(this.resource.models[i].tenure_end_date);
+                if (date > today) {
+                  tmpRowColor.push({});
+                } else {
+                  tmpRowColor.push({'backgroundColor': '#00000011'});
+                }
+              }
+              this.tableData.rowColor = tmpRowColor;
             });
           } else {
             await this.$store.dispatch('tenureContract/get', pageId).then(() => {
               this.resource.models = this.$store.getters["tenureContract/models"];
               this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"]);
+              let tmpRowColor = [];
+              let today = new Date();
+              for (let i = 0; i < this.resource.models.length; i++) {
+                let date = new Date(this.resource.models[i].tenure_end_date);
+                if (date > today) {
+                  tmpRowColor.push({});
+                } else {
+                  tmpRowColor.push({'backgroundColor': '#00000011'});
+                }
+              }
+              this.tableData.rowColor = tmpRowColor;
             });
           }
         } else {
           await this.$store.dispatch('tenureContract/get', pageId).then(() => {
             this.resource.models = this.$store.getters["tenureContract/models"];
             this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"]);
+            let tmpRowColor = [];
+            let today = new Date();
+            for (let i = 0; i < this.resource.models.length; i++) {
+              let date = new Date(this.resource.models[i].tenure_end_date);
+              if (date > today) {
+                tmpRowColor.push({});
+              } else {
+                tmpRowColor.push({'backgroundColor': '#00000011'});
+              }
+            }
+            this.tableData.rowColor = tmpRowColor;
           });
         }
         // await this.$store.dispatch('tenureContract/create', pageId).then(() => {
@@ -361,7 +403,11 @@ export default {
     filterTenantId(value) {
       console.log('filtering by tenant id');
       console.log(`asset id = ${this.assetId}, tenant id = ${value}`);
-    }
+    },
+    // rowColorCallback(item, index) {
+    //   console.log(item);
+    //   console.log(index);
+    // }
   },
   watch: {
     searchQuery(value) {

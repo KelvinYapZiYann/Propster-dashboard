@@ -4,6 +4,7 @@
       :resource="resource"
       :tenantId="tenantId"
       :assetId="assetId"
+      :tableData="{'rowColor': rowColor}"
       @getResource="getResource"
       @assetIdChange="assetIdChange"
       @tenantIdChange="tenantIdChange"
@@ -23,10 +24,11 @@ export default {
   data() {
     return {
       resource: {
-        models: [{}],
+        models: [],
         data: {},
         selector: {}
       },
+      rowColor: [],
       assetId: null,
       tenantId: null,
     };
@@ -45,6 +47,16 @@ export default {
         await this.$store.dispatch('tenureContract/get', {}).then(() => {
           this.resource.models = this.$store.getters["tenureContract/models"]
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
+          this.rowColor = [];
+          let today = new Date();
+          for (let i = 0; i < this.resource.models.length; i++) {
+            let date = new Date(this.resource.models[i].tenure_end_date);
+            if (date > today) {
+              this.rowColor.push({});
+            } else {
+              this.rowColor.push({'backgroundColor': '#00000011'});
+            }
+          }
         })
 
         // await this.$store.dispatch('tenureContract/create', {}).then(() => {
