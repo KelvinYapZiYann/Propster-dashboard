@@ -95,9 +95,12 @@ export default {
           amount: this.$t('property.amount'),
           billing_start_at: this.$t('property.startDate'),
           billing_end_at: this.$t('property.endDate'),
+          next_billing_amount: this.$t('property.nextBillingAmount'),
+          next_billing_date: this.$t('property.nextBillingDate'),
         },
         columnsDisplayPrefix: {
-          amount: "RM"
+          amount: "RM",
+          next_billing_amount: "RM"
         },
         columnsDisplayValue: {
           payment_type: {

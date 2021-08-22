@@ -328,6 +328,8 @@
     "endOfMonthBilling": "Bill At End Of Month?",
     "endOfMonthBillingTrue": "End Of Month",
     "endOfMonthBillingFalse": "At The Date Of First Billing",
-    "createdAt": "Created At"
+    "createdAt": "Created At",
+    "nextBillingAmount": "Next Billing Amount",
+    "nextBillingDate": "Next Billing Date"
   }
 }

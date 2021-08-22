@@ -57,6 +57,8 @@ export default {
           end_of_month_billing: this.$t('property.endOfMonthBilling'),
           grace_period_in_days: this.$t('property.gracePeriod'),
           remind_before_days: this.$t('property.remindBefore'),
+          next_billing_amount: this.$t('property.nextBillingAmount'),
+          next_billing_date: this.$t('property.nextBillingDate'),
           // status: this.$t('property.status'),
         },
         detailDisplayValue: {
@@ -90,6 +92,7 @@ export default {
         },
         detailDisplayPrefix: {
           amount: "RM",
+          next_billing_amount: "RM"
         },
         detailDisplaySuffix: {
           grace_period_in_days: " day(s)",
