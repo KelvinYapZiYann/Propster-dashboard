@@ -37,12 +37,13 @@ function getById(Id) {
     });
 }
 
-function create() {
+function create(param) {
   const config = {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-    }
+    },
+    params: param
   };
 
   return axios.get(`${url}/tenure-contracts/create`, config)

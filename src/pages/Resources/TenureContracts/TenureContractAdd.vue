@@ -56,7 +56,7 @@ export default {
         loader: 'spinner',
       });
       try {
-        await this.$store.dispatch('tenureContract/create').then(() => {
+        await this.$store.dispatch('tenureContract/create', {'asset_id': '68'}).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/models"])
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
