@@ -80,7 +80,8 @@ export default {
           asset_nickname: this.$t('property.assetNickname'),
           description: this.$t('property.description'),
           amount: this.$t('property.amount'),
-          payment_type: this.$t('property.paymentType')
+          payment_type: this.$t('property.paymentType'),
+          created_at: this.$t('property.createdAt'),
         },
         columnsDisplayPrefix: {
           amount: "RM"

@@ -327,6 +327,7 @@
     "remindBefore": "Remind Before (Days)",
     "endOfMonthBilling": "Bill At End Of Month?",
     "endOfMonthBillingTrue": "End Of Month",
-    "endOfMonthBillingFalse": "At The Date Of First Billing"
+    "endOfMonthBillingFalse": "At The Date Of First Billing",
+    "createdAt": "Created At"
   }
 }

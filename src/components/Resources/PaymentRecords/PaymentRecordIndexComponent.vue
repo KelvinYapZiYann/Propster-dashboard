@@ -91,7 +91,8 @@ export default {
           payment_description: this.$t('property.description'),
           amount: this.$t('property.amount'),
           status: this.$t('property.status'),
-          payment_method: this.$t('property.paymentMethod')
+          payment_method: this.$t('property.paymentMethod'),
+          created_at: this.$t('property.createdAt')
         },
         columnsDisplayPrefix: {
           amount: "RM"
