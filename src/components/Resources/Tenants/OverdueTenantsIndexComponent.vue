@@ -18,6 +18,7 @@
           <base-table
             :data="resource.models"
             :columns="table.columns"
+            :columnsDisplayPrefix="table.columnsDisplayPrefix"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             :disableEdit="true"
@@ -69,9 +70,12 @@ export default {
           last_name: this.$t('property.lastName'),
           email: this.$t('property.email'),
           phone_number: this.$t('property.phoneNumber'),
+          total_due_amount: this.$t('property.dueAmount'),
           latest_due_date: this.$t('property.dueDate'),
-          total_due_amount: this.$t('property.dueAmount')
-        }
+        },
+        columnsDisplayPrefix: {
+          total_due_amount: "RM"
+        },
       },
       searchQuery: "",
       searchQueryTimeout: null,
