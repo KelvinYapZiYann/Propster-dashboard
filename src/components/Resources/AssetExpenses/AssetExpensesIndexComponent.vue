@@ -27,6 +27,8 @@
             :columns="table.columns"
             :columnsDisplayPrefix="table.columnsDisplayPrefix"
             :columnsDisplayValue="table.columnsDisplayValue"
+            :columnsClass="tableData.columnsClass"
+            :columnsClassColumn="table.columnsClassColumn"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             v-on:delete-details="deleteDetails"
@@ -93,6 +95,9 @@ export default {
         columnsDisplayPrefix: {
           amount: "RM"
         },
+        columnsClassColumn: [
+          "status"
+        ],
         columnsDisplayValue: {
           status: {
             RECEIVED: "Received",
@@ -130,6 +135,13 @@ export default {
         }
       },
       description: "Resource info"
+    },
+    tableData: {
+      type: Object,
+      required: true,
+      default: () => {
+        columnsClass: []
+      }
     },
     query: {
       type: Object,
@@ -234,17 +246,38 @@ export default {
             await this.$store.dispatch('asset/getAssetExpenses', param).then(() => {
               this.resource.models = this.$store.getters["asset/assetExpenseModels"];
               this.resource.data = Object.assign({}, this.$store.getters["asset/assetExpenseData"]);
+              let tmpColumnsClass = [];
+              for (let i = 0; i < this.resource.models.length; i++) {
+                if (this.resource.models[i].status == 'RECEIVED') {
+                  tmpColumnsClass.push('badge badge-pill badge-success');
+                }
+              }
+              this.tableData.columnsClass = tmpColumnsClass;
             });
           } else {
             await this.$store.dispatch('assetExpenses/get', pageId).then(() => {
               this.resource.models = this.$store.getters["assetExpenses/models"];
               this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
+              let tmpColumnsClass = [];
+              for (let i = 0; i < this.resource.models.length; i++) {
+                if (this.resource.models[i].status == 'RECEIVED') {
+                  tmpColumnsClass.push('badge badge-pill badge-success');
+                }
+              }
+              this.tableData.columnsClass = tmpColumnsClass;
             });
           }
         } else {
           await this.$store.dispatch('assetExpenses/get', pageId).then(() => {
             this.resource.models = this.$store.getters["assetExpenses/models"];
             this.resource.data = Object.assign({}, this.$store.getters["assetExpenses/data"]);
+            let tmpColumnsClass = [];
+            for (let i = 0; i < this.resource.models.length; i++) {
+              if (this.resource.models[i].status == 'RECEIVED') {
+                tmpColumnsClass.push('badge badge-pill badge-success');
+              }
+            }
+            this.tableData.columnsClass = tmpColumnsClass;
           });
         }
       } catch (e) {

@@ -42,6 +42,7 @@
         assetId: `${assetId}`,
         assetNickname: resource.model.asset_nickname
       }'
+      :tableData="{'columnsClass': columnsClass}"
    ></asset-expenses-index-component>
 
    <!-- <fab
@@ -102,6 +103,7 @@ export default {
         models: [{}],
         data: {}
       },
+      columnsClass: [],
       tenantResource: {
         models: [{}],
         data: {}
@@ -247,17 +249,28 @@ export default {
         loader: 'spinner',
       });
       try {
-        await this.$store.dispatch('asset/getById', this.assetId)
-        this.resource.model = await this.$store.getters["asset/model"]
-        this.resource.data = await this.$store.getters["asset/data"]
+        await this.$store.dispatch('asset/getById', this.assetId).then(() => {
+          this.resource.model = this.$store.getters["asset/model"]
+          this.resource.data = this.$store.getters["asset/data"]
+        })
 
-        await this.$store.dispatch('asset/getAssetExpenses', this.assetId)
-        this.assetExpensesResource.models = await this.$store.getters["asset/assetExpenseModels"]
-        this.assetExpensesResource.data = await this.$store.getters["asset/assetExpenseData"]
+        await this.$store.dispatch('asset/getAssetExpenses', this.assetId).then(() => {
+          this.assetExpensesResource.models = this.$store.getters["asset/assetExpenseModels"]
+          this.assetExpensesResource.data = this.$store.getters["asset/assetExpenseData"]
+          let tmpColumnsClass = [];
+          for (let i = 0; i < this.assetExpensesResource.models.length; i++) {
+            if (this.assetExpensesResource.models[i].status == 'RECEIVED') {
+              tmpColumnsClass.push('badge badge-pill badge-success');
+            }
+          }
+          this.columnsClass = tmpColumnsClass;
+        });
+        
 
-        await this.$store.dispatch('asset/getTenants', this.assetId)
-        this.tenantResource.models = await this.$store.getters["asset/tenantModels"]
-        this.tenantResource.data = await this.$store.getters["asset/tenantData"]
+        await this.$store.dispatch('asset/getTenants', this.assetId).then(() => {
+          this.tenantResource.models = this.$store.getters["asset/tenantModels"]
+          this.tenantResource.data = this.$store.getters["asset/tenantData"]
+        });
 
         // await this.$store.dispatch('asset/getTenureContracts', this.assetId)
         // this.tenureContractResource.models = await this.$store.getters["asset/tenureContractModels"]

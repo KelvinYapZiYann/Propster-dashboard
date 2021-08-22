@@ -36,6 +36,8 @@
             :columns="table.columns"
             :columnsDisplayPrefix="table.columnsDisplayPrefix"
             :columnsDisplayValue="table.columnsDisplayValue"
+            :columnsClass="tableData.columnsClass"
+            :columnsClassColumn="table.columnsClassColumn"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
@@ -97,6 +99,9 @@ export default {
         columnsDisplayPrefix: {
           amount: "RM"
         },
+        columnsClassColumn: [
+          "status"
+        ],
         columnsDisplayValue: {
           status: {
             RECEIVED: "Received",
@@ -140,6 +145,13 @@ export default {
         }
       },
       description: "Resource info"
+    },
+    tableData: {
+      type: Object,
+      required: true,
+      default: () => {
+        columnsClass: []
+      }
     },
     query: {
       type: Object,
@@ -296,6 +308,15 @@ export default {
             await this.$store.dispatch('billingPayments/getPaymentRecords', param).then(() => {
               this.resource.models = this.$store.getters["billingPayments/paymentRecordModels"];
               this.resource.data = Object.assign({}, this.$store.getters["billingPayments/paymentRecordData"]);
+              let tmpColumnsClass = [];
+              for (let i = 0; i < this.resource.models.length; i++) {
+                if (this.resource.models[i].status == 'RECEIVED') {
+                  tmpColumnsClass.push('badge badge-pill badge-success');
+                } else if (this.resource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
+                  tmpColumnsClass.push('badge badge-pill badge-warning');
+                }
+              }
+              this.tableData.columnsClass = tmpColumnsClass;
             });
           } else if (this.$props.query.tenantId) {
             var param = {
@@ -305,17 +326,44 @@ export default {
             await this.$store.dispatch('tenant/getPaymentRecords', param).then(() => {
               this.resource.models = this.$store.getters["tenant/paymentRecordModels"];
               this.resource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"]);
+              let tmpColumnsClass = [];
+              for (let i = 0; i < this.resource.models.length; i++) {
+                if (this.resource.models[i].status == 'RECEIVED') {
+                  tmpColumnsClass.push('badge badge-pill badge-success');
+                } else if (this.resource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
+                  tmpColumnsClass.push('badge badge-pill badge-warning');
+                }
+              }
+              this.tableData.columnsClass = tmpColumnsClass;
             });
           } else {
             await this.$store.dispatch('paymentRecords/get', pageId).then(() => {
               this.resource.models = this.$store.getters["paymentRecords/models"];
               this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"]);
+              let tmpColumnsClass = [];
+              for (let i = 0; i < this.resource.models.length; i++) {
+                if (this.resource.models[i].status == 'RECEIVED') {
+                  tmpColumnsClass.push('badge badge-pill badge-success');
+                } else if (this.resource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
+                  tmpColumnsClass.push('badge badge-pill badge-warning');
+                }
+              }
+              this.tableData.columnsClass = tmpColumnsClass;
             });
           }
         } else {
           await this.$store.dispatch('paymentRecords/get', pageId).then(() => {
             this.resource.models = this.$store.getters["paymentRecords/models"];
             this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"]);
+            let tmpColumnsClass = [];
+            for (let i = 0; i < this.resource.models.length; i++) {
+              if (this.resource.models[i].status == 'RECEIVED') {
+                tmpColumnsClass.push('badge badge-pill badge-success');
+              } else if (this.resource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
+                  tmpColumnsClass.push('badge badge-pill badge-warning');
+                }
+            }
+            this.tableData.columnsClass = tmpColumnsClass;
           });
         }
       } catch (e) {

@@ -22,6 +22,7 @@
         paymentType: resource.model.payment_type ? resource.model.payment_type : null,
         amount: resource.model.amount ? resource.model.amount : null,
       }"
+      :tableData="{'columnsClass': columnsClass}"
     ></payment-record-index-component>
 
     <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
@@ -48,6 +49,7 @@ export default {
         models: [],
         data: {}
       },
+      columnsClass: [],
       table: {
         detailHeaders: {
           asset_nickname: this.$t('property.assetNickname'),
@@ -119,6 +121,15 @@ export default {
         await this.$store.dispatch('billingPayments/getPaymentRecords', this.$route.params.billingPaymentId).then(() => {
           this.paymentRecordResource.models = this.$store.getters["billingPayments/paymentRecordModels"];
           this.paymentRecordResource.data = Object.assign({}, this.$store.getters["billingPayments/paymentRecordData"]);
+          let tmpColumnsClass = [];
+          for (let i = 0; i < this.paymentRecordResource.models.length; i++) {
+            if (this.paymentRecordResource.models[i].status == 'RECEIVED') {
+              tmpColumnsClass.push('badge badge-pill badge-success');
+            } else if (this.paymentRecordResource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
+              tmpColumnsClass.push('badge badge-pill badge-warning');
+            }
+          }
+          this.columnsClass = tmpColumnsClass;
         });
       } catch (e) {
         this.$notify({

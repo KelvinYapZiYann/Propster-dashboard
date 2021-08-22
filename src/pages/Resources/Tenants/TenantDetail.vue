@@ -65,6 +65,7 @@
             tenantId: this.tenantId,
             assetId: this.assetId,
           }"
+          :tableData="{'columnsClass': columnsClass}"
         ></payment-record-index-component>
 
         <!-- <fab
@@ -135,6 +136,7 @@ export default {
         models: [],
         data: {}
       },
+      columnsClass: [],
       userResource: {
         model: {},
       },
@@ -254,6 +256,15 @@ export default {
         await this.$store.dispatch('tenant/getPaymentRecords',  this.tenantId).then(() => {
           this.paymentRecordResource.models = this.$store.getters["tenant/paymentRecordModels"]
           this.paymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"])
+          let tmpColumnsClass = [];
+          for (let i = 0; i < this.paymentRecordResource.models.length; i++) {
+            if (this.paymentRecordResource.models[i].status == 'RECEIVED') {
+              tmpColumnsClass.push('badge badge-pill badge-success');
+            } else if (this.paymentRecordResource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
+              tmpColumnsClass.push('badge badge-pill badge-warning');
+            }
+          }
+          this.columnsClass = tmpColumnsClass;
         })
 
         this.userResource.model = Object.assign({}, this.$store.getters["users/model"])

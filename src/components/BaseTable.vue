@@ -10,12 +10,14 @@
     <tbody :class="tbodyClasses">
     <tr v-for="(item, index) in data" :key="index" :class="{viewableRow: !disableView}" :style="rowColor[index]">
       <slot :row="item">
-        <td v-for="(column, index) in columns"
-            :key="index"
+        <td v-for="(column, columnKey, i) in columns"
+            :key="i"
             @click="showDetails(item.id)"
             >
             <!-- v-if="hasValue(item, index)" -->
-          {{itemValue(item, index)}}
+            <span :class="itemClass(columnKey, index)">
+              {{itemValue(item, columnKey)}}
+            </span>
         </td>
       </slot>
       <td>
@@ -81,6 +83,16 @@ export default {
       type: Object,
       default: () => {},
       description: "Table columns display prefix"
+    },
+    columnsClass: {
+      type: Array,
+      default: () => [],
+      description: "Table columns class"
+    },
+    columnsClassColumn: {
+      type: Array,
+      default: () => [],
+      description: "Table columns class"
     },
     rowColor: {
       type: Array,
@@ -185,6 +197,16 @@ export default {
         }
       }
       return '-';
+    },
+    itemClass(column, index) {
+      if (this.columnsClassColumn) {
+        for (let i = 0; i < this.columnsClassColumn.length; i++) {
+          if (this.columnsClassColumn[i] == column) {
+            return this.columnsClass[index];
+          }
+        }
+      }
+      return '';
     },
     showDetails: function (id) {
       if (!this.disableView) {

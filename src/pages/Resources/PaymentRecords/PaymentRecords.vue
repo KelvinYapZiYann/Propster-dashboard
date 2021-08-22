@@ -3,6 +3,7 @@
     <payment-record-index-component
       :resource="resource"
       @getResource="getResource"
+      :tableData="{'columnsClass': columnsClass}"
     ></payment-record-index-component>
   </div>
 </template>
@@ -19,7 +20,8 @@ export default {
       resource: {
         models: [{}],
         data: {}
-      }
+      },
+      columnsClass: []
     };
   },
   mounted() {
@@ -39,6 +41,15 @@ export default {
         await this.$store.dispatch('paymentRecords/get', {}).then(() => {
           this.resource.models = this.$store.getters["paymentRecords/models"]
           this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"])
+          let tmpColumnsClass = [];
+          for (let i = 0; i < this.resource.models.length; i++) {
+            if (this.resource.models[i].status == 'RECEIVED') {
+              tmpColumnsClass.push('badge badge-pill badge-success');
+            } else if (this.resource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
+              tmpColumnsClass.push('badge badge-pill badge-warning');
+            }
+          }
+          this.columnsClass = tmpColumnsClass;
         })
       } catch (e) {
         this.$notify({

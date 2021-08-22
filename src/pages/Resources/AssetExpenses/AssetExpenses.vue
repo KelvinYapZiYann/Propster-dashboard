@@ -3,6 +3,7 @@
     <asset-expenses-index-component
       :resource="resource"
       @getResource="getResource"
+      :tableData="{'columnsClass': columnsClass}"
     ></asset-expenses-index-component>
   </div>
 </template>
@@ -20,6 +21,7 @@ export default {
         models: [{}],
         data: {}
       },
+      columnsClass: [],
     };
   },
   mounted() {
@@ -36,6 +38,13 @@ export default {
         await this.$store.dispatch('assetExpenses/get', {})
         this.resource.models = await this.$store.getters["assetExpenses/models"]
         this.resource.data = await this.$store.getters["assetExpenses/data"]
+        let tmpColumnsClass = [];
+        for (let i = 0; i < this.resource.models.length; i++) {
+          if (this.resource.models[i].status == 'RECEIVED') {
+            tmpColumnsClass.push('badge badge-pill badge-success');
+          }
+        }
+        this.columnsClass = tmpColumnsClass;
       } catch (e) {
         this.$notify({
           message: errorHandlingService.displayAlertFromServer(e),
