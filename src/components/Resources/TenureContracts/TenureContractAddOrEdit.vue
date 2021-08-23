@@ -277,7 +277,7 @@ export default {
         return {
           tenant_id: this.tenantId ? this.tenantId : this.resource.model.tenant_id,
           // asset_id: this.assetId ? this.assetId : this.resource.model.asset_id,
-          asset_id: this.$route.query ? this.$route.query.assetId : this.tenureContractCreateResource.model.asset_id,
+          asset_id: this.$route.query.assetId ? this.$route.query.assetId : this.tenureContractCreateResource.model.asset_id,
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
