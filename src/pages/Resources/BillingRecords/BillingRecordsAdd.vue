@@ -26,6 +26,7 @@ import BillingRecordAddOrEdit from "@/components/Resources/BillingRecords/Billin
 // import ValidationError from "@/components/ValidationError.vue";
 import { TransactionSection, ValidationError } from "@/components";
 import errorHandlingService from "@/store/services/error-handling-service";
+import swal from "sweetalert2";
 
 export default {
   mixins: [formMixin],
@@ -263,18 +264,70 @@ export default {
         await this.$store.dispatch('billingRecords/store', {'model': model}).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
           this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
-        })
-        this.$notify({
-          message:'Successfully Added',
-          icon: 'tim-icons icon-bell-55',
-          type: 'success'
         });
         this.resetApiValidation();
-        if (this.previousRoute) {
-          router.push({path: this.previousRoute});
-        } else {
-          router.go(-1);
-        }
+        // if (model.get('payment_type') == 'RENTAL') {
+          swal({
+            title: this.$t('alert.billingRecordSuccessfullyAdded'),
+            text: this.$t('alert.billingRecordSuccessfullyAddedText'),
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: this.$t('component.yes'),
+            cancelButtonText: this.$t('component.no'),
+            cancelButtonClass: "btn btn-info btn-fill",
+            confirmButtonClass: "btn btn-info btn-fill",
+            type: "success",
+          }).then((result) => {
+            if (result.value) {
+              if (
+                router.currentRoute.query.senderType != model.get("sender_type") || 
+                router.currentRoute.query.senderId != model.get("sender_id") || 
+                router.currentRoute.query.recipientType != model.get("recipient_type") || 
+                router.currentRoute.query.recipientId != model.get("recipient_id") || 
+                router.currentRoute.query.assetId != model.get("asset_id") || 
+                router.currentRoute.query.startDate != model.get("billing_start_at") || 
+                router.currentRoute.query.endDate != model.get("billing_end_at")
+              ) {
+                router.push({
+                  name: 'Add Billing Record',
+                  query: {
+                    senderType: "TENANT",
+                    senderId: model.get("sender_id"),
+                    recipientType: "LANDLORD",
+                    recipientId: model.get("recipient_id"),
+                    assetId: model.get("asset_id"),
+                    startDate: model.get("billing_start_at"),
+                    endDate: model.get("billing_end_at"),
+                  },
+                  params: {
+                    previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'
+                  }
+                });
+              } else {
+                this.resource.model.description = "";
+                this.resource.model.amount = "";
+                this.resource.model.payment_type = "";
+              }
+            } else {
+              if (this.previousRoute) {
+                router.push({path: this.previousRoute});
+              } else {
+                router.go(-1);
+              }
+            }
+          });
+        // } else {
+          // this.$notify({
+          //   message:'Successfully Added',
+          //   icon: 'tim-icons icon-bell-55',
+          //   type: 'success'
+          // });
+          // if (this.previousRoute) {
+          //   router.push({path: this.previousRoute});
+          // } else {
+          //   router.go(-1);
+          // }
+        // }
       } catch (e) {
         this.$notify({
           message: errorHandlingService.displayAlertFromServer(e),

@@ -304,6 +304,9 @@ export default {
     // console.log(this.resource.model.payment_description);
     // console.log(this.resource.data);
     // console.log(this.resource.selector);
+    if (this.query.startDate && this.query.endDate) {
+      this.billingDateRange = [this.query.startDate, this.query.endDate];
+    }
     if (this.query.tenureContractId) {
       this.$store.dispatch('tenureContract/getById',  this.query.tenureContractId).then(() => {
         let tmpModel = this.$store.getters["tenureContract/model"];

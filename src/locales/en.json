@@ -191,6 +191,8 @@
     "tenureContractFailedAdded": "Tenure Contract is Failed to be Added",
     "tenureContractFailedAddedText": "There can only be 1 Tenure Contract for each Tenant.",
     "tenureContractFailedAddedTextInTenantDetail": "Tenure Contract can only be added in Tenant Detail.",
+    "billingRecordSuccessfullyAdded": "Billing is Successfully Added",
+    "billingRecordSuccessfullyAddedText": "Do you want to add another Billing (ex. Electricity Bill, Water Bill, Maintenance Fee, etc.) for this tenant right now?",
     "billingRecordFailedAdded": "Billing is Failed to be Added",
     "billingRecordFailedAddedText": "There can only be 1 Billing for each Tenure Contract.",
     "billingRecordFailedAddedTextInTenantDetail": "Billing can only be added in Tenant Detail and Tenure Contract Detail.",
