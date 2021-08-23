@@ -178,38 +178,38 @@ export default {
       });
     },
     // if (router.currentRoute.name == "Billing Records") {
-    //   swal({
+    //   swal.fire({
     //     title: this.$t('alert.billingRecordFailedAdded'),
     //     text: this.$t('alert.billingRecordFailedAddedTextInTenantDetail'),
     //     buttonsStyling: false,
     //     confirmButtonClass: "btn btn-info btn-fill",
-    //     type: "error",
+    //     icon: "error",
     //   });
     //   return;
     // }
     editDetails(id) {
-      swal({
+      swal.fire({
         title: this.$t('alert.notEditable'),
         text: this.$t('alert.notEditableText'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
       });
     },
     deleteDetails(id) {
-      swal({
+      swal.fire({
         title: this.$t('alert.notDeletable'),
         text: this.$t('alert.notDeletableText'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
       });
     },
     addModel() {
       if (this.$props.query ? !this.$props.query.tenantId : true) {
         this.$store.dispatch('asset/get').then(() => {
           if (this.$store.getters["asset/data"].total <= 0) {
-            swal({
+            swal.fire({
               title: this.$t('alert.billingRecordFailedAdded'),
               text: this.$t('alert.noAssetAddingBillingRecord'),
               buttonsStyling: false,
@@ -218,7 +218,7 @@ export default {
               cancelButtonText: this.$t('component.cancel'),
               cancelButtonClass: "btn btn-info btn-fill",
               confirmButtonClass: "btn btn-info btn-fill",
-              type: "error",
+              icon: "error",
             }).then((result) => {
               if (result.value) {
                 this.$router.push({
@@ -232,7 +232,7 @@ export default {
           } else {
             this.$store.dispatch('tenant/get').then(() => {
               if (this.$store.getters["tenant/data"].total <= 0) {
-                swal({
+                swal.fire({
                   title: this.$t('alert.billingRecordFailedAdded'),
                   text: this.$t('alert.noTenantAddingBillingRecord'),
                   buttonsStyling: false,
@@ -241,7 +241,7 @@ export default {
                   cancelButtonText: this.$t('component.cancel'),
                   cancelButtonClass: "btn btn-info btn-fill",
                   confirmButtonClass: "btn btn-info btn-fill",
-                  type: "error",
+                  icon: "error",
                 }).then((result) => {
                   if (result.value) {
                     this.$router.push({
@@ -254,12 +254,12 @@ export default {
                 });
               } else {
                 if (!this.resource.data.canAdd) {
-                  swal({
+                  swal.fire({
                     title: this.$t('alert.billingRecordFailedAdded'),
                     text: this.$t('alert.billingRecordFailedAddedText'),
                     buttonsStyling: false,
                     confirmButtonClass: "btn btn-info btn-fill",
-                    type: "error",
+                    icon: "error",
                   });
                   return;
                 }
@@ -287,12 +287,12 @@ export default {
         });
       } else {
         if (!this.resource.data.canAdd) {
-          swal({
+          swal.fire({
             title: this.$t('alert.billingRecordFailedAdded'),
             text: this.$t('alert.billingRecordFailedAddedText'),
             buttonsStyling: false,
             confirmButtonClass: "btn btn-info btn-fill",
-            type: "error",
+            icon: "error",
           });
           return;
         }

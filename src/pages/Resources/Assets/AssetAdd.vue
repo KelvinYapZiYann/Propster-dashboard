@@ -61,12 +61,12 @@ export default {
         })
       } catch (e) {
         if (!errorHandlingService.checkIfActionAuthorized(e)) {
-          swal({
+          swal.fire({
             title: this.$t('alert.assetFailedAdded'),
             text: this.$t('alert.redirectingToPreviousPage'),
             buttonsStyling: false,
             confirmButtonClass: "btn btn-info btn-fill",
-            type: "error",
+            icon: "error",
           }).then((result) => {
             if (this.previousRoute) {
               router.push({path: this.previousRoute});
@@ -97,7 +97,7 @@ export default {
             this.resource.data = Object.assign({}, this.$store.getters["asset/data"])
           });
           this.resetApiValidation();
-          swal({
+          swal.fire({
             title: this.$t('alert.assetSuccessfullyAdded'),
             text: this.$t('alert.assetSuccessfullyAddedText'),
             buttonsStyling: false,
@@ -106,7 +106,7 @@ export default {
             cancelButtonText: this.$t('component.no'),
             cancelButtonClass: "btn btn-info btn-fill",
             confirmButtonClass: "btn btn-info btn-fill",
-            type: "success",
+            icon: "success",
           }).then((result) => {
             if (result.value) {
               router.push({

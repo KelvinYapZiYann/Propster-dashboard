@@ -86,12 +86,12 @@ export default {
         this.userResource.model = Object.assign({}, this.$store.getters["users/model"]);
       } catch (e) {
         if (!errorHandlingService.checkIfActionAuthorized(e)) {
-          swal({
+          swal.fire({
             title: this.$t('alert.tenureContractFailedAdded'),
             text: this.$t('alert.redirectingToPreviousPage'),
             buttonsStyling: false,
             confirmButtonClass: "btn btn-info btn-fill",
-            type: "error",
+            icon: "error",
           }).then((result) => {
             if (this.previousRoute) {
               router.push({path: this.previousRoute});
@@ -121,7 +121,7 @@ export default {
             this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
             this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
             this.resetApiValidation();
-            swal({
+            swal.fire({
               title: this.$t('alert.tenureContractSuccessfullyAdded'),
               text: this.$t('alert.tenureContractSuccessfullyAddedText'),
               buttonsStyling: false,
@@ -130,7 +130,7 @@ export default {
               cancelButtonText: this.$t('component.no'),
               cancelButtonClass: "btn btn-info btn-fill",
               confirmButtonClass: "btn btn-info btn-fill",
-              type: "success",
+              icon: "success",
             }).then((result) => {
               if (result.value) {
                 router.push({

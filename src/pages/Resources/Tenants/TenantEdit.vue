@@ -70,7 +70,7 @@ export default {
       }
     },
     async handleSubmit(model) {
-      swal({
+      swal.fire({
         title: this.$t('alert.confirmEdit'),
         text: this.$t('alert.confirmEditText'),
         buttonsStyling: false,
@@ -79,7 +79,7 @@ export default {
         cancelButtonText: this.$t('component.no'),
         cancelButtonClass: "btn btn-info btn-fill",
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "info",
+        icon: "info",
       }).then((result) => {
         if (result.value) {
           const tenantId = this.$route.params.tenantId

@@ -159,28 +159,28 @@ export default {
       });
     },
     editDetails(id) {
-      swal({
+      swal.fire({
         title: this.$t('alert.notEditable'),
         text: this.$t('alert.notEditableText'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
       });
     },
     deleteDetails(id) {
-      swal({
+      swal.fire({
         title: this.$t('alert.notDeletable'),
         text: this.$t('alert.notDeletableText'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
       });
     },
     addModel() {
       if (this.$props.query ? !this.$props.query.assetId : true) {
         this.$store.dispatch('asset/get').then(() => {
           if (this.$store.getters["asset/data"].total <= 0) {
-            swal({
+            swal.fire({
               title: this.$t('alert.assetExpenseFailedAdded'),
               text: this.$t('alert.noAssetAddingAssetExpense'),
               buttonsStyling: false,
@@ -189,7 +189,7 @@ export default {
               cancelButtonText: this.$t('component.cancel'),
               cancelButtonClass: "btn btn-info btn-fill",
               confirmButtonClass: "btn btn-info btn-fill",
-              type: "error",
+              icon: "error",
             }).then((result) => {
               if (result.value) {
                 this.$router.push({
@@ -202,12 +202,12 @@ export default {
             });
           } else {
             if (!this.resource.data.canAdd) {
-              swal({
+              swal.fire({
                 title: this.$t('alert.assetExpenseFailedAdded'),
                 text: this.$t('alert.noAssetAddingAssetExpense'),
                 buttonsStyling: false,
                 confirmButtonClass: "btn btn-info btn-fill",
-                type: "error",
+                icon: "error",
               });
               return;
             }

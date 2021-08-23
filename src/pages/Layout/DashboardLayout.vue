@@ -148,7 +148,7 @@ export default {
       }
     },
     async logout() {
-      swal({
+      swal.fire({
         title: this.$t('topbar.logout'),
         text: this.$t('alert.logoutText'),
         buttonsStyling: false,
@@ -157,7 +157,7 @@ export default {
         cancelButtonText: this.$t('component.cancel'),
         cancelButtonClass: "btn btn-info btn-fill",
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "warning",
+        icon: "warning",
       }).then((result) => {
         if (result.value) {
           try {

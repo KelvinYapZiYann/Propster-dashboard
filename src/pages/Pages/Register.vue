@@ -219,12 +219,12 @@ export default {
       try {
         await this.$store.dispatch("register", { user, requestOptions }).then(() => {
           this.resetApiValidation();
-          swal({
+          swal.fire({
             title: this.$t('register.registerSuccessfully'),
             text: this.$t('register.registerSuccessfullyText') + ' ' + this.$t('register.verifyEmail') + ' ' + this.$t('register.moreQuestions'),
             buttonsStyling: false,
             confirmButtonClass: "btn btn-info btn-fill",
-            type: "success",
+            icon: "success",
           }).then((result) => {
             if (this.$store.getters.isAuthenticated) {
               this.$store.dispatch("logout").then(() => {});

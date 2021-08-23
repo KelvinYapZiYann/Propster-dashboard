@@ -471,13 +471,13 @@ export default {
           this.resource.assetsValueList.data = Object.assign({}, this.$store.getters["asset/data"]);
           this.doesAssetExist = this.$store.getters["asset/models"].length > 0;
           if (!this.doesAssetExist) {
-            swal({
+            swal.fire({
               title: this.$t('dashboard.welcome'),
               text: this.$t('dashboard.welcomeText'),
               buttonsStyling: false,
               confirmButtonClass: "btn btn-info btn-fill",
               confirmButtonText: this.$t('component.gotIt'),
-              type: "success",
+              icon: "success",
             });
           }
 

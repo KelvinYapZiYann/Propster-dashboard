@@ -138,7 +138,7 @@ export default {
   methods: {
     async onSelect({ start, end }) {
       // on select we show the Sweet Alert modal with an input
-      let result = await swal({
+      let result = await swal.fire({
         title: "Create an Event",
         html:
           '<div class="form-group">' +

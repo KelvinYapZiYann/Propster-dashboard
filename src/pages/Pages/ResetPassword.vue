@@ -92,12 +92,12 @@ export default {
             password_confirmation: this.model.password_confirmation,
             token: router.currentRoute.params.token
         });
-        swal({
+        swal.fire({
           title: `Success`,
           text: this.$t('resetPassword.resetPasswordSuccessfully'),
           buttonsStyling: false,
           confirmButtonClass: "btn btn-info btn-fill",
-          type: "success"
+          icon: "success"
         }).then(() => {
             router.push({ path: "/login" });
         });

@@ -154,12 +154,12 @@ export default {
       });
     },
     deleteDetails(id) {
-      swal({
+      swal.fire({
         title: this.$t('alert.notDeletable'),
         text: this.$t('alert.notDeletableText'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
       });
       // if (id == null) {
       //   this.$notify({
@@ -187,12 +187,12 @@ export default {
     },
     addModel() {
       if (!this.resource.data.canAdd) {
-        swal({
+        swal.fire({
           title: this.$t('alert.assetFailedAdded'),
           text: this.$t('alert.basicTierAssetCount'),
           buttonsStyling: false,
           confirmButtonClass: "btn btn-info btn-fill",
-          type: "error",
+          icon: "error",
         });
         return;
       }

@@ -131,7 +131,7 @@ export default {
       } catch (e) {
         if (e.response.data.message) {
           if (e.response.data.message == 'user email not verified.') {
-            swal({
+            swal.fire({
               title: `User email is not verified`,
               text: this.$t('register.noVerificationEmail'),
               buttonsStyling: false,
@@ -140,7 +140,7 @@ export default {
               cancelButtonClass: "btn btn-info btn-fill",
               confirmButtonClass: "btn btn-info btn-fill",
               confirmButtonText: this.$t('register.resendVerificationEmail'),
-              type: "info",
+              icon: "info",
               preConfirm: () => {
                 const url = process.env.VUE_APP_API_BASE_URL;
                 return axios({

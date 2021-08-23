@@ -195,7 +195,7 @@ export default {
   },
   methods: {
     handleLike(index, row) {
-      swal({
+      swal.fire({
         title: `You liked ${row.name}`,
         buttonsStyling: false,
         type: "success",
@@ -203,14 +203,14 @@ export default {
       });
     },
     handleEdit(index, row) {
-      swal({
+      swal.fire({
         title: `You want to edit ${row.name}`,
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill"
       });
     },
     handleDelete(index, row) {
-      swal({
+      swal.fire({
         title: "Are you sure?",
         text: `You won't be able to revert this!`,
         type: "warning",
@@ -222,7 +222,7 @@ export default {
       }).then(result => {
         if (result.value) {
           this.deleteRow(row);
-          swal({
+          swal.fire({
             title: "Deleted!",
             text: `You deleted ${row.name}`,
             type: "success",

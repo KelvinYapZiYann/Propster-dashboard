@@ -129,12 +129,12 @@ export default {
         }
       } catch (e) {
         if (!errorHandlingService.checkIfActionAuthorized(e)) {
-          swal({
+          swal.fire({
             title: this.$t('alert.billingRecordFailedAdded'),
             text: this.$t('alert.redirectingToPreviousPage'),
             buttonsStyling: false,
             confirmButtonClass: "btn btn-info btn-fill",
-            type: "error",
+            icon: "error",
           }).then((result) => {
             if (this.previousRoute) {
               router.push({path: this.previousRoute});
@@ -165,12 +165,12 @@ export default {
         })
       } catch (e) {
         if (!errorHandlingService.checkIfActionAuthorized(e)) {
-          swal({
+          swal.fire({
             title: this.$t('alert.billingRecordFailedAdded'),
             text: this.$t('alert.redirectingToPreviousPage'),
             buttonsStyling: false,
             confirmButtonClass: "btn btn-info btn-fill",
-            type: "error",
+            icon: "error",
           }).then((result) => {
             if (this.previousRoute) {
               router.push({path: this.previousRoute});
@@ -261,13 +261,53 @@ export default {
         loader: 'spinner',
       });
       try {
-        await this.$store.dispatch('billingRecords/store', {'model': model}).then(() => {
-          this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
-          this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
-        });
+        // await this.$store.dispatch('billingRecords/store', {'model': model}).then(() => {
+        //   this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
+        //   this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
+        // });
         this.resetApiValidation();
-        // if (model.get('payment_type') == 'RENTAL') {
-          swal({
+        if (model.get('payment_type') == 'RENTAL') {
+          swal.fire({
+            title: this.$t('alert.billingRecordSuccessfullyAdded'),
+            text: this.$t('alert.rentalBillingRecordSuccessfullyAddedText'),
+            buttonsStyling: false,
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: this.$t('component.add') + " " + this.$t('sidebar.billingRecord'),
+            denyButtonText: this.$t('component.add') + " " + this.$t('sidebar.paymentRecord'),
+            cancelButtonText: this.$t('component.cancel'),
+            cancelButtonClass: "btn btn-info btn-fill",
+            denyButtonClass: "btn btn-info btn-fill",
+            confirmButtonClass: "btn btn-info btn-fill",
+            icon: "success",
+          }).then((result) => {
+            console.log(result);
+            // if (result.value) {
+            //   router.push({
+            //     name: 'Add Billing Record',
+            //     query: {
+            //       senderType: "TENANT",
+            //       senderId: model.get("sender_id"),
+            //       recipientType: "LANDLORD",
+            //       recipientId: model.get("recipient_id"),
+            //       assetId: model.get("asset_id"),
+            //       startDate: model.get("billing_start_at"),
+            //       endDate: model.get("billing_end_at"),
+            //     },
+            //     params: {
+            //       previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'
+            //     }
+            //   });
+            // } else {
+            //   if (this.previousRoute) {
+            //     router.push({path: this.previousRoute});
+            //   } else {
+            //     router.go(-1);
+            //   }
+            // }
+          });
+        } else {
+          swal.fire({
             title: this.$t('alert.billingRecordSuccessfullyAdded'),
             text: this.$t('alert.billingRecordSuccessfullyAddedText'),
             buttonsStyling: false,
@@ -276,7 +316,7 @@ export default {
             cancelButtonText: this.$t('component.no'),
             cancelButtonClass: "btn btn-info btn-fill",
             confirmButtonClass: "btn btn-info btn-fill",
-            type: "success",
+            icon: "success",
           }).then((result) => {
             if (result.value) {
               if (
@@ -316,19 +356,9 @@ export default {
               }
             }
           });
-        // } else {
-          // this.$notify({
-          //   message:'Successfully Added',
-          //   icon: 'tim-icons icon-bell-55',
-          //   type: 'success'
-          // });
-          // if (this.previousRoute) {
-          //   router.push({path: this.previousRoute});
-          // } else {
-          //   router.go(-1);
-          // }
-        // }
+        }
       } catch (e) {
+        console.log(e);
         this.$notify({
           message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',

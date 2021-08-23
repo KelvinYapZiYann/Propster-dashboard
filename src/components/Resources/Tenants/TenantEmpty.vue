@@ -43,12 +43,12 @@ export default {
   methods: {
     addModel() {
       if (!this.resource.data.canAdd) {
-        swal({
+        swal.fire({
         title: this.$t('alert.tenantFailedAdded'),
         text: this.$t('alert.basicTierTenantCount'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
         });
         return;
       }

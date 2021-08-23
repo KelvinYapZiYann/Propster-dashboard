@@ -72,7 +72,7 @@ export default {
       this.wizardModel = { ...this.wizardModel, ...model };
     },
     wizardComplete() {
-      swal("Good job!", "You clicked the finish button!", "success");
+      swal.fire("Good job!", "You clicked the finish button!", "success");
     }
   }
 };

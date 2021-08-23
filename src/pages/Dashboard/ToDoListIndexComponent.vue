@@ -92,12 +92,12 @@ export default {
   },
   methods: {
     editDetails(id) {
-      swal({
+      swal.fire({
         title: this.$t('alert.notEditable'),
         text: this.$t('alert.dummyData'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
       });
       // router.push({
       //   name: "Edit Assets",
@@ -108,12 +108,12 @@ export default {
       // });
     },
     deleteDetails(id) {
-      swal({
+      swal.fire({
         title: this.$t('alert.notDeletable'),
         text: this.$t('alert.dummyData'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
       });
       // if (id == null) {
       //   this.$notify({
@@ -140,12 +140,12 @@ export default {
       // }
     },
     addModel() {
-      swal({
+      swal.fire({
         title: this.$t('alert.todoListFailedAdded'),
         text: this.$t('alert.featureDeveloping'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
       });
     },
     async handlePagination(pageId) {

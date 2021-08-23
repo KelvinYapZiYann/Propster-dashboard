@@ -67,12 +67,12 @@ export default {
         })
       } catch (e) {
         if (!errorHandlingService.checkIfActionAuthorized(e)) {
-          swal({
+          swal.fire({
             title: this.$t('alert.assetExpenseFailedAdded'),
             text: this.$t('alert.redirectingToPreviousPage'),
             buttonsStyling: false,
             confirmButtonClass: "btn btn-info btn-fill",
-            type: "error",
+            icon: "error",
           }).then((result) => {
             if (this.previousRoute) {
               router.push({path: this.previousRoute});

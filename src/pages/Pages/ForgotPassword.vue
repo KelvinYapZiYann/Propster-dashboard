@@ -78,12 +78,12 @@ export default {
           email: this.model.email,
           // redirect_url: router.currentRoute.fullPath,
         }).then(() => {
-          swal({
+          swal.fire({
             title: `Success`,
             text: this.$t('forgotPassword.forgotPasswordSuccessfully'),
             buttonsStyling: false,
             confirmButtonClass: "btn btn-info btn-fill",
-            type: "success"
+            icon: "success"
           }).then(() => {
             router.push({ path: "/login" });
           });

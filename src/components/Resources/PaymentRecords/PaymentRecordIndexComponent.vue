@@ -172,38 +172,38 @@ export default {
       });
     },
     editDetails(id) {
-      swal({
+      swal.fire({
         title: this.$t('alert.notEditable'),
         text: this.$t('alert.notEditableText'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
       });
     },
     deleteDetails(id) {
-      swal({
+      swal.fire({
         title: this.$t('alert.notDeletable'),
         text: this.$t('alert.notDeletableText'),
         buttonsStyling: false,
         confirmButtonClass: "btn btn-info btn-fill",
-        type: "error",
+        icon: "error",
       });
     },
     addModel() {
       // if (this.paymentRecordType == 'All') {
-      //   swal({
+      //   swal.fire({
       //     title: this.$t('alert.paymentRecordFailedAdded'),
       //     text: this.$t('alert.paymentRecordFailedAddedTextInTenantDetail'),
       //     buttonsStyling: false,
       //     confirmButtonClass: "btn btn-info btn-fill",
-      //     type: "error",
+      //     icon: "error",
       //   });
       //   return;
       // }
       if (this.$props.query ? !this.$props.query.tenantId : true) {
         this.$store.dispatch('asset/get').then(() => {
           if (this.$store.getters["asset/data"].total <= 0) {
-            swal({
+            swal.fire({
               title: this.$t('alert.paymentRecordFailedAdded'),
               text: this.$t('alert.noAssetAddingPaymentRecord'),
               buttonsStyling: false,
@@ -212,7 +212,7 @@ export default {
               cancelButtonText: this.$t('component.cancel'),
               cancelButtonClass: "btn btn-info btn-fill",
               confirmButtonClass: "btn btn-info btn-fill",
-              type: "error",
+              icon: "error",
             }).then((result) => {
               if (result.value) {
                 this.$router.push({
@@ -226,7 +226,7 @@ export default {
           } else {
             this.$store.dispatch('tenant/get').then(() => {
               if (this.$store.getters["tenant/data"].total <= 0) {
-                swal({
+                swal.fire({
                   title: this.$t('alert.paymentRecordFailedAdded'),
                   text: this.$t('alert.noTenantAddingPaymentRecord'),
                   buttonsStyling: false,
@@ -235,7 +235,7 @@ export default {
                   cancelButtonText: this.$t('component.cancel'),
                   cancelButtonClass: "btn btn-info btn-fill",
                   confirmButtonClass: "btn btn-info btn-fill",
-                  type: "error",
+                  icon: "error",
                 }).then((result) => {
                   if (result.value) {
                     this.$router.push({
