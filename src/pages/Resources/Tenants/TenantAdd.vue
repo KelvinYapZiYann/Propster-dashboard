@@ -116,7 +116,7 @@ export default {
                 name: 'Add Tenure Contract',
                 query: {
                   tenantId: `${this.resource.data.id}`,
-                  assetId: `${this.$route.query.assetId}`,
+                  assetId: `${this.resource.model.assets[0].id}`,
                 },
                 params: {
                   previousRoute: this.previousRoute ? this.previousRoute : '/tenants'
