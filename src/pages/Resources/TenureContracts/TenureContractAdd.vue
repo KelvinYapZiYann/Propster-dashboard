@@ -1,6 +1,8 @@
 <template>
   <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
     <tenure-contract-add-or-edit
+      :tenureContractCreateResource="tenureContractCreateResource"
+      @assetIdOnChange="getTenureContract"
       :resource="resource"
       :tmpApiValidationErrors="apiValidationErrors"
       :addOrEdit="addOrEdit"
@@ -35,6 +37,16 @@ export default {
       userResource: {
         model: {},
       },
+      tenureContractCreateResource: {
+        model: {
+          asset_id: undefined,
+          tenant_id: undefined,
+        },
+        selector: {
+          asset_id: undefined,
+          tenant_id: undefined,
+        }
+      }
     };
   },
   props: {
@@ -46,17 +58,27 @@ export default {
     }
   },
   mounted() {
-    this.getTenureContract();
+    if (this.$route.query.tenantId && !this.$route.query.assetId) {
+      this.refreshAssetSelectorFromTenant();
+    } else if (this.$route.query.tenantId && this.$route.query.assetId) {
+      this.refreshAssetTenantDetail();
+    } else {
+      if (!this.$route.query.assetId) {
+        this.refreshAssetSelector();
+      } else {
+        this.getTenureContract(this.$route.query.assetId);
+      }
+    }
   },
   methods: {
-    async getTenureContract() {
+    async getTenureContract(assetId) {
       let loader = this.$loading.show({
         canCancel: false,
         color: '#1d8cf8',
         loader: 'spinner',
       });
       try {
-        await this.$store.dispatch('tenureContract/create', {'asset_id': '68'}).then(() => {
+        await this.$store.dispatch('tenureContract/create', {'asset_id': assetId}).then(() => {
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/models"])
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
@@ -150,6 +172,121 @@ export default {
         router.push({path: this.previousRoute});
       } else {
         router.go(-1);
+      }
+    },
+    async refreshAssetSelector() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
+      try {
+        await this.$store.dispatch('asset/get').then(() => {
+          let assetModels = this.$store.getters["asset/models"];
+          if (!assetModels) {
+            return;
+          }
+          let assetSelector = [];
+          for (let i = 0; i < assetModels.length; i++) {
+            assetSelector.push({
+              "id": assetModels[i].id,
+              "name": assetModels[i].asset_nickname
+            });
+          }
+          this.tenureContractCreateResource.selector.asset_id = assetSelector;
+        });
+      } catch (e) {
+        this.$notify({
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      } finally {
+        loader.hide();
+      }
+    },
+    async refreshAssetSelectorFromTenant() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
+      try {
+        let param = {
+          id: this.$route.query.tenantId,
+        }
+        await this.$store.dispatch('tenant/getAssets', param).then(() => {
+          let assetModels = this.$store.getters["tenant/assetModels"];
+          if (!assetModels) {
+            return;
+          }
+          let assetSelector = [];
+          for (let i = 0; i < assetModels.length; i++) {
+            assetSelector.push({
+              "id": assetModels[i].id,
+              "name": assetModels[i].asset_nickname
+            });
+          }
+          this.$store.dispatch('tenant/getById', this.$route.query.tenantId).then(() => {
+            let tenantModel = this.$store.getters["tenant/model"];
+            if (!tenantModel) {
+              return;
+            }
+            let tenantSelector = [{
+              "id": this.$route.query.tenantId,
+              "name": tenantModel.first_name + " " + tenantModel.last_name
+            }];
+            this.tenureContractCreateResource.selector.asset_id = assetSelector;
+            this.resource.selector.tenant_id = tenantSelector;
+          });
+        });
+      } catch (e) {
+        this.$notify({
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      } finally {
+        loader.hide();
+      }
+    },
+    async refreshAssetTenantDetail() {
+      let loader = this.$loading.show({
+        canCancel: false,
+        color: '#1d8cf8',
+        loader: 'spinner',
+      });
+      try {
+        await this.$store.dispatch('asset/getById', this.$route.query.assetId).then(() => {
+          let assetModel = this.$store.getters["asset/model"];
+          if (!assetModel) {
+            return;
+          }
+          let assetSelector = [{
+            "id": this.$route.query.assetId,
+            "name": assetModel.asset_nickname
+          }];
+          this.$store.dispatch('tenant/getById', this.$route.query.tenantId).then(() => {
+            let tenantModel = this.$store.getters["tenant/model"];
+            if (!tenantModel) {
+              return;
+            }
+            let tenantSelector = [{
+              "id": this.$route.query.tenantId,
+              "name": tenantModel.first_name + " " + tenantModel.last_name
+            }];
+            this.resource.selector.tenant_id = tenantSelector;
+            this.tenureContractCreateResource.selector.asset_id = assetSelector;
+          });
+        });
+      } catch (e) {
+        this.$notify({
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      } finally {
+        loader.hide();
       }
     }
   }

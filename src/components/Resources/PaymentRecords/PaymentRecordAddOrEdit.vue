@@ -189,7 +189,7 @@ export default {
       required: true,
       default: {
         model: {},
-        selector: []
+        selector: {}
       },
       description: "Transaction resource info"
     },

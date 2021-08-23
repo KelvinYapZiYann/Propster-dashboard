@@ -5,23 +5,24 @@
       <div class="row">
         <div class="col-md-6 ">
           <base-selector-input :label="$t('property.assetNickname')"
-                      v-model="resource.model.asset_id"
-                      :options="resource.selector.asset_id"
-                      v-if="addOrEdit == 'Add' && !assetId"
-                      :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''">
+                      v-model="tenureContractCreateResource.model.asset_id"
+                      :options="tenureContractCreateResource.selector.asset_id"
+                      v-if="addOrEdit == 'Add' && !$route.query.assetId"
+                      :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''"
+                      @input="assetIdOnChange">
           </base-selector-input>
           <base-input :label="$t('property.assetNickname')"
-                      v-if="addOrEdit == 'Add' && assetId" 
+                      v-if="addOrEdit != 'Add' || ($route.query.assetId)" 
                       :value="getAssetNicknameByAssetIdFromSelector()"
                       :disabled="true"
                       :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''">
           </base-input>
-          <base-input :label="$t('property.assetNickname')"
+          <!-- <base-input :label="$t('property.assetNickname')"
                       v-if="addOrEdit != 'Add'" 
                       :value="resource.model.asset ? (resource.model.asset.asset_nickname ? resource.model.asset.asset_nickname : '') : ''"
                       :disabled="true"
                       :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''">
-          </base-input>
+          </base-input> -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_id"/> -->
         </div>
         <div class="col-md-6">
@@ -36,7 +37,7 @@
           <base-selector-input :label="$t('property.tenantName')"
                       v-model="resource.model.tenant_id"
                       :options="resource.selector.tenant_id"
-                      v-if="addOrEdit == 'Add' && !tenantId"
+                      v-if="addOrEdit == 'Add' && !tenantId && tenureContractCreateResource.model.asset_id"
                       :error="tmpApiValidationErrors.tenant_id ? tmpApiValidationErrors.tenant_id[0] : ''">
           </base-selector-input>
           <!-- <div v-for="tenant in resource.selector.tenant_id" v-bind:key="tenant.id">
@@ -186,7 +187,7 @@ export default {
   data() {
     return {
       fileCount: 0,
-      assetId: null,
+      // assetId: null,
       tenantId: null,
       prevRoute: null,
       dropzoneOptions: {
@@ -209,6 +210,15 @@ export default {
       },
       description: "Resource info"
     },
+    tenureContractCreateResource: {
+      type: Object,
+      required: true,
+      default: {
+        model: {},
+        selector: {}
+      },
+      description: "Tenure contract create resource"
+    },
     tmpApiValidationErrors: {
       type: Object,
       required: true,
@@ -223,7 +233,7 @@ export default {
     }
   },
   created() {
-    this.assetId = this.$route.query.assetId;
+    // this.assetId = this.$route.query.assetId;
     this.tenantId = this.$route.query.tenantId;
   },
   computed: {
@@ -240,6 +250,9 @@ export default {
     }
   },
   methods: {
+    assetIdOnChange(val) {
+      this.$emit("assetIdOnChange", val);
+    },
     async handleSubmit() {
       let formData = new FormData();
 
@@ -263,7 +276,8 @@ export default {
       if (this.addOrEdit == 'Add') {
         return {
           tenant_id: this.tenantId ? this.tenantId : this.resource.model.tenant_id,
-          asset_id: this.assetId ? this.assetId : this.resource.model.asset_id,
+          // asset_id: this.assetId ? this.assetId : this.resource.model.asset_id,
+          asset_id: this.$route.query ? this.$route.query.assetId : this.tenureContractCreateResource.model.asset_id,
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
@@ -273,7 +287,8 @@ export default {
       } else {
         return {
           tenant_id: this.resource.model.tenant.id,
-          asset_id: this.resource.model.asset.id,
+          // asset_id: this.resource.model.asset.id,
+          asset_id: this.tenureContractCreateResource.model.asset_id,
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
@@ -302,15 +317,15 @@ export default {
       }
     },
     getAssetNicknameByAssetIdFromSelector() {
-      if (!this.resource.selector) {
+      if (!this.tenureContractCreateResource.selector) {
         return "-";
       }
-      if (!this.resource.selector.asset_id) {
+      if (!this.tenureContractCreateResource.selector.asset_id) {
         return "-";
       }
-      for (var i = 0; i < this.resource.selector.asset_id.length; i++) {
-        if (this.resource.selector.asset_id[i].id == this.assetId) {
-          return this.resource.selector.asset_id[i].name;
+      for (var i = 0; i < this.tenureContractCreateResource.selector.asset_id.length; i++) {
+        if (this.tenureContractCreateResource.selector.asset_id[i].id == this.$route.query.assetId) {
+          return this.tenureContractCreateResource.selector.asset_id[i].name;
         }
       }
       return "-";
