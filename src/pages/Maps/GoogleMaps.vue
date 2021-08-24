@@ -81,7 +81,7 @@ export default {
     },
     initCustomSkinMap(google) {
       // Custom Skin & Settings Map
-      const myLatlng = new google.maps.LatLng(40.748817, -73.985428);
+      const myLatlng = new google.maps.LatLng(3.158310, 101.711710);
       const mapOptions = {
         zoom: 13,
         center: myLatlng,

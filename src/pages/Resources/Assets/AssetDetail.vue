@@ -18,6 +18,12 @@
      thead-classes="text-primary"
    ></base-detail-list>
 
+   <div class="content">
+     <card type="">
+        <div id="assetLocationMap" class="map"></div>
+      </card>
+   </div>
+
    <base-detail-list
      :category="$t('property.financialDetails')"
      :model="resource.model.financial_details"
@@ -70,7 +76,7 @@
   </div>
 </template>
 <script>
-import { BaseDetailList, Modal, ValidationError } from "@/components";
+import { BaseDetailList, Modal, ValidationError, Card } from "@/components";
 import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/AssetExpensesIndexComponent";
 import TenantsIndexComponent from "@/components/Resources/Tenants/TenantsIndexComponent";
 import fab from "vue-fab";
@@ -81,9 +87,15 @@ import formMixin from "@/mixins/form-mixin";
 import axios from 'axios';
 import errorHandlingService from "@/store/services/error-handling-service";
 
+import { GOOGLE_MAP_API_KEY } from "@/pages/Maps/API_KEY";
+import GoogleMapsLoader from "google-maps";
+
+GoogleMapsLoader.KEY = GOOGLE_MAP_API_KEY;
+
 export default {
   mixins: [formMixin],
   components: {
+    Card,
     BaseDetailList,
     AssetExpensesIndexComponent,
     TenantsIndexComponent,
@@ -186,7 +198,8 @@ export default {
       fixedTooltip: true,
       position: 'bottom-right',
       reportModalVisible: false,
-      // showAll: false
+      // showAll: false,
+      googleMap: undefined
     };
   },
   props: {
@@ -198,6 +211,7 @@ export default {
     }
   },
   mounted() {
+    this.initGoogleMap();
     this.getResource();
   },
   methods: {
@@ -252,6 +266,7 @@ export default {
         await this.$store.dispatch('asset/getById', this.assetId).then(() => {
           this.resource.model = this.$store.getters["asset/model"]
           this.resource.data = this.$store.getters["asset/data"]
+          this.updateGoogleMap(this.resource.model.location_details.asset_address_line);
         })
 
         await this.$store.dispatch('asset/getAssetExpenses', this.assetId).then(() => {
@@ -275,6 +290,8 @@ export default {
         // await this.$store.dispatch('asset/getTenureContracts', this.assetId)
         // this.tenureContractResource.models = await this.$store.getters["asset/tenureContractModels"]
         // this.tenureContractResource.data = await this.$store.getters["asset/tenureContractData"]
+
+
       } catch (e) {
         this.$notify({
           message: errorHandlingService.displayAlertFromServer(e),
@@ -300,7 +317,53 @@ export default {
           previousRoute: this.$router.currentRoute.fullPath
         }
       });
-    }
+    },
+    initGoogleMap() {
+      GoogleMapsLoader.load(google => {
+        const defaultLatLng = new window.google.maps.LatLng(3.158310, 101.711710);
+        const mapOptions = {
+          zoom: 10,
+          center: defaultLatLng,
+          scrollwheel: false
+        };
+
+        this.googleMap = new window.google.maps.Map(
+          document.getElementById("assetLocationMap"),
+          mapOptions
+        );
+      });
+    },
+    updateGoogleMap(address) {
+      if (!this.googleMap) {
+        this.initGoogleMap();
+      }
+      GoogleMapsLoader.load(google => {
+        const geocoder = new google.maps.Geocoder();
+        if (geocoder) {
+          let tmpGoogleMap = this.googleMap;
+          geocoder.geocode({
+            'address': address
+          }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                tmpGoogleMap.setCenter(results[0].geometry.location);
+                tmpGoogleMap.setZoom(16);
+
+                new google.maps.Marker({
+                  position: results[0].geometry.location,
+                  map: tmpGoogleMap,
+                  title: address
+                });
+              } else {
+                alert("No results found");
+              }
+            } else {
+              alert("Geocode was not successful for the following reason: " + status);
+            }
+          });
+        }
+      });
+    },
   }
 };
 </script>
