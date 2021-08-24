@@ -261,10 +261,10 @@ export default {
         loader: 'spinner',
       });
       try {
-        // await this.$store.dispatch('billingRecords/store', {'model': model}).then(() => {
-        //   this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
-        //   this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
-        // });
+        await this.$store.dispatch('billingRecords/store', {'model': model}).then(() => {
+          this.resource.model = Object.assign({}, this.$store.getters["billingRecords/model"])
+          this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"])
+        });
         this.resetApiValidation();
         if (model.get('payment_type') == 'RENTAL') {
           swal.fire({

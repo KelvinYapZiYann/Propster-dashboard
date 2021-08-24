@@ -250,7 +250,7 @@
               </div>
 
               <div class="col-6">
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}: 3</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}: {{resource.assetsVacancy ? resource.assetsVacancy.blankVacancy : ''}}</p>
                 <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}: {{resource.assetsVacancy ? resource.assetsVacancy.currentTenants : ''}}</p>
               </div>
             </div>
@@ -333,6 +333,7 @@ export default {
           data: {}
         },
         assetsVacancy: {
+          blankVacancy: 0,
           currentTenants: 0
         },
         tenants: {
@@ -381,7 +382,7 @@ export default {
   computed: {
     rentChart() {
       return {
-        labels: [this.$t('dashboard.collectedRent'), this.$t('dashboard.overdueRent'), this.$t('dashboard.upcomingRent')],
+        labels: [this.$t('dashboard.collectedRent') + " (RM)", this.$t('dashboard.overdueRent') + " (RM)", this.$t('dashboard.upcomingRent') + " (RM)"],
         datasets: [
           {
             label: this.$t('dashboard.rent'),
@@ -436,7 +437,7 @@ export default {
             pointHoverRadius: 0,
             backgroundColor: ["#ff8779", "#2a84e9"],
             borderWidth: 0,
-            data: [3, this.resource.assetsVacancy.currentTenants]
+            data: [this.resource.assetsVacancy.blankVacancy, this.resource.assetsVacancy.currentTenants]
           }
         ]
       }
@@ -491,6 +492,15 @@ export default {
         await this.$store.dispatch('tenant/get', {}).then(() => {
           this.resource.tenants.data = this.$store.getters["tenant/data"]
           this.resource.assetsVacancy.currentTenants = this.$store.getters["tenant/data"].total;
+          let blankVacancy = 0;
+          for (let i = 0; i < this.resource.assetsValueList.models.length; i++) {
+            blankVacancy += this.resource.assetsValueList.models[i].number_of_rooms;
+          }
+          if (blankVacancy - this.resource.assetsVacancy.currentTenants < 0) {
+            this.resource.assetsVacancy.blankVacancy = 0;
+          } else {
+            this.resource.assetsVacancy.blankVacancy = blankVacancy - this.resource.assetsVacancy.currentTenants;
+          }
           this.doesTenantExist = this.resource.assetsVacancy.currentTenants > 0;
         });
         await this.$store.dispatch('billingRecords/get', {}).then(() => {
