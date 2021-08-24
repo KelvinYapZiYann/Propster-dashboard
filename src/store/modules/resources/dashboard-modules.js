@@ -27,6 +27,7 @@ const mutations = {
             for (let key in fields) {
                 obj[key] = fields[key];
             }
+            obj['id'] = item.id;
             state.overdueTenantListModels.push(obj);
           })
         state.overdueTenantListData = {

@@ -281,30 +281,43 @@ export default {
             confirmButtonClass: "btn btn-info btn-fill",
             icon: "success",
           }).then((result) => {
-            console.log(result);
-            // if (result.value) {
-            //   router.push({
-            //     name: 'Add Billing Record',
-            //     query: {
-            //       senderType: "TENANT",
-            //       senderId: model.get("sender_id"),
-            //       recipientType: "LANDLORD",
-            //       recipientId: model.get("recipient_id"),
-            //       assetId: model.get("asset_id"),
-            //       startDate: model.get("billing_start_at"),
-            //       endDate: model.get("billing_end_at"),
-            //     },
-            //     params: {
-            //       previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'
-            //     }
-            //   });
-            // } else {
-            //   if (this.previousRoute) {
-            //     router.push({path: this.previousRoute});
-            //   } else {
-            //     router.go(-1);
-            //   }
-            // }
+            if (result.isConfirmed) {
+              router.push({
+                name: 'Add Billing Record',
+                query: {
+                  senderType: "TENANT",
+                  senderId: model.get("sender_id"),
+                  recipientType: "LANDLORD",
+                  recipientId: model.get("recipient_id"),
+                  assetId: model.get("asset_id"),
+                  startDate: model.get("billing_start_at"),
+                  endDate: model.get("billing_end_at"),
+                },
+                params: {
+                  previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'
+                }
+              });
+            } else if (result.isDenied) {
+              router.push({
+                name: 'Add Payment Record',
+                query: {
+                  senderType: "TENANT",
+                  senderId: model.get("sender_id"),
+                  recipientType: "LANDLORD",
+                  recipientId: model.get("recipient_id"),
+                  assetId: model.get("asset_id"),
+                },
+                params: {
+                  previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'
+                }
+              });
+            } else {
+              if (this.previousRoute) {
+                router.push({path: this.previousRoute});
+              } else {
+                router.go(-1);
+              }
+            }
           });
         } else {
           swal.fire({
