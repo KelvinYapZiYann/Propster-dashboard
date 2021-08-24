@@ -88,9 +88,11 @@ import axios from 'axios';
 import errorHandlingService from "@/store/services/error-handling-service";
 
 import { GOOGLE_MAP_API_KEY } from "@/pages/Maps/API_KEY";
-import GoogleMapsLoader from "google-maps";
+import {Loader} from "google-maps";
 
-GoogleMapsLoader.KEY = GOOGLE_MAP_API_KEY;
+const GoogleMapLoader = new Loader(GOOGLE_MAP_API_KEY, {
+  region: "MY"
+});
 
 export default {
   mixins: [formMixin],
@@ -319,15 +321,15 @@ export default {
       });
     },
     initGoogleMap() {
-      GoogleMapsLoader.load(google => {
-        const defaultLatLng = new window.google.maps.LatLng(3.158310, 101.711710);
+      GoogleMapLoader.load().then(google => {
+        const defaultLatLng = {lat: 3.158310, lng: 101.711710};
         const mapOptions = {
           zoom: 10,
           center: defaultLatLng,
           scrollwheel: false
         };
 
-        this.googleMap = new window.google.maps.Map(
+        this.googleMap = new google.maps.Map(
           document.getElementById("assetLocationMap"),
           mapOptions
         );
@@ -337,7 +339,7 @@ export default {
       if (!this.googleMap) {
         this.initGoogleMap();
       }
-      GoogleMapsLoader.load(google => {
+      GoogleMapLoader.load().then(google => {
         const geocoder = new google.maps.Geocoder();
         if (geocoder) {
           let tmpGoogleMap = this.googleMap;
@@ -354,12 +356,14 @@ export default {
                   map: tmpGoogleMap,
                   title: address
                 });
-              } else {
-                alert("No results found");
-              }
-            } else {
-              alert("Geocode was not successful for the following reason: " + status);
-            }
+              } 
+              // else {
+              //   alert("No results found");
+              // }
+            } 
+            // else {
+            //   alert("Geocode was not successful for the following reason: " + status);
+            // }
           });
         }
       });

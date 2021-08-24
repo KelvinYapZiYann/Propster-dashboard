@@ -225,7 +225,8 @@
     "notDeletableText": "This data is not deletable for now. Please contact us for details.",
     "dummyData": "This is just a dummy data for displaying purpose.",
 
-    "firstTimeProfileTitle": "Please Fill Up Your Basic Info"
+    "firstTimeProfileTitle": "Please Fill Up Your Basic Info",
+    "assetLocationNotValid": "Please make sure that the address is valid and in Malaysia only."
   },
   "component": {
     "search": "Search",

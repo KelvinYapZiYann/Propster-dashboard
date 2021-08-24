@@ -132,6 +132,7 @@ export default {
             icon: 'tim-icons icon-bell-55',
             type: 'danger'
           });
+          console.log(e.response.data.errors);
           this.setApiValidation(e.response.data.errors)
         } finally {
           loader.hide();

@@ -102,8 +102,9 @@
                       :placeholder="$t('property.addressLine')"
                       v-model="resource.model.location_details.asset_address_line"
                       v-if="resource.model.location_details"
-                      :error="tmpApiValidationErrors.asset_address_line ? tmpApiValidationErrors.asset_address_line[0] : ''">
+                      :disabled="true">
           </base-input>
+          <!-- :error="tmpApiValidationErrors.asset_address_line ? tmpApiValidationErrors.asset_address_line[0] : ''" -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_address_line"/> -->
         </div>
       </div>
@@ -114,8 +115,10 @@
                       :placeholder="$t('property.city')"
                       v-model="resource.model.location_details.asset_city"
                       v-if="resource.model.location_details"
-                      :error="tmpApiValidationErrors.asset_city ? tmpApiValidationErrors.asset_city[0] : ''">
+                      :disabled="true"
+                      >
           </base-input>
+          <!-- :error="tmpApiValidationErrors.asset_city ? tmpApiValidationErrors.asset_city[0] : ''" -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_city"/> -->
         </div>
         <div class="col-md-4">
@@ -123,8 +126,10 @@
                       :placeholder="$t('property.state')"
                       v-model="resource.model.location_details.asset_state"
                       v-if="resource.model.location_details"
-                      :error="tmpApiValidationErrors.asset_state ? tmpApiValidationErrors.asset_state[0] : ''">
+                      :disabled="true"
+                      >
           </base-input>
+          <!-- :error="tmpApiValidationErrors.asset_state ? tmpApiValidationErrors.asset_state[0] : ''" -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_state"/> -->
         </div>
         <div class="col-md-4">
@@ -132,22 +137,46 @@
                       :placeholder="$t('property.postalCode')"
                       v-model="resource.model.location_details.asset_postal_code"
                       v-if="resource.model.location_details"
-                      :error="tmpApiValidationErrors.asset_postal_code ? tmpApiValidationErrors.asset_postal_code[0] : ''">
+                      :disabled="true"
+                      >
           </base-input>
+          <!-- :error="tmpApiValidationErrors.asset_postal_code ? tmpApiValidationErrors.asset_postal_code[0] : ''" -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_postal_code"/> -->
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-4">
+          <!-- <base-input :label="$t('property.country')"
+                      :placeholder="$t('property.country')"
+                      v-model="resource.model.location_details.asset_country"
+                      v-if="resource.model.location_details"
+                      :disabled="true"
+                      >
+          </base-input> -->
           <base-selector-input :label="$t('property.country')"
                                :placeholder="$t('property.country')"
                                v-model="resource.model.location_details.asset_country"
                                :options="resource.selector.asset_country"
                                v-if="resource.model.location_details"
-                               :error="tmpApiValidationErrors.asset_country ? tmpApiValidationErrors.asset_country[0] : ''">
+                               :disabled="true"
+                               >
           </base-selector-input>
+          <!-- :error="tmpApiValidationErrors.asset_country ? tmpApiValidationErrors.asset_country[0] : ''" -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.asset_country"/> -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <base-input :label="$t('component.search')"
+                      :placeholder="$t('component.search')"
+                      v-model="googleMapSearchInput"
+                      v-if="resource.model.location_details"
+                      id="assetLocationAddSearchInput"
+                      :error="tmpApiValidationErrors.asset_address_line ? tmpApiValidationErrors.asset_address_line[0] : ''">
+          </base-input>
+          <div id="assetLocationAddMap" class="map mt-3"></div>
         </div>
       </div>
     </card>
@@ -254,6 +283,17 @@
 import formMixin from "@/mixins/form-mixin";
 import { BaseInput, BaseSelectorInput, Card } from "@/components";
 
+import { GOOGLE_MAP_API_KEY } from "@/pages/Maps/API_KEY";
+import {Loader} from "google-maps";
+
+const GoogleMapLoader = new Loader(
+  GOOGLE_MAP_API_KEY, 
+  {
+    region: "MY",
+    libraries: ["places"]
+  }
+);
+
 export default {
   mixins: [formMixin],
   components: {
@@ -285,6 +325,14 @@ export default {
       required: true,
       default: "Add"
     }
+  },
+  data() {
+    return {
+      googleMapSearchInput: ""
+    }
+  },
+  mounted() {
+    this.initGoogleMap();
   },
   methods: {
     async handleSubmit() {
@@ -318,6 +366,114 @@ export default {
         loan_total_year: this.resource.model.financial_details.loan_total_year,
         // loan_remaining_year: this.resource.model.financial_details.loan_remaining_year,
       }
+    },
+    initGoogleMap() {
+      GoogleMapLoader.load().then(google => {
+        const defaultLatLng = {lat: 3.158310, lng: 101.711710};
+        const mapOptions = {
+          zoom: 10,
+          center: defaultLatLng,
+          scrollwheel: false
+        };
+
+        let map = new google.maps.Map(
+          document.getElementById("assetLocationAddMap"),
+          mapOptions
+        );
+
+        const input = document.getElementById("assetLocationAddSearchInput");
+        // console.log(google.maps);
+        const searchBox = new google.maps.places.SearchBox(input);
+        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        map.addListener("bounds_changed", () => {
+          searchBox.setBounds(map.getBounds());
+        });
+        let markers = [];
+        searchBox.addListener("places_changed", () => {
+        const places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+          return;
+        }
+        markers.forEach((marker) => {
+          marker.setMap(null);
+        });
+        markers = [];
+        const bounds = new google.maps.LatLngBounds();
+        places.forEach((place) => {
+          if (!place.geometry || !place.geometry.location) {
+            // console.log("Returned place contains no geometry");
+            return;
+          }
+          console.log(place);
+          this.decodeGoogleMapPlace(place)
+          if (!this.decodeGoogleMapPlace(place)) {
+            return;
+          }
+          markers.push(
+            new google.maps.Marker({
+              map,
+              // icon,
+              title: place.name,
+              position: place.geometry.location,
+            })
+          );
+
+          if (place.geometry.viewport) {
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
+        });
+        map.fitBounds(bounds);
+      });
+
+      });
+    },
+    decodeGoogleMapPlace(place) {
+      if (!place.address_components) {
+        return false;
+      }
+      console.log("Returned place contains no geometry");
+      addressComp: for (let i = 0; i < place.address_components.length; i++) {
+        addressCompType: for (let j = 0; j < place.address_components[i].types.length; j++) {
+          switch (place.address_components[i].types[j]) {
+            case 'country':
+              // if (place.address_components[i].short_name != 'MY') {
+              //   // this.$notify({
+              //   //   message: this.$t('alert.assetLocationNotValid'),
+              //   //   icon: 'tim-icons icon-bell-55',
+              //   //   type: 'danger'
+              //   // });
+              //   return false;
+              // }
+              this.resource.model.location_details.asset_country = place.address_components[i].short_name;
+              break addressCompType;
+            case 'postal_code':
+              this.resource.model.location_details.asset_postal_code = place.address_components[i].long_name;
+              break addressCompType;
+            case 'administrative_area_level_1':
+              this.resource.model.location_details.asset_state = place.address_components[i].long_name;
+              break addressCompType;
+            case 'locality':
+              this.resource.model.location_details.asset_city = place.address_components[i].long_name;
+              break addressCompType;
+            case 'route':
+              this.resource.model.location_details.asset_address_line = place.name + ", " + place.address_components[i].long_name;
+              break addressCompType;
+            case 'sublocality_level_1':
+              if (this.resource.model.location_details.asset_address_line) {
+                this.resource.model.location_details.asset_address_line += ", " + place.address_components[i].long_name;
+              } else {
+                this.resource.model.location_details.asset_address_line = place.name + ", " + place.address_components[i].long_name;
+              }
+              break addressCompType;
+            default:
+              continue addressCompType;
+          }
+        }
+      }
+      return true;
     }
   }
 }
