@@ -232,7 +232,7 @@
         </div>
 
         <div class="col-md-6 mr-auto">
-          <card class="card-chart card-chart-pie">
+          <card class="card-chart card-chart-pie height-350">
             <h5 slot="header" class="card-category text-left chart-header">
               {{$t('dashboard.assetsVacancy')}}
             </h5>
@@ -540,5 +540,13 @@ export default {
 }
 .category.chart-text {
   font-size: 1em;
+}
+/* .height-350 {
+  height: 350px;
+} */
+@media (min-width: 768px){
+  .height-350 {
+    height: 350px;
+  }
 }
 </style>
