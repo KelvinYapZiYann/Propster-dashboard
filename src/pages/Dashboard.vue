@@ -260,11 +260,11 @@
     </div>
 
     <div v-if="!doesAssetExist && !doesTenantExist">
+      <tutorial-component></tutorial-component>
       <asset-empty
         :resource="resource.assetsValueList"
       >
       </asset-empty>
-      <tutorial-component></tutorial-component>
     </div>
     <div v-if="doesAssetExist && !doesTenantExist">
       <tenant-empty
@@ -473,7 +473,7 @@ export default {
           this.doesAssetExist = this.$store.getters["asset/models"].length > 0;
           if (!this.doesAssetExist) {
             swal.fire({
-              title: this.$t('dashboard.welcome'),
+              title: this.$t('dashboard.welcome') + ` ${this.$store.getters["users/model"].gender == 'MALE' ? 'Mr. ' : 'Ms. '}` + this.$store.getters["users/model"].first_name,
               text: this.$t('dashboard.welcomeText'),
               buttonsStyling: false,
               confirmButtonClass: "btn btn-info btn-fill",

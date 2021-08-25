@@ -24,8 +24,8 @@
      <div class="col-xl-6">
        <div class="content">
           <card type="">
-              <div id="assetLocationMap" class="map"></div>
-            </card>
+            <div id="assetLocationMap" class="map"></div>
+          </card>
         </div>
      </div>   
    </div>

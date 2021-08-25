@@ -72,8 +72,12 @@ const ToDoList = () =>
   import(/* webpackChunkName: "pages" */ "@/pages/Dashboard/ToDoList.vue");
 const Roadmap = () =>
   import(/* webpackChunkName: "pages" */ "@/pages/Pages/Roadmap.vue");
-  const Tutorial = () =>
-  import(/* webpackChunkName: "pages" */ "@/pages/Pages/Tutorial.vue");
+
+
+const Tutorial = () =>
+  import(/* webpackChunkName: "pages" */ "@/pages/Tutorial/Tutorial.vue");
+const TutorialLandlord = () =>
+  import(/* webpackChunkName: "pages" */ "@/pages/Tutorial/TutorialLandlord.vue");
 
 // const Pricing = () =>
 //     import(/* webpackChunkName: "pages" */ "@/pages/Pages/Pricing.vue");
@@ -604,6 +608,15 @@ const routes = [
         name: "Tutorial",
         component: Tutorial,
         meta: { middleware: auth },
+      },
+      {
+        path: "tutorial/landlord",
+        name: "Tutorial Landlord",
+        component: TutorialLandlord,
+        meta: { middleware: auth },
+        props: {
+          default: true
+        }
       },
       // {
       //   path: "Calendar",

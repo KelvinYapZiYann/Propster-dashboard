@@ -26,7 +26,7 @@ export default {
       type: Object,
       required: true,
       default: {
-        models: [{}],
+        models: [],
         data: {
           canAdd: false,
           currentPage: 1,

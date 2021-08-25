@@ -133,7 +133,11 @@
   },
   "tutorial": {
     "title": "Tutorial",
-    "learnTutorialText": "Check out this tutorial for learning to use Propster.io."
+    "learnTutorialText": "Check out this tutorial for learning to use Propster.io.",
+
+    "landlordDesc": "Landlord is able to manage property asset and tenant, by generating tenure contract, requesting payment from tenant, and recording expenses.",
+
+    "landlordDashboardDesc": ""
   },
   "dashboard": {
     "welcome": "Welcome",
@@ -215,6 +219,8 @@
     "actionIsUnauthorized": "Oops! Something wrong. Please refresh the page.",
 
     "featureDeveloping": "This feature is still being developed. Please stay tuned or contact us for more details.",
+    "contentEmpty": "Empty Content",
+    "contentEmptyText": "This content is still empty. We will publish this content ASAP!",
 
     "logoutText": "Are you sure to logout?",
     "facebookMessengerAlert": "Feel free to give us a feedback. We will attend to you ASAP!",
