@@ -91,7 +91,8 @@ import { GOOGLE_MAP_API_KEY } from "@/pages/Maps/API_KEY";
 import {Loader} from "google-maps";
 
 const GoogleMapLoader = new Loader(GOOGLE_MAP_API_KEY, {
-  region: "MY"
+  region: "MY",
+  // libraries: ["places"]
 });
 
 export default {
