@@ -396,11 +396,11 @@ export default {
             }, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
-                  map.setCenter(results[0].geometry.location);
+                  map.setCenter({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
                   map.setZoom(16);
 
                   markers.push(new google.maps.Marker({
-                    position: results[0].geometry.location,
+                    position: {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()},
                     map: map,
                     title: tmpAddress
                   }));

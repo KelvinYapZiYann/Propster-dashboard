@@ -10,18 +10,24 @@
      thead-classes="text-primary"
    ></base-detail-list>
 
-   <base-detail-list
-     :category="$t('property.locationDetails')"
-     :model="resource.model.location_details"
-     :headers="table.locationDetailHeaders"
-     :detailDisplayValue="table.locationDetailDisplayValue"
-     thead-classes="text-primary"
-   ></base-detail-list>
+   <div class="row">
+     <div class="col-xl-6">
+       <base-detail-list
+        :category="$t('property.locationDetails')"
+        :model="resource.model.location_details"
+        :headers="table.locationDetailHeaders"
+        :detailDisplayValue="table.locationDetailDisplayValue"
+        thead-classes="text-primary"
+       ></base-detail-list>
+     </div>
 
-   <div class="content">
-     <card type="">
-        <div id="assetLocationMap" class="map"></div>
-      </card>
+     <div class="col-xl-6">
+       <div class="content">
+          <card type="">
+              <div id="assetLocationMap" class="map"></div>
+            </card>
+        </div>
+     </div>   
    </div>
 
    <base-detail-list
@@ -349,11 +355,11 @@ export default {
           }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
-                tmpGoogleMap.setCenter(results[0].geometry.location);
+                tmpGoogleMap.setCenter({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
                 tmpGoogleMap.setZoom(16);
 
                 new google.maps.Marker({
-                  position: results[0].geometry.location,
+                  position: {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()},
                   map: tmpGoogleMap,
                   title: address
                 });
