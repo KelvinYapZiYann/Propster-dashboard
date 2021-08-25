@@ -44,7 +44,10 @@
               {{$t('roadmap.mobileAppDeployment')}}
             </span>
             <span slot="header" class="badge badge-pill badge-info">
-              {{$t('dateTime.october')}} 2021
+              {{$t('roadmap.onlinePayment')}}
+            </span>
+            <span slot="header" class="badge badge-pill badge-info">
+              {{$t('dateTime.november')}} 2021
             </span>
 
             <div slot="content">
@@ -57,7 +60,10 @@
             badge-icon="fa fa-ellipsis-h"
           >
              <span slot="header" class="badge badge-pill badge-info">
-              {{$t('roadmap.vendorRecruitmentPropertyInsight')}}
+              {{$t('roadmap.vendorRecruitment')}}
+            </span>
+            <span slot="header" class="badge badge-pill badge-info">
+              {{$t('roadmap.propertyInsight')}}
             </span>
             <span slot="header" class="badge badge-pill badge-info">
               {{$t('dateTime.december')}} 2021
