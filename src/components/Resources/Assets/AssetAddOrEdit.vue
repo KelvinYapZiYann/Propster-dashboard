@@ -368,6 +368,8 @@ export default {
         purchased_date: this.resource.model.financial_details.purchased_date,
         loan_interest_rate: this.resource.model.financial_details.loan_interest_rate,
         loan_total_year: this.resource.model.financial_details.loan_total_year,
+
+        place_id: this.resource.model.place_id,
         // loan_remaining_year: this.resource.model.financial_details.loan_remaining_year,
       }
     },
@@ -387,32 +389,51 @@ export default {
 
         let markers = [];
         if (this.addOrEdit == 'Edit') {
-          let tmpAddress = this.resource.model.location_details.asset_address_line;
-          this.googleMapSearchInput = tmpAddress;
-          const geocoder = new google.maps.Geocoder();
-          if (geocoder) {
-            geocoder.geocode({
-              'address': tmpAddress
-            }, function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK) {
-                if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
-                  map.setCenter({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
-                  map.setZoom(16);
+          this.googleMapSearchInput = this.resource.model.location_details.asset_address_line;
+          let tmpPlaceId = this.resource.model.place_id;
+          let isGeocoderNeeded = true;
+          if (tmpPlaceId) {
+            let tmpLatLng = JSON.parse(tmpPlaceId);
+            if (tmpLatLng) {
+              if (tmpLatLng.lat && tmpLatLng.lng) {
+                map.setCenter(tmpLatLng);
+                map.setZoom(16);
 
-                  markers.push(new google.maps.Marker({
-                    position: {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()},
-                    map: map,
-                    title: tmpAddress
-                  }));
+                new google.maps.Marker({
+                  position: tmpLatLng,
+                  map: map,
+                  title: this.googleMapSearchInput
+                });
+                isGeocoderNeeded = false;
+              }
+            }
+          }
+          if (isGeocoderNeeded) {
+            const geocoder = new google.maps.Geocoder();
+            if (geocoder) {
+              geocoder.geocode({
+                'address': tmpAddress
+              }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                  if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                    map.setCenter({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
+                    map.setZoom(16);
+
+                    markers.push(new google.maps.Marker({
+                      position: {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()},
+                      map: map,
+                      title: tmpAddress
+                    }));
+                  } 
+                  // else {
+                  //   alert("No results found");
+                  // }
                 } 
                 // else {
-                //   alert("No results found");
+                //   alert("Geocode was not successful for the following reason: " + status);
                 // }
-              } 
-              // else {
-              //   alert("Geocode was not successful for the following reason: " + status);
-              // }
-            });
+              });
+            }
           }
         }
 
@@ -444,6 +465,7 @@ export default {
             if (!this.decodeGoogleMapPlace(place)) {
               return;
             }
+            this.resource.model.place_id = `{"lat":${place.geometry.location.lat()},"lng":${place.geometry.location.lng()}}`;
             markers.push(
               new google.maps.Marker({
                 map,

@@ -346,7 +346,24 @@ export default {
       if (!this.googleMap) {
         this.initGoogleMap();
       }
+      let tmpPlaceId = this.resource.model.place_id;
       GoogleMapLoader.load().then(google => {
+        if (tmpPlaceId) {
+          let tmpLatLng = JSON.parse(tmpPlaceId);
+          if (tmpLatLng) {
+            if (tmpLatLng.lat && tmpLatLng.lng) {
+              this.googleMap.setCenter(tmpLatLng);
+              this.googleMap.setZoom(16);
+
+              new google.maps.Marker({
+                position: tmpLatLng,
+                map: this.googleMap,
+                title: address
+              });
+            }
+            return;
+          }
+        } 
         const geocoder = new google.maps.Geocoder();
         if (geocoder) {
           let tmpGoogleMap = this.googleMap;
