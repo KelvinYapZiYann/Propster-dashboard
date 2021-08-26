@@ -68,11 +68,13 @@ export default {
           last_name: this.$t('property.lastName'),
           contract_name: this.$t('property.contractName'),
           monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
+          deposited_amount: this.$t('property.depositedAmount'),
           tenure_start_date: this.$t('property.tenureStartDate'),
           tenure_end_date: this.$t('property.tenureEndDate'),
         },
         detailDisplayPrefix: {
           monthly_rental_amount: "RM",
+          deposited_amount: "RM",
         },
       },
       dropzoneOptions: {

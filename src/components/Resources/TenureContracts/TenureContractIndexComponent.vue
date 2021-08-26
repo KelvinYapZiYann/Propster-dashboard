@@ -107,11 +107,13 @@ export default {
           asset_nickname: this.$t('property.assetNickname'),
           first_name: this.$t('property.tenantName'),
           monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
+          deposited_amount: this.$t('property.depositedAmount'),
           tenure_start_date: this.$t('property.tenureStartDate'),
           tenure_end_date: this.$t('property.tenureEndDate')
         },
         columnsDisplayPrefix: {
-          monthly_rental_amount: "RM"
+          monthly_rental_amount: "RM",
+          deposited_amount: "RM"
         },
       },
       searchQuery: "",

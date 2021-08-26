@@ -312,6 +312,7 @@
     "tenureContractDetails": "Tenure Contract Details",
     "contractName": "Contract Name",
     "monthlyRentalAmount": "Monthly Rental Amount (RM)",
+    "depositedAmount": "Deposited Amount (RM)",
     "tenureDateRange": "Tenure Date Range",
     "tenureStartDate": "Tenure Start Date",
     "tenureEndDate": "Tenure End Date",

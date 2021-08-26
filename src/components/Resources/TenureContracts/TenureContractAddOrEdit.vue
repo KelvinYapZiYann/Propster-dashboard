@@ -92,6 +92,16 @@
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.monthly_rental_amount"/> -->
         </div>
+
+        <div class="col-md-6">
+          <base-input :label="$t('property.depositedAmount')"
+                      :placeholder="$t('property.depositedAmount')"
+                      v-model="resource.model.deposited_amount"
+                      :disabled="addOrEdit == 'Edit'"
+                      :error="tmpApiValidationErrors.deposited_amount ? tmpApiValidationErrors.deposited_amount[0] : ''">
+          </base-input>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.deposited_amount"/> -->
+        </div>
       </div>
 
       <div class="row">
@@ -281,6 +291,7 @@ export default {
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
+          deposited_amount: this.resource.model.deposited_amount,
           tenure_start_date: this.addTenureDateRange.length == 2 ? this.addTenureDateRange[0] : '',
           tenure_end_date: this.addTenureDateRange.length == 2 ? this.addTenureDateRange[1] : ''
         }
@@ -292,6 +303,7 @@ export default {
           contract_name: this.resource.model.contract_name,
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
+          deposited_amount: this.resource.model.deposited_amount,
           tenure_start_date: this.editTenureDateRange.length == 2 ? this.editTenureDateRange[0] : '',
           tenure_end_date: this.editTenureDateRange.length == 2 ? this.editTenureDateRange[1] : ''
         }

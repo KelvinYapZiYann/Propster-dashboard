@@ -162,6 +162,7 @@ export default {
             false: "No",
           },
           salary_range: {
+            "NO_INCOME": "No Income",
             "1_TO_5000": "RM 1 to RM 5000",
             "5001_TO_10000": "RM 5001 to RM 10000",
             "ABOVE_10000": "Above RM 10000"

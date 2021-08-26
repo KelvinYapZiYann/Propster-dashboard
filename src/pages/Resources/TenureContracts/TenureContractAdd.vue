@@ -116,10 +116,71 @@ export default {
         color: '#1d8cf8',
         loader: 'spinner',
       });
-        try {
-          await this.$store.dispatch('tenureContract/store', {'model': formData}).then(() => {
-            this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
-            this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
+      try {
+        await this.$store.dispatch('tenureContract/store', {'model': formData}).then(() => {
+          this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
+          this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
+          if (parseFloat(this.resource.model.deposited_amount) > 0) {
+            let paymentRecordModel = {
+              recipient_type: "LANDLORD",
+              recipient_id: this.userResource.model.landlord_ids[0],
+              sender_type: "TENANT",
+              sender_id: this.resource.model.tenant.id,
+              asset_id: this.resource.model.asset.id,
+              payment_description: "Rental Deposit for " + this.resource.model.contract_name,
+              payment_method: "CASH",
+              payment_type: "DEPOSIT",
+              amount: this.resource.model.deposited_amount,
+              is_reference_only: false
+            }
+            let paymentRecordModelFormData = new FormData();
+            for (const [key, value] of Object.entries(paymentRecordModel)) {
+              if (value) {
+                paymentRecordModelFormData.append(key, value);
+                continue;
+              }
+              if (key == "is_reference_only") {
+                paymentRecordModelFormData.append(key, value);
+              }
+            }
+            this.$store.dispatch('paymentRecords/store', {'model': paymentRecordModelFormData}).then(() => {
+              this.resetApiValidation();
+              swal.fire({
+                title: this.$t('alert.tenureContractSuccessfullyAdded'),
+                text: this.$t('alert.tenureContractSuccessfullyAddedText'),
+                buttonsStyling: false,
+                showCancelButton: true,
+                confirmButtonText: this.$t('component.yes'),
+                cancelButtonText: this.$t('component.no'),
+                cancelButtonClass: "btn btn-info btn-fill",
+                confirmButtonClass: "btn btn-info btn-fill",
+                icon: "success",
+              }).then((result) => {
+                if (result.value) {
+                  router.push({
+                    name: 'Add Billing Record',
+                    query: {
+                      senderType: "TENANT",
+                      senderId: this.resource.model.tenant.id,
+                      recipientType: "LANDLORD",
+                      recipientId: this.userResource.model.landlord_ids[0],
+                      assetId: this.resource.model.asset.id,
+                      tenureContractId: this.resource.model.id
+                    },
+                    params: {
+                      previousRoute: this.previousRoute ? this.previousRoute : '/tenure-contracts'
+                    }
+                  });
+                } else {
+                  if (this.previousRoute) {
+                    router.push({path: this.previousRoute});
+                  } else {
+                    router.go(-1);
+                  }
+                }
+              });
+            })
+          } else {
             this.resetApiValidation();
             swal.fire({
               title: this.$t('alert.tenureContractSuccessfullyAdded'),
@@ -155,17 +216,18 @@ export default {
                 }
               }
             });
-          });
-        } catch (e) {
-          this.$notify({
-            message: errorHandlingService.displayAlertFromServer(e),
-            icon: 'tim-icons icon-bell-55',
-            type: 'danger'
-          });
-          this.setApiValidation(e.response.data.errors)
-        } finally {
-          loader.hide();
-        }
+          }
+        });
+      } catch (e) {
+        this.$notify({
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+        this.setApiValidation(e.response.data.errors)
+      } finally {
+        loader.hide();
+      }
     },
     async handleCancel() {
       if (this.previousRoute) {
