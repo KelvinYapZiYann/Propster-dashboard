@@ -438,50 +438,103 @@ export default {
         }
 
         const input = document.getElementById("assetLocationAddSearchInput");
-        const searchBox = new google.maps.places.SearchBox(input);
-        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-        // map.addListener("bounds_changed", () => {
-        //   searchBox.setBounds(map.getBounds());
-        // });
-        
-        searchBox.addListener("places_changed", () => {
-          const places = searchBox.getPlaces();
+        const defaultBounds = {
+          north: defaultLatLng.lat + 0.1,
+          south: defaultLatLng.lat - 0.1,
+          east: defaultLatLng.lng + 0.1,
+          west: defaultLatLng.lng - 0.1,
+        };
+        const options = {
+          bounds: defaultBounds,
+          componentRestrictions: { country: "my" },
+          fields: ["address_components", "geometry", "name"],
+          strictBounds: false,
+          types: ["establishment"],
+        };
+        const autocomplete = new google.maps.places.Autocomplete(input, options);
+        autocomplete.setComponentRestrictions({
+          country: ["my"],
+        });
 
-          if (places.length == 0) {
-            return;
-          }
+        autocomplete.addListener("place_changed", () => {
+          let place = autocomplete.getPlace();
+          console.log(place);
           markers.forEach((marker) => {
             marker.setMap(null);
           });
           markers = [];
           const bounds = new google.maps.LatLngBounds();
-          places.forEach((place) => {
-            if (!place.geometry || !place.geometry.location) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            this.googleMapSearchInput = place.name;
-            // this.decodeGoogleMapPlace(place)
-            if (!this.decodeGoogleMapPlace(place)) {
-              return;
-            }
-            this.resource.model.place_id = `{"lat":${place.geometry.location.lat()},"lng":${place.geometry.location.lng()}}`;
-            markers.push(
-              new google.maps.Marker({
-                map,
-                title: place.name,
-                position: place.geometry.location,
-              })
-            );
-
-            if (place.geometry.viewport) {
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
+          if (!place.geometry || !place.geometry.location) {
+            console.log("Returned place contains no geometry");
+            return;
+          }
+          // this.googleMapSearchInput = place.name;
+          if (!this.decodeGoogleMapPlace(place)) {
+            return;
+          }
+          this.resource.model.place_id = `{"lat":${place.geometry.location.lat()},"lng":${place.geometry.location.lng()}}`;
+          markers.push(
+            new google.maps.Marker({
+              map,
+              title: place.name,
+              position: place.geometry.location,
+            })
+          );
+          if (place.geometry.viewport) {
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
           map.fitBounds(bounds);
         });
+
+
+        // const searchBox = new google.maps.places.SearchBox(input);
+        // // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        // // map.addListener("bounds_changed", () => {
+        // //   searchBox.setBounds(map.getBounds());
+        // // });
+        
+        // searchBox.addListener("places_changed", () => {
+        //   const places = searchBox.getPlaces();
+
+        //   if (places.length == 0) {
+        //     return;
+        //   }
+        //   markers.forEach((marker) => {
+        //     marker.setMap(null);
+        //   });
+        //   markers = [];
+        //   const bounds = new google.maps.LatLngBounds();
+        //   places.forEach((place) => {
+        //     if (!place.geometry || !place.geometry.location) {
+        //       console.log("Returned place contains no geometry");
+        //       return;
+        //     }
+        //     this.googleMapSearchInput = place.name;
+        //     // this.decodeGoogleMapPlace(place)
+        //     if (!this.decodeGoogleMapPlace(place)) {
+        //       return;
+        //     }
+        //     this.resource.model.place_id = `{"lat":${place.geometry.location.lat()},"lng":${place.geometry.location.lng()}}`;
+        //     markers.push(
+        //       new google.maps.Marker({
+        //         map,
+        //         title: place.name,
+        //         position: place.geometry.location,
+        //       })
+        //     );
+
+        //     if (place.geometry.viewport) {
+        //       bounds.union(place.geometry.viewport);
+        //     } else {
+        //       bounds.extend(place.geometry.location);
+        //     }
+        //   });
+        //   map.fitBounds(bounds);
+        // });
+
+
       });
     },
     // initEditGoogleMap() {
