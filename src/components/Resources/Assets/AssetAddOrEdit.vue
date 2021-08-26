@@ -458,7 +458,6 @@ export default {
 
         autocomplete.addListener("place_changed", () => {
           let place = autocomplete.getPlace();
-          console.log(place);
           markers.forEach((marker) => {
             marker.setMap(null);
           });

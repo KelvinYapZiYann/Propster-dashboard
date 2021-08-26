@@ -72,6 +72,8 @@ const ToDoList = () =>
   import(/* webpackChunkName: "pages" */ "@/pages/Dashboard/ToDoList.vue");
 const Roadmap = () =>
   import(/* webpackChunkName: "pages" */ "@/pages/Pages/Roadmap.vue");
+const Notifications = () =>
+  import(/* webpackChunkName: "pages" */ "@/pages/Notifications/Notifications.vue");
 
 
 const Tutorial = () =>
@@ -617,6 +619,12 @@ const routes = [
         props: {
           default: true
         }
+      },
+      {
+        path: "notifications",
+        name: "Notifications",
+        component: Notifications,
+        meta: { middleware: auth },
       },
       // {
       //   path: "Calendar",

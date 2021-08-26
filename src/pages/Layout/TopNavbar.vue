@@ -60,7 +60,7 @@
               placeholder="SEARCH"
             />
           </modal>
-          <drop-down>
+          <!-- <drop-down>
             <a
               href="javascript:void(0)"
               data-toggle="dropdown"
@@ -86,7 +86,7 @@
                 </router-link>
               </li>
             </ul>
-          </drop-down>
+          </drop-down> -->
           <drop-down>
             <a
               href="javascript:void(0)"
@@ -102,9 +102,9 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
               <li class="nav-link" v-for="(value, key) in notifications" :key="key">
-                <a :href="value.link" class="nav-item dropdown-item"
-                  >{{value.title}}</a
-                >
+                <router-link class="nav-item dropdown-item" :to="value.link" v-slot="{ navigate, href }" custom>
+                  <a @click="navigate" @keypress.enter="navigate" role="link" :href="href">{{value.title}}</a>
+                </router-link>
               </li>
               <div class="dropdown-divider"></div>
               <li class="nav-link">
@@ -203,27 +203,27 @@ export default {
         {
           id: 1,
           title: "Notification 1 email sent",
-          link: "https://propster.io/api/dashboard/notifications/1"
+          link: "/notifications"
         },
         {
           id: 2,
           title: "Notification 2 email sent",
-          link: "https://propster.io/api/dashboard/notifications/2"
+          link: "/notifications"
         },
         {
           id: 3,
           title: "Notification 3 email sent",
-          link: "https://propster.io/api/dashboard/notifications/3"
+          link: "/notifications"
         },
         {
           id: 4,
           title: "Notification 1 email sent",
-          link: "https://propster.io/api/dashboard/notifications/4"
+          link: "/notifications"
         },
         {
           id: 5,
           title: "Notification 1 email sent",
-          link: "https://propster.io/api/dashboard/notifications/5"
+          link: "/notifications"
         },
       ],
       userFullname: this.$store.getters["users/model"].full_name,
