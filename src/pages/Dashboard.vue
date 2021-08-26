@@ -124,47 +124,29 @@
           ></overdue-tenants-index-component>
         </div>
         <div class="col-xl-4 col-lg-6 mr-auto">
-          <div class="row">
-            <div class="col-12">
-              <div class="pro-feature alert alert-danger">
-                <strong>
-                  {{$t('alert.featureDeveloping')}}
-                </strong>
+          <card class="card-chart card-chart-pie height-350">
+            <h5 slot="header" class="card-category text-left chart-header">
+              {{$t('dashboard.assetsVacancy')}}
+            </h5>
+            <div class="row">
+              <div class="col-6">
+                <div v-if="assetVacancyChartAlertText">{{$t('alert.pieChartNoValueAlert')}}</div>
+                <div class="chart-area">
+                  <pie-chart
+                    :chart-data="assetsVacancyChart"
+                    :extra-options="pieChartExtraOptions"
+                    :height="120"
+                  >
+                  </pie-chart>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}: {{resource.assetsVacancy ? resource.assetsVacancy.blankVacancy : ''}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}: {{resource.assetsVacancy ? resource.assetsVacancy.currentTenants : ''}}</p>
               </div>
             </div>
-          </div>
-          <!-- <card type="tasks" headerClasses="text-left"> -->
-            <!-- <template slot="header"> -->
-              <!-- <template>
-                <h6 class="title d-inline mr-2">Tasks(5)</h6>
-              </template> -->
-              <!-- <template>
-                <p class="card-category d-inline">{{$t('dashboard.todoList')}}</p>
-              </template> -->
-              <!-- <drop-down tag="div">
-                <button
-                  aria-label="Settings menu"
-                  data-toggle="dropdown"
-                  class="dropdown-toggle btn-rotate btn btn-link btn-icon"
-                >
-                  <i class="tim-icons icon-settings-gear-63"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  <a href="#pablo" class="dropdown-item">Action</a>
-                  <a href="#pablo" class="dropdown-item">Another Action</a>
-                  <a href="#pablo" class="dropdown-item">Something else</a>
-                </ul>
-              </drop-down> -->
-            <!-- </template> -->
-            <!-- <div class="table-full-width table-responsive"> -->
-              <!-- <task-list
-                :tableData="todoListTableData"
-              ></task-list> -->
-              <to-do-list-index-component
-                :resource="todoListResource"
-              ></to-do-list-index-component>
-            <!-- </div> -->
-          <!-- </card> -->
+          </card>
         </div>
       </div>
 
@@ -232,31 +214,12 @@
         </div>
 
         <div class="col-md-6 mr-auto">
-          <card class="card-chart card-chart-pie height-350">
-            <h5 slot="header" class="card-category text-left chart-header">
-              {{$t('dashboard.assetsVacancy')}}
-            </h5>
-            <div class="row">
-              <div class="col-6">
-                <div v-if="assetVacancyChartAlertText">{{$t('alert.pieChartNoValueAlert')}}</div>
-                <div class="chart-area">
-                  <pie-chart
-                    :chart-data="assetsVacancyChart"
-                    :extra-options="pieChartExtraOptions"
-                    :height="120"
-                  >
-                  </pie-chart>
-                </div>
-              </div>
-
-              <div class="col-6">
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}: {{resource.assetsVacancy ? resource.assetsVacancy.blankVacancy : ''}}</p>
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}: {{resource.assetsVacancy ? resource.assetsVacancy.currentTenants : ''}}</p>
-              </div>
-            </div>
-          </card>
+          <to-do-list-index-component
+            :resource="todoListResource"
+          ></to-do-list-index-component>
         </div>
       </div>
+
     </div>
 
     <div v-if="!doesAssetExist && !doesTenantExist">
@@ -544,9 +507,9 @@ export default {
 /* .height-350 {
   height: 350px;
 } */
-@media (min-width: 768px){
+/* @media (min-width: 768px){
   .height-350 {
     height: 350px;
   }
-}
+} */
 </style>

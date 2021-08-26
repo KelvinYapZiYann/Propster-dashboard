@@ -160,14 +160,14 @@ export default {
 };
 </script>
 <style>
-.custom-table-height {
+/* .custom-table-height {
   min-height: 500px;
 }
 @media (max-width:991px) {
   .custom-table-height {
     min-height: 10px;
   }
-}
+} */
 
 
 </style>
