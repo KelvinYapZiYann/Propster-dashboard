@@ -8,6 +8,7 @@
       :addOrEdit="addOrEdit"
       @submit="handleSubmit"
       @cancel="handleCancel"
+      @promptError="handleError"
     >
     </tenure-contract-add-or-edit>
   </div>
@@ -350,6 +351,10 @@ export default {
       } finally {
         loader.hide();
       }
+    },
+    async handleError(error) {
+      this.resetApiValidation();
+      this.setApiValidation(error)
     }
   }
 }

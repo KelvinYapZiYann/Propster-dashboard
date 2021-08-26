@@ -243,10 +243,9 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      if (this.validateInput()) {
+      if (this.validateId()) {
         return;
       }
-      console.log('submiting');
       this.$emit('submit', this.translateModel())
     },
     async handleCancel() {
@@ -270,7 +269,7 @@ export default {
         salary_range: this.resource.model.salary_range
       }
     },
-    validateInput() {
+    validateId() {
       if (!this.resource.model.identification_type) {
         return false;
       }

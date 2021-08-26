@@ -264,6 +264,9 @@ export default {
       this.$emit("assetIdOnChange", val);
     },
     async handleSubmit() {
+      if (this.validateDate()) {
+        return;
+      }
       let formData = new FormData();
 
       if (this.resource.model.file) {
@@ -308,6 +311,30 @@ export default {
           tenure_end_date: this.editTenureDateRange.length == 2 ? this.editTenureDateRange[1] : ''
         }
       }
+    },
+    validateDate() {
+      if (this.addOrEdit == 'Add') {
+        if (this.addTenureDateRange.length != 2) {
+          return false;
+        }
+        let startDate = new Date(this.addTenureDateRange[0]);
+        let endDate = new Date(this.addTenureDateRange[1]);
+        if (endDate - startDate < (86400000 * 30)) {
+          this.$emit('promptError', {tenure_start_date: ['The tenure start date to tenure end date range has to be at least 1 month.']});
+          return true;
+        }
+      } else {
+        if (this.editTenureDateRange.length != 2) {
+          return false;
+        }
+        let startDate = new Date(this.editTenureDateRange[0]);
+        let endDate = new Date(this.editTenureDateRange[1]);
+        if (endDate - startDate < (86400000 * 30)) {
+          this.$emit('promptError', {tenure_start_date: ['The tenure start date to tenure end date range has to be at least 1 month.']});
+          return true;
+        }
+      }
+      return false;
     },
     sendingFile(file, xhr, formData) {
       console.log('sendingFile');

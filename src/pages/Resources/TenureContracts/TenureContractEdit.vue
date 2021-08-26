@@ -6,6 +6,7 @@
       :addOrEdit="addOrEdit"
       @submit="handleSubmit"
       @cancel="handleCancel"
+      @promptError="handleError"
       ></tenure-contract-add-or-edit>
   </div>
 </template>
@@ -116,6 +117,10 @@ export default {
       } else {
         router.go(-1);
       }
+    },
+    async handleError(error) {
+      this.resetApiValidation();
+      this.setApiValidation(error)
     }
   }
 }
