@@ -49,7 +49,7 @@
                 <base-room-indicator :value="row.number_of_rooms"></base-room-indicator>
               </td>
               <td @click="showDetails(row.id)">
-                <base-tenant-indicator :value="row.tenantCount"></base-tenant-indicator>
+                <base-tenant-indicator :value="row.number_of_tenants"></base-tenant-indicator>
               </td>
               <!-- <td>
                 <base-checkbox v-model="row.done"> </base-checkbox>
@@ -220,29 +220,31 @@ export default {
               pageId: pageId
             }
             await this.$store.dispatch('tenant/getAssets', param).then(() => {
-              // this.resource.models = this.$store.getters["tenant/assetModels"];
-              // this.resource.data = Object.assign({}, this.$store.getters["tenant/assetData"]);
-              let models = this.$store.getters["tenant/assetModels"];
-              for (let i = 0; i < models.length; i++) {
-                this.getAssetTenantsFromTenant(models, i, models[i].id);
-              }
+              this.resource.models = this.$store.getters["tenant/assetModels"];
+              this.resource.data = Object.assign({}, this.$store.getters["tenant/assetData"]);
+              // let models = this.$store.getters["tenant/assetModels"];
+              // for (let i = 0; i < models.length; i++) {
+              //   this.getAssetTenantsFromTenant(models, i, models[i].id);
+              // }
             });
           } else {
             await this.$store.dispatch('asset/get', pageId).then(() => {
-              // this.resource.models = this.$store.getters["asset/models"];
-              let models = this.$store.getters["asset/models"];
-              for (let i = 0; i < models.length; i++) {
-                this.getAssetTenantsFromAsset(models, i, models[i].id);
-              }
+              this.resource.models = this.$store.getters["asset/models"];
+              this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+              // let models = this.$store.getters["asset/models"];
+              // for (let i = 0; i < models.length; i++) {
+              //   this.getAssetTenantsFromAsset(models, i, models[i].id);
+              // }
             });
           }
         } else {
           await this.$store.dispatch('asset/get', pageId).then(() => {
-            // this.resource.models = this.$store.getters["asset/models"];
-            let models = this.$store.getters["asset/models"];
-            for (let i = 0; i < models.length; i++) {
-              this.getAssetTenantsFromAsset(models, i, models[i].id);
-            }
+            this.resource.models = this.$store.getters["asset/models"];
+            this.resource.data = Object.assign({}, this.$store.getters["asset/data"]);
+            // let models = this.$store.getters["asset/models"];
+            // for (let i = 0; i < models.length; i++) {
+            //   this.getAssetTenantsFromAsset(models, i, models[i].id);
+            // }
           });
         }
       } catch (e) {
