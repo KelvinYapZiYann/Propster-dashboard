@@ -105,6 +105,27 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-md-6 ">
+          <base-selector-input :label="$t('property.idType')"
+                               :placeholder="$t('property.idType')"
+                               v-model="resource.model.identification_type"
+                               :initialValue="resource.model.identification_type"
+                               :options="resource.selector.identification_type"
+                               :error="tmpApiValidationErrors.identification_type ? tmpApiValidationErrors.identification_type[0] : ''"
+          >
+          </base-selector-input>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.identification_type"/> -->
+        </div>
+        <div class="col-md-6 ">
+          <base-input :label="$t('property.idNumber')"
+                      :placeholder="$t('property.idNumber')"
+                      v-model="resource.model.identification_number"
+                      :error="tmpApiValidationErrors.identification_number ? tmpApiValidationErrors.identification_number[0] : ''">
+          </base-input>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.identification_number"/> -->
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6">
           <base-selector-input :label="$t('property.gender')"
                                :placeholder="$t('property.gender')"
@@ -236,6 +257,8 @@ export default {
         email: this.resource.model.email,
         phone_number: this.resource.model.phone_number,
         phone_country_code: this.phone_country_code,
+        identification_type: this.resource.model.identification_type,
+        identification_number: this.resource.model.identification_number,
         gender: this.resource.model.gender,
         is_business: this.resource.model.is_business == null ? false : this.resource.model.is_business,
         date_of_birth: this.resource.model.date_of_birth,

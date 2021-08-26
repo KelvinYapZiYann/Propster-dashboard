@@ -146,6 +146,8 @@ export default {
           last_name: this.$t('property.lastName'),
           email: this.$t('property.email'),
           phone_number: this.$t('property.phoneNumber'),
+          identification_type: this.$t('property.idType'),
+          identification_number: this.$t('property.idNumber'),
           gender: this.$t('property.gender'),
           is_business: this.$t('property.isBusiness'),
           date_of_birth: this.$t('property.dateOfBirth'),
@@ -153,6 +155,10 @@ export default {
           salary_range: this.$t('property.salaryRange'),
         },
         detailDisplayValue: {
+          identification_type: {
+            NRIC: "IC Number",
+            PASSPORT: "Passport",
+          },
           gender: {
             MALE: "Male",
             FEMALE: "Female",
@@ -166,7 +172,6 @@ export default {
             "1_TO_5000": "RM 1 to RM 5000",
             "5001_TO_10000": "RM 5001 to RM 10000",
             "ABOVE_10000": "Above RM 10000"
-
           },
         },
       },

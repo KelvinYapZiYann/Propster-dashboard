@@ -264,6 +264,8 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
+    "idType": "Identification Type",
+    "idNumber": "Identification Number",
     "phoneNumber": "Phone Number",
     "gender": "Gender",
     "isBusiness": "Is Business?",
