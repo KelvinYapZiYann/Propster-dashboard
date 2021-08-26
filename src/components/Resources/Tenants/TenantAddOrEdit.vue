@@ -243,6 +243,10 @@ export default {
   },
   methods: {
     async handleSubmit() {
+      if (this.validateInput()) {
+        return;
+      }
+      console.log('submiting');
       this.$emit('submit', this.translateModel())
     },
     async handleCancel() {
@@ -265,6 +269,27 @@ export default {
         reputation: this.resource.model.reputation,
         salary_range: this.resource.model.salary_range
       }
+    },
+    validateInput() {
+      if (!this.resource.model.identification_type) {
+        return false;
+      }
+      if (!this.resource.model.identification_number) {
+        return false;
+      }
+      if (this.resource.model.identification_type == "NRIC") {
+        if (this.resource.model.identification_number.includes('-')) {
+          this.$emit('promptError', {identification_number: ['The identification number does not need to include \"-\".']});
+          return true;
+        } else if (this.resource.model.identification_number.length != 12) {
+          this.$emit('promptError', {identification_number: ['The identification number is invalid.']});
+          return true;
+        } else if (!/^\d+$/.test(this.resource.model.identification_number)) {
+          this.$emit('promptError', {identification_number: ['The identification number is invalid.']});
+          return true;
+        } 
+      }
+      return false;
     },
     onSelectCountryCode(params) {
       this.phone_country_code = "+" + params.dialCode;

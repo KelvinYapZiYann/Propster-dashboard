@@ -6,6 +6,7 @@
       @submit="handleSubmit"
       @cancel="handleCancel"
       :addOrEdit="addOrEdit"
+      @promptError="handleError"
       ></tenant-add-or-edit>
   </div>
 </template>
@@ -120,6 +121,10 @@ export default {
       } else {
         router.go(-1);
       }
+    },
+    async handleError(error) {
+      this.resetApiValidation();
+      this.setApiValidation(error)
     }
   }
 }
