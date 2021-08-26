@@ -5,14 +5,14 @@
       <div class="row">
         <div class="col-md-6 ">
           <base-selector-input :label="$t('property.assetNickname')"
+                      v-if="addOrEdit == 'Add' && !$route.query.assetId"
                       v-model="tenureContractCreateResource.model.asset_id"
                       :options="tenureContractCreateResource.selector.asset_id"
-                      v-if="addOrEdit == 'Add' && !$route.query.assetId"
                       :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''"
                       @input="assetIdOnChange">
           </base-selector-input>
           <base-input :label="$t('property.assetNickname')"
-                      v-if="addOrEdit != 'Add' || ($route.query.assetId)" 
+                      v-if="addOrEdit != 'Add' || $route.query.assetId"
                       :value="getAssetNicknameByAssetIdFromSelector()"
                       :disabled="true"
                       :error="tmpApiValidationErrors.asset_id ? tmpApiValidationErrors.asset_id[0] : ''">
@@ -222,10 +222,12 @@ export default {
     },
     tenureContractCreateResource: {
       type: Object,
-      required: true,
-      default: {
-        model: {},
-        selector: {}
+      required: false,
+      default: () => {
+        return {
+          model: {},
+          selector: {}
+        }
       },
       description: "Tenure contract create resource"
     },
@@ -356,15 +358,29 @@ export default {
       }
     },
     getAssetNicknameByAssetIdFromSelector() {
-      if (!this.tenureContractCreateResource.selector) {
-        return "-";
-      }
-      if (!this.tenureContractCreateResource.selector.asset_id) {
-        return "-";
-      }
-      for (var i = 0; i < this.tenureContractCreateResource.selector.asset_id.length; i++) {
-        if (this.tenureContractCreateResource.selector.asset_id[i].id == this.$route.query.assetId) {
-          return this.tenureContractCreateResource.selector.asset_id[i].name;
+      if (this.addOrEdit == 'Add') {
+        if (!this.tenureContractCreateResource.selector) {
+          return "-";
+        }
+        if (!this.tenureContractCreateResource.selector.asset_id) {
+          return "-";
+        }
+        for (var i = 0; i < this.tenureContractCreateResource.selector.asset_id.length; i++) {
+          if (this.tenureContractCreateResource.selector.asset_id[i].id == this.$route.query.assetId) {
+            return this.tenureContractCreateResource.selector.asset_id[i].name;
+          }
+        }
+      } else {
+        if (!this.resource.selector) {
+          return "-";
+        }
+        if (!this.resource.selector.asset_id) {
+          return "-";
+        }
+        for (var i = 0; i < this.resource.selector.asset_id.length; i++) {
+          if (this.resource.selector.asset_id[i].id == this.resource.model.asset.id) {
+            return this.resource.selector.asset_id[i].name;
+          }
         }
       }
       return "-";
