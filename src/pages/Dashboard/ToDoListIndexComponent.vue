@@ -22,11 +22,11 @@
           >
             <template slot-scope="{ row }">
               <td>
-                <base-checkbox v-model="row.done"> </base-checkbox>
+                <base-checkbox v-model="row.status"> </base-checkbox>
               </td>
-              <td class="text-left" :class="[{disabled : !row.done}]">
+              <td class="text-left" :class="[{disabled : !row.status}]">
                 <p class="title">{{ row.title }}</p>
-                <p class="text-muted">{{ row.description }}</p>
+                <p class="text-muted">{{ row.content }}</p>
               </td>
               <!-- <td class="td-actions text-right">
                 <base-button type="link" artia-label="edit button">
@@ -155,10 +155,10 @@ export default {
         loader: 'spinner',
       });
         try {
-          // await this.$store.dispatch('dashboard/getOverdueTenantList', {}).then(() => {
-          //   this.resource.models = this.$store.getters["dashboard/overdueTenantListModels"]
-          //   this.resource.data = this.$store.getters["dashboard/overdueTenantListModels"]
-          // });
+          await this.$store.dispatch('todoList/get', pageId).then(() => {
+            this.resource.models = this.$store.getters["todoList/models"]
+            this.resource.data = this.$store.getters["todoList/data"]
+          });
         } catch (e) {
           this.$notify({
             message: errorHandlingService.displayAlertFromServer(e),
@@ -186,12 +186,12 @@ export default {
   color: #b7babb !important;
 }
 
-.custom-body-height {
+/* .custom-body-height {
   min-height: 350px;
 }
 @media (max-width:991px) {
   .custom-body-height {
     min-height: 10px;
   }
-}
+} */
 </style>

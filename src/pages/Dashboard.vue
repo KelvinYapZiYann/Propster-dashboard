@@ -191,7 +191,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6 mr-auto">
+        <div class="col-xl-5 mr-auto">
           <card class="card-chart card-chart-pie">
             <h5 slot="header" class="card-category text-left chart-header">
               {{$t('dashboard.cashflow')}}
@@ -213,7 +213,7 @@
           </card>
         </div>
 
-        <div class="col-md-6 mr-auto">
+        <div class="col-xl-7 mr-auto">
           <to-do-list-index-component
             :resource="todoListResource"
           ></to-do-list-index-component>
@@ -310,26 +310,26 @@ export default {
       doesTenantExist: true,
       todoListResource: {
         models: [
-          {
-            title: "Contact Vendor",
-            description: "Contact Wi-Fi provider to fix the internet issue.",
-            done: false
-          },
-          {
-            title: "Contact Tenant",
-            description: "Contact tenant to confirm if he want to extend his contract.",
-            done: true
-          },
-          {
-            title: "Replace Table",
-            description: "Buy a new table for tenant that is broken.",
-            done: false
-          },
-          {
-            title: "Replace Chair",
-            description: "Buy a new chair for tenant that is broken.",
-            done: false
-          }
+          // {
+          //   title: "Contact Vendor",
+          //   description: "Contact Wi-Fi provider to fix the internet issue.",
+          //   done: false
+          // },
+          // {
+          //   title: "Contact Tenant",
+          //   description: "Contact tenant to confirm if he want to extend his contract.",
+          //   done: true
+          // },
+          // {
+          //   title: "Replace Table",
+          //   description: "Buy a new table for tenant that is broken.",
+          //   done: false
+          // },
+          // {
+          //   title: "Replace Chair",
+          //   description: "Buy a new chair for tenant that is broken.",
+          //   done: false
+          // }
         ],
         data: {
           currentPage: 1,
@@ -473,6 +473,10 @@ export default {
             totalAmount += parseFloat(billingRecordsModels[i].amount);
           }
           this.resource.projectedMonthlyIncome = totalAmount;
+        });
+        await this.$store.dispatch('todoList/get', {}).then(() => {
+          this.todoListResource.models = this.$store.getters["todoList/models"]
+          this.todoListResource.data = Object.assign({}, this.$store.getters["todoList/data"]);
         });
       } catch (e) {
         this.$notify({
