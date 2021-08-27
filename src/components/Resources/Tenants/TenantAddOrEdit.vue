@@ -182,6 +182,20 @@
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.salary_range"/> -->
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <base-selector-input :label="$t('property.occupation')"
+                               :placeholder="$t('property.occupation')"
+                               v-model="resource.model.occupation_type"
+                               :initialValue="resource.model.occupation_type"
+                               :options="resource.selector.occupation_type"
+                               :error="tmpApiValidationErrors.occupation_type ? tmpApiValidationErrors.occupation_type[0] : ''"
+          >
+          </base-selector-input>
+        </div>
+      </div>
+
     </card>
     <base-button slot="footer" type="info" @click="handleCancel()" fill>{{$t('component.cancel')}}</base-button>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
@@ -266,7 +280,8 @@ export default {
         is_business: this.resource.model.is_business == null ? false : this.resource.model.is_business,
         date_of_birth: this.resource.model.date_of_birth,
         reputation: this.resource.model.reputation,
-        salary_range: this.resource.model.salary_range
+        salary_range: this.resource.model.salary_range,
+        occupation_type: this.resource.model.occupation_type,
       }
     },
     validateId() {

@@ -153,6 +153,7 @@ export default {
           date_of_birth: this.$t('property.dateOfBirth'),
           // reputation: "Reputation",
           salary_range: this.$t('property.salaryRange'),
+          occupation_type: this.$t('property.occupation'),
         },
         detailDisplayValue: {
           identification_type: {
@@ -173,6 +174,12 @@ export default {
             "5001_TO_10000": "RM 5001 to RM 10000",
             "ABOVE_10000": "Above RM 10000"
           },
+          occupation_type: {
+            EMPLOYED: "Employed",
+            FREELANCER_OR_PART_TIMER: "Freelancer/Part Timer",
+            SELF_EMPLOYED: "Self Employed",
+            STUDENT: "Student"
+          }
         },
       },
       fabActions: [
