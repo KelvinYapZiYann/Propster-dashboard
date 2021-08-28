@@ -351,6 +351,7 @@
     "nextBillingAmount": "Next Billing Amount",
     "nextBillingDate": "Next Billing Date",
     "title": "Title",
-    "content": "Content"
+    "content": "Content",
+    "actions": "Actions"
   }
 }

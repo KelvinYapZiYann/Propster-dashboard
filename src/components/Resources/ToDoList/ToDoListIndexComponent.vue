@@ -21,12 +21,13 @@
             v-on:delete-details="deleteDetails"
           >
             <template slot-scope="{ row }">
-              <td>
-                <base-checkbox v-model="row.status"> </base-checkbox>
-              </td>
+              
               <td class="text-left" :class="[{disabled : !row.status}]">
                 <p class="title">{{ row.title }}</p>
                 <p class="text-muted">{{ row.content }}</p>
+              </td>
+              <td>
+                <base-checkbox v-model="row.status"> </base-checkbox>
               </td>
               <!-- <td class="td-actions text-right">
                 <base-button type="link" artia-label="edit button">

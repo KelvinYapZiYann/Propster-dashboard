@@ -3,23 +3,13 @@
     <thead :class="theadClasses">
     <tr>
       <slot name="columns">
+        <th v-if="!disableView || !disableEdit || !disableDelete">{{$t('property.actions')}}</th>
         <th v-for="column in columns" :key="column">{{column}}</th>
       </slot>
     </tr>
     </thead>
     <tbody :class="tbodyClasses">
     <tr v-for="(item, index) in data" :key="index" :class="{viewableRow: !disableView}" :style="rowColor[index]">
-      <slot :row="item">
-        <td v-for="(column, columnKey, i) in columns"
-            :key="i"
-            @click="showDetails(item.id)"
-            >
-            <!-- v-if="hasValue(item, index)" -->
-            <span :class="itemClass(columnKey, index)">
-              {{itemValue(item, columnKey)}}
-            </span>
-        </td>
-      </slot>
       <td>
         <base-button
             v-if="!disableView"
@@ -55,6 +45,17 @@
           <i class="tim-icons icon-simple-remove"></i>
         </base-button>
       </td>
+      <slot :row="item">
+        <td v-for="(column, columnKey, i) in columns"
+            :key="i"
+            @click="showDetails(item.id)"
+            >
+            <!-- v-if="hasValue(item, index)" -->
+            <span :class="itemClass(columnKey, index)">
+              {{itemValue(item, columnKey)}}
+            </span>
+        </td>
+      </slot>
     </tr>
     </tbody>
   </table>
