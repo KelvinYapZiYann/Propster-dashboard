@@ -23,6 +23,7 @@
             v-on:show-details="showDetails"
             :disableEdit="true"
             :disableDelete="true"
+            :paginationPage="paginationPage"
           >
           </base-table>
         </div>
@@ -79,6 +80,7 @@ export default {
       },
       searchQuery: "",
       searchQueryTimeout: null,
+      paginationPage: 1
     };
   },
   props: {
@@ -126,6 +128,7 @@ export default {
       this.$emit('getResource')
     },
     async handlePagination(pageId) {
+      this.paginationPage = pageId;
       let loader = this.$loading.show({
         canCancel: false,
         color: '#1d8cf8',

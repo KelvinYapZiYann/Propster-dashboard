@@ -3,6 +3,7 @@
     <thead :class="theadClasses">
     <tr>
       <slot name="columns">
+        <th v-if="!disableIndex">{{$t('property.index')}}</th>
         <th v-if="!disableView || !disableEdit || !disableDelete">{{$t('property.actions')}}</th>
         <th v-for="column in columns" :key="column">{{column}}</th>
       </slot>
@@ -10,6 +11,9 @@
     </thead>
     <tbody :class="tbodyClasses">
     <tr v-for="(item, index) in data" :key="index" :class="{viewableRow: !disableView}" :style="rowColor[index]">
+      <td v-if="!disableIndex">
+        {{((paginationPage - 1) * 10) + (index + 1)}}.
+      </td>
       <td>
         <base-button
             v-if="!disableView"
@@ -131,6 +135,14 @@ export default {
     disableDelete: {
       type: Boolean,
       default: false
+    },
+    disableIndex: {
+      type: Boolean,
+      default: false
+    },
+    paginationPage: {
+      type: Number,
+      default: 1
     }
   },
   computed: {

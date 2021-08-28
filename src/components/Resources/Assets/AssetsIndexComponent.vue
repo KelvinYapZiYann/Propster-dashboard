@@ -30,6 +30,7 @@
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
+            :paginationPage="paginationPage"
           >
           <!-- :disableDelete="true" -->
             <template slot-scope="{ row }">
@@ -109,6 +110,7 @@ export default {
       },
       searchQuery: "",
       searchQueryTimeout: null,
+      paginationPage: 1
     };
   },
   props: {
@@ -207,6 +209,7 @@ export default {
       this.$emit('getResource')
     },
     async handlePagination(pageId) {
+      this.paginationPage = pageId;
       let loader = this.$loading.show({
         canCancel: false,
         color: '#1d8cf8',

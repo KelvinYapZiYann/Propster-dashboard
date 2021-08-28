@@ -19,6 +19,7 @@
             :disableView="true"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
+            :paginationPage="paginationPage"
           >
             <template slot-scope="{ row }">
               
@@ -91,6 +92,11 @@ export default {
       description: "Task List Table Data"
     }
   },
+  data() {
+    return {
+      paginationPage: 1
+    }
+  },
   methods: {
     editDetails(id) {
       // swal.fire({
@@ -157,6 +163,7 @@ export default {
       // });
     },
     async handlePagination(pageId) {
+      this.paginationPage = pageId;
       let loader = this.$loading.show({
         canCancel: false,
         color: '#1d8cf8',

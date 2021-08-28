@@ -42,6 +42,7 @@
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
+            :paginationPage="paginationPage"
           >
           <!-- :disableEdit="true" -->
           <!-- :disableDelete="true" -->
@@ -133,6 +134,7 @@ export default {
       userResource: {
         model: {},
       },
+      paginationPage: 1
     };
   },
   props: {
@@ -317,6 +319,7 @@ export default {
       }
     },
     async handlePagination(pageId) {
+      this.paginationPage = pageId;
       let loader = this.$loading.show({
         canCancel: false,
         color: '#1d8cf8',

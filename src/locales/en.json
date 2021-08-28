@@ -352,6 +352,7 @@
     "nextBillingDate": "Next Billing Date",
     "title": "Title",
     "content": "Content",
-    "actions": "Actions"
+    "actions": "Actions",
+    "index": "Index"
   }
 }
