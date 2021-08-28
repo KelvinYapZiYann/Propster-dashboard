@@ -459,13 +459,12 @@ export default {
           this.resource.assetsVacancy.currentTenants = this.$store.getters["tenant/data"].total;
           let blankVacancy = 0;
           for (let i = 0; i < this.resource.assetsValueList.models.length; i++) {
-            blankVacancy += this.resource.assetsValueList.models[i].number_of_rooms;
+            let tmpBlankVacancy = this.resource.assetsValueList.models[i].number_of_rooms - this.resource.assetsValueList.models[i].number_of_tenants;
+            if (tmpBlankVacancy > 0) {
+              blankVacancy += tmpBlankVacancy;
+            }
           }
-          if (blankVacancy - this.resource.assetsVacancy.currentTenants < 0) {
-            this.resource.assetsVacancy.blankVacancy = 0;
-          } else {
-            this.resource.assetsVacancy.blankVacancy = blankVacancy - this.resource.assetsVacancy.currentTenants;
-          }
+          this.resource.assetsVacancy.blankVacancy = blankVacancy;
           this.doesTenantExist = this.resource.assetsVacancy.currentTenants > 0;
         });
         await this.$store.dispatch('billingRecords/get', {}).then(() => {
