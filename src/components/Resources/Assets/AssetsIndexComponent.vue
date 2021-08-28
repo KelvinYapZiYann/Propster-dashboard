@@ -3,7 +3,7 @@
     <div class="col-12">
       <card>
         <h4 slot="header" class="card-title text-left">{{$t('sidebar.assets')}}</h4>
-        <div class="text-right mb-3">
+        <div class="text-right mb-3" v-if="this.$props.query ? !this.$props.query.tenantId : true">
           <base-button
                 @click="addModel"
                 class="mt-3"
