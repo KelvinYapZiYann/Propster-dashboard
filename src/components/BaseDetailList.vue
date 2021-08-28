@@ -6,17 +6,31 @@
         <h3 class="card-title">{{ title }}</h3>
       </div>
       <div class="card-body">
-        <div class="row" v-for="(value, key) in headers" :key="key">
-          <div class="col-sm-3 mb-3">
-            <!-- v-if="hasValue(model, key)" -->
-            <h6 class="mb-0">{{ headers[key] }}</h6>
+        <div class="row">
+          <div :class="headers2 ? 'col-lg-6' : 'col-12'">
+            <div class="row" v-for="(value, key) in headers" :key="key">
+              <div class="col-12">
+                <h6 class="mb-0">{{ headers[key] }}</h6>
+              </div>
+              <span class="col-12 mb-3">
+                <span :class="itemClass(key)">
+                  {{ itemValue(model, key) }}
+                </span>
+              </span>
+            </div>
           </div>
-          <span class="col-sm-9 mb-3">
-            <!-- v-if="hasValue(model, key)" -->
-            <span :class="itemClass(key)">
-              {{ itemValue(model, key) }}
-            </span>
-          </span>
+          <div :class="headers2 ? 'col-lg-6' : 'col-12'">
+            <div class="row" v-for="(value, key) in headers2" :key="key">
+              <div class="col-12">
+                <h6 class="mb-0">{{ headers2[key] }}</h6>
+              </div>
+              <span class="col-12 mb-3">
+                <span :class="itemClass(key)">
+                  {{ itemValue(model, key) }}
+                </span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </card>
@@ -49,6 +63,11 @@
         type: Object,
         default: () => {},
         description: "Detail Headers"
+      },
+      headers2: {
+        type: Object,
+        default: () => {},
+        description: "Detail Headers 2"
       },
       detailDisplayValue: {
         type: Object,

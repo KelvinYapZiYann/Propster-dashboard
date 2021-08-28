@@ -4,6 +4,7 @@
           :category="$t('property.tenureContractDetails')"
           :model="resource.model"
           :headers="table.detailHeaders"
+          :headers2="table.detailHeaders2"
           :detailDisplayPrefix="table.detailDisplayPrefix"
           thead-classes="text-primary"
         ></base-detail-list>
@@ -67,6 +68,8 @@ export default {
           first_name: this.$t('property.firstName'),
           last_name: this.$t('property.lastName'),
           contract_name: this.$t('property.contractName'),
+        },
+        detailHeaders2: {
           monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
           deposited_amount: this.$t('property.depositedAmount'),
           tenure_start_date: this.$t('property.tenureStartDate'),

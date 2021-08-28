@@ -11,6 +11,7 @@
       :category="$t('property.paymentRecordDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
+      :headers2="table.detailHeaders2"
       :detailDisplayValue="table.detailDisplayValue"
       :detailDisplayPrefix="table.detailDisplayPrefix"
       :detailClass="table.detailClass"
@@ -56,6 +57,8 @@ export default {
           payment_description: this.$t('property.description'),
           amount: this.$t('property.amount'),
           payment_method: this.$t('property.paymentMethod'),
+        },
+        detailHeaders2: {
           payment_type: this.$t('property.paymentType'),
           status: this.$t('property.status'),
           is_seen: this.$t('property.isSeen'),

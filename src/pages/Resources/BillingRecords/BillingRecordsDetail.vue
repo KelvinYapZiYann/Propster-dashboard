@@ -7,6 +7,7 @@
       :category="$t('property.billingRecordDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
+      :headers2="table.detailHeaders2"
       :detailDisplayValue="table.detailDisplayValue"
       :detailDisplayPrefix="table.detailDisplayPrefix"
       :detailDisplaySuffix="table.detailDisplaySuffix"
@@ -54,6 +55,8 @@ export default {
           payment_type: this.$t('property.paymentType'),
           billing_start_at: this.$t('property.billingStartDate'),
           billing_end_at: this.$t('property.billingEndDate'),
+        },
+        detailHeaders2: {
           end_of_month_billing: this.$t('property.endOfMonthBilling'),
           grace_period_in_days: this.$t('property.gracePeriod'),
           remind_before_days: this.$t('property.remindBefore'),

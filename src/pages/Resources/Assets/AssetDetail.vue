@@ -5,6 +5,7 @@
      :title="resource.model.asset_nickname"
      :model="resource.model"
      :headers="table.detailHeaders"
+     :headers2="table.detailHeaders2"
      :detailDisplayValue="table.detailDisplayValue"
      :detailDisplaySuffix="table.detailDisplaySuffix"
      thead-classes="text-primary"
@@ -34,6 +35,7 @@
      :category="$t('property.financialDetails')"
      :model="resource.model.financial_details"
      :headers="table.financialDetailHeaders"
+     :headers2="table.financialDetailHeaders2"
      :detailDisplayValue="table.financialDetailDisplayValue"
      :detailDisplayPrefix="table.financialDetailDisplayPrefix"
      :detailDisplaySuffix="table.financialDetailDisplaySuffix"
@@ -134,6 +136,8 @@ export default {
           asset_nickname: this.$t('property.assetNickname'),
           asset_ownership_type: this.$t('property.ownershipType'),
           asset_size: this.$t('property.assetSize'),
+        },
+        detailHeaders2: {
           is_occupied: this.$t('property.currentlyOccupied'),
           is_multi_unit: this.$t('property.isMultiUnit'),
           asset_type: this.$t('property.assetType'),
@@ -173,6 +177,8 @@ export default {
           asset_current_value: this.$t('property.assetCurrentValue'),
           asset_purchased_tax: this.$t('property.assetPurchasedTax'),
           purchased_date: this.$t('property.purchasedDate'),
+        },
+        financialDetailHeaders2: {
           loan_is_active: this.$t('property.loanIsActive'),
           loan_interest_rate: this.$t('property.loanInterestRate'),
           loan_outstanding_amount: this.$t('property.loanOutstandingAmount'),

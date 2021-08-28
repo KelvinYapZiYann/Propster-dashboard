@@ -4,6 +4,7 @@
           :category="$t('property.tenantDetails')"
           :model="resource.model"
           :headers="table.detailHeaders"
+          :headers2="table.detailHeaders2"
           :detailDisplayValue="table.detailDisplayValue"
           thead-classes="text-primary"
         ></base-detail-list>
@@ -148,6 +149,8 @@ export default {
           phone_number: this.$t('property.phoneNumber'),
           identification_type: this.$t('property.idType'),
           identification_number: this.$t('property.idNumber'),
+        },
+        detailHeaders2: {
           gender: this.$t('property.gender'),
           is_business: this.$t('property.isBusiness'),
           date_of_birth: this.$t('property.dateOfBirth'),

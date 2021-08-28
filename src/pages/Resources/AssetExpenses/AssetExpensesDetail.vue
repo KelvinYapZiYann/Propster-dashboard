@@ -11,6 +11,7 @@
       :category="$t('property.assetExpenseDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
+      :headers2="table.detailHeaders2"
       :detailDisplayValue="table.detailDisplayValue"
       :detailDisplayPrefix="table.detailDisplayPrefix"
       :detailClass="table.detailClass"
@@ -55,6 +56,8 @@ export default {
           asset_nickname: this.$t('property.assetNickname'),
           payment_description: this.$t('property.description'),
           amount: this.$t('property.amount'),
+        },
+        detailHeaders2: {
           payment_method:this.$t('property.paymentMethod'),
           payment_type: this.$t('property.paymentType'),
           status: this.$t('property.status'),
