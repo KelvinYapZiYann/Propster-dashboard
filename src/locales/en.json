@@ -176,6 +176,8 @@
     "basicTierTenantCount": "You can only add 3 Tenants per Asset with free tier. Get ADVANCED or PRO version to add more tenants.",
     "confirmEdit": "Confirm Edit",
     "confirmEditText": "Are you confirm to edit?",
+    "confirmDelete": "Confirm Delete",
+    "confirmDeleteText": "Are you confirm to delete?",
     "noAssetAlert": "There is no Asset. Please create one.",
     "noTenantAlert": "There is no Tenant. Please create one.",
     "noTenureContractAlert": "There is no tenure contract of this tenant. Please create one.",
@@ -226,11 +228,12 @@
     "facebookMessengerAlert": "Feel free to give us a feedback. We will attend to you ASAP!",
     "pieChartNoValueAlert": "There is no data.",
 
+    "todoListSuccessfullyAdded": "To-Do List is Successfully Added",
     "todoListFailedAdded": "To-Do List is Failed to be Added",
     "notEditable": "Not Editable",
-    "notEditableText": "This data is not editable for now. Please contact us for details.",
+    "notEditableText": "This data is not editable for now. We are still working on this feature. Please contact us for more assistance.",
     "notDeletable": "Not Deletable",
-    "notDeletableText": "This data is not deletable for now. Please contact us for details.",
+    "notDeletableText": "This data is not deletable for now. We are still working on this feature. Please contact us for more assistance.",
     "dummyData": "This is just a dummy data for displaying purpose.",
 
     "firstTimeProfileTitle": "Please Fill Up Your Basic Info",
@@ -346,6 +349,8 @@
     "endOfMonthBillingFalse": "At The Date Of First Billing",
     "createdAt": "Created At",
     "nextBillingAmount": "Next Billing Amount",
-    "nextBillingDate": "Next Billing Date"
+    "nextBillingDate": "Next Billing Date",
+    "title": "Title",
+    "content": "Content"
   }
 }

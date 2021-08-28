@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import ToDoListIndexComponent from "@/pages/Dashboard/ToDoListIndexComponent";
+import ToDoListIndexComponent from "@/components/Resources/ToDoList/ToDoListIndexComponent";
 import errorHandlingService from "@/store/services/error-handling-service";
 
 export default {

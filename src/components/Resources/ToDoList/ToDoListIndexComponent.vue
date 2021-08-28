@@ -92,61 +92,68 @@ export default {
   },
   methods: {
     editDetails(id) {
-      swal.fire({
-        title: this.$t('alert.notEditable'),
-        text: this.$t('alert.dummyData'),
-        buttonsStyling: false,
-        confirmButtonClass: "btn btn-info btn-fill",
-        icon: "error",
-      });
-      // router.push({
-      //   name: "Edit Assets",
-      //   params: {
-      //     assetId: id,
-      //     previousRoute: this.$router.currentRoute.fullPath
-      //   }
+      // swal.fire({
+      //   title: this.$t('alert.notEditable'),
+      //   text: this.$t('alert.dummyData'),
+      //   buttonsStyling: false,
+      //   confirmButtonClass: "btn btn-info btn-fill",
+      //   icon: "error",
       // });
+      this.$router.push({
+        name: "Edit ToDo List",
+        params: {
+          todoListId: id,
+          previousRoute: this.$router.currentRoute.fullPath
+        }
+      });
     },
     deleteDetails(id) {
       swal.fire({
-        title: this.$t('alert.notDeletable'),
-        text: this.$t('alert.dummyData'),
+        title: this.$t('alert.confirmDelete'),
+        text: this.$t('alert.confirmDeleteText'),
         buttonsStyling: false,
+        showCancelButton: true,
+        confirmButtonText: this.$t('component.yes'),
+        cancelButtonText: this.$t('component.no'),
+        cancelButtonClass: "btn btn-info btn-fill",
         confirmButtonClass: "btn btn-info btn-fill",
-        icon: "error",
+        icon: "info",
+      }).then((result) => {
+        if (result.value) {
+          try {
+            this.$store.dispatch('todoList/remove', id).then(() => {
+              this.$notify({
+                message:'Successfully Deleted',
+                icon: 'tim-icons icon-bell-55',
+                type: 'success'
+              });
+              this.handlePagination(1);
+            })
+          } catch (e) {
+            this.$notify({
+              message: errorHandlingService.displayAlertFromServer(e),
+              icon: 'tim-icons icon-bell-55',
+              type: 'danger'
+            });
+          }
+        }
       });
-      // if (id == null) {
-      //   this.$notify({
-      //     message:'Server error del id == null',
-      //     icon: 'tim-icons icon-bell-55',
-      //     type: 'danger'
-      //   });
-      // } else {
-      //   try {
-      //     this.$store.dispatch('asset/remove', id)
-      //     this.$notify({
-      //       message:'Successfully Deleted',
-      //       icon: 'tim-icons icon-bell-55',
-      //       type: 'success'
-      //     });
-      //     this.getResource();
-      //   } catch (e) {
-      //     this.$notify({
-      //       message:'Server error when del',
-      //       icon: 'tim-icons icon-bell-55',
-      //       type: 'danger'
-      //     });
-      //   }
-      // }
     },
     addModel() {
-      swal.fire({
-        title: this.$t('alert.todoListFailedAdded'),
-        text: this.$t('alert.featureDeveloping'),
-        buttonsStyling: false,
-        confirmButtonClass: "btn btn-info btn-fill",
-        icon: "error",
+      this.$router.push({
+        name: 'Add ToDo List',
+        query: this.query,
+        params: {
+          previousRoute: this.$router.currentRoute.fullPath
+        }
       });
+      // swal.fire({
+      //   title: this.$t('alert.todoListFailedAdded'),
+      //   text: this.$t('alert.featureDeveloping'),
+      //   buttonsStyling: false,
+      //   confirmButtonClass: "btn btn-info btn-fill",
+      //   icon: "error",
+      // });
     },
     async handlePagination(pageId) {
       let loader = this.$loading.show({

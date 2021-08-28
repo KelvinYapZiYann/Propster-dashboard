@@ -151,6 +151,14 @@
       </div>
 
       <div class="row">
+        <div class="col-12 mr-auto">
+          <to-do-list-index-component
+            :resource="todoListResource"
+          ></to-do-list-index-component>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-12">
           <div class="pro-feature alert alert-danger">
             <strong>
@@ -191,7 +199,7 @@
       </div>
 
       <div class="row">
-        <div class="col-xl-5 mr-auto">
+        <div class="col-12 mr-auto">
           <card class="card-chart card-chart-pie">
             <h5 slot="header" class="card-category text-left chart-header">
               {{$t('dashboard.cashflow')}}
@@ -211,12 +219,6 @@
               </bar-chart>
             </div>
           </card>
-        </div>
-
-        <div class="col-xl-7 mr-auto">
-          <to-do-list-index-component
-            :resource="todoListResource"
-          ></to-do-list-index-component>
         </div>
       </div>
 
@@ -258,7 +260,7 @@ import TenantEmpty from "@/components/Resources/Tenants/TenantEmpty";
 import TutorialComponent from "@/components/Tutorial/TutorialComponent";
 
 // import TaskList from "./Dashboard/TaskList";
-import ToDoListIndexComponent from "./Dashboard/ToDoListIndexComponent";
+import ToDoListIndexComponent from "@/components/Resources/ToDoList/ToDoListIndexComponent";
 import swal from "sweetalert2";
 
 export default {

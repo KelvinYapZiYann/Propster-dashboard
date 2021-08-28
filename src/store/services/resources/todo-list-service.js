@@ -52,7 +52,7 @@ function create() {
 }
 
 function update(payload) {
-  const id = payload.id;
+  const todoListId = payload.todoListId;
   const model = payload.model;
 
   const config = {
@@ -62,7 +62,7 @@ function update(payload) {
     }
   };
 
-  return axios.post(`${url}/todolists/${id}/update`, model, config)
+  return axios.post(`${url}/todolists/${todoListId}/update`, model, config)
     .then(response => {
       return response.data;
     });

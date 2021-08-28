@@ -15,7 +15,7 @@ import billingPayments from "./modules/resources/billing-payments-module"
 import paymentRecords from "./modules/resources/payment-records-module"
 import selectRole from "./modules/select-role-module"
 import createProfile from "./modules/create-profile-module"
-import todoList from "./modules/todo-list-module"
+import todoList from "./modules/resources/todo-list-module"
 
 Vue.use(Vuex);
 

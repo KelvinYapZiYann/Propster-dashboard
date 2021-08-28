@@ -68,8 +68,6 @@ const Profile = () =>
     import(/* webpackChunkName: "pages" */ "@/pages/Profile/Profile.vue");
 const ProfileEdit = () =>
   import(/* webpackChunkName: "pages" */ "@/pages/Profile/ProfileEdit.vue");
-const ToDoList = () =>
-  import(/* webpackChunkName: "pages" */ "@/pages/Dashboard/ToDoList.vue");
 const Roadmap = () =>
   import(/* webpackChunkName: "pages" */ "@/pages/Pages/Roadmap.vue");
 const Notifications = () =>
@@ -130,6 +128,14 @@ const BillingRecordsAdd = () => import("@/pages/Resources/BillingRecords/Billing
 const BillingPayments = () => import("@/pages/Resources/BillingPayments/BillingPayments");
 const BillingPaymentsDetail = () => import("@/pages/Resources/BillingPayments/BillingPaymentsDetail");
 // const BillingPaymentsAdd = () => import("@/pages/Resources/BillingPayments/BillingPaymentsAdd");
+
+const ToDoList = () =>
+  import(/* webpackChunkName: "pages" */ "@/pages/Resources/ToDoList/ToDoList.vue");
+const ToDoListAdd = () =>
+  import(/* webpackChunkName: "pages" */ "@/pages/Resources/ToDoList/ToDoListAdd.vue");
+const ToDoListEdit = () =>
+  import(/* webpackChunkName: "pages" */ "@/pages/Resources/ToDoList/ToDoListEdit.vue");
+  
 
 let resources = {
   path: "/",
@@ -330,7 +336,34 @@ let resources = {
       props: {
         default: true
       }
-    }
+    },
+    {
+      path: "todo-list",
+      name: "ToDo List",
+      components: { default: ToDoList },
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
+    },
+    {
+      path: "todo-list/add",
+      name: "Add ToDo List",
+      components: { default: ToDoListAdd },
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
+    },
+    {
+      path: "todo-list/:todoListId/edit",
+      name: "Edit ToDo List",
+      components: { default: ToDoListEdit },
+      meta: { middleware: auth },
+      props: {
+        default: true
+      }
+    },
   ]
 };
 
@@ -592,12 +625,6 @@ const routes = [
         props: {
           default: true
         }
-      },
-      {
-        path: "todo-list",
-        name: "ToDo List",
-        component: ToDoList,
-        meta: { middleware: auth },
       },
       {
         path: "roadmap",

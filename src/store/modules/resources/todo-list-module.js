@@ -1,11 +1,11 @@
-import service from '@/store/services/todo-list-service';
+import service from '@/store/services/resources/todo-list-service';
 import errorHandlingService from '@/store/services/error-handling-service';
 
 const state = {
   models: [],
   data: {},
   model: {},
-  selector: {},
+  // selector: {},
 };
 
 const mutations = {
@@ -45,18 +45,18 @@ const mutations = {
       'id': item.id
     }
 
-    let selectors = response.meta.selector;
-    for (let field in selectors) {
-      let options = [];
-      let selector = selectors[field];
-      for (let key in selector) {
-        options.push({
-          id: key,
-          name: selector[key]
-        })
-      }
-      state.selector[field] = options;
-    }
+    // let selectors = response.meta.selector;
+    // for (let field in selectors) {
+    //   let options = [];
+    //   let selector = selectors[field];
+    //   for (let key in selector) {
+    //     options.push({
+    //       id: key,
+    //       name: selector[key]
+    //     })
+    //   }
+    //   state.selector[field] = options;
+    // }
   },
 };
 
@@ -126,7 +126,8 @@ const actions = {
   },
   remove({commit, dispatch}, id) {
     return service.remove(id)
-      .then((response) => {})
+      .then((response) => {
+      })
       .catch((e) => {
         try {
           errorHandlingService.verifyErrorFromServer(e);
