@@ -411,6 +411,7 @@ export default {
           if (isGeocoderNeeded) {
             const geocoder = new google.maps.Geocoder();
             if (geocoder) {
+              let tmpAddress = this.googleMapSearchInput;
               geocoder.geocode({
                 'address': tmpAddress
               }, function(results, status) {
