@@ -1,8 +1,7 @@
 <template>
   <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
    <base-detail-list
-     :category="$t('property.assetDetails')"
-     :title="resource.model.asset_nickname"
+     :title="$t('property.assetDetails')"
      :model="resource.model"
      :headers="table.detailHeaders"
      :headers2="table.detailHeaders2"
@@ -10,11 +9,12 @@
      :detailDisplaySuffix="table.detailDisplaySuffix"
      thead-classes="text-primary"
    ></base-detail-list>
+   <!-- :title="resource.model.asset_nickname" -->
 
    <div class="row">
      <div class="col-xl-6">
        <base-detail-list
-        :category="$t('property.locationDetails')"
+        :title="$t('property.locationDetails')"
         :model="resource.model.location_details"
         :headers="table.locationDetailHeaders"
         :detailDisplayValue="table.locationDetailDisplayValue"
@@ -32,7 +32,7 @@
    </div>
 
    <base-detail-list
-     :category="$t('property.financialDetails')"
+     :title="$t('property.financialDetails')"
      :model="resource.model.financial_details"
      :headers="table.financialDetailHeaders"
      :headers2="table.financialDetailHeaders2"

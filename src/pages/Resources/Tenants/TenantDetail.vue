@@ -1,7 +1,7 @@
 <template>
       <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
         <base-detail-list
-          :category="$t('property.tenantDetails')"
+          :title="$t('property.tenantDetails')"
           :model="resource.model"
           :headers="table.detailHeaders"
           :headers2="table.detailHeaders2"

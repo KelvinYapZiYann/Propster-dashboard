@@ -8,7 +8,7 @@
       :recipient="resource.model.recipient"
       :sender="resource.model.sender" -->
     <base-detail-list
-      :category="$t('property.assetExpenseDetails')"
+      :title="$t('property.assetExpenseDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
       :headers2="table.detailHeaders2"

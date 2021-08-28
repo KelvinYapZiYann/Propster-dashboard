@@ -4,7 +4,7 @@
       :resource="resource"
     ></transaction-section>
     <base-detail-list
-      :category="$t('property.billingRecordDetails')"
+      :title="$t('property.billingRecordDetails')"
       :model="resource.model"
       :headers="table.detailHeaders"
       :headers2="table.detailHeaders2"
