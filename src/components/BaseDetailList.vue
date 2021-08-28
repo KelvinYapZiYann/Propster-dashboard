@@ -42,7 +42,7 @@
     components: {
       Card
     },
-    name: 'base-table',
+    name: 'base-detail-list',
     props: {
       category: {
         type: String,

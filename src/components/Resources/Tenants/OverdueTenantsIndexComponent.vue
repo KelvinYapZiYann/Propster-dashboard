@@ -2,9 +2,7 @@
   <div class="row">
     <div class="col-12">
       <card>
-        <h4 slot="header" class="card-title text-left" title="Shows tenants which the Rent already exceed the given due date (incl. of Grace Period).">
-          {{table.title}}
-        </h4>
+        <h3 slot="header" class="card-title" title="Shows tenants which the Rent already exceed the given due date (incl. of Grace Period).">{{$t('dashboard.overdueTenantsList')}}</h3>
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
             <base-input 

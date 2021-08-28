@@ -12,7 +12,7 @@
         </strong>
       </div> -->
       <card>
-        <h4 slot="header" class="card-title text-left">{{$t('sidebar.paymentRecords')}}</h4>
+        <h3 slot="header" class="card-title">{{$t('sidebar.paymentRecords')}}</h3>
         <div class="text-right mb-3">
           <base-button
             @click="addModel"
