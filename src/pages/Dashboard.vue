@@ -88,7 +88,7 @@
           </el-tooltip>
         </div>
 
-        <div class="col-xl-9 col-lg-6 col-md-6 col-sm-6 mr-auto">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mr-auto">
           <card class="card-chart card-chart-pie">
             <h5 slot="header" class="card-category text-left chart-header">
               {{$t('dashboard.rent')}}
@@ -114,16 +114,8 @@
             </div>
           </card>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-xl-8 col-lg-6 mr-auto">
-          <overdue-tenants-index-component
-            :resource="resource.overdueTenantList"
-            @getResource="getResource"
-          ></overdue-tenants-index-component>
-        </div>
-        <div class="col-xl-4 col-lg-6 mr-auto">
+        <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 mr-auto">
           <card class="card-chart card-chart-pie height-350">
             <h5 slot="header" class="card-category text-left chart-header">
               {{$t('dashboard.assetsVacancy')}}
@@ -145,6 +137,39 @@
                 <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}: {{resource.assetsVacancy ? resource.assetsVacancy.blankVacancy : ''}}</p>
                 <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}: {{resource.assetsVacancy ? resource.assetsVacancy.currentTenants : ''}}</p>
               </div>
+            </div>
+          </card>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 mr-auto">
+          <overdue-tenants-index-component
+            :resource="resource.overdueTenantList"
+            @getResource="getResource"
+          ></overdue-tenants-index-component>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 mr-auto">
+          <card class="card-chart card-chart-pie">
+            <h5 slot="header" class="card-category text-left chart-header">
+              {{$t('dashboard.cashflow')}}
+            </h5>
+            <div class="row ml-3">
+              <div class="col-12">
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.expenses')}}</p>
+              </div>
+            </div>
+            <div class="chart-area">
+              <bar-chart
+                :chart-data="cashflowChart"
+                :extra-options="barChartExtraOptions"
+                :height="200"
+              >
+              </bar-chart>
             </div>
           </card>
         </div>
@@ -187,41 +212,6 @@
         :resource="resource.rentalRateList"
         @getResource="getResource"
       ></assets-rental-rate-index-component>
-
-      <div class="row">
-        <div class="col-12">
-          <div class="pro-feature alert alert-danger">
-            <strong>
-              {{$t('alert.featureDeveloping')}}
-            </strong>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12 mr-auto">
-          <card class="card-chart card-chart-pie">
-            <h5 slot="header" class="card-category text-left chart-header">
-              {{$t('dashboard.cashflow')}}
-            </h5>
-            <div class="row ml-3">
-              <div class="col-12">
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}}</p>
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.expenses')}}</p>
-              </div>
-            </div>
-            <div class="chart-area">
-              <bar-chart
-                :chart-data="cashflowChart"
-                :extra-options="barChartExtraOptions"
-                :height="200"
-              >
-              </bar-chart>
-            </div>
-          </card>
-        </div>
-      </div>
-
     </div>
 
     <div v-if="!doesAssetExist && !doesTenantExist">
