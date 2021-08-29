@@ -41,8 +41,22 @@ function getOverdueTenantList() {
         });
 }
 
+function getAssetVacancy() {
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+    return axios.get(`${url}/dashboard-info/asset-vacancy`, config)
+        .then(response => {
+            return response.data;
+        });
+}
+
 export default {
     getGeneralDetail,
     getRentalDetail,
-    getOverdueTenantList
+    getOverdueTenantList,
+    getAssetVacancy,
 };

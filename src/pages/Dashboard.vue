@@ -66,7 +66,7 @@
             :open-delay="300"
           >
             <stats-card
-              :title="`RM${resource.projectedMonthlyIncome}`"
+              :title="`RM${resource.general ? resource.general.projected_monthly_income : ''}`"
               :sub-title="$t('dashboard.projectedMonthlyIncome')"
               type="primary"
               icon="tim-icons icon-spaceship"
@@ -79,7 +79,7 @@
             :open-delay="300"
           >
             <stats-card
-              :title="`RM0`"
+              :title="`RM${resource.general ? resource.general.projected_monthly_expenses : ''}`"
               :sub-title="$t('dashboard.projectedMonthlyExpenses')"
               type="warning"
               icon="tim-icons icon-user-run"
@@ -134,8 +134,8 @@
               </div>
 
               <div class="col-6">
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}: {{resource.assetsVacancy ? resource.assetsVacancy.blankVacancy : ''}}</p>
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}: {{resource.assetsVacancy ? resource.assetsVacancy.currentTenants : ''}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.blankVacancy')}}: {{resource.assetsVacancy ? resource.assetsVacancy.blank_vacancy : ''}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.currentTenants')}}: {{resource.assetsVacancy ? resource.assetsVacancy.number_of_tenants : ''}}</p>
               </div>
             </div>
           </card>
@@ -290,8 +290,8 @@ export default {
           data: {}
         },
         assetsVacancy: {
-          blankVacancy: 0,
-          currentTenants: 0
+          blank_vacancy: 0,
+          number_of_tenants: 0
         },
         tenants: {
           data: {}
@@ -394,13 +394,13 @@ export default {
             pointHoverRadius: 0,
             backgroundColor: ["#ff8779", "#2a84e9"],
             borderWidth: 0,
-            data: [this.resource.assetsVacancy.blankVacancy, this.resource.assetsVacancy.currentTenants]
+            data: [this.resource.assetsVacancy.blank_vacancy, this.resource.assetsVacancy.number_of_tenants]
           }
         ]
       }
     },
     assetVacancyChartAlertText() {
-      return this.resource.assetsVacancy.currentTenants <= 0;
+      return this.resource.assetsVacancy.blank_vacancy <= 0 && this.resource.assetsVacancy.number_of_tenants <= 0;
     }
   },
   methods: {
@@ -446,19 +446,24 @@ export default {
             }
             this.resource.rentalRateList.data = Object.assign({}, this.$store.getters["asset/data"]);
         });
-        await this.$store.dispatch('tenant/get', {}).then(() => {
-          this.resource.tenants.data = this.$store.getters["tenant/data"]
-          this.resource.assetsVacancy.currentTenants = this.$store.getters["tenant/data"].total;
-          let blankVacancy = 0;
-          for (let i = 0; i < this.resource.assetsValueList.models.length; i++) {
-            let tmpBlankVacancy = this.resource.assetsValueList.models[i].number_of_rooms - this.resource.assetsValueList.models[i].number_of_tenants;
-            if (tmpBlankVacancy > 0) {
-              blankVacancy += tmpBlankVacancy;
-            }
-          }
-          this.resource.assetsVacancy.blankVacancy = blankVacancy;
-          this.doesTenantExist = this.resource.assetsVacancy.currentTenants > 0;
+        // await this.$store.dispatch('tenant/get', {}).then(() => {
+        //   this.resource.tenants.data = this.$store.getters["tenant/data"]
+        //   this.resource.assetsVacancy.currentTenants = this.$store.getters["tenant/data"].total;
+        //   let blankVacancy = 0;
+        //   for (let i = 0; i < this.resource.assetsValueList.models.length; i++) {
+        //     let tmpBlankVacancy = this.resource.assetsValueList.models[i].number_of_rooms - this.resource.assetsValueList.models[i].number_of_tenants;
+        //     if (tmpBlankVacancy > 0) {
+        //       blankVacancy += tmpBlankVacancy;
+        //     }
+        //   }
+        //   this.resource.assetsVacancy.blankVacancy = blankVacancy;
+        //   this.doesTenantExist = this.resource.assetsVacancy.currentTenants > 0;
+        // });
+
+        await this.$store.dispatch('dashboard/getAssetVacancy', {}).then(() => {
+          this.resource.assetsVacancy = this.$store.getters["dashboard/assetVacancy"]
         });
+        
         await this.$store.dispatch('billingRecords/get', {}).then(() => {
           let billingRecordsModels = this.$store.getters["billingRecords/models"];
           let totalAmount = 0;

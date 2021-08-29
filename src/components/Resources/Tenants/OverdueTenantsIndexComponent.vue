@@ -25,7 +25,7 @@
           >
           </base-table>
         </div>
-        <div
+        <!-- <div
           slot="footer"
           class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
         >
@@ -43,7 +43,7 @@
             type="info"
           >
           </base-pagination>
-        </div>
+        </div> -->
       </card>
     </div>
   </div>

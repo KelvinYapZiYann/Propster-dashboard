@@ -6,6 +6,7 @@ const state = {
     rental: {},
     overdueTenantListModels: [],
     overdueTenantListData: {},
+    assetVacancy: {}
 };
 
 const mutations = {
@@ -29,7 +30,7 @@ const mutations = {
             }
             obj['id'] = item.id;
             state.overdueTenantListModels.push(obj);
-          })
+        })
         state.overdueTenantListData = {
             'canAdd': response.meta.canAdd,
             // 'currentPage': response.meta.current_page,
@@ -41,6 +42,11 @@ const mutations = {
             // 'meta': response.meta
         }
     },
+    SET_ASSET_VACANCY: (state, response) => {
+        for (let key in response) {
+            state.assetVacancy[key] = response[key];
+        }
+    }
 };
 
 const actions = {
@@ -82,6 +88,19 @@ const actions = {
                 throw e1;
             }
         });
+    },
+    getAssetVacancy({commit, dispatch}) {
+        return service.getAssetVacancy()
+        .then((response) => {
+            commit('SET_ASSET_VACANCY', response);
+        })
+        .catch((e) => {
+            try {
+                errorHandlingService.verifyErrorFromServer(e);
+            } catch(e1) {
+                throw e1;
+            }
+        });
     }
 };
 
@@ -90,6 +109,7 @@ const getters = {
     rental: state => state.rental,
     overdueTenantListModels: state => state.overdueTenantListModels,
     overdueTenantListData: state => state.overdueTenantListData,
+    assetVacancy: state => state.assetVacancy,
 };
 
 const store = {

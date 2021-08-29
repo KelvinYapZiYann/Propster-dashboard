@@ -632,21 +632,21 @@ const routes = [
         component: Roadmap,
         meta: { middleware: auth },
       },
-      {
-        path: "tutorial",
-        name: "Tutorial",
-        component: Tutorial,
-        meta: { middleware: auth },
-      },
-      {
-        path: "tutorial/landlord",
-        name: "Tutorial Landlord",
-        component: TutorialLandlord,
-        meta: { middleware: auth },
-        props: {
-          default: true
-        }
-      },
+      // {
+      //   path: "tutorial",
+      //   name: "Tutorial",
+      //   component: Tutorial,
+      //   meta: { middleware: auth },
+      // },
+      // {
+      //   path: "tutorial/landlord",
+      //   name: "Tutorial Landlord",
+      //   component: TutorialLandlord,
+      //   meta: { middleware: auth },
+      //   props: {
+      //     default: true
+      //   }
+      // },
       {
         path: "notifications",
         name: "Notifications",
