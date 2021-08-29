@@ -69,10 +69,18 @@ export default {
       this.$emit('cancel')
     },
     translateModel() {
-      return {
-        title: this.resource.model.title,
-        content: this.resource.model.content,
-        status: false,
+      if (this.addOrEdit == 'Add') {
+        return {
+          title: this.resource.model.title,
+          content: this.resource.model.content,
+          status: false,
+        }
+      } else {
+        return {
+          title: this.resource.model.title,
+          content: this.resource.model.content,
+          status: this.resource.model.status,
+        }
       }
     },
   }

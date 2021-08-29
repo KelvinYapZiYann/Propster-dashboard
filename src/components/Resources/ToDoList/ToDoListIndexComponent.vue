@@ -28,7 +28,10 @@
                 <p class="text-muted">{{ row.content }}</p>
               </td>
               <td>
-                <base-checkbox v-model="row.status"> </base-checkbox>
+                <base-checkbox 
+                  v-model="row.status"
+                  @input="handleCheckbox($event, row.id, row.title, row.content)"
+                ></base-checkbox>
               </td>
               <!-- <td class="td-actions text-right">
                 <base-button type="link" artia-label="edit button">
@@ -64,6 +67,7 @@
 <script>
 
 import {BaseButton, BaseCheckbox, BaseTable, BasePagination, Card} from "@/components";
+import errorHandlingService from "@/store/services/error-handling-service";
 import swal from "sweetalert2";
 
 export default {
@@ -183,6 +187,25 @@ export default {
         } finally {
           loader.hide();
         }
+    },
+    async handleCheckbox(value, id, title, content) {
+      this.$store.dispatch('todoList/update', {'todoListId': id, 'model': {
+        'title': title,
+        'content': content,
+        'status': value,
+      }}).then(() => {
+        this.$notify({
+          message:'Successfully Updated',
+          icon: 'tim-icons icon-bell-55',
+          type: 'success'
+        });
+      }).catch((e) => {
+        this.$notify({
+          message: errorHandlingService.displayAlertFromServer(e),
+          icon: 'tim-icons icon-bell-55',
+          type: 'danger'
+        });
+      });
     }
   }
 

@@ -19,8 +19,8 @@ const mutations = {
         obj[key] = fields[key];
       }
 
-      state.models.push(obj);
       obj.id = item.id;
+      state.models.push(obj);
     })
     state.data = {
       'canAdd': response.meta.canAdd,
