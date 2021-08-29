@@ -212,6 +212,8 @@
         :resource="resource.rentalRateList"
         @getResource="getResource"
       ></assets-rental-rate-index-component>
+
+      <tutorial-component></tutorial-component>
     </div>
 
     <div v-if="!doesAssetExist && !doesTenantExist">
