@@ -6,7 +6,8 @@ const state = {
     rental: {},
     overdueTenantListModels: [],
     overdueTenantListData: {},
-    assetVacancy: {}
+    assetVacancy: {},
+    cashflow: []
 };
 
 const mutations = {
@@ -46,7 +47,17 @@ const mutations = {
         for (let key in response) {
             state.assetVacancy[key] = response[key];
         }
-    }
+    },
+    SET_CASHFLOW: (state, response) => {
+        state.cashflow = [];
+        response.forEach(function (item, index) {
+            let obj = {};
+            for (let key in item) {
+                obj[key] = item[key];
+            }
+            state.cashflow.push(obj);
+        })
+    },
 };
 
 const actions = {
@@ -101,7 +112,20 @@ const actions = {
                 throw e1;
             }
         });
-    }
+    },
+    getCashflow({commit, dispatch}) {
+        return service.getCashflow()
+        .then((response) => {
+            commit('SET_CASHFLOW', response);
+        })
+        .catch((e) => {
+            try {
+                errorHandlingService.verifyErrorFromServer(e);
+            } catch(e1) {
+                throw e1;
+            }
+        });
+    },
 };
 
 const getters = {
@@ -110,6 +134,7 @@ const getters = {
     overdueTenantListModels: state => state.overdueTenantListModels,
     overdueTenantListData: state => state.overdueTenantListData,
     assetVacancy: state => state.assetVacancy,
+    cashflow: state => state.cashflow,
 };
 
 const store = {

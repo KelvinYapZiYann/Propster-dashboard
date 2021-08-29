@@ -54,9 +54,23 @@ function getAssetVacancy() {
         });
 }
 
+function getCashflow() {
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+    return axios.get(`${url}/dashboard-info/cash-flow`, config)
+        .then(response => {
+            return response.data;
+        });
+}
+
 export default {
     getGeneralDetail,
     getRentalDetail,
     getOverdueTenantList,
     getAssetVacancy,
+    getCashflow,
 };

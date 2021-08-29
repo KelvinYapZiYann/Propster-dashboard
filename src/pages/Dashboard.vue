@@ -281,6 +281,16 @@ export default {
           models: [],
           data: {}
         },
+        assetsVacancy: {
+          blank_vacancy: 0,
+          number_of_tenants: 0
+        },
+        cashflow: {
+          months: [],
+          income: [],
+          expenses: []
+        },
+        
         assetsValueList: {
           models: [],
           data: {}
@@ -289,14 +299,6 @@ export default {
           models: [],
           data: {}
         },
-        assetsVacancy: {
-          blank_vacancy: 0,
-          number_of_tenants: 0
-        },
-        tenants: {
-          data: {}
-        },
-        projectedMonthlyIncome: 0
       },
       barChartExtraOptions: chartConfigs.barChartOptionsGradient,
       pieChartExtraOptions: chartConfigs.pieChartOptions,
@@ -325,14 +327,7 @@ export default {
           //   done: false
           // }
         ],
-        data: {
-          currentPage: 1,
-          total: 0,
-          from: 0,
-          to: 0,
-          perPage: 10,
-          links: []
-        }
+        data: {}
       }
     };
   },
@@ -357,7 +352,8 @@ export default {
     },
     cashflowChart() {
       return {
-        labels: [this.$t('dateTime.march'), this.$t('dateTime.april'), this.$t('dateTime.may'), this.$t('dateTime.june'), this.$t('dateTime.july'), this.$t('dateTime.august')],
+        // labels: [this.$t('dateTime.march'), this.$t('dateTime.april'), this.$t('dateTime.may'), this.$t('dateTime.june'), this.$t('dateTime.july'), this.$t('dateTime.august')],
+        labels: this.resource.cashflow.months,
         datasets: [
           {
             label: this.$t('dashboard.income') + " (RM)",
@@ -368,7 +364,7 @@ export default {
             borderWidth: 2,
             borderDash: [],
             borderDashOffset: 0.0,
-            data: [80, 100, 70, 80, 120, 80]
+            data: this.resource.cashflow.income,
           },
           {
             label: this.$t('dashboard.expenses') + " (RM)",
@@ -379,7 +375,7 @@ export default {
             borderWidth: 2,
             borderDash: [],
             borderDashOffset: 0.0,
-            data: [40, 110, 90, 70, 90, 100]
+            data: this.resource.cashflow.expenses,
           }
         ]
       }
@@ -424,6 +420,36 @@ export default {
           this.resource.overdueTenantList.models = this.$store.getters["dashboard/overdueTenantListModels"]
           this.resource.overdueTenantList.data = Object.assign({}, this.$store.getters["dashboard/overdueTenantListData"]);
         });
+        await this.$store.dispatch('dashboard/getAssetVacancy', {}).then(() => {
+          this.resource.assetsVacancy = this.$store.getters["dashboard/assetVacancy"]
+          this.doesTenantExist = this.resource.assetsVacancy.number_of_tenants > 0;
+        });
+        await this.$store.dispatch('dashboard/getCashflow', {}).then(() => {
+          let tmpCashflow = this.$store.getters["dashboard/cashflow"];
+          this.resource.cashflow.months = [];
+          this.resource.cashflow.income = [];
+          this.resource.cashflow.expenses = [];
+          if (tmpCashflow.length > 6) {
+            for (let i = tmpCashflow.length - 6; i < tmpCashflow.length; i++) {
+              this.resource.cashflow.months.push(tmpCashflow[i].month);
+              this.resource.cashflow.income.push(tmpCashflow[i].income);
+              this.resource.cashflow.expenses.push(tmpCashflow[i].expenses);
+            }
+          } else {
+            for (let i = 0; i < tmpCashflow.length; i++) {
+              this.resource.cashflow.months.push(tmpCashflow[i].month);
+              this.resource.cashflow.income.push(tmpCashflow[i].income);
+              this.resource.cashflow.expenses.push(tmpCashflow[i].expenses);
+            }
+          }
+        });
+        await this.$store.dispatch('todoList/get', {}).then(() => {
+          this.todoListResource.models = this.$store.getters["todoList/models"]
+          this.todoListResource.data = Object.assign({}, this.$store.getters["todoList/data"]);
+        });
+
+
+
         await this.$store.dispatch('asset/get', {}).then(() => {
           this.resource.assetsValueList.models = this.$store.getters["asset/models"]
           this.resource.assetsValueList.data = Object.assign({}, this.$store.getters["asset/data"]);
@@ -445,36 +471,6 @@ export default {
                 this.resource.rentalRateList.models[i]['current_market_rental_rate'] = '1450';
             }
             this.resource.rentalRateList.data = Object.assign({}, this.$store.getters["asset/data"]);
-        });
-        // await this.$store.dispatch('tenant/get', {}).then(() => {
-        //   this.resource.tenants.data = this.$store.getters["tenant/data"]
-        //   this.resource.assetsVacancy.currentTenants = this.$store.getters["tenant/data"].total;
-        //   let blankVacancy = 0;
-        //   for (let i = 0; i < this.resource.assetsValueList.models.length; i++) {
-        //     let tmpBlankVacancy = this.resource.assetsValueList.models[i].number_of_rooms - this.resource.assetsValueList.models[i].number_of_tenants;
-        //     if (tmpBlankVacancy > 0) {
-        //       blankVacancy += tmpBlankVacancy;
-        //     }
-        //   }
-        //   this.resource.assetsVacancy.blankVacancy = blankVacancy;
-        //   this.doesTenantExist = this.resource.assetsVacancy.currentTenants > 0;
-        // });
-
-        await this.$store.dispatch('dashboard/getAssetVacancy', {}).then(() => {
-          this.resource.assetsVacancy = this.$store.getters["dashboard/assetVacancy"]
-        });
-        
-        await this.$store.dispatch('billingRecords/get', {}).then(() => {
-          let billingRecordsModels = this.$store.getters["billingRecords/models"];
-          let totalAmount = 0;
-          for (let i = 0; i < billingRecordsModels.length; i++) {
-            totalAmount += parseFloat(billingRecordsModels[i].amount);
-          }
-          this.resource.projectedMonthlyIncome = totalAmount;
-        });
-        await this.$store.dispatch('todoList/get', {}).then(() => {
-          this.todoListResource.models = this.$store.getters["todoList/models"]
-          this.todoListResource.data = Object.assign({}, this.$store.getters["todoList/data"]);
         });
       } catch (e) {
         this.$notify({
