@@ -94,11 +94,11 @@ export default {
       default: () => [],
       description: "Table columns class"
     },
-    columnsClassColumn: {
-      type: Array,
-      default: () => [],
-      description: "Table columns class"
-    },
+    // columnsClassColumn: {
+    //   type: Array,
+    //   default: () => [],
+    //   description: "Table columns class"
+    // },
     rowColor: {
       type: Array,
       default: () => [],
@@ -212,14 +212,18 @@ export default {
       return '-';
     },
     itemClass(column, index) {
-      if (this.columnsClassColumn) {
-        for (let i = 0; i < this.columnsClassColumn.length; i++) {
-          if (this.columnsClassColumn[i] == column) {
-            return this.columnsClass[index];
+      try {
+      if (this.columnsClass) {
+        for (let j = 0; j < this.columnsClass.length; j++) {
+          if (this.columnsClass[j].name == column) {
+            return this.columnsClass[j].class[index];
           }
         }
       }
       return '';
+      } catch(e) {
+        console.log(e);
+      }
     },
     showDetails: function (id) {
       if (!this.disableView) {

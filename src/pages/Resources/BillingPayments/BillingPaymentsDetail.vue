@@ -49,7 +49,9 @@ export default {
         models: [],
         data: {}
       },
-      columnsClass: [],
+      columnsClass: [
+        {name:"status", class:[]}
+      ],
       table: {
         detailHeaders: {
           asset_nickname: this.$t('property.assetNickname'),
@@ -129,7 +131,7 @@ export default {
               tmpColumnsClass.push('badge badge-pill badge-warning');
             }
           }
-          this.columnsClass = tmpColumnsClass;
+          this.columnsClass[0] = {name:"status", class:tmpColumnsClass};
         });
       } catch (e) {
         this.$notify({

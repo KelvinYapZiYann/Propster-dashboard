@@ -12,15 +12,14 @@
           >
             {{$t('component.add')}} {{$t('sidebar.billingRecord')}}
           </base-button>
-          <!-- <base-button
-            @click="addModel(false)"
+          <base-button
+            @click="addReminder"
             class="mt-3"
             type="info"
             v-bind:disabled="!resource.data.canAdd"
-            v-if="query ? !query.tenureContractId : true"
           >
-            {{$t('component.add')}} {{$t('sidebar.oneTimeBillingRecords')}}
-          </base-button> -->
+            {{$t('component.add')}} {{$t('sidebar.reminderBillingRecord')}}
+          </base-button>
         </div>
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -317,6 +316,60 @@ export default {
           }
         });
       }
+    },
+    async addReminder() {
+      this.$store.dispatch('asset/get').then(() => {
+        if (this.$store.getters["asset/data"].total <= 0) {
+          swal.fire({
+            title: this.$t('alert.billingRecordFailedAdded'),
+            text: this.$t('alert.noAssetAddingBillingRecord'),
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: this.$t('component.add') + ' ' + this.$t('sidebar.asset'),
+            cancelButtonText: this.$t('component.cancel'),
+            cancelButtonClass: "btn btn-info btn-fill",
+            confirmButtonClass: "btn btn-info btn-fill",
+            icon: "error",
+          }).then((result) => {
+            if (result.value) {
+              this.$router.push({
+                name: 'Add Assets',
+                params: {
+                  previousRoute: this.$router.currentRoute.fullPath
+                }
+              });
+            }
+          });
+        } else {
+          if (!this.resource.data.canAdd) {
+            swal.fire({
+              title: this.$t('alert.billingRecordFailedAdded'),
+              text: this.$t('alert.billingRecordFailedAddedText'),
+              buttonsStyling: false,
+              confirmButtonClass: "btn btn-info btn-fill",
+              icon: "error",
+            });
+            return;
+          }
+          if (!this.userResource.model.landlord_ids) {
+            this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
+          }
+          router.push({
+            name: 'Add Billing Record',
+            query: {
+              senderType: "LANDLORD",
+              senderId: this.userResource.model.landlord_ids[0],
+              recipientType: "VENDOR",
+              recipientId: 1,
+              assetId: this.$props.query ? this.$props.query.assetId : null,
+            },
+            params: {
+              previousRoute: router.currentRoute.fullPath
+            }
+          });
+        }
+      });
+        
     },
     async handlePagination(pageId) {
       this.paginationPage = pageId;

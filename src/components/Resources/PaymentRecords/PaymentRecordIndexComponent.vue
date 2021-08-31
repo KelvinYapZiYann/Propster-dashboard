@@ -37,13 +37,13 @@
             :columnsDisplayPrefix="table.columnsDisplayPrefix"
             :columnsDisplayValue="table.columnsDisplayValue"
             :columnsClass="tableData.columnsClass"
-            :columnsClassColumn="table.columnsClassColumn"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
             :paginationPage="paginationPage"
           >
+          <!-- :columnsClassColumn="table.columnsClassColumn" -->
           <!-- :disableEdit="true" -->
           <!-- :disableDelete="true" -->
           </base-table>
@@ -92,6 +92,7 @@ export default {
           recipient_name: this.$t('property.recipientName'),
           asset_nickname: this.$t('property.assetNickname'),
           payment_description: this.$t('property.description'),
+          cash_flow_direction: this.$t('property.cashflow'),
           amount: this.$t('property.amount'),
           status: this.$t('property.status'),
           payment_method: this.$t('property.paymentMethod'),
@@ -100,9 +101,10 @@ export default {
         columnsDisplayPrefix: {
           amount: "RM"
         },
-        columnsClassColumn: [
-          "status"
-        ],
+        // columnsClassColumn: [
+        //   "status",
+        //   "cash_flow_direction"
+        // ],
         columnsDisplayValue: {
           status: {
             RECEIVED: "Received",
@@ -119,6 +121,10 @@ export default {
             CREDIT_CARD: "Credit Card",
             EWALLET_C2B: "E-Wallet(C2B)",
             EWALLET_P2P: "E-Wallet(P2P)",
+          },
+          cash_flow_direction: {
+            SENDING: "Out",
+            RECEIVING: "In",
           }
         }
       },
@@ -152,7 +158,10 @@ export default {
       type: Object,
       required: true,
       default: () => {
-        columnsClass: []
+        columnClass: [
+          {name: "status" , class: []},
+          {name: "cashflow" , class: []},
+        ]
       }
     },
     query: {
@@ -311,15 +320,7 @@ export default {
             await this.$store.dispatch('billingPayments/getPaymentRecords', param).then(() => {
               this.resource.models = this.$store.getters["billingPayments/paymentRecordModels"];
               this.resource.data = Object.assign({}, this.$store.getters["billingPayments/paymentRecordData"]);
-              let tmpColumnsClass = [];
-              for (let i = 0; i < this.resource.models.length; i++) {
-                if (this.resource.models[i].status == 'RECEIVED') {
-                  tmpColumnsClass.push('badge badge-pill badge-success');
-                } else if (this.resource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
-                  tmpColumnsClass.push('badge badge-pill badge-warning');
-                }
-              }
-              this.tableData.columnsClass = tmpColumnsClass;
+              this.insertColumnBadgeClass(this.resource.models);
             });
           } else if (this.$props.query.tenantId) {
             var param = {
@@ -329,47 +330,24 @@ export default {
             await this.$store.dispatch('tenant/getPaymentRecords', param).then(() => {
               this.resource.models = this.$store.getters["tenant/paymentRecordModels"];
               this.resource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"]);
-              let tmpColumnsClass = [];
-              for (let i = 0; i < this.resource.models.length; i++) {
-                if (this.resource.models[i].status == 'RECEIVED') {
-                  tmpColumnsClass.push('badge badge-pill badge-success');
-                } else if (this.resource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
-                  tmpColumnsClass.push('badge badge-pill badge-warning');
-                }
-              }
-              this.tableData.columnsClass = tmpColumnsClass;
+              this.insertColumnBadgeClass(this.resource.models);
             });
           } else {
             await this.$store.dispatch('paymentRecords/get', pageId).then(() => {
               this.resource.models = this.$store.getters["paymentRecords/models"];
               this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"]);
-              let tmpColumnsClass = [];
-              for (let i = 0; i < this.resource.models.length; i++) {
-                if (this.resource.models[i].status == 'RECEIVED') {
-                  tmpColumnsClass.push('badge badge-pill badge-success');
-                } else if (this.resource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
-                  tmpColumnsClass.push('badge badge-pill badge-warning');
-                }
-              }
-              this.tableData.columnsClass = tmpColumnsClass;
+              this.insertColumnBadgeClass(this.resource.models);
             });
           }
         } else {
           await this.$store.dispatch('paymentRecords/get', pageId).then(() => {
             this.resource.models = this.$store.getters["paymentRecords/models"];
             this.resource.data = Object.assign({}, this.$store.getters["paymentRecords/data"]);
-            let tmpColumnsClass = [];
-            for (let i = 0; i < this.resource.models.length; i++) {
-              if (this.resource.models[i].status == 'RECEIVED') {
-                tmpColumnsClass.push('badge badge-pill badge-success');
-              } else if (this.resource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
-                  tmpColumnsClass.push('badge badge-pill badge-warning');
-                }
-            }
-            this.tableData.columnsClass = tmpColumnsClass;
+            this.insertColumnBadgeClass(this.resource.models);
           });
         }
       } catch (e) {
+        console.log(e);
         this.$notify({
           message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
@@ -378,6 +356,26 @@ export default {
       } finally {
         loader.hide();
       }
+    },
+    insertColumnBadgeClass(models) {
+      let tmpStatusColumnsClass = [];
+      let tmpCashflowColumnsClass = [];
+      for (let i = 0; i < models.length; i++) {
+        if (models[i].status == 'RECEIVED') {
+          tmpStatusColumnsClass.push('badge badge-pill badge-success');
+        } else if (models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
+          tmpStatusColumnsClass.push('badge badge-pill badge-warning');
+        }
+        if (models[i].cash_flow_direction == 'RECEIVING') {
+          tmpCashflowColumnsClass.push('badge badge-pill badge-success');
+        } else if (models[i].cash_flow_direction == 'SENDING') {
+          tmpCashflowColumnsClass.push('badge badge-pill badge-warning');
+        }
+      }
+      this.tableData.columnsClass = [
+        {name: "status", class: tmpStatusColumnsClass},
+        {name: "cash_flow_direction", class: tmpCashflowColumnsClass}
+      ]
     }
   },
   watch: {

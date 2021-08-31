@@ -28,13 +28,13 @@
             :columnsDisplayPrefix="table.columnsDisplayPrefix"
             :columnsDisplayValue="table.columnsDisplayValue"
             :columnsClass="tableData.columnsClass"
-            :columnsClassColumn="table.columnsClassColumn"
             thead-classes="text-primary"
             v-on:show-details="showDetails"
             v-on:delete-details="deleteDetails"
             v-on:edit-details="editDetails"
             :paginationPage="paginationPage"
           >
+          <!-- :columnsClassColumn="table.columnsClassColumn" -->
           <!-- :disableEdit="true" -->
           <!-- :disableDelete="true" -->
           </base-table>
@@ -96,9 +96,9 @@ export default {
         columnsDisplayPrefix: {
           amount: "RM"
         },
-        columnsClassColumn: [
-          "status"
-        ],
+        // columnsClassColumn: [
+        //   "status"
+        // ],
         columnsDisplayValue: {
           status: {
             RECEIVED: "Received",
@@ -142,7 +142,9 @@ export default {
       type: Object,
       required: true,
       default: () => {
-        columnsClass: []
+        columnsClass: [
+          {name: "status", class:[]}
+        ]
       }
     },
     query: {
@@ -255,7 +257,7 @@ export default {
                   tmpColumnsClass.push('badge badge-pill badge-success');
                 }
               }
-              this.tableData.columnsClass = tmpColumnsClass;
+              this.tableData.columnsClass[0] = {name:"status", class:tmpColumnsClass};
             });
           } else {
             await this.$store.dispatch('assetExpenses/get', pageId).then(() => {
@@ -267,7 +269,7 @@ export default {
                   tmpColumnsClass.push('badge badge-pill badge-success');
                 }
               }
-              this.tableData.columnsClass = tmpColumnsClass;
+              this.tableData.columnsClass[0] = {name:"status", class:tmpColumnsClass};
             });
           }
         } else {
@@ -280,7 +282,7 @@ export default {
                 tmpColumnsClass.push('badge badge-pill badge-success');
               }
             }
-            this.tableData.columnsClass = tmpColumnsClass;
+            this.tableData.columnsClass[0] = {name:"status", class:tmpColumnsClass};
           });
         }
       } catch (e) {

@@ -1,14 +1,5 @@
 <template>
   <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
-    <div class="row">
-        <div class="col-12">
-          <div class="pro-feature alert alert-danger">
-            <strong>
-              {{$t('alert.featureDeveloping')}}
-            </strong>
-          </div>
-        </div>
-      </div>
     <to-do-list-index-component
         :resource="resource"
     ></to-do-list-index-component>

@@ -137,7 +137,10 @@ export default {
         models: [],
         data: {}
       },
-      columnsClass: [],
+      columnsClass: [
+        {name:"status", class:[]},
+        {name:"cash_flow_direction", class:[]},
+      ],
       userResource: {
         model: {},
       },
@@ -272,15 +275,24 @@ export default {
         await this.$store.dispatch('tenant/getPaymentRecords',  this.tenantId).then(() => {
           this.paymentRecordResource.models = this.$store.getters["tenant/paymentRecordModels"]
           this.paymentRecordResource.data = Object.assign({}, this.$store.getters["tenant/paymentRecordData"])
-          let tmpColumnsClass = [];
+          let tmpStatusColumnsClass = [];
+          let tmpCashflowColumnsClass = [];
           for (let i = 0; i < this.paymentRecordResource.models.length; i++) {
             if (this.paymentRecordResource.models[i].status == 'RECEIVED') {
-              tmpColumnsClass.push('badge badge-pill badge-success');
+              tmpStatusColumnsClass.push('badge badge-pill badge-success');
             } else if (this.paymentRecordResource.models[i].status == 'AWAITING_ACKNOWLEDGEMENT') {
-              tmpColumnsClass.push('badge badge-pill badge-warning');
+              tmpStatusColumnsClass.push('badge badge-pill badge-warning');
+            }
+            if (this.paymentRecordResource.models[i].cash_flow_direction == 'RECEIVING') {
+              tmpCashflowColumnsClass.push('badge badge-pill badge-success');
+            } else if (this.paymentRecordResource.models[i].cash_flow_direction == 'SENDING') {
+              tmpCashflowColumnsClass.push('badge badge-pill badge-warning');
             }
           }
-          this.columnsClass = tmpColumnsClass;
+          this.columnsClass = [
+            {name:"status", class:tmpStatusColumnsClass},
+            {name:"cash_flow_direction", class:tmpCashflowColumnsClass},
+          ];
         })
 
         this.userResource.model = Object.assign({}, this.$store.getters["users/model"])

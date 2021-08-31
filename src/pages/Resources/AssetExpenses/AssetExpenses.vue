@@ -21,7 +21,9 @@ export default {
         models: [{}],
         data: {}
       },
-      columnsClass: [],
+      columnsClass: [
+        {name:"status", class:[]}
+      ],
     };
   },
   mounted() {
@@ -44,7 +46,7 @@ export default {
             tmpColumnsClass.push('badge badge-pill badge-success');
           }
         }
-        this.columnsClass = tmpColumnsClass;
+        this.columnsClass[0] = {name:"status", class:tmpColumnsClass};
       } catch (e) {
         this.$notify({
           message: errorHandlingService.displayAlertFromServer(e),

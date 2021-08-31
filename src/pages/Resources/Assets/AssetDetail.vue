@@ -126,7 +126,9 @@ export default {
         models: [{}],
         data: {}
       },
-      columnsClass: [],
+      columnsClass: [
+        {name:"status", class:[]}
+      ],
       tenantResource: {
         models: [{}],
         data: {}
@@ -293,7 +295,7 @@ export default {
               tmpColumnsClass.push('badge badge-pill badge-success');
             }
           }
-          this.columnsClass = tmpColumnsClass;
+          this.columnsClass[0] = {name:"status", class:tmpColumnsClass};
         });
         
 
