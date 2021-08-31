@@ -286,7 +286,7 @@ export default {
             if (this.paymentRecordResource.models[i].cash_flow_direction == 'RECEIVING') {
               tmpCashflowColumnsClass.push('badge badge-pill badge-success');
             } else if (this.paymentRecordResource.models[i].cash_flow_direction == 'SENDING') {
-              tmpCashflowColumnsClass.push('badge badge-pill badge-warning');
+              tmpCashflowColumnsClass.push('badge badge-pill badge-danger');
             }
           }
           this.columnsClass = [

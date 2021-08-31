@@ -55,7 +55,7 @@ export default {
             if (this.resource.models[i].cash_flow_direction == 'RECEIVING') {
               tmpCashflowColumnsClass.push('badge badge-pill badge-success');
             } else if (this.resource.models[i].cash_flow_direction == 'SENDING') {
-              tmpCashflowColumnsClass.push('badge badge-pill badge-warning');
+              tmpCashflowColumnsClass.push('badge badge-pill badge-danger');
             }
           }
           this.columnsClass = [
