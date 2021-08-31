@@ -15,6 +15,7 @@
           <base-input :label="$t('property.content')"
                       :placeholder="$t('property.content')"
                       v-model="resource.model.content"
+                      :multiline="true"
                       :error="tmpApiValidationErrors.content ? tmpApiValidationErrors.content[0] : ''">
           </base-input>
         </div>

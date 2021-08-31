@@ -20,6 +20,7 @@
       </slot>
       <slot>
         <input
+          v-if="!multiline"
           :value="value"
           v-bind="$attrs"
           v-on="listeners"
@@ -27,6 +28,16 @@
           class="form-control"
           aria-describedby="addon-right addon-left"
         />
+        <textarea
+          v-if="multiline"
+          :value="value"
+          v-bind="$attrs"
+          v-on="listeners"
+          class="form-control"
+          aria-describedby="addon-right addon-left"
+        >
+
+        </textarea>
       </slot>
       <slot name="addonRight">
         <span v-if="addonRightIcon" class="input-group-append">
@@ -67,6 +78,10 @@ export default {
     addonLeftIcon: {
       type: String,
       description: "Input icon on the left"
+    },
+    multiline: {
+      type: Boolean,
+      description: "Textarea"
     },
     checked: {
       type: Boolean,
