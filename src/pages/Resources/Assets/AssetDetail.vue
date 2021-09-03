@@ -17,6 +17,7 @@
         :title="$t('property.locationDetails')"
         :model="resource.model.location_details"
         :headers="table.locationDetailHeaders"
+        :headers2="table.locationDetailHeaders2"
         :detailDisplayValue="table.locationDetailDisplayValue"
         thead-classes="text-primary"
        ></base-detail-list>
@@ -165,6 +166,8 @@ export default {
           asset_unit_no: this.$t('property.unitNo'),
           asset_address_line: this.$t('property.addressLine'),
           asset_city: this.$t('property.city'),
+        },
+        locationDetailHeaders2: {
           asset_state: this.$t('property.state'),
           asset_postal_code: this.$t('property.postalCode'),
           asset_country: this.$t('property.country'),

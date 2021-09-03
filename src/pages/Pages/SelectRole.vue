@@ -27,7 +27,7 @@
 
             <tab-pane>
               <span slot="label" @click="selectRole('TENANT')">
-                <i class="tim-icons icon-single-02"></i>{{$t('selectRole.tenant')}}
+                <i class="fa fa-user"></i>{{$t('selectRole.tenant')}}
               </span>
               {{$t('selectRole.tenantDesc')}}
               <br /><br />

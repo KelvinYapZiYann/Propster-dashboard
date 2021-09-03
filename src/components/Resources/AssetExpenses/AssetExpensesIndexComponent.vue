@@ -9,7 +9,7 @@
             class="mt-3"
             type="info"
           >
-            {{$t('component.add')}} {{$t('sidebar.assetExpense')}}
+            {{$t('component.add')}} {{$t('sidebar.assetExpenses')}}
           </base-button>
         </div>
         <!-- <div class="row">

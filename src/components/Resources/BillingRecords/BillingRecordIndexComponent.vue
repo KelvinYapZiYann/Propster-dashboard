@@ -12,14 +12,14 @@
           >
             {{$t('component.add')}} {{$t('sidebar.billingRecord')}}
           </base-button>
-          <base-button
+          <!-- <base-button
             @click="addReminder"
             class="mt-3"
             type="info"
             v-bind:disabled="!resource.data.canAdd"
           >
             {{$t('component.add')}} {{$t('sidebar.reminderBillingRecord')}}
-          </base-button>
+          </base-button> -->
         </div>
         <!-- <div class="row">
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">

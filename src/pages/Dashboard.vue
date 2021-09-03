@@ -90,9 +90,9 @@
 
         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mr-auto">
           <card class="card-chart card-chart-pie">
-            <h5 slot="header" class="card-category text-left chart-header">
+            <h3 slot="header" class="card-category chart-header">
               {{$t('dashboard.rent')}}
-            </h5>
+            </h3>
             <div class="row">
               <div class="col-6">
                 <div class="chart-area">
@@ -117,9 +117,9 @@
 
         <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 mr-auto">
           <card class="card-chart card-chart-pie height-350">
-            <h5 slot="header" class="card-category text-left chart-header">
+            <h3 slot="header" class="card-category chart-header">
               {{$t('dashboard.assetsVacancy')}}
-            </h5>
+            </h3>
             <div class="row">
               <div class="col-6">
                 <div v-if="assetVacancyChartAlertText">{{$t('alert.pieChartNoValueAlert')}}</div>
@@ -154,9 +154,9 @@
       <div class="row">
         <div class="col-12 mr-auto">
           <card class="card-chart card-chart-pie">
-            <h5 slot="header" class="card-category text-left chart-header">
+            <h3 slot="header" class="card-category chart-header">
               {{$t('dashboard.cashflow')}}
-            </h5>
+            </h3>
             <div class="row ml-3">
               <div class="col-12">
                 <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}}</p>
@@ -224,6 +224,7 @@
       </asset-empty>
     </div>
     <div v-if="doesAssetExist && !doesTenantExist">
+      <tutorial-component></tutorial-component>
       <tenant-empty
         :resource="resource.tenants"
       >
@@ -496,8 +497,9 @@ export default {
   left: 0 !important;
 }
 .chart-header {
-  font-size: 1.0625rem !important;
-  font-weight: 100;
+  font-size: 1.4375rem !important;
+  font-weight: 100 !important;
+  color: #1d253b !important;
 }
 .category.chart-text {
   font-size: 1em;

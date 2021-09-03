@@ -25,16 +25,18 @@ export default {
     resource: {
       type: Object,
       required: true,
-      default: {
-        models: [{}],
-        data: {
-          canAdd: false,
-          currentPage: 1,
-          total: 0,
-          from: 0,
-          to: 0,
-          perPage: 10,
-          links: []
+      default: () => {
+        return {
+          models: [],
+          data: {
+            canAdd: false,
+            currentPage: 1,
+            total: 0,
+            from: 0,
+            to: 0,
+            perPage: 10,
+            links: []
+          }
         }
       },
       description: "Resource info"
