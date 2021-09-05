@@ -1,10 +1,14 @@
 <template class="white-content">
-  <div id="app">
-    <div class="content">
+  <v-app id="app">
+    <!-- <div class="content">
       <notifications></notifications>
       <router-view :key="$route.fullPath"></router-view>
-    </div>
-  </div>
+    </div> -->
+    <v-main class="content">
+      <notifications></notifications>
+      <router-view :key="$route.fullPath"></router-view>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
