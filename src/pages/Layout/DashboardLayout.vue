@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <!-- <div class="wrapper" :class="{'nav-open': $sidebar.showSidebar}"> -->
-    <sidebar-fixed-toggle-button />
+    <!-- <sidebar-fixed-toggle-button /> -->
     <side-bar :background-color="backgroundColor">
       <!-- <mobile-menu slot="content"></mobile-menu> -->
       <template slot="links">

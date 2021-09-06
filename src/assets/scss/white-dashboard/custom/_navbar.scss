@@ -36,7 +36,8 @@
 
 
   &.navbar-transparent{
-    background: transparent !important;
+    // background: transparent !important;
+    background: #f5f6fa;
     .navbar-brand{
       color: $black-states;
     }

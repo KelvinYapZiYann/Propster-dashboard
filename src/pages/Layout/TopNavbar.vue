@@ -1,8 +1,9 @@
 <template>
   <nav
-    class="navbar navbar-expand-lg navbar-absolute"
-    :class="{ 'bg-white': showMenu, 'navbar-transparent': !showMenu, 'border-bottom ': showMenu }"
+    class="navbar navbar-expand-lg sticky-top navbar-transparent"
   >
+  <!-- navbar-absolute -->
+  <!-- :class="{ 'bg-white': showMenu, 'navbar-transparent': !showMenu, 'border-bottom ': showMenu }" -->
     <div class="container-fluid">
       <div class="navbar-wrapper">
         <div class="navbar-minimize d-inline"><sidebar-toggle-button /></div>
