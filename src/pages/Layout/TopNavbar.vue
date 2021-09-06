@@ -115,7 +115,7 @@
               </li>
             </ul>
           </drop-down> -->
-          <drop-down>
+          <drop-down :defaultShow="showMenu">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <div class="photo" :title="userFullname">
                 <img v-if="userGender == 'FEMALE'" src="@/assets/img/anime6.png" alt="Profile Photo" />

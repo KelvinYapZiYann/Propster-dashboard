@@ -18,6 +18,10 @@ export default {
     tag: {
       type: String,
       default: "li"
+    },
+    defaultShow: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -32,7 +36,14 @@ export default {
     closeDropDown() {
       this.isOpen = false;
     }
-  }
+  },
+  watch: {
+    defaultShow: function(newVal, oldVal) {
+      setTimeout(() => {
+        this.isOpen = newVal;
+      }, 10);
+    }
+  },
 };
 </script>
 
