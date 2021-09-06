@@ -39,7 +39,7 @@
     >
       <component
         :to="link.path"
-        @click="linkClick"
+        @click.native="linkClick"
         :is="elementType(link, false)"
         :class="{ active: link.active }"
         class="nav-link"
@@ -153,6 +153,7 @@ export default {
       return matches.join("");
     },
     linkClick() {
+      console.log('linkClick');
       if (!this.addLink) {
         this.$sidebar.collapseAllMenus();
       }

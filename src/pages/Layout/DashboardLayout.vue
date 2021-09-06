@@ -95,12 +95,12 @@
           > 
           </sidebar-link> -->
         </sidebar-link>
-        <li class="align-bottom">
+        <!-- <li class="align-bottom">
           <a href="javascript:void(0)" class="nav-link " @click="logout">
             <i class="fas fa-sign-out-alt"></i>
             <p>{{$t('topbar.logout')}}</p>
           </a>
-        </li>
+        </li> -->
       </template>
     </side-bar>
 
