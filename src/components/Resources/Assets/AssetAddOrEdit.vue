@@ -36,6 +36,7 @@
         <div class="col-md-6">
           <base-input :label="$t('property.assetSize')"
                       :placeholder="$t('property.assetSize')"
+                      type="number"
                       v-model="resource.model.asset_size"
                       :error="tmpApiValidationErrors.asset_size ? tmpApiValidationErrors.asset_size[0] : ''">
           </base-input>
@@ -187,6 +188,7 @@
         <div class="col-md-6">
           <base-input :label="$t('property.assetPurchasedValue')"
                       :placeholder="$t('property.assetPurchasedValue')"
+                      type="number"
                       v-model="resource.model.financial_details.asset_purchased_value"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.asset_purchased_value ? tmpApiValidationErrors.asset_purchased_value[0] : ''">
@@ -196,6 +198,7 @@
         <div class="col-md-6">
           <base-input :label="$t('property.assetCurrentValue')"
                       :placeholder="$t('property.assetCurrentValue')"
+                      type="number"
                       v-model="resource.model.financial_details.asset_current_value"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.asset_current_value ? tmpApiValidationErrors.asset_current_value[0] : ''">
@@ -208,6 +211,7 @@
         <div class="col-md-6">
           <base-input :label="$t('property.assetPurchasedTax')"
                       :placeholder="$t('property.assetPurchasedTax')"
+                      type="number"
                       v-model="resource.model.financial_details.asset_purchased_tax"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.asset_purchased_tax ? tmpApiValidationErrors.asset_purchased_tax[0] : ''">
@@ -217,6 +221,7 @@
         <div class="col-md-6">
           <base-input :label="$t('property.assetRemainingLoan')"
                       :placeholder="$t('property.assetRemainingLoan')"
+                      type="number"
                       v-model="resource.model.financial_details.loan_outstanding_amount"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.loan_outstanding_amount ? tmpApiValidationErrors.loan_outstanding_amount[0] : ''">
@@ -245,6 +250,7 @@
         <div class="col-md-6">
           <base-input :label="$t('property.loanInterestRate')"
                       :placeholder="$t('property.loanInterestRate')"
+                      type="number"
                       v-model="resource.model.financial_details.loan_interest_rate"
                       v-if="resource.model.financial_details"
                       :error="tmpApiValidationErrors.loan_interest_rate ? tmpApiValidationErrors.loan_interest_rate[0] : ''">
