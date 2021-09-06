@@ -527,7 +527,7 @@
 
     > .content {
         padding: 1rem 30px 30px 280px;
-        min-height: calc(100vh - 70px);
+        min-height: calc(100vh - 115px);
     }
 
     > .navbar {
@@ -549,6 +549,17 @@
   }
 }
 
+@media (max-width: 622px) {
+  .main-panel .content {
+    min-height: calc(100vh - 130px);
+  }
+}
+
+@media (max-width: 311px) {
+  .main-panel .content {
+    min-height: calc(100vh - 150px);
+  }
+}
 
 @media (min-width: 991px) {
     .sidebar,
