@@ -8,7 +8,34 @@
      :detailDisplayValue="table.detailDisplayValue"
      :detailDisplaySuffix="table.detailDisplaySuffix"
      thead-classes="text-primary"
-   ></base-detail-list>
+   >
+    <template v-slot:column2="column2">
+      <div class="row">
+        <div class="col-12">
+          <h6 class="mb-0">{{ column2.text.number_of_rooms }}</h6>
+        </div>
+        <span class="col-12 mb-3">
+          <base-room-indicator :value="resource.model.number_of_rooms"></base-room-indicator>
+        </span>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <h6 class="mb-0">{{ column2.text.number_of_bathrooms }}</h6>
+        </div>
+        <span class="col-12 mb-3">
+          <base-bathroom-indicator :value="resource.model.number_of_bathrooms"></base-bathroom-indicator>
+        </span>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <h6 class="mb-0">{{ column2.text.number_of_tenants }}</h6>
+        </div>
+        <span class="col-12 mb-3">
+          <base-tenant-indicator :value="resource.model.number_of_tenants"></base-tenant-indicator>
+        </span>
+      </div>
+    </template>
+   </base-detail-list>
    <!-- :title="resource.model.asset_nickname" -->
 
    <div class="row">
@@ -85,7 +112,7 @@
   </div>
 </template>
 <script>
-import { BaseDetailList, Modal, ValidationError, Card } from "@/components";
+import { BaseDetailList, Modal, ValidationError, Card, BaseTenantIndicator, BaseBathroomIndicator, BaseRoomIndicator } from "@/components";
 import AssetExpensesIndexComponent from "@/components/Resources/AssetExpenses/AssetExpensesIndexComponent";
 import TenantsIndexComponent from "@/components/Resources/Tenants/TenantsIndexComponent";
 import fab from "vue-fab";
@@ -114,7 +141,10 @@ export default {
     fab,
     Modal,
     GenerateReportForm,
-    ValidationError
+    ValidationError,
+    BaseTenantIndicator,
+    BaseBathroomIndicator,
+    BaseRoomIndicator
   },
   data() {
     return {
@@ -139,11 +169,14 @@ export default {
           asset_nickname: this.$t('property.assetNickname'),
           asset_ownership_type: this.$t('property.ownershipType'),
           asset_size: this.$t('property.assetSize'),
+          asset_type: this.$t('property.assetType'),
         },
         detailHeaders2: {
-          is_occupied: this.$t('property.currentlyOccupied'),
-          is_multi_unit: this.$t('property.isMultiUnit'),
-          asset_type: this.$t('property.assetType'),
+        //   is_occupied: this.$t('property.currentlyOccupied'),
+        //   is_multi_unit: this.$t('property.isMultiUnit'),
+          number_of_rooms: this.$t('property.numberOfRooms'),
+          number_of_bathrooms: this.$t('property.numberOfBathrooms'),
+          number_of_tenants: this.$t('sidebar.tenants'),
         },
         detailDisplayValue: {
           asset_type: {
@@ -176,6 +209,9 @@ export default {
           asset_country: {
             MY: "Malaysia",
           },
+          number_of_tenants: {
+            0: '0'
+          }
         },
         financialDetailHeaders: {
           asset_purchased_value: this.$t('property.assetPurchasedValue'),

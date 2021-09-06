@@ -65,7 +65,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-6 pr-md-1">
           <base-input :label="$t('property.isMultiUnit')"
                       type="checkbox"
@@ -73,7 +73,6 @@
                       v-model="resource.model.is_multi_unit"
                       :error="tmpApiValidationErrors.is_multi_unit ? tmpApiValidationErrors.is_multi_unit[0] : ''">
           </base-input>
-          <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_multi_unit"/> -->
         </div>
         <div class="col-md-6">
           <base-input :label="$t('property.isOccupied')"
@@ -82,9 +81,8 @@
                       v-model="resource.model.is_occupied"
                       :error="tmpApiValidationErrors.is_occupied ? tmpApiValidationErrors.is_occupied[0] : ''">
           </base-input>
-          <!-- <validation-error :errorsArray="tmpApiValidationErrors.is_occupied"/> -->
         </div>
-      </div>
+      </div> -->
     </card>
     <card>
       <h5 slot="header" class="title">{{$t('property.locationDetails')}}</h5>
