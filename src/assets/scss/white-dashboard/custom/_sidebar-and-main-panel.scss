@@ -715,7 +715,7 @@
     position: fixed;
     display: block;
     top: 0;
-    height: 100%;
+    height: 100vh;
     width: 260px;
     // width: 100%;
     right: auto;
@@ -745,6 +745,7 @@
   .nav-open{
       .main-panel{
           right: 0;
+          position: fixed;
           @include transform-translate-x(260px);
       }
 
