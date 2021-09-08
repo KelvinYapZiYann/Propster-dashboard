@@ -153,7 +153,6 @@ export default {
       return matches.join("");
     },
     linkClick() {
-      console.log('linkClick');
       if (!this.addLink) {
         this.$sidebar.collapseAllMenus();
       }

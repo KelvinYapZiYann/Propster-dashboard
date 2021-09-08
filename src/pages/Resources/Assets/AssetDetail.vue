@@ -240,7 +240,7 @@ export default {
         },
         financialDetailDisplaySuffix: {
           loan_interest_rate: "%",
-          loan_total_year: " yrs"
+          loan_total_year: " yr(s)"
         }
       },
       fabActions: [

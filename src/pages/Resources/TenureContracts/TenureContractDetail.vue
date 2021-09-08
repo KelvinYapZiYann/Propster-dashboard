@@ -7,7 +7,34 @@
           :headers2="table.detailHeaders2"
           :detailDisplayPrefix="table.detailDisplayPrefix"
           thead-classes="text-primary"
-        ></base-detail-list>
+        >
+          <template v-slot:column1="column1">
+            <div class="row">
+              <div class="col-12">
+                <h6 class="mb-0">{{ column1.text.asset_nickname }}</h6>
+              </div>
+              <span class="col-12 mb-3">
+                {{resource.model.asset ? resource.model.asset.asset_nickname : ''}}
+              </span>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <h6 class="mb-0">{{ $t('property.tenantName') }}</h6>
+              </div>
+              <span class="col-12 mb-3">
+                {{resource.model.tenant ? resource.model.tenant.first_name : ''}} {{resource.model.tenant ? resource.model.tenant.last_name : ''}}
+              </span>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <h6 class="mb-0">{{ column1.text.contract_name }}</h6>
+              </div>
+              <span class="col-12 mb-3">
+                {{resource.model.contract_name}}
+              </span>
+            </div>
+          </template>
+        </base-detail-list>
 
         <card v-show="showMedia">
           <div class="card-header mb-3">
@@ -67,6 +94,7 @@ export default {
           asset_nickname: this.$t('property.assetNickname'),
           first_name: this.$t('property.firstName'),
           last_name: this.$t('property.lastName'),
+          // tenant_name: this.$t('property.tenantName'),
           contract_name: this.$t('property.contractName'),
         },
         detailHeaders2: {
