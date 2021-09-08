@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <!-- <div class="content"> -->
     <card>
       <div class="card-header mb-3">
         <h5 class="card-category">{{ category }}</h5>
@@ -38,7 +38,7 @@
         </div>
       </div>
     </card>
-  </div>
+  <!-- </div> -->
 </template>
 <script>
   import {Card} from "@/components";
