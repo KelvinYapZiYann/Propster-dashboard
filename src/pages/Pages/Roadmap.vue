@@ -1,5 +1,5 @@
 <template>
-  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
+  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto main-content">
     <div class="header text-center"><h3 class="title">{{$t('roadmap.title')}}</h3></div>
     <div class="row">
       <div class="col-md-12">

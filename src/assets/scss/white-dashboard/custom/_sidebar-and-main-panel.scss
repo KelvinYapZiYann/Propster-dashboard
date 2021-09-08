@@ -550,13 +550,13 @@
 }
 
 @media (max-width: 622px) {
-  .main-panel .content {
+  .main-panel .content.main-content {
     min-height: calc(100vh - 130px);
   }
 }
 
 @media (max-width: 311px) {
-  .main-panel .content {
+  .main-panel .content.main-content {
     min-height: calc(100vh - 150px);
   }
 }
