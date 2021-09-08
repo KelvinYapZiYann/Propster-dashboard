@@ -3,10 +3,9 @@
     <div class="col-12">
       <card>
         <h3 slot="header" class="card-title">{{$t('sidebar.assets')}}</h3>
-        <div class="text-right mb-3" v-if="this.$props.query ? !this.$props.query.tenantId : true">
+        <div class="text-right" v-if="this.$props.query ? !this.$props.query.tenantId : true">
           <base-button
                 @click="addModel"
-                class="mt-3"
                 type="info"      
           >
           <!-- v-bind:disabled="!resource.data.canAdd" -->

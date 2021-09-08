@@ -13,10 +13,9 @@
       </div> -->
       <card>
         <h3 slot="header" class="card-title">{{$t('sidebar.paymentRecords')}}</h3>
-        <div class="text-right mb-3">
+        <div class="text-right">
           <base-button
             @click="addModel"
-            class="mt-3"
             type="info"
           >{{$t('component.add')}} {{$t('sidebar.paymentRecords')}}
           </base-button>

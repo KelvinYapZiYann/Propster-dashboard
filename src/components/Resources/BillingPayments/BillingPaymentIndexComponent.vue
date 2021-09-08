@@ -3,10 +3,9 @@
     <div class="col-12">
       <card>
         <h3 slot="header" class="card-title">{{$t('sidebar.billingPayments')}}</h3>
-        <div class="text-right mb-3">
+        <div class="text-right">
           <base-button
             @click="addModel"
-            class="mt-3"
             type="info"
             v-if="!isBillingRecordsPayment"
           >{{$t('component.add')}} {{$t('sidebar.oneTimeBillingRecords')}}</base-button>
