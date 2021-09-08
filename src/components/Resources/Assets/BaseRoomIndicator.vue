@@ -5,7 +5,7 @@
             <i class="fas fa-child" aria-hidden="true"></i>
         </li>
     </ul> -->
-    <div v-for="(item, index) in value" :key="index" class="p-2">
+    <div v-for="(item, index) in value" :key="index" class="pl-1 pr-1">
         <i class="fas fa-bed" aria-hidden="true"></i>
     </div>
   </div>
