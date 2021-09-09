@@ -22,9 +22,9 @@
           >
             <template slot-scope="{ row }">
               
-              <td class="text-left" :class="[{disabled : !row.status}]">
+              <td class="text-left" :class="[{disabled : !row.status}]" @click="editDetails(row.id)">
                 <p class="title">{{ row.title }}</p>
-                <p class="text-muted">{{ row.content }}</p>
+                <p class="text-muted" style="overflow-wrap: break-word;">{{ row.content }}</p>
               </td>
               <td>
                 <base-checkbox 
@@ -205,7 +205,7 @@ export default {
           type: 'danger'
         });
       });
-    }
+    },
   }
 
   // computed: {

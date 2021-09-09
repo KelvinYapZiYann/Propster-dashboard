@@ -74,7 +74,15 @@ export default {
   data() {
     return {
       table: {
-        columns: {
+        columns: this.$store.getters["mobileLayout/isMobileLayout"] ? {
+          sender_name: this.$t('property.senderName'),
+          recipient_name: this.$t('property.recipientName'),
+          // asset_nickname: this.$t('property.assetNickname'),
+          description: this.$t('property.description'),
+          amount: this.$t('property.amount'),
+          // payment_type: this.$t('property.paymentType'),
+          // created_at: this.$t('property.createdAt'),
+        } : {
           sender_name: this.$t('property.senderName'),
           recipient_name: this.$t('property.recipientName'),
           asset_nickname: this.$t('property.assetNickname'),

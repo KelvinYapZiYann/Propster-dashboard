@@ -7,7 +7,7 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div :class="headers2 ? 'col-lg-6' : 'col-12'">
+          <div :class="headers2 ? 'col-md-6' : 'col-12'">
             <slot name="column1" v-bind:text="headers">
               <div class="row" v-for="(value, key) in headers" :key="key">
                 <div class="col-12">
@@ -21,7 +21,7 @@
               </div>
             </slot>
           </div>
-          <div :class="headers2 ? 'col-lg-6' : 'col-12'">
+          <div :class="headers2 ? 'col-md-6' : 'col-12'">
             <slot name="column2" v-bind:text="headers2">
               <div class="row" v-for="(value, key) in headers2" :key="key">
                 <div class="col-12">

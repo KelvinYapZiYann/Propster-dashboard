@@ -36,13 +36,13 @@
               <td @click="showDetails(row.id)">
                 {{ row.asset_nickname }}
               </td>
-              <td @click="showDetails(row.id)">
+              <td @click="showDetails(row.id)" v-if="!$store.getters['mobileLayout/isMobileLayout']">
                 {{ row.location_details ? row.location_details.asset_unit_no : '' }}
               </td>
-              <td @click="showDetails(row.id)">
+              <td @click="showDetails(row.id)" v-if="!$store.getters['mobileLayout/isMobileLayout']">
                 {{ row.location_details ? row.location_details.asset_address_line : '' }}
               </td>
-              <td @click="showDetails(row.id)">
+              <td @click="showDetails(row.id)" v-if="!$store.getters['mobileLayout/isMobileLayout']">
                 {{ row.location_details ? row.location_details.asset_city : '' }}
               </td>
               <td @click="showDetails(row.id)">
@@ -98,7 +98,14 @@ export default {
   data() {
     return {
       table: {
-        columns: {
+        columns: this.$store.getters["mobileLayout/isMobileLayout"] ? {
+          asset_nickname: this.$t('property.assetNickname'),
+          // asset_unit_no: this.$t('property.unitNo'),
+          // asset_address_line: this.$t('property.addressLine'),
+          // asset_city: this.$t('property.city'),
+          rooms: this.$t('property.rooms'),
+          tenants: this.$t('sidebar.tenants'),
+        } : {
           asset_nickname: this.$t('property.assetNickname'),
           asset_unit_no: this.$t('property.unitNo'),
           asset_address_line: this.$t('property.addressLine'),

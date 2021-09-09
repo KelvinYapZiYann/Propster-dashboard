@@ -58,6 +58,9 @@ export default {
       //   // });
       // }
     },
+    screenSizeChangeHandler(e) {
+      this.$store.dispatch('mobileLayout/update', (window.innerWidth <= 991));
+    }
   },
   mounted() {
     this.$watch("$route", this.disableRTL, { immediate: true });
@@ -65,7 +68,14 @@ export default {
     if (this.$store.getters.isAuthenticated) {
       this.verifyMiddleware();
     }
-  }
+  },
+  created() {
+    this.$store.dispatch('mobileLayout/update', (window.innerWidth <= 991));
+    window.addEventListener("resize", this.screenSizeChangeHandler);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.screenSizeChangeHandler);
+  },
 };
 </script>
 

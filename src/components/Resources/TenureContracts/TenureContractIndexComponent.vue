@@ -22,7 +22,7 @@
             </base-input>
           </div>
         </div> -->
-        <!-- <div class="row">
+        <!-- <div class="row">columns: this.$store.getters["mobileLayout/isMobileLayout"] ? {
           <div class="col-xl-4 col-lg-2 col-md-12">
           </div>
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -102,7 +102,15 @@ export default {
   data() {
     return {
       table: {
-        columns: {
+        columns: this.$store.getters["mobileLayout/isMobileLayout"] ? {
+          contract_name: this.$t('property.contractName'),
+          asset_nickname: this.$t('property.assetNickname'),
+          first_name: this.$t('property.tenantName'),
+          monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
+          // deposited_amount: this.$t('property.depositedAmount'),
+          // tenure_start_date: this.$t('property.tenureStartDate'),
+          // tenure_end_date: this.$t('property.tenureEndDate')
+        } : {
           contract_name: this.$t('property.contractName'),
           asset_nickname: this.$t('property.assetNickname'),
           first_name: this.$t('property.tenantName'),

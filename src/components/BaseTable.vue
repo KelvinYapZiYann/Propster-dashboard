@@ -3,18 +3,18 @@
     <thead :class="theadClasses">
     <tr>
       <slot name="columns">
-        <th v-if="!disableIndex">{{$t('property.index')}}</th>
-        <th v-if="!disableView || !disableEdit || !disableDelete">{{$t('property.actions')}}</th>
+        <th v-if="!disableIndex && !$store.getters['mobileLayout/isMobileLayout']">{{$t('property.index')}}</th>
+        <th v-if="(!disableView || !disableEdit || !disableDelete) && !$store.getters['mobileLayout/isMobileLayout']">{{$t('property.actions')}}</th>
         <th v-for="column in columns" :key="column">{{column}}</th>
       </slot>
     </tr>
     </thead>
     <tbody :class="tbodyClasses">
     <tr v-for="(item, index) in data" :key="index" :class="{viewableRow: !disableView}" :style="rowColor[index]">
-      <td v-if="!disableIndex">
+      <td v-if="!disableIndex && !$store.getters['mobileLayout/isMobileLayout']">
         {{((paginationPage - 1) * 10) + (index + 1)}}.
       </td>
-      <td>
+      <td v-if="!$store.getters['mobileLayout/isMobileLayout']">
         <base-button
             v-if="!disableView"
             @click="showDetails(item.id)"
