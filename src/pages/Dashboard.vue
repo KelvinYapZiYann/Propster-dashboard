@@ -164,8 +164,7 @@
             </h3>
             <div class="row ml-3">
               <div class="col-12">
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}}</p>
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.expenses')}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}} <i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.expenses')}}</p>
               </div>
             </div>
             <div class="chart-area">
