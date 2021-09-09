@@ -2,7 +2,7 @@
   <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto main-content">
     <div v-if="doesAssetExist && doesTenantExist">
       <div class="row">
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <el-tooltip
             :content="$t('dashboard.overdueIncomeDesc')"
             :open-delay="300"
@@ -16,7 +16,7 @@
             </stats-card>
           </el-tooltip>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <el-tooltip
             :content="$t('dashboard.upcomingIncomeDesc')"
             :open-delay="300"
@@ -30,7 +30,7 @@
             </stats-card>
           </el-tooltip>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <el-tooltip
             :content="$t('dashboard.overdueExpensesDesc')"
             :open-delay="300"
@@ -44,7 +44,7 @@
             </stats-card>
           </el-tooltip>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <el-tooltip
             :content="$t('dashboard.upcomingExpensesDesc')"
             :open-delay="300"
@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <el-tooltip
             :content="$t('dashboard.projectedMonthlyIncomeDesc')"
             :open-delay="300"
@@ -74,6 +74,8 @@
             <!-- image="/img/dollar_up.png" -->
             </stats-card>
           </el-tooltip>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <el-tooltip
             :content="$t('dashboard.projectedMonthlyExpensesDesc')"
             :open-delay="300"
