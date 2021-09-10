@@ -29,6 +29,7 @@
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
+            v-on:long-click-event="longClickEvent"
             :paginationPage="paginationPage"
           >
           <!-- :disableEdit="true" -->
@@ -353,6 +354,40 @@ export default {
         });
       }
     },
+    longClickEvent(id) {
+      swal.fire({
+        title: this.$t('alert.editOrRemove'),
+        text: this.$t('alert.editOrRemoveText') + " " + this.$t('sidebar.billingPayment') + "?",
+        buttonsStyling: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: this.$t('component.edit'),
+        denyButtonText: this.$t('component.remove'),
+        cancelButtonText: this.$t('component.cancel'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        denyButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swal.fire({
+            title: this.$t('alert.notEditable'),
+            text: this.$t('alert.notEditableText'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            icon: "error",
+          });
+        } else if (result.isDenied) {
+          swal.fire({
+            title: this.$t('alert.notDeletable'),
+            text: this.$t('alert.notDeletableText'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            icon: "error",
+          });
+        }
+      });
+    }
   },
   watch: {
     searchQuery(value) {

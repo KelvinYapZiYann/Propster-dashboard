@@ -22,7 +22,15 @@
           >
             <template slot-scope="{ row }">
               
-              <td class="text-left" :class="[{disabled : !row.status}]" @click="editDetails(row.id)">
+              <td class="text-left" :class="[{disabled : !row.status}]"
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 <p class="title">{{ row.title }}</p>
                 <p class="text-muted" style="overflow-wrap: break-word;">{{ row.content }}</p>
               </td>
@@ -97,7 +105,8 @@ export default {
   },
   data() {
     return {
-      paginationPage: 1
+      paginationPage: 1,
+      timeout: null
     }
   },
   methods: {
@@ -206,8 +215,42 @@ export default {
         });
       });
     },
-  }
-
+    longClickEvent(id) {
+      swal.fire({
+        title: this.$t('alert.editOrRemove'),
+        text: this.$t('alert.editOrRemoveText') + " " + this.$t('sidebar.todoList') + "?",
+        buttonsStyling: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: this.$t('component.edit'),
+        denyButtonText: this.$t('component.remove'),
+        cancelButtonText: this.$t('component.cancel'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        denyButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.editDetails(id);
+        } else if (result.isDenied) {
+          this.deleteDetails(id);
+        }
+      });
+    },
+    startLongClick(id) {
+      if (!this.timeout && this.$store.getters["mobileLayout/isMobileLayout"]) {
+        this.timeout = setTimeout(() => {
+          this.longClickEvent(id);
+        }, 2000);
+      }
+    },
+    stopLongClick() {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+        this.timeout = null;
+      }
+    },
+  },
   // computed: {
   //   tableData() {
   //     return this.$t("dashboard.taskList");

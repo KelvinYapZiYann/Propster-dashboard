@@ -33,22 +33,73 @@
           >
           <!-- :disableDelete="true" -->
             <template slot-scope="{ row }">
-              <td @click="showDetails(row.id)">
+              <td
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 {{ row.asset_nickname }}
               </td>
-              <td @click="showDetails(row.id)" v-if="!$store.getters['mobileLayout/isMobileLayout']">
+              <td
+                v-if="!$store.getters['mobileLayout/isMobileLayout']"
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 {{ row.location_details ? row.location_details.asset_unit_no : '' }}
               </td>
-              <td @click="showDetails(row.id)" v-if="!$store.getters['mobileLayout/isMobileLayout']">
+              <td
+                v-if="!$store.getters['mobileLayout/isMobileLayout']"
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 {{ row.location_details ? row.location_details.asset_address_line : '' }}
               </td>
-              <td @click="showDetails(row.id)" v-if="!$store.getters['mobileLayout/isMobileLayout']">
+              <td
+                v-if="!$store.getters['mobileLayout/isMobileLayout']"
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 {{ row.location_details ? row.location_details.asset_city : '' }}
               </td>
-              <td @click="showDetails(row.id)">
+              <td
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 <base-room-indicator :value="row.number_of_rooms"></base-room-indicator>
               </td>
-              <td @click="showDetails(row.id)">
+              <td
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 <base-tenant-indicator :value="row.number_of_tenants"></base-tenant-indicator>
               </td>
               <!-- <td>
@@ -116,7 +167,8 @@ export default {
       },
       searchQuery: "",
       searchQueryTimeout: null,
-      paginationPage: 1
+      paginationPage: 1,
+      timeout: null
     };
   },
   props: {
@@ -299,7 +351,54 @@ export default {
           type: 'danger'
         });
       }
-    }
+    },
+    longClickEvent(id) {
+      swal.fire({
+        title: this.$t('alert.editOrRemove'),
+        text: this.$t('alert.editOrRemoveText') + " " + this.$t('sidebar.asset') + "?",
+        buttonsStyling: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: this.$t('component.edit'),
+        denyButtonText: this.$t('component.remove'),
+        cancelButtonText: this.$t('component.cancel'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        denyButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.push({
+            name: "Edit Assets",
+            params: {
+              assetId: id,
+              previousRoute: this.$router.currentRoute.fullPath
+            }
+          });
+        } else if (result.isDenied) {
+          swal.fire({
+            title: this.$t('alert.notDeletable'),
+            text: this.$t('alert.notDeletableText'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            icon: "error",
+          });
+        }
+      });
+    },
+    startLongClick(id) {
+      if (!this.timeout && this.$store.getters["mobileLayout/isMobileLayout"]) {
+        this.timeout = setTimeout(() => {
+          this.longClickEvent(id);
+        }, 2000);
+      }
+    },
+    stopLongClick() {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+        this.timeout = null;
+      }
+    },
   },
   watch: {
     searchQuery(value) {

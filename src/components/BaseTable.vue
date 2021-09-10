@@ -10,7 +10,7 @@
     </tr>
     </thead>
     <tbody :class="tbodyClasses">
-    <tr v-for="(item, index) in data" :key="index" :class="{viewableRow: !disableView}" :style="rowColor[index]">
+    <tr v-for="(item, index) in data" :key="index" :class="[{viewableRow: !disableView}, {unselectable: $store.getters['mobileLayout/isMobileLayout']}]" :style="rowColor[index]" >
       <td v-if="!disableIndex && !$store.getters['mobileLayout/isMobileLayout']">
         {{((paginationPage - 1) * 10) + (index + 1)}}.
       </td>
@@ -53,9 +53,15 @@
         <td v-for="(column, columnKey, i) in columns"
             :key="i"
             @click="showDetails(item.id)"
+            @mousedown="startLongClick(item.id)" 
+            @mouseleave="stopLongClick"
+            @mouseup="stopLongClick"
+            @touchstart="startLongClick(item.id)"
+            @touchend="stopLongClick"
+            @touchcancel="stopLongClick"
             >
             <!-- v-if="hasValue(item, index)" -->
-            <span :class="itemClass(columnKey, index)">
+            <span :class="itemClass(columnKey, index)" >
               {{itemValue(item, columnKey)}}
             </span>
         </td>
@@ -68,6 +74,11 @@
 
 export default {
   name: 'base-table',
+  data() {
+    return {
+      timeout: null
+    }
+  },
   props: {
     columns: {
       type: Object,
@@ -213,14 +224,14 @@ export default {
     },
     itemClass(column, index) {
       try {
-      if (this.columnsClass) {
-        for (let j = 0; j < this.columnsClass.length; j++) {
-          if (this.columnsClass[j].name == column) {
-            return this.columnsClass[j].class[index];
+        if (this.columnsClass) {
+          for (let j = 0; j < this.columnsClass.length; j++) {
+            if (this.columnsClass[j].name == column) {
+              return this.columnsClass[j].class[index];
+            }
           }
         }
-      }
-      return '';
+        return '';
       } catch(e) {
         console.log(e);
       }
@@ -236,6 +247,19 @@ export default {
     deleteDetails: function (id) {
       this.$emit('delete-details', id)
     },
+    startLongClick(id) {
+      if (!this.timeout && this.$store.getters["mobileLayout/isMobileLayout"]) {
+        this.timeout = setTimeout(() => {
+          this.$emit('long-click-event', id)
+        }, 2000);
+      }
+    },
+    stopLongClick() {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+        this.timeout = null;
+      }
+    },
     // rowColorCallback: function (item, index) {
     //   this.$emit('rowColorCallback', item, index);
     // }
@@ -248,5 +272,13 @@ export default {
 }
 .viewableRow:hover {
   background-color: #1d8cf411;
+}
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>

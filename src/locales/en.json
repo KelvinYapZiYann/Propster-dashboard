@@ -238,7 +238,10 @@
     "dummyData": "This is just a dummy data for displaying purpose.",
 
     "firstTimeProfileTitle": "Please Fill Up Your Basic Info",
-    "assetLocationNotValid": "Please make sure that the address is valid and in Malaysia only."
+    "assetLocationNotValid": "Please make sure that the address is valid and in Malaysia only.",
+
+    "editOrRemove": "Edit / Remove",
+    "editOrRemoveText": "Do you want to edit or remove this"
   },
   "component": {
     "search": "Search",
