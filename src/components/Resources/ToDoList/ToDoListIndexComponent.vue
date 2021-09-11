@@ -23,7 +23,6 @@
             <template slot-scope="{ row }">
               
               <td class="text-left" :class="[{disabled : !row.status}]"
-                @click="showDetails(row.id)"
                 @mousedown="startLongClick(row.id)" 
                 @mouseleave="stopLongClick"
                 @mouseup="stopLongClick"
