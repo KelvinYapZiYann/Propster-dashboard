@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     goToTutorial() {
-      window.open('https:/propster.io/tutorial', '_blank');
+      window.open('https://propster.io/tutorial', '_blank');
       // router.push({
       //   name: "Tutorial"
       // });
