@@ -542,7 +542,7 @@ button {
   background: #031629;
   box-shadow: 0 0 2px 0 rgba(3, 22, 41, 0.11),
   0 6px 16px 0 rgba(3, 22, 41, 0.08);
-  font-family: SFProDisplay-Regular;
+  /* font-family: SFProDisplay-Regular; */
   font-size: 14px;
   color: #ffffff;
   letter-spacing: 0.4px;

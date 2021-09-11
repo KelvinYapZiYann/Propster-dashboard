@@ -14,10 +14,9 @@
       </div>
       <card>
         <h3 slot="header" class="card-title">{{$t('sidebar.tenants')}}</h3>
-        <div class="text-right mb-3">
+        <div class="text-right">
           <base-button
             @click="addModel"
-            class="mt-3"
             type="info"
           >
           <!-- v-if="resource.data.canAdd"
@@ -42,6 +41,7 @@
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
+            v-on:long-click-event="longClickEvent"
             :paginationPage="paginationPage"
           >
           <!-- :disableDelete="true" -->
@@ -93,7 +93,12 @@ export default {
   data() {
     return {
       table: {
-        columns: {
+        columns: this.$store.getters["mobileLayout/isMobileLayout"] ? {
+          first_name: this.$t('property.firstName'),
+          last_name: this.$t('property.lastName'),
+          // email: this.$t('property.email'),
+          // phone_number: this.$t('property.phoneNumber'),
+        } : {
           first_name: this.$t('property.firstName'),
           last_name: this.$t('property.lastName'),
           email: this.$t('property.email'),
@@ -318,6 +323,40 @@ export default {
       } finally {
         loader.hide();
       }
+    },
+    longClickEvent(id) {
+      swal.fire({
+        title: this.$t('alert.editOrRemove'),
+        text: this.$t('alert.editOrRemoveText') + " " + this.$t('sidebar.tenant') + "?",
+        buttonsStyling: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: this.$t('component.edit'),
+        denyButtonText: this.$t('component.remove'),
+        cancelButtonText: this.$t('component.cancel'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        denyButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.push({
+            name: "Edit Tenant",
+            params: {
+              tenantId: id,
+              previousRoute: this.$router.currentRoute.fullPath
+            }
+          });
+        } else if (result.isDenied) {
+          swal.fire({
+            title: this.$t('alert.notDeletable'),
+            text: this.$t('alert.notDeletableText'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            icon: "error",
+          });
+        }
+      });
     }
   },
   watch: {

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <!-- <div class="wrapper" :class="{'nav-open': $sidebar.showSidebar}"> -->
-    <sidebar-fixed-toggle-button />
+    <!-- <sidebar-fixed-toggle-button /> -->
     <side-bar :background-color="backgroundColor">
       <!-- <mobile-menu slot="content"></mobile-menu> -->
       <template slot="links">
@@ -95,12 +95,12 @@
           > 
           </sidebar-link> -->
         </sidebar-link>
-        <li class="align-bottom">
+        <!-- <li class="align-bottom">
           <a href="javascript:void(0)" class="nav-link " @click="logout">
             <i class="fas fa-sign-out-alt"></i>
             <p>{{$t('topbar.logout')}}</p>
           </a>
-        </li>
+        </li> -->
       </template>
     </side-bar>
 

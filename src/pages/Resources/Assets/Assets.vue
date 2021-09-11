@@ -1,5 +1,5 @@
 <template>
-  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
+  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto main-content">
     <div class="row">
       <div class="col-12">
         <div class="pro-feature alert alert-danger" v-if="userTier == 'BASIC' || userTier == 'USER_BASIC'">

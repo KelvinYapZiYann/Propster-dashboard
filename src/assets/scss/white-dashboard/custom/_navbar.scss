@@ -36,7 +36,8 @@
 
 
   &.navbar-transparent{
-    background: transparent !important;
+    // background: transparent !important;
+    background: #f5f6fa;
     .navbar-brand{
       color: $black-states;
     }
@@ -198,8 +199,8 @@
 @media screen and (max-width: 991px){
   .navbar{
       .container-fluid{
-          padding-right: 15px;
-          padding-left: 15px;
+          padding-right: 0px;
+          padding-left: 0px;
       }
 
       .navbar-collapse{

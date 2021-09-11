@@ -16,6 +16,7 @@ import paymentRecords from "./modules/resources/payment-records-module"
 import selectRole from "./modules/select-role-module"
 import createProfile from "./modules/create-profile-module"
 import todoList from "./modules/resources/todo-list-module"
+import mobileLayout from "./modules/mobile-layout-module"
 
 Vue.use(Vuex);
 
@@ -35,6 +36,7 @@ export default new Vuex.Store({
     tenureContract,
     selectRole,
     createProfile,
-    todoList
+    todoList,
+    mobileLayout,
   }
 });

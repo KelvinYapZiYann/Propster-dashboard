@@ -1,8 +1,8 @@
 <template>
-  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
+  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto main-content">
     <div v-if="doesAssetExist && doesTenantExist">
       <div class="row">
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <el-tooltip
             :content="$t('dashboard.overdueIncomeDesc')"
             :open-delay="300"
@@ -16,7 +16,7 @@
             </stats-card>
           </el-tooltip>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <el-tooltip
             :content="$t('dashboard.upcomingIncomeDesc')"
             :open-delay="300"
@@ -30,7 +30,7 @@
             </stats-card>
           </el-tooltip>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <el-tooltip
             :content="$t('dashboard.overdueExpensesDesc')"
             :open-delay="300"
@@ -44,7 +44,7 @@
             </stats-card>
           </el-tooltip>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <el-tooltip
             :content="$t('dashboard.upcomingExpensesDesc')"
             :open-delay="300"
@@ -60,35 +60,40 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-          <el-tooltip
-            :content="$t('dashboard.projectedMonthlyIncomeDesc')"
-            :open-delay="300"
-          >
-            <stats-card
-              :title="`RM${resource.general ? resource.general.projected_monthly_income : ''}`"
-              :sub-title="$t('dashboard.projectedMonthlyIncome')"
-              type="primary"
-              icon="tim-icons icon-spaceship"
-            >
-            <!-- image="/img/dollar_up.png" -->
-            </stats-card>
-          </el-tooltip>
-          <el-tooltip
-            :content="$t('dashboard.projectedMonthlyExpensesDesc')"
-            :open-delay="300"
-          >
-            <stats-card
-              :title="`RM${resource.general ? resource.general.projected_monthly_expenses : ''}`"
-              :sub-title="$t('dashboard.projectedMonthlyExpenses')"
-              type="warning"
-              icon="tim-icons icon-user-run"
-            >
-            </stats-card>
-          </el-tooltip>
+        <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="row">
+            <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-6">
+              <el-tooltip
+                :content="$t('dashboard.projectedMonthlyIncomeDesc')"
+                :open-delay="300"
+              >
+                <stats-card
+                  :title="`RM${resource.general ? resource.general.projected_monthly_income : ''}`"
+                  :sub-title="$t('dashboard.projectedMonthlyIncome')"
+                  type="primary"
+                  icon="tim-icons icon-spaceship"
+                >
+                <!-- image="/img/dollar_up.png" -->
+                </stats-card>
+              </el-tooltip>
+            </div>
+            <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-6">
+              <el-tooltip
+                :content="$t('dashboard.projectedMonthlyExpensesDesc')"
+                :open-delay="300"
+              >
+                <stats-card
+                  :title="`RM${resource.general ? resource.general.projected_monthly_expenses : ''}`"
+                  :sub-title="$t('dashboard.projectedMonthlyExpenses')"
+                  type="warning"
+                  icon="tim-icons icon-user-run"
+                >
+                </stats-card>
+              </el-tooltip>
+            </div>
+          </div>
         </div>
-
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mr-auto">
+        <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 col-12">
           <card class="card-chart card-chart-pie">
             <h3 slot="header" class="card-category chart-header">
               {{$t('dashboard.rent')}}
@@ -115,7 +120,7 @@
           </card>
         </div>
 
-        <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 mr-auto">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
           <card class="card-chart card-chart-pie height-350">
             <h3 slot="header" class="card-category chart-header">
               {{$t('dashboard.assetsVacancy')}}
@@ -159,8 +164,7 @@
             </h3>
             <div class="row ml-3">
               <div class="col-12">
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}}</p>
-                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.expenses')}}</p>
+                <p class="category text-left chart-text"><i class="tim-icons icon-tag text-info"></i> {{$t('dashboard.income')}} <i class="tim-icons icon-tag text-warning"></i> {{$t('dashboard.expenses')}}</p>
               </div>
             </div>
             <div class="chart-area">

@@ -64,7 +64,14 @@ export default {
     return {
       table: {
         title: this.$t('dashboard.overdueTenantsList'),
-        columns: {
+        columns: this.$store.getters["mobileLayout/isMobileLayout"] ? {
+          first_name: this.$t('property.firstName'),
+          last_name: this.$t('property.lastName'),
+          // email: this.$t('property.email'),
+          // phone_number: this.$t('property.phoneNumber'),
+          total_due_amount: this.$t('property.dueAmount'),
+          latest_due_date: this.$t('property.dueDate'),
+        } : {
           first_name: this.$t('property.firstName'),
           last_name: this.$t('property.lastName'),
           email: this.$t('property.email'),

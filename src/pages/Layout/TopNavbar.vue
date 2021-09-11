@@ -1,8 +1,9 @@
 <template>
   <nav
-    class="navbar navbar-expand-lg navbar-absolute"
-    :class="{ 'bg-white': showMenu, 'navbar-transparent': !showMenu, 'border-bottom ': showMenu }"
+    class="navbar navbar-expand-lg sticky-top navbar-transparent"
   >
+  <!-- navbar-absolute -->
+  <!-- :class="{ 'bg-white': showMenu, 'navbar-transparent': !showMenu, 'border-bottom ': showMenu }" -->
     <div class="container-fluid">
       <div class="navbar-wrapper">
         <div class="navbar-minimize d-inline"><sidebar-toggle-button /></div>
@@ -114,7 +115,7 @@
               </li>
             </ul>
           </drop-down> -->
-          <drop-down>
+          <drop-down :defaultShow="showMenu">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <div class="photo" :title="userFullname">
                 <img v-if="userGender == 'FEMALE'" src="@/assets/img/anime6.png" alt="Profile Photo" />

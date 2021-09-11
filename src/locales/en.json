@@ -63,9 +63,9 @@
     "confirmPassowrd": "Confirm Password",
     "phoneNumber": "Phone Number",
     "login": "Already have an account? Login",
-    "desc1": "By register, you will experience how this tool can help you manage your property effectively.",
-    "desc2": "Free To Use if you're just started to manage your property.",
-    "desc3": "We will be helping you as much as needed to familiar and be productive in Propster.io.",
+    "desc1": "By registering, you will experience how this tool is helping you to manage your property effectively.",
+    "desc2": "Free To Use if you're just starting to manage your property.",
+    "desc3": "We will be helping you as much as needed to be familiar and productive in Propster.io.",
     "registerSuccessfully": "Register Successfully",
     "registerSuccessfullyText": "You have registered an account in Propster.io successfully.",
     "verifyEmail": "Please make sure to verify the email before logging in.",
@@ -238,7 +238,10 @@
     "dummyData": "This is just a dummy data for displaying purpose.",
 
     "firstTimeProfileTitle": "Please Fill Up Your Basic Info",
-    "assetLocationNotValid": "Please make sure that the address is valid and in Malaysia only."
+    "assetLocationNotValid": "Please make sure that the address is valid and in Malaysia only.",
+
+    "editOrRemove": "Edit / Remove",
+    "editOrRemoveText": "Do you want to edit or remove this"
   },
   "component": {
     "search": "Search",

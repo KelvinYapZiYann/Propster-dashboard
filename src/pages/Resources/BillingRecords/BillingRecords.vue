@@ -1,5 +1,5 @@
 <template>
-  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto">
+  <div class="content col-xl-10 col-lg-12 col-md-12 ml-auto mr-auto main-content">
     <billing-record-index-component
       :resource="resource"
       :tableData="{'rowColor': rowColor}"

@@ -1,5 +1,5 @@
 .footer{
-    padding: 24px 0 24px 250px;
+    padding: 24px 0 0 250px;
 
     [class*="container-"] {
       padding: 0;
@@ -30,6 +30,8 @@
       &:hover{
           text-decoration: none;
       }
+
+      
     }
 
 
@@ -46,8 +48,12 @@
         content: " ";
     }
 
-    ul li a{
+    ul li a {
       color: $black-states;
+    }
+
+    .copyright a {
+      color: #1d8cf8;
     }
 }
 

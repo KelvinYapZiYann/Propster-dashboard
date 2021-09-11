@@ -3,10 +3,9 @@
     <div class="col-12">
       <card>
         <h3 slot="header" class="card-title">{{$t('sidebar.assetExpenses')}}</h3>
-        <div class="text-right mb-3">
+        <div class="text-right">
           <base-button
             @click="addModel"
-            class="mt-3"
             type="info"
           >
             {{$t('component.add')}} {{$t('sidebar.assetExpenses')}}
@@ -32,6 +31,7 @@
             v-on:show-details="showDetails"
             v-on:delete-details="deleteDetails"
             v-on:edit-details="editDetails"
+            v-on:long-click-event="longClickEvent"
             :paginationPage="paginationPage"
           >
           <!-- :columnsClassColumn="table.columnsClassColumn" -->
@@ -85,7 +85,14 @@ export default {
   data() {
     return {
       table: {
-        columns: {
+        columns: this.$store.getters["mobileLayout/isMobileLayout"] ? {
+          asset_nickname: this.$t('property.assetNickname'),
+          payment_description: this.$t('property.description'),
+          amount: this.$t('property.amount'),
+          // status: this.$t('property.status'),
+          // payment_method: this.$t('property.paymentMethod'),
+          // created_at: this.$t('property.createdAt'),
+        } : {
           asset_nickname: this.$t('property.assetNickname'),
           payment_description: this.$t('property.description'),
           amount: this.$t('property.amount'),
@@ -294,6 +301,40 @@ export default {
       } finally {
         loader.hide();
       }
+    },
+    longClickEvent(id) {
+      swal.fire({
+        title: this.$t('alert.editOrRemove'),
+        text: this.$t('alert.editOrRemoveText') + " " + this.$t('sidebar.assetExpense') + "?",
+        buttonsStyling: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: this.$t('component.edit'),
+        denyButtonText: this.$t('component.remove'),
+        cancelButtonText: this.$t('component.cancel'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        denyButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swal.fire({
+            title: this.$t('alert.notEditable'),
+            text: this.$t('alert.notEditableText'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            icon: "error",
+          });
+        } else if (result.isDenied) {
+          swal.fire({
+            title: this.$t('alert.notDeletable'),
+            text: this.$t('alert.notDeletableText'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            icon: "error",
+          });
+        }
+      });
     }
   },
   watch: {

@@ -39,6 +39,7 @@ import ValidationError from "@/components/ValidationError";
 import TransactionSection from "@/components/Resources/TransactionSection";
 import BaseTenantIndicator from "@/components/Resources/Tenants/BaseTenantIndicator";
 import BaseRoomIndicator from "@/components/Resources/Assets/BaseRoomIndicator";
+import BaseBathroomIndicator from "@/components/Resources/Assets/BaseBathroomIndicator";
 import TutorialComponent from "@/components/Tutorial/TutorialComponent";
 
 export {
@@ -83,5 +84,6 @@ export {
   TransactionSection,
   BaseTenantIndicator,
   BaseRoomIndicator,
+  BaseBathroomIndicator,
   TutorialComponent
 };

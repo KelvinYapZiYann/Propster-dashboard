@@ -3,10 +3,9 @@
     <div class="col-12">
       <card>
         <h3 slot="header" class="card-title">{{$t('sidebar.assets')}}</h3>
-        <div class="text-right mb-3" v-if="this.$props.query ? !this.$props.query.tenantId : true">
+        <div class="text-right" v-if="this.$props.query ? !this.$props.query.tenantId : true">
           <base-button
                 @click="addModel"
-                class="mt-3"
                 type="info"      
           >
           <!-- v-bind:disabled="!resource.data.canAdd" -->
@@ -34,22 +33,73 @@
           >
           <!-- :disableDelete="true" -->
             <template slot-scope="{ row }">
-              <td @click="showDetails(row.id)">
+              <td
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 {{ row.asset_nickname }}
               </td>
-              <td @click="showDetails(row.id)">
+              <td
+                v-if="!$store.getters['mobileLayout/isMobileLayout']"
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 {{ row.location_details ? row.location_details.asset_unit_no : '' }}
               </td>
-              <td @click="showDetails(row.id)">
+              <td
+                v-if="!$store.getters['mobileLayout/isMobileLayout']"
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 {{ row.location_details ? row.location_details.asset_address_line : '' }}
               </td>
-              <td @click="showDetails(row.id)">
+              <td
+                v-if="!$store.getters['mobileLayout/isMobileLayout']"
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 {{ row.location_details ? row.location_details.asset_city : '' }}
               </td>
-              <td @click="showDetails(row.id)">
+              <td
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 <base-room-indicator :value="row.number_of_rooms"></base-room-indicator>
               </td>
-              <td @click="showDetails(row.id)">
+              <td
+                @click="showDetails(row.id)"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 <base-tenant-indicator :value="row.number_of_tenants"></base-tenant-indicator>
               </td>
               <!-- <td>
@@ -99,7 +149,14 @@ export default {
   data() {
     return {
       table: {
-        columns: {
+        columns: this.$store.getters["mobileLayout/isMobileLayout"] ? {
+          asset_nickname: this.$t('property.assetNickname'),
+          // asset_unit_no: this.$t('property.unitNo'),
+          // asset_address_line: this.$t('property.addressLine'),
+          // asset_city: this.$t('property.city'),
+          rooms: this.$t('property.rooms'),
+          tenants: this.$t('sidebar.tenants'),
+        } : {
           asset_nickname: this.$t('property.assetNickname'),
           asset_unit_no: this.$t('property.unitNo'),
           asset_address_line: this.$t('property.addressLine'),
@@ -110,7 +167,8 @@ export default {
       },
       searchQuery: "",
       searchQueryTimeout: null,
-      paginationPage: 1
+      paginationPage: 1,
+      timeout: null
     };
   },
   props: {
@@ -293,7 +351,54 @@ export default {
           type: 'danger'
         });
       }
-    }
+    },
+    longClickEvent(id) {
+      swal.fire({
+        title: this.$t('alert.editOrRemove'),
+        text: this.$t('alert.editOrRemoveText') + " " + this.$t('sidebar.asset') + "?",
+        buttonsStyling: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: this.$t('component.edit'),
+        denyButtonText: this.$t('component.remove'),
+        cancelButtonText: this.$t('component.cancel'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        denyButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.push({
+            name: "Edit Assets",
+            params: {
+              assetId: id,
+              previousRoute: this.$router.currentRoute.fullPath
+            }
+          });
+        } else if (result.isDenied) {
+          swal.fire({
+            title: this.$t('alert.notDeletable'),
+            text: this.$t('alert.notDeletableText'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            icon: "error",
+          });
+        }
+      });
+    },
+    startLongClick(id) {
+      if (!this.timeout && this.$store.getters["mobileLayout/isMobileLayout"]) {
+        this.timeout = setTimeout(() => {
+          this.longClickEvent(id);
+        }, 2000);
+      }
+    },
+    stopLongClick() {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+        this.timeout = null;
+      }
+    },
   },
   watch: {
     searchQuery(value) {

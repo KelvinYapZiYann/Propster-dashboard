@@ -526,8 +526,8 @@
     }
 
     > .content {
-        padding: 78px 30px 30px 280px;
-        min-height: calc(100vh - 70px);
+        padding: 1rem 30px 30px 280px;
+        min-height: calc(100vh - 115px);
     }
 
     > .navbar {
@@ -549,6 +549,17 @@
   }
 }
 
+@media (max-width: 622px) {
+  .main-panel .content.main-content {
+    min-height: calc(100vh - 140px);
+  }
+}
+
+@media (max-width: 311px) {
+  .main-panel .content.main-content {
+    min-height: calc(100vh - 160px);
+  }
+}
 
 @media (min-width: 991px) {
     .sidebar,
@@ -704,8 +715,9 @@
     position: fixed;
     display: block;
     top: 0;
-    height: 100%;
+    height: 100vh;
     width: 260px;
+    // width: 100%;
     right: auto;
     left: 0;
     margin: 0;
@@ -733,6 +745,7 @@
   .nav-open{
       .main-panel{
           right: 0;
+          position: fixed;
           @include transform-translate-x(260px);
       }
 

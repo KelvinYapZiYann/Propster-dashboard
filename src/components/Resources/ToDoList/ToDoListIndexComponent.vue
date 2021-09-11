@@ -3,10 +3,9 @@
     <div class="col-12">
       <card>
         <h3 slot="header" class="card-title">{{$t('dashboard.todoList')}}</h3>
-        <div class="text-right mb-3">
+        <div class="text-right">
           <base-button
                 @click="addModel"
-                class="mt-3"
                 type="info"      
           >
             {{$t('component.add')}} {{$t('dashboard.todoList')}}
@@ -23,9 +22,16 @@
           >
             <template slot-scope="{ row }">
               
-              <td class="text-left" :class="[{disabled : !row.status}]">
+              <td class="text-left" :class="[{disabled : !row.status}]"
+                @mousedown="startLongClick(row.id)" 
+                @mouseleave="stopLongClick"
+                @mouseup="stopLongClick"
+                @touchstart="startLongClick(row.id)"
+                @touchend="stopLongClick"
+                @touchcancel="stopLongClick"
+              >
                 <p class="title">{{ row.title }}</p>
-                <p class="text-muted">{{ row.content }}</p>
+                <p class="text-muted" style="overflow-wrap: break-word;">{{ row.content }}</p>
               </td>
               <td>
                 <base-checkbox 
@@ -98,7 +104,8 @@ export default {
   },
   data() {
     return {
-      paginationPage: 1
+      paginationPage: 1,
+      timeout: null
     }
   },
   methods: {
@@ -206,9 +213,43 @@ export default {
           type: 'danger'
         });
       });
-    }
-  }
-
+    },
+    longClickEvent(id) {
+      swal.fire({
+        title: this.$t('alert.editOrRemove'),
+        text: this.$t('alert.editOrRemoveText') + " " + this.$t('sidebar.todoList') + "?",
+        buttonsStyling: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: this.$t('component.edit'),
+        denyButtonText: this.$t('component.remove'),
+        cancelButtonText: this.$t('component.cancel'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        denyButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.editDetails(id);
+        } else if (result.isDenied) {
+          this.deleteDetails(id);
+        }
+      });
+    },
+    startLongClick(id) {
+      if (!this.timeout && this.$store.getters["mobileLayout/isMobileLayout"]) {
+        this.timeout = setTimeout(() => {
+          this.longClickEvent(id);
+        }, 2000);
+      }
+    },
+    stopLongClick() {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+        this.timeout = null;
+      }
+    },
+  },
   // computed: {
   //   tableData() {
   //     return this.$t("dashboard.taskList");

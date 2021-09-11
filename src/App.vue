@@ -44,24 +44,27 @@ export default {
       if (this.$router.currentRoute.name == 'login') {
         return;
       }
-      try {
-        await this.$store.dispatch('users/get', {});
-        this.$notify({
-          message: this.$t('alert.facebookMessengerAlert'),
-          icon: 'tim-icons icon-chat-33',
-          type: 'info',
-          verticalAlign: 'bottom',
-          timeout: 30000,
-          bottomMargin: 70,
-        });
-      } catch (e) {
-        // this.$notify({
-        //   message: errorHandlingService.displayAlertFromServer(e),
-        //   icon: 'tim-icons icon-bell-55',
-        //   type: 'danger'
-        // });
-      }
+      // try {
+      //   await this.$store.dispatch('users/get', {});
+      //   this.$notify({
+      //     message: this.$t('alert.facebookMessengerAlert'),
+      //     icon: 'tim-icons icon-chat-33',
+      //     type: 'info',
+      //     verticalAlign: 'bottom',
+      //     timeout: 30000,
+      //     bottomMargin: 70,
+      //   });
+      // } catch (e) {
+      //   // this.$notify({
+      //   //   message: errorHandlingService.displayAlertFromServer(e),
+      //   //   icon: 'tim-icons icon-bell-55',
+      //   //   type: 'danger'
+      //   // });
+      // }
     },
+    screenSizeChangeHandler(e) {
+      this.$store.dispatch('mobileLayout/update', (window.innerWidth <= 991));
+    }
   },
   mounted() {
     this.$watch("$route", this.disableRTL, { immediate: true });
@@ -69,7 +72,14 @@ export default {
     if (this.$store.getters.isAuthenticated) {
       this.verifyMiddleware();
     }
-  }
+  },
+  created() {
+    this.$store.dispatch('mobileLayout/update', (window.innerWidth <= 991));
+    window.addEventListener("resize", this.screenSizeChangeHandler);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.screenSizeChangeHandler);
+  },
 };
 </script>
 

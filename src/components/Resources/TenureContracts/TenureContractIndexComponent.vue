@@ -3,10 +3,9 @@
     <div class="col-12">
       <card>
         <h3 slot="header" class="card-title">{{$t('sidebar.tenureContracts')}}</h3>
-        <div class="text-right mb-3">
+        <div class="text-right">
           <base-button
             @click="addModel"
-            class="mt-3"
             type="info"
           >
           <!-- v-bind:disabled="!resource.data.canAdd"
@@ -23,7 +22,7 @@
             </base-input>
           </div>
         </div> -->
-        <!-- <div class="row">
+        <!-- <div class="row">columns: this.$store.getters["mobileLayout/isMobileLayout"] ? {
           <div class="col-xl-4 col-lg-2 col-md-12">
           </div>
           <div class="col-xl-4 col-lg-5 col-md-6 ml-auto">
@@ -57,6 +56,7 @@
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
+            v-on:long-click-event="longClickEvent"
             :paginationPage="paginationPage"
           >
           <!-- :disableDelete="true" -->
@@ -103,7 +103,15 @@ export default {
   data() {
     return {
       table: {
-        columns: {
+        columns: this.$store.getters["mobileLayout/isMobileLayout"] ? {
+          contract_name: this.$t('property.contractName'),
+          asset_nickname: this.$t('property.assetNickname'),
+          first_name: this.$t('property.tenantName'),
+          monthly_rental_amount: this.$t('property.monthlyRentalAmount'),
+          // deposited_amount: this.$t('property.depositedAmount'),
+          // tenure_start_date: this.$t('property.tenureStartDate'),
+          // tenure_end_date: this.$t('property.tenureEndDate')
+        } : {
           contract_name: this.$t('property.contractName'),
           asset_nickname: this.$t('property.assetNickname'),
           first_name: this.$t('property.tenantName'),
@@ -413,6 +421,41 @@ export default {
     //   console.log(item);
     //   console.log(index);
     // }
+    longClickEvent(id) {
+      swal.fire({
+        title: this.$t('alert.editOrRemove'),
+        text: this.$t('alert.editOrRemoveText') + " " + this.$t('sidebar.tenureContract') + "?",
+        buttonsStyling: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: this.$t('component.edit'),
+        denyButtonText: this.$t('component.remove'),
+        cancelButtonText: this.$t('component.cancel'),
+        cancelButtonClass: "btn btn-info btn-fill",
+        denyButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-info btn-fill",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.push({
+            name: "Edit Tenure Contract",
+            query: this.query,
+            params: {
+              tenureContractId: id,
+              previousRoute: this.$router.currentRoute.fullPath
+            }
+          });
+        } else if (result.isDenied) {
+          swal.fire({
+            title: this.$t('alert.notDeletable'),
+            text: this.$t('alert.notDeletableText'),
+            buttonsStyling: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            icon: "error",
+          });
+        }
+      });
+    }
   },
   watch: {
     searchQuery(value) {
