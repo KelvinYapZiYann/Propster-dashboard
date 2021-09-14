@@ -377,13 +377,13 @@ let mobileResources = {
       path: "assets",
       name: "Mobile Assets",
       components: { default: Assets },
-      meta: { middleware: auth }
+      // meta: { middleware: auth }
     },
     {
       path: "assets/add",
       name: "Mobile Add Assets",
       components: { default: AssetAdd },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -392,7 +392,7 @@ let mobileResources = {
       path: "assets/:assetId",
       name: "Mobile Asset Detail",
       components: { default: AssetDetail },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -401,7 +401,7 @@ let mobileResources = {
       path: "assets/:assetId/edit",
       name: "Mobile Edit Assets",
       components: { default: AssetEdit },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -410,13 +410,13 @@ let mobileResources = {
       path: "tenants",
       name: "Mobile Tenants",
       components: { default: Tenants },
-      meta: { middleware: auth }
+      // meta: { middleware: auth }
     },
     {
       path: "tenants/add",
       name: "Mobile Add Tenant",
       components: { default: TenantAdd },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -425,7 +425,7 @@ let mobileResources = {
       path: "tenants/:tenantId",
       name: "Mobile Tenant Detail",
       components: { default: TenantDetail },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -434,7 +434,7 @@ let mobileResources = {
       path: "tenants/:tenantId/edit",
       name: "Mobile Edit Tenant",
       components: { default: TenantEdit },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -443,13 +443,13 @@ let mobileResources = {
       path: "tenure-contracts",
       name: "Mobile Tenure Contracts",
       components: { default: TenureContracts },
-      meta: { middleware: auth }
+      // meta: { middleware: auth }
     },
     {
       path: "tenure-contracts/add",
       name: "Mobile Add Tenure Contract",
       components: { default: TenureContractAdd },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -458,7 +458,7 @@ let mobileResources = {
       path: "tenure-contracts/:tenureContractId",
       name: "Mobile Tenure Contract Detail",
       components: { default: TenureContractDetail },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -467,7 +467,7 @@ let mobileResources = {
       path: "tenure-contracts/:tenureContractId/edit",
       name: "Mobile Edit Tenure Contract",
       components: { default: TenureContractEdit },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -476,13 +476,13 @@ let mobileResources = {
       path: "asset-expenses",
       name: "Mobile Asset Expenses",
       components: { default: AssetExpenses },
-      meta: { middleware: auth }
+      // meta: { middleware: auth }
     },
     {
       path: "asset-expenses/add",
       name: "Mobile Add Asset Expenses",
       components: { default: AssetExpensesAdd },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -491,7 +491,7 @@ let mobileResources = {
       path: "asset-expenses/:assetExpenseId",
       name: "Mobile Asset Expenses Detail",
       components: { default: AssetExpensesDetail },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -500,13 +500,13 @@ let mobileResources = {
       path: "payment-records",
       name: "Mobile Payment Records",
       components: { default: PaymentRecords },
-      meta: { middleware: auth }
+      // meta: { middleware: auth }
     },
     {
       path: "payment-records/add",
       name: "Mobile Add Payment Record",
       components: { default: PaymentRecordsAdd },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -515,7 +515,7 @@ let mobileResources = {
       path: "payment-records/:paymentRecordId",
       name: "Mobile Payment Record Detail",
       components: { default: PaymentRecordsDetail },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -524,13 +524,13 @@ let mobileResources = {
       path: "billing-records",
       name: "Mobile Billing Records",
       components: { default: BillingRecords },
-      meta: { middleware: auth }
+      // meta: { middleware: auth }
     },
     {
       path: "billing-records/add",
       name: "Mobile Add Billing Record",
       components: { default: BillingRecordsAdd },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -539,7 +539,7 @@ let mobileResources = {
       path: "billing-records/:billingRecordId",
       name: "Mobile Billing Record Detail",
       components: { default: BillingRecordsDetail },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -548,7 +548,7 @@ let mobileResources = {
       path: "billing-payments",
       name: "Mobile Billing Payments",
       components: { default: BillingPayments },
-      meta: { middleware: auth }
+      // meta: { middleware: auth }
     },
     // {
     //   path: "billing-payments/add",
@@ -563,7 +563,7 @@ let mobileResources = {
       path: "billing-payments/:billingPaymentId",
       name: "Mobile Billing Payment Detail",
       components: { default: BillingPaymentsDetail },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -572,7 +572,7 @@ let mobileResources = {
       path: "todo-list",
       name: "Mobile ToDo List",
       components: { default: ToDoList },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -581,7 +581,7 @@ let mobileResources = {
       path: "todo-list/add",
       name: "Mobile Add ToDo List",
       components: { default: ToDoListAdd },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
@@ -590,7 +590,7 @@ let mobileResources = {
       path: "todo-list/:todoListId/edit",
       name: "Mobile Edit ToDo List",
       components: { default: ToDoListEdit },
-      meta: { middleware: auth },
+      // meta: { middleware: auth },
       props: {
         default: true
       }
