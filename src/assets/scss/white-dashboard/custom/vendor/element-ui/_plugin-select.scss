@@ -1,7 +1,7 @@
 @import "../../variables";
 @mixin select($type, $color) {
-  // .select-#{$type}.el-select {
-  // }
+  .select-#{$type}.el-select {
+  }
   .select-#{$type}.el-select .el-input  {
     .el-input__suffix{
       display: flex;
@@ -58,7 +58,11 @@
     }
   }
 
+<<<<<<< HEAD
   .el-select-dropdown.is-multiple
+=======
+  &.el-select-dropdown.is-multiple
+>>>>>>> parent of 7a8e1ec (use vue-cli to add vuetify)
   .el-select-dropdown__item.selected{
     &.select-#{$type}{
       color: $color;
@@ -78,9 +82,9 @@
   }
 }
 
-@include select('default', $default);
-@include select('info', $info);
-@include select('primary', $primary);
-@include select('success', $success);
-@include select('warning', $warning);
-@include select('danger', $danger);
+@include select('default', $default)
+@include select('info', $info)
+@include select('primary', $primary)
+@include select('success', $success)
+@include select('warning', $warning)
+@include select('danger', $danger)

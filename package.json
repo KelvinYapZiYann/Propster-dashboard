@@ -50,7 +50,6 @@
     "vue2-dropzone": "^3.6.0",
     "vue2-google-maps": "^0.10.7",
     "vue2-transitions": "^0.3.0",
-    "vuetify": "^2.4.0",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
@@ -58,10 +57,7 @@
     "@vue/cli-service": "^3.11.0",
     "node-sass": "^4.9.0",
     "prettier": "^1.18.2",
-    "sass": "~1.32.0",
-    "sass-loader": "^10.0.0",
-    "vue-cli-plugin-vuetify": "~2.4.2",
-    "vue-template-compiler": "^2.6.10",
-    "vuetify-loader": "^1.7.0"
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.6.10"
   }
 }

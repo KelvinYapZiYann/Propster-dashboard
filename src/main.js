@@ -17,7 +17,6 @@
 */
 import Vue from "vue";
 import VueRouter from "vue-router";
-import vuetify from './plugins/vuetify'
 import SocialSharing from "vue-social-sharing";
 import VueGitHubButtons from "vue-github-buttons";
 import "vue-github-buttons/dist/vue-github-buttons.css";
@@ -74,6 +73,5 @@ new Vue({
   store: store,
   router,
   i18n,
-  vuetify,
   render: h => h(App)
 }).$mount("#app");
