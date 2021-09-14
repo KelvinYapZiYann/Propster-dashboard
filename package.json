@@ -5,15 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "capacitor:build": "vue-cli-service capacitor:build",
-    "capacitor:serve": "vue-cli-service capacitor:serve"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@capacitor/android": "^2.0.0",
-    "@capacitor/cli": "^2.0.0",
-    "@capacitor/core": "^2.0.0",
-    "@capacitor/ios": "^2.0.0",
     "@fullcalendar/core": "^4.3.1",
     "@fullcalendar/daygrid": "^4.3.0",
     "@fullcalendar/interaction": "^4.3.0",
@@ -60,7 +54,6 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@nklayman/vue-cli-plugin-capacitor": "~0.4.0",
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
     "node-sass": "^4.9.0",
