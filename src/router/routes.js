@@ -902,6 +902,42 @@ const routes = [
       // }
     ]
   },
+  {
+    path: "/m",
+    component: MobileDashboardLayout,
+    children: [
+      {
+        path: "dashboard",
+        name: "Dashboard",
+        component: Dashboard,
+        // meta: { middleware: auth },
+        props: {
+          default: true
+        }
+      },
+      {
+        path: "profile",
+        name: "User Profile",
+        component: Profile,
+        // meta: { middleware: auth },
+      },
+      {
+        path: "profile/edit",
+        name: "User Profile Edit",
+        component: ProfileEdit,
+        // meta: { middleware: auth },
+        props: {
+          default: true
+        }
+      },
+      {
+        path: "roadmap",
+        name: "Roadmap",
+        component: Roadmap,
+        // meta: { middleware: auth },
+      },
+    ]
+  },
   { path: "*", component: NotFound },
 ];
 
