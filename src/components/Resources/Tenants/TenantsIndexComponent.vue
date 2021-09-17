@@ -148,7 +148,7 @@ export default {
       if (this.$props.query) {
         if (this.$props.query.assetId) {
           router.push({
-            name: "Tenant Detail", 
+            name: router.currentRoute.matched[0].path == "/m" ? "Mobile Tenant Detail" : "Tenant Detail",
             query: {
               assetId: `${this.$props.query.assetId}`,
             },
@@ -159,7 +159,7 @@ export default {
           });
         } else {
           router.push({
-            name: "Tenant Detail", 
+            name: router.currentRoute.matched[0].path == "/m" ? "Mobile Tenant Detail" : "Tenant Detail",
             params: {
               tenantId: id,
               previousRoute: this.$router.currentRoute.fullPath
@@ -168,7 +168,7 @@ export default {
         }
       } else {
         router.push({
-          name: "Tenant Detail", 
+          name: router.currentRoute.matched[0].path == "/m" ? "Mobile Tenant Detail" : "Tenant Detail",
           params: {
             tenantId: id,
             previousRoute: this.$router.currentRoute.fullPath
@@ -178,7 +178,7 @@ export default {
     },
     editDetails(id) {
       router.push({
-        name: "Edit Tenant",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Edit Tenant" : "Edit Tenant",
         params: {
           tenantId: id,
           previousRoute: this.$router.currentRoute.fullPath
@@ -234,7 +234,7 @@ export default {
             }).then((result) => {
               if (result.value) {
                 this.$router.push({
-                  name: 'Add Assets',
+                  name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Assets" : "Add Assets",
                   params: {
                     previousRoute: this.$router.currentRoute.fullPath
                   }
@@ -253,7 +253,7 @@ export default {
               return;
             }
             this.$router.push({
-              name: 'Add Tenant',
+              name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Tenant" : "Add Tenant",
               query: this.query,
               params: {
                 previousRoute: this.$router.currentRoute.fullPath
@@ -273,7 +273,7 @@ export default {
           return;
         }
         this.$router.push({
-          name: 'Add Tenant',
+          name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Tenant" : "Add Tenant",
           query: this.query,
           params: {
             previousRoute: this.$router.currentRoute.fullPath
@@ -341,7 +341,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           router.push({
-            name: "Edit Tenant",
+            name: router.currentRoute.matched[0].path == "/m" ? "Mobile Edit Tenant" : "Edit Tenant",
             params: {
               tenantId: id,
               previousRoute: this.$router.currentRoute.fullPath

@@ -107,7 +107,7 @@ export default {
   methods: {
     showDetails(id) {
       router.push({
-        name: "Asset Detail",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Asset Detail" : "Asset Detail",
         params: {
           assetId: id,
           previousRoute: this.$router.currentRoute.fullPath

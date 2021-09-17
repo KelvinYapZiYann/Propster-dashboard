@@ -325,7 +325,7 @@ export default {
     },
     addTenantPaymentRecord() {
       this.$router.push({
-        name: 'Add Payment Record',
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Payment Record" : "Add Payment Record",
         query: {
           senderType: "TENANT",
           senderId: this.tenantId,
@@ -340,7 +340,7 @@ export default {
     },
     addTenantBillingRecord() {
       this.$router.push({
-        name: 'Add Billing Record',
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Billing Record" : "Add Billing Record",
         query: {
           senderType: "TENANT",
           senderId: this.tenantId,
@@ -368,7 +368,7 @@ export default {
     },
     async handleEdit() {
       this.$router.push({
-        name: "Edit Tenant",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Edit Tenant" : "Edit Tenant",
         params: {
           tenantId: this.tenantId,
           previousRoute: this.$router.currentRoute.fullPath

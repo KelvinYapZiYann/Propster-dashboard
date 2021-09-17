@@ -283,7 +283,7 @@ export default {
           }).then((result) => {
             if (result.isConfirmed) {
               router.push({
-                name: 'Add Billing Record',
+                name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Billing Record" : "Add Billing Record",
                 query: {
                   senderType: "TENANT",
                   senderId: model.get("sender_id"),
@@ -299,7 +299,7 @@ export default {
               });
             } else if (result.isDenied) {
               router.push({
-                name: 'Add Payment Record',
+                name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Payment Record" : "Add Billing Record",
                 query: {
                   senderType: "TENANT",
                   senderId: model.get("sender_id"),
@@ -342,7 +342,7 @@ export default {
                 router.currentRoute.query.endDate != model.get("billing_end_at")
               ) {
                 router.push({
-                  name: 'Add Billing Record',
+                  name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Payment Record" : "Add Billing Record",
                   query: {
                     senderType: "TENANT",
                     senderId: model.get("sender_id"),

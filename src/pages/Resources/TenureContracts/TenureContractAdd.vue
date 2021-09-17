@@ -159,7 +159,7 @@ export default {
               }).then((result) => {
                 if (result.value) {
                   router.push({
-                    name: 'Add Billing Record',
+                    name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Billing Record" : "Add Billing Record",
                     query: {
                       senderType: "TENANT",
                       senderId: this.resource.model.tenant.id,
@@ -196,7 +196,7 @@ export default {
             }).then((result) => {
               if (result.value) {
                 router.push({
-                  name: 'Add Billing Record',
+                  name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Billing Record" : "Add Billing Record",
                   query: {
                     senderType: "TENANT",
                     senderId: this.resource.model.tenant.id,

@@ -118,7 +118,7 @@ export default {
       //   icon: "error",
       // });
       this.$router.push({
-        name: "Edit ToDo List",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Edit ToDo List" : "Edit ToDo List",
         params: {
           todoListId: id,
           previousRoute: this.$router.currentRoute.fullPath
@@ -159,7 +159,7 @@ export default {
     },
     addModel() {
       this.$router.push({
-        name: 'Add ToDo List',
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add ToDo List" : "Add ToDo List",
         query: this.query,
         params: {
           previousRoute: this.$router.currentRoute.fullPath

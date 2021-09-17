@@ -908,7 +908,7 @@ const routes = [
     children: [
       {
         path: "dashboard",
-        name: "Dashboard",
+        name: "Mobile Dashboard",
         component: Dashboard,
         // meta: { middleware: auth },
         props: {
@@ -917,13 +917,13 @@ const routes = [
       },
       {
         path: "profile",
-        name: "User Profile",
+        name: "Mobile User Profile",
         component: Profile,
         // meta: { middleware: auth },
       },
       {
         path: "profile/edit",
-        name: "User Profile Edit",
+        name: "Mobile User Profile Edit",
         component: ProfileEdit,
         // meta: { middleware: auth },
         props: {
@@ -932,7 +932,7 @@ const routes = [
       },
       {
         path: "roadmap",
-        name: "Roadmap",
+        name: "Mobile Roadmap",
         component: Roadmap,
         // meta: { middleware: auth },
       },

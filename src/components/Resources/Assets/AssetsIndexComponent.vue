@@ -197,7 +197,7 @@ export default {
   methods: {
     showDetails(id) {
       router.push({
-        name: "Asset Detail",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Asset Detail" : "Asset Detail",
         params: {
           assetId: id,
           previousRoute: this.$router.currentRoute.fullPath
@@ -206,7 +206,7 @@ export default {
     },
     editDetails(id) {
       router.push({
-        name: "Edit Assets",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Edit Assets" : "Edit Assets",
         params: {
           assetId: id,
           previousRoute: this.$router.currentRoute.fullPath
@@ -257,7 +257,7 @@ export default {
         return;
       }
       router.push({
-        name: "Add Assets",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Assets" : "Add Assets",
         params: {
           previousRoute: this.$router.currentRoute.fullPath
         }
@@ -369,7 +369,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           router.push({
-            name: "Edit Assets",
+            name: router.currentRoute.matched[0].path == "/m" ? "Mobile Edit Assets" : "Edit Assets",
             params: {
               assetId: id,
               previousRoute: this.$router.currentRoute.fullPath

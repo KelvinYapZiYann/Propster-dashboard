@@ -162,7 +162,7 @@ export default {
   methods: {
     showDetails(id) {
       router.push({
-        name: "Asset Expenses Detail",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Asset Expenses Detail" : "Asset Expenses Detail",
         params: {
           assetExpenseId: id,
           previousRoute: this.$router.currentRoute.fullPath
@@ -204,7 +204,7 @@ export default {
             }).then((result) => {
               if (result.value) {
                 this.$router.push({
-                  name: 'Add Assets',
+                  name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Assets" : "Add Assets",
                   params: {
                     previousRoute: this.$router.currentRoute.fullPath
                   }
@@ -223,7 +223,7 @@ export default {
               return;
             }
             this.$router.push({
-              name: 'Add Asset Expenses',
+              name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Asset Expenses" : "Add Asset Expenses",
               query: this.query,
               params: {
                 previousRoute: this.$router.currentRoute.fullPath
@@ -233,7 +233,7 @@ export default {
         });
       } else {
         this.$router.push({
-          name: 'Add Asset Expenses',
+          name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Asset Expenses" : "Add Asset Expenses",
           query: this.query,
           params: {
             previousRoute: this.$router.currentRoute.fullPath

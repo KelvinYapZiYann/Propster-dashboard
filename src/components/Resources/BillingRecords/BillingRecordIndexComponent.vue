@@ -182,7 +182,7 @@ export default {
   methods: {
     showDetails(id) {
       router.push({
-        name: "Billing Record Detail",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Billing Record Detail" : "Billing Record Detail",
         params: {
           billingRecordId: id,
           previousRoute: router.currentRoute.fullPath
@@ -234,7 +234,7 @@ export default {
             }).then((result) => {
               if (result.value) {
                 this.$router.push({
-                  name: 'Add Assets',
+                  name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Assets" : "Add Assets",
                   params: {
                     previousRoute: this.$router.currentRoute.fullPath
                   }
@@ -257,7 +257,7 @@ export default {
                 }).then((result) => {
                   if (result.value) {
                     this.$router.push({
-                      name: 'Add Tenant',
+                      name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Tenant" : "Add Tenant",
                       params: {
                         previousRoute: this.$router.currentRoute.fullPath
                       }
@@ -279,7 +279,7 @@ export default {
                   this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
                 }
                 router.push({
-                  name: 'Add Billing Record',
+                  name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Billing Record" : "Add Billing Record",
                   query: {
                     senderType: "TENANT",
                     senderId: this.$props.query ? this.$props.query.tenantId : null,
@@ -312,7 +312,7 @@ export default {
           this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
         }
         router.push({
-          name: 'Add Billing Record',
+          name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Billing Record" : "Add Billing Record",
           query: {
             senderType: "TENANT",
             senderId: this.$props.query ? this.$props.query.tenantId : null,
@@ -344,7 +344,7 @@ export default {
           }).then((result) => {
             if (result.value) {
               this.$router.push({
-                name: 'Add Assets',
+                name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Assets" : "Add Assets",
                 params: {
                   previousRoute: this.$router.currentRoute.fullPath
                 }
@@ -366,7 +366,7 @@ export default {
             this.userResource.model = Object.assign({}, this.$store.getters["users/model"])
           }
           router.push({
-            name: 'Add Billing Record',
+            name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Billing Record" : "Add Billing Record",
             query: {
               senderType: "LANDLORD",
               senderId: this.userResource.model.landlord_ids[0],

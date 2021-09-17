@@ -110,7 +110,7 @@ export default {
           }).then((result) => {
             if (result.value) {
               router.push({
-                name: 'Add Tenant',
+                name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Tenant" : "Add Tenant",
                 query: {
                   assetId: `${this.resource.data.id}`,
                 },

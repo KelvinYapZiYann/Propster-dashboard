@@ -69,7 +69,7 @@
       },
       async handleSubmit() {
         this.$router.push({
-          name: 'User Profile Edit',
+          name: router.currentRoute.matched[0].path == "/m" ? "Mobile User Profile Edit" : "User Profile Edit",
           params: {
             previousRoute: this.$router.currentRoute.fullPath
           }

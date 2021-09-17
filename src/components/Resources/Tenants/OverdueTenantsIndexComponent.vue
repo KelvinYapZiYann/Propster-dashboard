@@ -122,11 +122,11 @@ export default {
   methods: {
     showDetails(id) {
         router.push({
-        name: "Tenant Detail", 
-        params: {
-            tenantId: id,
-            previousRoute: this.$router.currentRoute.fullPath
-        }
+          name: router.currentRoute.matched[0].path == "/m" ? "Mobile Tenant Detail" : "Tenant Detail",
+          params: {
+              tenantId: id,
+              previousRoute: this.$router.currentRoute.fullPath
+          }
         });
     },
     getResource() {

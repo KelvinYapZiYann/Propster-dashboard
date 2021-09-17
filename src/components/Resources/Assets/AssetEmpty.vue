@@ -53,7 +53,7 @@ export default {
         return;
       }
       router.push({
-        name: "Add Assets",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Assets" : "Add Assets",
         params: {
           previousRoute: this.$router.currentRoute.fullPath
         }

@@ -81,7 +81,7 @@
           this.$router.push({path: this.previousRoute});
         } else {
           this.$router.push({
-            name: 'User Profile'
+            name: router.currentRoute.matched[0].path == "/m" ? "Mobile User Profile" : "User Profile",
           });
         }
       },
@@ -100,7 +100,7 @@
             this.$router.push({path: this.previousRoute});
           } else {
             this.$router.push({
-              name: 'User Profile'
+              name: router.currentRoute.matched[0].path == "/m" ? "Mobile User Profile" : "User Profile",
             });
           }
         } catch (e) {

@@ -55,7 +55,7 @@ export default {
         return;
       }
       router.push({
-        name: 'Add Tenant',
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Tenant" : "Add Tenant",
         query: this.query,
         params: {
         previousRoute: router.currentRoute.fullPath

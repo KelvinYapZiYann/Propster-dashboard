@@ -367,7 +367,7 @@ export default {
     },
     async handleEdit() {
       this.$router.push({
-        name: "Edit Assets",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Edit Assets" : "Edit Assets",
         params: {
           assetId: this.assetId,
           previousRoute: this.$router.currentRoute.fullPath

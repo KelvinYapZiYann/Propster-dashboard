@@ -80,7 +80,7 @@ export default {
   methods: {
     handleLandlordTutorial() {
       this.$router.push({
-        name: 'Tutorial Landlord',
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Tutorial Landlord" : "Add Tutorial Landlord",
         params: {
           previousRoute: this.$router.currentRoute.fullPath
         }

@@ -114,7 +114,7 @@ export default {
           }).then((result) => {
             if (result.value) {
               router.push({
-                name: 'Add Tenure Contract',
+                name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Tenure Contract" : "Add Tenure Contract",
                 query: {
                   tenantId: `${this.resource.data.id}`,
                   assetId: `${this.resource.model.assets[0].id}`,

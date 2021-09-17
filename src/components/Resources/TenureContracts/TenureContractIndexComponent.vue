@@ -192,7 +192,7 @@ export default {
   methods: {
     showDetails(id) {
       router.push({
-        name: "Tenure Contract Detail",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Tenure Contract Detail" : "Tenure Contract Detail",
         params: {
           tenureContractId: id,
           previousRoute: this.$router.currentRoute.fullPath
@@ -201,7 +201,7 @@ export default {
     },
     editDetails(id) {
       router.push({
-        name: "Edit Tenure Contract",
+        name: router.currentRoute.matched[0].path == "/m" ? "Mobile Edit Tenure Contract" : "Edit Tenure Contract",
         query: this.query,
         params: {
           tenureContractId: id,
@@ -278,7 +278,7 @@ export default {
             }).then((result) => {
               if (result.value) {
                 this.$router.push({
-                  name: 'Add Assets',
+                  name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Assets" : "Add Assets",
                   params: {
                     previousRoute: this.$router.currentRoute.fullPath
                   }
@@ -301,7 +301,7 @@ export default {
                 }).then((result) => {
                   if (result.value) {
                     this.$router.push({
-                      name: 'Add Tenant',
+                      name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Tenant" : "Add Tenant",
                       params: {
                         previousRoute: this.$router.currentRoute.fullPath
                       }
@@ -310,7 +310,7 @@ export default {
                 });
               } else {
                 this.$router.push({
-                  name: 'Add Tenure Contract',
+                  name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Tenure Contract" : "Add Tenure Contract",
                   query: this.query,
                   params: {
                     previousRoute: this.$router.currentRoute.fullPath
@@ -322,7 +322,7 @@ export default {
         });
       } else {
         this.$router.push({
-          name: 'Add Tenure Contract',
+          name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Tenure Contract" : "Add Tenure Contract",
           query: this.query,
           params: {
             previousRoute: this.$router.currentRoute.fullPath
@@ -438,7 +438,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           router.push({
-            name: "Edit Tenure Contract",
+            name: router.currentRoute.matched[0].path == "/m" ? "Mobile Edit Tenure Contract" : "Edit Tenure Contract",
             query: this.query,
             params: {
               tenureContractId: id,
