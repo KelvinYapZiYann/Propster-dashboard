@@ -240,7 +240,6 @@ export default {
       if (this.resource.model.file) {
         formData.append('file', this.resource.model.file);
       }
-
       for (const [key, value] of Object.entries(this.translateModel())) {
         if (value) {
           formData.append(key, value);
@@ -250,7 +249,6 @@ export default {
           formData.append(key, value);
         }
       }
-
       this.$emit('submit', formData)
     },
     translateModel() {
@@ -266,8 +264,8 @@ export default {
             asset_id: this.resource.model.asset.id,
             payment_description: this.resource.model.payment_description,
             payment_method: this.resource.model.payment_method,
-            payment_type: this.query ? this.query.paymentType : this.resource.model.payment_type,
-            amount: this.query ? this.query.amount : this.resource.model.amount,
+            payment_type: this.query ? (this.query.paymentType ? this.query.paymentType : this.resource.model.payment_type) : this.resource.model.payment_type,
+            amount: this.query ? (this.query.amount ? this.query.amount : this.resource.model.amount) : this.resource.model.amount,
             is_reference_only: this.resource.model.is_reference_only == null ? false : this.resource.model.is_reference_only,
             billing_record_payment_id: this.query.billingPaymentId,
           }
@@ -283,8 +281,8 @@ export default {
         asset_id: this.resource.model.asset.id,
         payment_description: this.resource.model.payment_description,
         payment_method: this.resource.model.payment_method,
-        payment_type: this.query ? this.query.paymentType : this.resource.model.payment_type,
-        amount: this.query ? this.query.amount : this.resource.model.amount,
+        payment_type: this.query ? (this.query.paymentType ? this.query.paymentType : this.resource.model.payment_type) : this.resource.model.payment_type,
+        amount: this.query ? (this.query.amount ? this.query.amount : this.resource.model.amount) : this.resource.model.amount,
         is_reference_only: this.resource.model.is_reference_only == null ? false : this.resource.model.is_reference_only,
       }
     },
