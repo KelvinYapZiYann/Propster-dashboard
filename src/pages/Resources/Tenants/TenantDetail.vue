@@ -92,6 +92,7 @@ import BillingPaymentIndexComponent from "@/components/Resources/BillingPayments
 import PaymentRecordIndexComponent from "@/components/Resources/PaymentRecords/PaymentRecordIndexComponent";
 import fab from "vue-fab";
 import errorHandlingService from "@/store/services/error-handling-service";
+import router from "@/router";
 
 export default {
   components: {

@@ -75,6 +75,7 @@
 import {BaseButton, BaseCheckbox, BaseTable, BasePagination, Card} from "@/components";
 import errorHandlingService from "@/store/services/error-handling-service";
 import swal from "sweetalert2";
+import router from "@/router";
 
 export default {
   components: {

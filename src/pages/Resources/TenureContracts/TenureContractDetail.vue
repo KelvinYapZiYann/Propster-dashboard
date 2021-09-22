@@ -68,6 +68,7 @@ import { BaseDetailList, Card, DropZone } from "@/components";
 import BillingRecordIndexComponent from "@/components/Resources/BillingRecords/BillingRecordIndexComponent";
 // import axios from 'axios';
 import errorHandlingService from "@/store/services/error-handling-service";
+import router from "@/router";
 
 export default {
   components: {

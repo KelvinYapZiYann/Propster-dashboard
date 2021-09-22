@@ -125,6 +125,7 @@ import errorHandlingService from "@/store/services/error-handling-service";
 
 import { GOOGLE_MAP_API_KEY } from "@/pages/Maps/API_KEY";
 import {Loader} from "google-maps";
+import router from "@/router";
 
 const GoogleMapLoader = new Loader(GOOGLE_MAP_API_KEY, {
   region: "MY",
