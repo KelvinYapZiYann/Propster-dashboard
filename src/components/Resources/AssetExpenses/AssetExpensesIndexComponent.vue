@@ -67,6 +67,7 @@ import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
 import router from "@/router";
 import swal from "sweetalert2";
 import errorHandlingService from "@/store/services/error-handling-service";
+import router from "@/router";
 
 // let tableColumns = {
 //   payment_description: "Payment Description",
