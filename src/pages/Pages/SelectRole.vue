@@ -135,7 +135,11 @@ export default {
           icon: 'tim-icons icon-bell-55',
           type: 'success'
         });
-        router.push({ path: "/dashboard" });
+        if (router.currentRoute.matched[0].path == "/m") {
+          router.push({ path: "/m/dashboard" });
+        } else {
+          router.push({ path: "/dashboard" });
+        }
       } catch (e) {
         this.$notify({
           message: errorHandlingService.displayAlertFromServer(e),

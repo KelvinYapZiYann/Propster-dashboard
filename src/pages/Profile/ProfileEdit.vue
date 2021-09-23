@@ -25,6 +25,7 @@
   import formMixin from "@/mixins/form-mixin";
   import ValidationError from "@/components/ValidationError.vue";
   import errorHandlingService from "@/store/services/error-handling-service";
+  import router from "@/router";
 
   export default {
     mixins: [formMixin],

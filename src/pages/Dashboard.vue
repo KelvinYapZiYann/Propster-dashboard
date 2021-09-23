@@ -460,14 +460,16 @@ export default {
           this.resource.assetsValueList.data = Object.assign({}, this.$store.getters["asset/data"]);
           this.doesAssetExist = this.$store.getters["asset/models"].length > 0;
           if (!this.doesAssetExist) {
-            swal.fire({
-              title: this.$t('dashboard.welcome') + ` ${this.$store.getters["users/model"].gender == 'MALE' ? 'Mr. ' : 'Ms. '}` + this.$store.getters["users/model"].first_name,
-              text: this.$t('dashboard.welcomeText'),
-              buttonsStyling: false,
-              confirmButtonClass: "btn btn-info btn-fill",
-              confirmButtonText: this.$t('component.gotIt'),
-              icon: "success",
-            });
+            setTimeout(() => {
+              swal.fire({
+                title: this.$t('dashboard.welcome') + ` ${this.$store.getters["users/model"].gender == 'MALE' ? 'Mr. ' : 'Ms. '}` + this.$store.getters["users/model"].first_name,
+                text: this.$t('dashboard.welcomeText'),
+                buttonsStyling: false,
+                confirmButtonClass: "btn btn-info btn-fill",
+                confirmButtonText: this.$t('component.gotIt'),
+                icon: "success",
+              });
+            }, 500);
           }
 
           this.resource.rentalRateList.models = this.$store.getters["asset/models"];

@@ -936,6 +936,12 @@ const routes = [
         component: Roadmap,
         // meta: { middleware: auth },
       },
+      {
+        path: "select-role",
+        name: "Select Role",
+        components: { default: SelectRole },
+        // meta: { middleware: auth }
+      },
     ]
   },
   { path: "*", component: NotFound },
