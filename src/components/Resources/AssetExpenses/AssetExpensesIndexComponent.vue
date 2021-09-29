@@ -21,6 +21,16 @@
           </div>
         </div> -->
         <div class="table-responsive">
+          <asset-expense-table
+            :data="resource.models"
+            v-on:show-details="showDetails"
+            v-on:edit-details="editDetails"
+            v-on:delete-details="deleteDetails"
+            v-on:long-click-event="longClickEvent"
+            :paginationPage="paginationPage"
+            v-if="$router.currentRoute.matched[0].path == '/m'"
+          >
+          </asset-expense-table>
           <base-table
             :data="resource.models"
             :columns="table.columns"
@@ -33,6 +43,7 @@
             v-on:edit-details="editDetails"
             v-on:long-click-event="longClickEvent"
             :paginationPage="paginationPage"
+            v-else
           >
           <!-- :columnsClassColumn="table.columnsClassColumn" -->
           <!-- :disableEdit="true" -->
@@ -64,6 +75,7 @@
 </template>
 <script>
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
+import AssetExpenseTable from "./AssetExpenseTable";
 import router from "@/router";
 import swal from "sweetalert2";
 import errorHandlingService from "@/store/services/error-handling-service";
@@ -80,7 +92,8 @@ export default {
     BaseInput,
     BaseTable,
     BasePagination,
-    Card
+    Card,
+    AssetExpenseTable
   },
   data() {
     return {
