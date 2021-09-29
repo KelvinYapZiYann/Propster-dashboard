@@ -20,6 +20,16 @@
           </div>
         </div> -->
         <div class="table-responsive">
+          <billing-payment-table
+            :data="resource.models"
+            v-on:show-details="showDetails"
+            v-on:edit-details="editDetails"
+            v-on:delete-details="deleteDetails"
+            v-on:long-click-event="longClickEvent"
+            :paginationPage="paginationPage"
+            v-if="$router.currentRoute.matched[0].path == '/m'"
+          >
+          </billing-payment-table>
           <base-table
             :data="resource.models"
             :columns="table.columns"
@@ -31,6 +41,7 @@
             v-on:delete-details="deleteDetails"
             v-on:long-click-event="longClickEvent"
             :paginationPage="paginationPage"
+            v-else
           >
           <!-- :disableEdit="true" -->
           <!-- :disableDelete="true" -->
@@ -61,6 +72,7 @@
 </template>
 <script>
 import {BaseInput, BaseTable, BasePagination, Card} from "@/components";
+import BillingPaymentTable from "./BillingPaymentTable";
 import router from "@/router";
 import swal from "sweetalert2";
 import errorHandlingService from "@/store/services/error-handling-service";
@@ -70,7 +82,8 @@ export default {
     BaseInput,
     BaseTable,
     BasePagination,
-    Card
+    Card,
+    BillingPaymentTable
   },
   data() {
     return {
