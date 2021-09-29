@@ -16,17 +16,27 @@
             @touchcancel="stopLongClick"
             align="left">
               <span>
-                <strong>{{item.contract_name}}</strong>
+                <strong>{{item.payment_description}}</strong>
               </span>
               <br>
               <span>
                 <i class="fa fa-home mr-2"></i>
-                {{item.asset ? item.asset.asset_nickname : ''}} 
+                {{item.asset ? item.asset.asset_nickname : ''}}
               </span>
               <br>
-              <span>
+              <span
+                v-if="item.cash_flow_direction == 'SENDING'"
+              >
                 <i class="fa fa-child mr-2 ml-1"></i>
-                {{item.tenant.first_name}} {{item.tenant.last_name}}
+                {{item.recipient ? (item.recipient.recipient_name ? item.recipient.recipient_name : 'Vendor') : ''}}
+                <i class="fa fa-arrow-right ml-2" style="color:#fd5d93"></i>
+              </span>
+              <span
+                v-else
+              >
+                <i class="fa fa-child mr-2 ml-1"></i>
+                {{item.sender ? item.sender.sender_name : ''}}
+                <i class="fa fa-arrow-left ml-2" style="color:#00f2c3"></i>
               </span>
           </td>
           <td
@@ -39,9 +49,21 @@
             @touchcancel="stopLongClick"
             align="right"
             >
+              <span 
+                :class="[{'badge badge-pill badge-success': item.status == 'RECEIVED'}, {'badge badge-pill badge-warning': item.status != 'RECEIVED'}]"
+                style="font-size:0.8rem;"
+              >
+                {{status[item.status]}}
+              </span>
+              <br>
               <span>
                 <i class="fa fa-dollar-sign"></i>
-                RM{{item.monthly_rental_amount}}
+                RM{{item.amount}}
+              </span>
+              <br>
+              <span>
+                <i class="fa fa-calendar"></i>
+                {{item.created_at}}
               </span>
           </td>
       </slot>
@@ -52,10 +74,16 @@
 <script>
 
 export default {
-  name: 'tenure-contract-table',
+  name: 'payment-record-table',
   data() {
     return {
-      timeout: null
+      timeout: null,
+      status: {
+        RECEIVED: "Received",
+        AWAITING_ACKNOWLEDGEMENT: "Awaiting Acknowledgement",
+        PROCESSING: "Processing",
+        CREATED: "Created",
+      },
     }
   },
   props: {
