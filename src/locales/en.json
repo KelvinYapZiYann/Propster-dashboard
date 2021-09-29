@@ -355,6 +355,7 @@
     "createdAt": "Created At",
     "nextBillingAmount": "Next Billing Amount",
     "nextBillingDate": "Next Billing Date",
+    "nextBilling": "Next Billing",
     "title": "Title",
     "content": "Content",
     "actions": "Actions",
