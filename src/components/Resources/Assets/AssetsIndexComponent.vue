@@ -22,6 +22,16 @@
           </div>
         </div> -->
         <div class="table-responsive">
+          <asset-table
+            :data="resource.models"
+            v-on:show-details="showDetails"
+            v-on:edit-details="editDetails"
+            v-on:delete-details="deleteDetails"
+            v-on:long-click-event="longClickEvent"
+            :paginationPage="paginationPage"
+            v-if="$router.currentRoute.matched[0].path == '/m'"
+          >
+          </asset-table>
           <base-table
             :data="resource.models"
             :columns="table.columns"
@@ -30,6 +40,7 @@
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"
             :paginationPage="paginationPage"
+            v-else
           >
           <!-- :disableDelete="true" -->
             <template slot-scope="{ row }">
@@ -132,7 +143,8 @@
   </div>
 </template>
 <script>
-import {BaseInput, BaseTable, BasePagination, Card, BaseTenantIndicator, BaseRoomIndicator } from "@/components";
+import { BaseInput, BaseTable, BasePagination, Card, BaseTenantIndicator, BaseRoomIndicator } from "@/components";
+import AssetTable from "./AssetTable";
 import router from "@/router";
 import swal from "sweetalert2";
 import errorHandlingService from "@/store/services/error-handling-service";
@@ -144,7 +156,8 @@ export default {
     BasePagination,
     Card,
     BaseTenantIndicator,
-    BaseRoomIndicator
+    BaseRoomIndicator,
+    AssetTable
   },
   data() {
     return {

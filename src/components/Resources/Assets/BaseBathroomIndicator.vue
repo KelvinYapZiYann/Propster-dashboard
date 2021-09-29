@@ -1,5 +1,9 @@
 <template>
-  <div class="bathroom-indicator d-flex justify-content-center ">
+  <div class="room-indicator d-inline-flex" :class="[{
+      'justify-content-center': align == 'center',
+      'justify-content-start': align == 'left',
+      'justify-content-end': align == 'right'
+    }]">
     <!-- <ul>
         <li v-for="(item, index) in value" :key="index">
             <i class="fas fa-child" aria-hidden="true"></i>
@@ -17,6 +21,10 @@ export default {
     value: {
       type: Number,
       default: 0
+    },
+    align: {
+      type: String,
+      default: "center"
     }
   },
   computed: {
