@@ -16,20 +16,15 @@
             @touchcancel="stopLongClick"
             align="left">
               <span>
-                <strong>{{item.asset_nickname}}</strong>
+                <strong>{{item.first_name}} {{item.last_name}}</strong>
               </span>
               <br>
-              <span class="mr-3">
-                <base-room-indicator 
-                    :value="item.number_of_rooms"
-                    align="left"
-                ></base-room-indicator>
-              </span>
               <span>
-                <base-tenant-indicator 
-                    :value="item.number_of_tenants"
-                    align="left"
-                ></base-tenant-indicator>
+                {{item.email}} 
+              </span>
+              <br>
+              <span>
+                {{item.phone_number}}
               </span>
           </td>
       </slot>
@@ -39,14 +34,8 @@
 </template>
 <script>
 
-import { BaseTenantIndicator, BaseRoomIndicator } from "@/components";
-
 export default {
   name: 'asset-table',
-  components: {
-    BaseTenantIndicator,
-    BaseRoomIndicator
-  },
   data() {
     return {
       timeout: null
