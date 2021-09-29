@@ -47,6 +47,16 @@
           </div>
         </div> -->
         <div class="table-responsive">
+          <tenure-contract-table
+            :data="resource.models"
+            v-on:show-details="showDetails"
+            v-on:edit-details="editDetails"
+            v-on:delete-details="deleteDetails"
+            v-on:long-click-event="longClickEvent"
+            :paginationPage="paginationPage"
+            v-if="$router.currentRoute.matched[0].path == '/m'"
+          >
+          </tenure-contract-table>
           <base-table
             :data="resource.models"
             :columns="table.columns"
@@ -58,6 +68,7 @@
             v-on:delete-details="deleteDetails"
             v-on:long-click-event="longClickEvent"
             :paginationPage="paginationPage"
+            v-else
           >
           <!-- :disableDelete="true" -->
           <!-- @rowColorCallback="rowColorCallback" -->
@@ -88,6 +99,7 @@
 </template>
 <script>
 import {BaseInput, BaseTable, BasePagination, BaseSelectorInput, Card} from "@/components";
+import TenureContractTable from "./TenureContractTable";
 import router from "@/router";
 import swal from "sweetalert2";
 import errorHandlingService from "@/store/services/error-handling-service";
@@ -98,7 +110,8 @@ export default {
     BaseTable,
     BasePagination,
     BaseSelectorInput,
-    Card
+    Card,
+    TenureContractTable
   },
   data() {
     return {

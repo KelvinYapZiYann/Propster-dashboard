@@ -16,15 +16,32 @@
             @touchcancel="stopLongClick"
             align="left">
               <span>
-                <strong>{{item.first_name}} {{item.last_name}}</strong>
+                <strong>{{item.contract_name}}</strong>
               </span>
               <br>
               <span>
-                {{item.email}} 
+                <i class="fa fa-home mr-2"></i>
+                {{item.asset.asset_nickname}} 
               </span>
               <br>
               <span>
-                {{item.phone_number}}
+                <i class="fa fa-child mr-2 ml-1"></i>
+                {{item.tenant.first_name}} {{item.tenant.last_name}}
+              </span>
+          </td>
+          <td
+            @click="showDetails(item.id)"
+            @mousedown="startLongClick(item.id)" 
+            @mouseleave="stopLongClick"
+            @mouseup="stopLongClick"
+            @touchstart="startLongClick(item.id)"
+            @touchend="stopLongClick"
+            @touchcancel="stopLongClick"
+            align="right"
+            >
+              <span>
+                <i class="fa fa-dollar-sign"></i>
+                RM{{item.monthly_rental_amount}}
               </span>
           </td>
       </slot>
@@ -35,7 +52,7 @@
 <script>
 
 export default {
-  name: 'tenant-table',
+  name: 'tenure-contract-table',
   data() {
     return {
       timeout: null
