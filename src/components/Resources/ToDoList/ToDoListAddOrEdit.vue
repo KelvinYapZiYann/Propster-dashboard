@@ -21,7 +21,7 @@
         </div>
       </div>
     </card>
-    <base-button slot="footer" type="info" @click="handleCancel()" fill>{{$t('component.cancel')}}</base-button>
+    <base-button slot="footer" type="neutral" @click="handleCancel()" fill>{{$t('component.cancel')}}</base-button>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{addOrEdit}}</base-button>
   </form>
 </template>

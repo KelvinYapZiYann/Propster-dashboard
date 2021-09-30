@@ -59,7 +59,7 @@
           :tableData="{'rowColor': rowColor}"
         ></billing-record-index-component>
 
-        <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
+        <base-button slot="footer" type="neutral" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
         <!-- <base-button slot="footer" type="info" @click="handleEdit()" fill>Edit Tenure Contract</base-button> -->
       </div>
 </template>

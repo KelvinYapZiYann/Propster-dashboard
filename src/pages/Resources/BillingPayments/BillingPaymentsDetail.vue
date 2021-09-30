@@ -25,7 +25,7 @@
       :tableData="{'columnsClass': columnsClass}"
     ></payment-record-index-component>
 
-    <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
+    <base-button slot="footer" type="neutral" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
   </div>
 </template>
 <script>

@@ -145,7 +145,7 @@
       </div>
     </card>
 
-    <base-button slot="footer" type="info" @click="handleBack()" fill>{{$t('component.cancel')}}</base-button>
+    <base-button slot="footer" type="neutral" @click="handleBack()" fill>{{$t('component.cancel')}}</base-button>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>{{$t('component.add')}}</base-button>
   </form>
 </template>

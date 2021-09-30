@@ -129,7 +129,8 @@
 
         &:hover,
         &:focus{
-            color: $primary-states;
+            // color: $primary-states;
+            color: $primary;
 
             &:not(.nav-link){
                 box-shadow: none;

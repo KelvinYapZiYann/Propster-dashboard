@@ -140,7 +140,7 @@
       </div>
     </div>
     <template slot="footer">
-      <base-button type="info" @click="handleCancel()" fill v-if="addOrEdit == 'Edit'">{{$t('component.cancel')}}</base-button>
+      <base-button type="neutral" @click="handleCancel()" fill v-if="addOrEdit == 'Edit'">{{$t('component.cancel')}}</base-button>
       <base-button type="info" @click="handleSubmit()" fill>{{addOrEdit != "View" ? $t('component.save') : $t('component.edit')}}</base-button>
     </template>
   </card>
