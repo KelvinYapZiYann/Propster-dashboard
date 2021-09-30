@@ -203,8 +203,8 @@
             </base-input> -->
             <!-- <validation-error :errorsArray="tmpApiValidationErrors.billing_start_at"/> -->
           <!-- </div> -->
-          <div class="col-md-6">
-            <base-input :label="$t('property.billingDateRange')"
+          <div class="col-md-12">
+            <!-- <base-input :label="$t('property.billingDateRange')"
                         v-if="!query.tenureContractId && !query.billImmediately && resource.model.payment_type != 'RENTAL'"
                         :error="tmpApiValidationErrors.billing_start_at ? (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_start_at[0] + ' ' + tmpApiValidationErrors.billing_end_at[0] : tmpApiValidationErrors.billing_start_at[0]) : (tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_end_at[0] : '')">
                   <el-date-picker
@@ -216,7 +216,36 @@
                     :end-placeholder="$t('property.billingEndDate')"
                   >
                   </el-date-picker>
-            </base-input>
+            </base-input> -->
+            <v-date-picker
+              v-if="!query.tenureContractId && !query.billImmediately && resource.model.payment_type != 'RENTAL'"
+              v-model="billingDateRange"
+              :masks="{input: 'YYYY-MM-DD'}"
+              is-range
+            >
+              <template v-slot="{ inputValue, inputEvents }">
+                <div class="row">
+                  <div class="col-md-6">
+                    <base-input :label="$t('property.billingStartDate')"
+                            :error="tmpApiValidationErrors.billing_start_at ? tmpApiValidationErrors.billing_start_at[0] : ''"
+                            :placeholder="$t('property.billingStartDate')"
+                            :value="inputValue.start"
+                            v-on="inputEvents.start"
+                            >
+                    </base-input>
+                  </div>
+                  <div class="col-md-6">
+                    <base-input :label="$t('property.billingEndDate')"
+                            :error="tmpApiValidationErrors.billing_end_at ? tmpApiValidationErrors.billing_end_at[0] : ''"
+                            :placeholder="$t('property.billingEndDate')"
+                            :value="inputValue.end"
+                            v-on="inputEvents.end"
+                            >
+                    </base-input>
+                  </div>
+                </div>
+              </template>
+            </v-date-picker>
           </div>
         </div>
       </div>
@@ -228,6 +257,7 @@
 <script>
 import formMixin from "@/mixins/form-mixin";
 import { BaseInput, BaseSelectorInput, Card } from "@/components";
+import VDatePicker from 'v-calendar/lib/components/date-picker.umd'
 
 export default {
   mixins: [formMixin],
@@ -236,11 +266,15 @@ export default {
     // ValidationError,
     BaseInput,
     BaseSelectorInput,
-    Card
+    Card,
+    VDatePicker
   },
   data() {
     return {
-      billingDateRange: [],
+      billingDateRange: {
+        start: null,
+        end: null
+      },
       endOfMonthBilling: {},
       endOfMonthBillingOptions: [{'id': '1', 'name': this.$t('property.endOfMonthBillingTrue')}, {'id': '0', 'name': this.$t('property.endOfMonthBillingFalse')}],
       tenureContractAmount: ""
@@ -305,13 +339,19 @@ export default {
     // console.log(this.resource.data);
     // console.log(this.resource.selector);
     if (this.query.startDate && this.query.endDate) {
-      this.billingDateRange = [this.query.startDate, this.query.endDate];
+      this.billingDateRange = {
+        start: new Date(this.query.startDate),
+        end: new Date(this.query.endDate),
+      };
     }
     if (this.query.tenureContractId) {
       this.$store.dispatch('tenureContract/getById',  this.query.tenureContractId).then(() => {
         let tmpModel = this.$store.getters["tenureContract/model"];
         this.tenureContractAmount = tmpModel.monthly_rental_amount;
-        this.billingDateRange = [tmpModel.tenure_start_date, tmpModel.tenure_end_date];
+        this.billingDateRange = {
+          start: new Date(tmpModel.tenure_start_date),
+          end: new Date(tmpModel.tenure_end_date),
+        };
       });
     }
   },
@@ -367,8 +407,8 @@ export default {
           frequency_type: "MONTH",
           tenure_contract_id: this.query.tenureContractId,
           frequency: 1,
-          billing_start_at: this.billingDateRange.length == 2 ? this.billingDateRange[0] : '',
-          billing_end_at: this.billingDateRange.length == 2 ? this.billingDateRange[1] : '',
+          billing_start_at: this.billingDateRange.start ? this.billingDateRange.start.toISOString() : '',
+          billing_end_at: this.billingDateRange.end ? this.billingDateRange.end.toISOString() : '',
           grace_period_in_days: this.resource.model.grace_period_in_days,
           remind_before_days: this.resource.model.remind_before_days,
           end_of_month_billing: this.endOfMonthBilling,
@@ -437,8 +477,8 @@ export default {
           end_of_month_billing: this.endOfMonthBilling,
           grace_period_in_days: this.resource.model.grace_period_in_days,
           remind_before_days: this.resource.model.remind_before_days,
-          billing_start_at: this.billingDateRange.length == 2 ? this.billingDateRange[0] : '',
-          billing_end_at: this.billingDateRange.length == 2 ? this.billingDateRange[1] : '',
+          billing_start_at: this.billingDateRange.start ? this.billingDateRange.start.toISOString() : '',
+          billing_end_at: this.billingDateRange.end ? this.billingDateRange.end.toISOString() : '',
         }
       }
     },

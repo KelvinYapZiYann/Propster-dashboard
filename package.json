@@ -29,6 +29,7 @@
     "topojson-client": "^3.1.0",
     "topojson-server": "^3.0.1",
     "topojson-simplify": "^3.0.3",
+    "v-calendar": "^2.3.2",
     "vee-validate": "^2.0.5",
     "vue": "^2.6.10",
     "vue-authenticate": "^1.5.0",
@@ -57,7 +58,7 @@
     "@vue/cli-service": "^3.11.0",
     "node-sass": "^4.9.0",
     "prettier": "^1.18.2",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^7.3.1",
     "vue-template-compiler": "^2.6.10"
   }
 }

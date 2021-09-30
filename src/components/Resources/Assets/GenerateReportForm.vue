@@ -39,7 +39,7 @@
         </base-input>
       </div> -->
       <div class="col-md-12">
-        <base-input :label="$t('property.dateRange')"
+        <!-- <base-input :label="$t('property.dateRange')"
                     :error="tmpApiValidationErrors.start_date ? (tmpApiValidationErrors.end_date ? tmpApiValidationErrors.start_date[0] + ' ' + tmpApiValidationErrors.end_date[0] : tmpApiValidationErrors.start_date[0]) : (tmpApiValidationErrors.end_date ? tmpApiValidationErrors.end_date[0] : '')">
               <el-date-picker
                 type="daterange"
@@ -50,7 +50,36 @@
                 :end-placeholder="$t('property.endDate')"
               >
               </el-date-picker>
-        </base-input>
+        </base-input> -->
+
+        <v-date-picker
+          v-model="dateRange"
+          :masks="{input: 'YYYY-MM-DD'}"
+          is-range
+        >
+          <template v-slot="{ inputValue, inputEvents }">
+            <div class="row">
+              <div class="col-md-6">
+                <base-input :label="$t('property.startDate')"
+                        :error="tmpApiValidationErrors.start_date ? tmpApiValidationErrors.start_date[0] : ''"
+                        :placeholder="$t('property.startDate')"
+                        :value="inputValue.start"
+                        v-on="inputEvents.start"
+                        >
+                </base-input>
+              </div>
+              <div class="col-md-6">
+                <base-input :label="$t('property.endDate')"
+                        :error="tmpApiValidationErrors.end_date ? tmpApiValidationErrors.end_date[0] : ''"
+                        :placeholder="$t('property.endDate')"
+                        :value="inputValue.end"
+                        v-on="inputEvents.end"
+                        >
+                </base-input>
+              </div>
+            </div>
+          </template>
+        </v-date-picker>
       </div>
     </div>
     <base-button slot="footer" native-type="submit" type="info" @click="handleSubmit()" fill>Generate Report</base-button>
@@ -59,6 +88,7 @@
 <script>
 import formMixin from "@/mixins/form-mixin";
 import { BaseInput, BaseSelectorInput, Card } from "@/components";
+import VDatePicker from 'v-calendar/lib/components/date-picker.umd'
 
 export default {
   mixins: [formMixin],
@@ -66,7 +96,8 @@ export default {
     // AssetForm,
     // ValidationError,
     BaseSelectorInput,
-    BaseInput
+    BaseInput,
+    VDatePicker
   },
   data() {
     return {
@@ -78,7 +109,10 @@ export default {
       reportTypes: [
         { "id": "CASHFLOW_STATEMENT", "name": "Cashflow Statement" },
       ],
-      dateRange: []
+      dateRange: {
+        start: null,
+        end: null
+      }
     }
   },
   props: {
@@ -97,11 +131,22 @@ export default {
     translateModel() {
       return {
         report_type: this.model.report_type,
-        start_date: this.dateRange.length == 2 ? this.dateRange[0] : '',
-        end_date: this.dateRange.length == 2 ? this.dateRange[1] : ''
+        start_date: this.dateRange.start ? this.dateRange.start.toISOString() : '',
+        end_date: this.dateRange.end ? this.dateRange.end.toISOString() : ''
       }
     }
   }
 }
 </script>
-<style></style>
+<style>
+/* .modal .form-group.has-label label {
+  font-size: 1rem;
+  font-style: normal;
+  color: black;
+}
+.modal .vc-popover-content .vc-day {
+  font-size: 0.5rem;
+  font-style: normal;
+  color: black;
+} */
+</style>

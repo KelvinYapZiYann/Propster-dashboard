@@ -130,8 +130,8 @@
           </base-input>
         </div> -->
 
-        <div class="col-md-12">
-          <base-input :label="$t('property.tenureDateRange')"
+        <div class="col-md-12" v-if="addOrEdit == 'Add'">
+          <!-- <base-input :label="$t('property.tenureDateRange')"
                       v-if="addOrEdit == 'Add'"
                       :error="tmpApiValidationErrors.tenure_start_date ? (tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_start_date[0] + ' ' + tmpApiValidationErrors.tenure_end_date[0] : tmpApiValidationErrors.tenure_start_date[0]) : (tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_end_date[0] : '')">
                 <el-date-picker
@@ -158,8 +158,57 @@
                   :disabled="true"
                 >
                 </el-date-picker>
+          </base-input> -->
+
+          <v-date-picker
+            v-model="addTenureDateRange"
+            :masks="{input: 'YYYY-MM-DD'}"
+            is-range
+          >
+            <template v-slot="{ inputValue, inputEvents }">
+              <div class="row">
+                <div class="col-md-6">
+                  <base-input :label="$t('property.tenureStartDate')"
+                          :error="tmpApiValidationErrors.tenure_start_date ? tmpApiValidationErrors.tenure_start_date[0] : ''"
+                          :placeholder="$t('property.tenureStartDate')"
+                          :value="inputValue.start"
+                          v-on="inputEvents.start"
+                          >
+                  </base-input>
+                </div>
+                <div class="col-md-6">
+                  <base-input :label="$t('property.tenureEndDate')"
+                          :error="tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_end_date[0] : ''"
+                          :placeholder="$t('property.tenureEndDate')"
+                          :value="inputValue.end"
+                          v-on="inputEvents.end"
+                          >
+                  </base-input>
+                </div>
+              </div>
+            </template>
+          </v-date-picker>
+        </div> 
+
+        <div class="col-md-6" v-if="addOrEdit == 'Edit'">
+          <base-input :label="$t('property.tenureStartDate')"
+                      :placeholder="$t('property.tenureStartDate')"
+                      v-model="editTenureDateRange[0]"
+                      :disabled="true"
+                      :error="tmpApiValidationErrors.tenure_start_date ? tmpApiValidationErrors.tenure_start_date[0] : ''">
           </base-input>
         </div>
+
+        <div class="col-md-6" v-if="addOrEdit == 'Edit'">
+          <base-input :label="$t('property.tenureEndDate')"
+                      :placeholder="$t('property.tenureEndDate')"
+                      v-model="editTenureDateRange[1]"
+                      :disabled="true"
+                      :error="tmpApiValidationErrors.tenure_end_date ? tmpApiValidationErrors.tenure_end_date[0] : ''">
+          </base-input>
+          <!-- <validation-error :errorsArray="tmpApiValidationErrors.deposited_amount"/> -->
+        </div>
+
       </div>
     </card>
     <card>
@@ -184,6 +233,7 @@
 <script>
 import formMixin from "@/mixins/form-mixin";
 import { BaseInput, BaseSelectorInput, Card, DropZone, ValidationError } from "@/components";
+import VDatePicker from 'v-calendar/lib/components/date-picker.umd'
 
 export default {
   mixins: [formMixin],
@@ -192,7 +242,8 @@ export default {
     BaseSelectorInput,
     Card,
     DropZone,
-    ValidationError
+    ValidationError,
+    VDatePicker
   },
   data() {
     return {
@@ -206,7 +257,10 @@ export default {
         addRemoveLinks: true,
         maxFiles: 1
       },
-      addTenureDateRange: []
+      addTenureDateRange: {
+        start: null,
+        end: null
+      }
     }
   },
   props: {
@@ -297,8 +351,8 @@ export default {
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
           deposited_amount: this.resource.model.deposited_amount,
-          tenure_start_date: this.addTenureDateRange.length == 2 ? this.addTenureDateRange[0] : '',
-          tenure_end_date: this.addTenureDateRange.length == 2 ? this.addTenureDateRange[1] : ''
+          tenure_start_date: this.addTenureDateRange.start ? this.addTenureDateRange.start.toISOString() : '',
+          tenure_end_date: this.addTenureDateRange.end ? this.addTenureDateRange.end.toISOString() : ''
         }
       } else {
         return {
@@ -309,19 +363,20 @@ export default {
           contract_description: this.resource.model.contract_description,
           monthly_rental_amount: this.resource.model.monthly_rental_amount,
           deposited_amount: this.resource.model.deposited_amount,
-          tenure_start_date: this.editTenureDateRange.length == 2 ? this.editTenureDateRange[0] : '',
-          tenure_end_date: this.editTenureDateRange.length == 2 ? this.editTenureDateRange[1] : ''
+          tenure_start_date: this.addTenureDateRange.start ? this.addTenureDateRange.start.toISOString() : '',
+          tenure_end_date: this.addTenureDateRange.end ? this.addTenureDateRange.end.toISOString() : ''
         }
       }
     },
     validateDate() {
       if (this.addOrEdit == 'Add') {
-        if (this.addTenureDateRange.length != 2) {
+        if (!this.addTenureDateRange.start) {
           return false;
         }
-        let startDate = new Date(this.addTenureDateRange[0]);
-        let endDate = new Date(this.addTenureDateRange[1]);
-        if (endDate - startDate < (86400000 * 30)) {
+        if (!this.addTenureDateRange.end) {
+          return false;
+        }
+        if (this.addTenureDateRange.end - this.addTenureDateRange.start < (86400000 * 30)) {
           this.$emit('promptError', {tenure_start_date: ['The tenure start date to tenure end date range has to be at least 1 month.']});
           return true;
         }

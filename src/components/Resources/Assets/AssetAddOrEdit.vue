@@ -230,19 +230,35 @@
 
       <div class="row">
         <div class="col-md-6">
-          <base-input :label="$t('property.purchasedDate')"
+          <!-- <base-input :label="$t('property.purchasedDate')"
                       v-if="resource.model.financial_details"
-                      :error="tmpApiValidationErrors.purchased_date ? tmpApiValidationErrors.purchased_date[0] : ''">
+                      :error="tmpApiValidationErrors.purchased_date ? tmpApiValidationErrors.purchased_date[0] : ''"> -->
                       <!-- type="date"
                       v-model="resource.model.financial_details.purchased_date" -->
-              <el-date-picker
+              <!-- <el-date-picker
                 type="date"
                 :placeholder="$t('property.purchasedDate')"
                 v-model="resource.model.financial_details.purchased_date"
                 value-format="yyyy-MM-dd"
               >
-              </el-date-picker>
-          </base-input>
+              </el-date-picker> -->
+              <v-date-picker
+                v-if="resource.model.financial_details"
+                v-model="resource.model.financial_details.purchased_date"
+                :masks="{input: 'YYYY-MM-DD'}"
+              >
+                <template v-slot="{ inputValue, togglePopover }">
+                  <base-input :label="$t('property.purchasedDate')"
+                        v-if="resource.model.financial_details"
+                        :error="tmpApiValidationErrors.purchased_date ? tmpApiValidationErrors.purchased_date[0] : ''"
+                        :value="inputValue"
+                        :placeholder="$t('property.purchasedDate')"
+                        @click="togglePopover()"
+                        >
+                  </base-input>
+                </template>
+              </v-date-picker>
+          <!-- </base-input> -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.purchased_date"/> -->
         </div>
         <div class="col-md-6">
@@ -286,7 +302,7 @@
 <script>
 import formMixin from "@/mixins/form-mixin";
 import { BaseInput, BaseSelectorInput, Card } from "@/components";
-
+import VDatePicker from 'v-calendar/lib/components/date-picker.umd'
 import { GOOGLE_MAP_API_KEY } from "@/pages/Maps/API_KEY";
 import {Loader} from "google-maps";
 
@@ -304,6 +320,7 @@ export default {
     BaseInput,
     BaseSelectorInput,
     Card,
+    VDatePicker
     // ValidationError
   },
   props: {

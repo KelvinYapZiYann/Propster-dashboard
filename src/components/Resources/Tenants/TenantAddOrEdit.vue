@@ -150,7 +150,7 @@
 
       <div class="row">
         <div class="col-md-6">
-          <base-input :label="$t('property.dateOfBirth')"
+          <!-- <base-input :label="$t('property.dateOfBirth')"
                       :error="tmpApiValidationErrors.date_of_birth ? tmpApiValidationErrors.date_of_birth[0] : ''">
                 <el-date-picker
                   type="date"
@@ -159,8 +159,22 @@
                   value-format="yyyy-MM-dd"
                 >
                 </el-date-picker>
-          </base-input>
+          </base-input> -->
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/> -->
+          <v-date-picker
+            v-model="resource.model.date_of_birth"
+            :masks="{input: 'YYYY-MM-DD'}"
+          >
+            <template v-slot="{ inputValue, togglePopover }">
+              <base-input :label="$t('property.dateOfBirth')"
+                    :error="tmpApiValidationErrors.date_of_birth ? tmpApiValidationErrors.date_of_birth[0] : ''"
+                    :value="inputValue"
+                    :placeholder="$t('property.dateOfBirth')"
+                    @click="togglePopover()"
+                    >
+              </base-input>
+            </template>
+          </v-date-picker>
         </div>
         <!-- <div class="col-md-6 pr-md-1">
           <base-input label="Reputation"
@@ -207,6 +221,7 @@ import { BaseInput, BaseSelectorInput, Card, ValidationError } from "@/component
 // import VuePhoneNumberInput from 'vue-phone-number-input';
 // import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import VueCountryCode from "vue-country-code";
+import VDatePicker from 'v-calendar/lib/components/date-picker.umd'
 
 export default {
   mixins: [formMixin],
@@ -216,7 +231,8 @@ export default {
     BaseSelectorInput,
     Card,
     // VuePhoneNumberInput
-    VueCountryCode
+    VueCountryCode,
+    VDatePicker
   },
   data() {
     return {

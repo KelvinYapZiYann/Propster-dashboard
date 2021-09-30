@@ -82,11 +82,9 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <base-input 
+        <!-- <base-input 
                     :label="$t('property.dateOfBirth')"
                     :error="tmpApiValidationErrors.date_of_birth ? tmpApiValidationErrors.date_of_birth[0] : ''">
-                    <!-- type="date"
-                    v-model="model.date_of_birth" -->
               <el-date-picker
                 type="date"
                 :placeholder="$t('property.dateOfBirth')"
@@ -95,8 +93,24 @@
                 :disabled="addOrEdit == 'View'"
               >
               </el-date-picker>
-        </base-input>
+        </base-input> -->
         <!-- <validation-error :errorsArray="tmpApiValidationErrors.date_of_birth"/> -->
+        <v-date-picker
+            v-model="model.date_of_birth"
+            :masks="{input: 'YYYY-MM-DD'}"
+          >
+            <template v-slot="{ inputValue, togglePopover }">
+              <base-input :label="$t('property.dateOfBirth')"
+                    :error="tmpApiValidationErrors.date_of_birth ? tmpApiValidationErrors.date_of_birth[0] : ''"
+                    :value="inputValue"
+                    :placeholder="$t('property.dateOfBirth')"
+                    @click="togglePopover()"
+                    :disabled="addOrEdit == 'View'"
+                    >
+              </base-input>
+            </template>
+          </v-date-picker>
+        
       </div>
       <div class="col-md-6">
         <base-selector-input :label="$t('property.gender')"
@@ -139,6 +153,7 @@ import BaseButton from "@/components/BaseButton";
 // import VuePhoneNumberInput from 'vue-phone-number-input';
 // import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import VueCountryCode from "vue-country-code";
+import VDatePicker from 'v-calendar/lib/components/date-picker.umd'
 
 export default {
   mixins: [formMixin],
@@ -149,7 +164,8 @@ export default {
     BaseButton,
     ValidationError,
     // VuePhoneNumberInput
-    VueCountryCode
+    VueCountryCode,
+    VDatePicker
   },
   props: {
     model: {
