@@ -241,7 +241,7 @@ export default {
               showCancelButton: true,
               confirmButtonText: this.$t('component.add') + ' ' + this.$t('sidebar.asset'),
               cancelButtonText: this.$t('component.cancel'),
-              cancelButtonClass: "btn btn-info btn-fill",
+              cancelButtonClass: "btn btn-neutral btn-fill",
               confirmButtonClass: "btn btn-info btn-fill",
               icon: "error",
             }).then((result) => {
@@ -347,7 +347,7 @@ export default {
         confirmButtonText: this.$t('component.edit'),
         denyButtonText: this.$t('component.remove'),
         cancelButtonText: this.$t('component.cancel'),
-        cancelButtonClass: "btn btn-info btn-fill",
+        cancelButtonClass: "btn btn-neutral btn-fill",
         denyButtonClass: "btn btn-info btn-fill",
         confirmButtonClass: "btn btn-info btn-fill",
         icon: "warning",

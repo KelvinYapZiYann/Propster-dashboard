@@ -376,7 +376,7 @@ export default {
         denyButtonText: this.$t('component.remove'),
         cancelButtonText: this.$t('component.cancel'),
         cancelButtonClass: "btn btn-info btn-fill",
-        denyButtonClass: "btn btn-info btn-fill",
+        denyButtonClass: "btn btn-neutral btn-fill",
         confirmButtonClass: "btn btn-info btn-fill",
         icon: "warning",
       }).then((result) => {

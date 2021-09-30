@@ -137,7 +137,7 @@ export default {
               buttonsStyling: false,
               showCancelButton: true,
               cancelButtonText: "OK",
-              cancelButtonClass: "btn btn-info btn-fill",
+              cancelButtonClass: "btn btn-neutral btn-fill",
               confirmButtonClass: "btn btn-info btn-fill",
               confirmButtonText: this.$t('register.resendVerificationEmail'),
               icon: "info",

@@ -255,7 +255,7 @@ export default {
         confirmButtonText: this.$t('topbar.logout'),
         cancelButtonText: this.$t('component.cancel'),
         cancelButtonClass: "btn btn-info btn-fill",
-        confirmButtonClass: "btn btn-info btn-fill",
+        confirmButtonClass: "btn btn-neutral btn-fill",
         icon: "warning",
       }).then((result) => {
         if (result.value) {

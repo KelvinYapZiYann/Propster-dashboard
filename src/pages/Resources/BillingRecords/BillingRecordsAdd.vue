@@ -276,7 +276,7 @@ export default {
             confirmButtonText: this.$t('component.add') + " " + this.$t('sidebar.billingRecord'),
             denyButtonText: this.$t('component.add') + " " + this.$t('sidebar.paymentRecord'),
             cancelButtonText: this.$t('component.cancel'),
-            cancelButtonClass: "btn btn-info btn-fill",
+            cancelButtonClass: "btn btn-neutral btn-fill",
             denyButtonClass: "btn btn-info btn-fill",
             confirmButtonClass: "btn btn-info btn-fill",
             icon: "success",
