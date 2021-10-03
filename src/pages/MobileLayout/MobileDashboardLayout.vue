@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="main-panel" :data="backgroundColor">
+    <div class="main-panel mobile-layout" :data="backgroundColor">
       <mobile-dashboard-content></mobile-dashboard-content>
     </div>
   </div>

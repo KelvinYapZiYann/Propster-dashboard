@@ -539,6 +539,12 @@
     }
 }
 
+.main-panel.mobile-layout {
+  > .content {
+      padding-left: 30px;
+  }
+}
+
 
 .perfect-scrollbar-on{
   .sidebar,
@@ -736,7 +742,7 @@
 
   .main-panel {
     width: 100%;
-      .content {
+    .content {
       padding-left: 30px;
     }
   }

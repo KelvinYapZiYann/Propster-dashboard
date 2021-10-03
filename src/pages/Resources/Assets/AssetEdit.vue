@@ -80,7 +80,7 @@ export default {
         showCancelButton: true,
         confirmButtonText: this.$t('component.yes'),
         cancelButtonText: this.$t('component.no'),
-        cancelButtonClass: "btn btn-info btn-fill",
+        cancelButtonClass: "btn btn-neutral btn-fill",
         confirmButtonClass: "btn btn-info btn-fill",
         icon: "info",
       }).then((result) => {
