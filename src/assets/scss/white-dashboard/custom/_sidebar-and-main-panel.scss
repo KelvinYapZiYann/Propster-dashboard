@@ -539,12 +539,6 @@
     }
 }
 
-.main-panel.mobile-layout {
-  > .content {
-      padding-left: 30px;
-  }
-}
-
 
 .perfect-scrollbar-on{
   .sidebar,
@@ -577,6 +571,12 @@
       -webkit-transition-timing-function: linear,linear,ease;
       transition-timing-function: linear,linear,ease;
       -webkit-overflow-scrolling: touch;
+    }
+
+    .main-panel.mobile-layout {
+      > .content {
+          padding-left: 30px;
+      }
     }
 
 
