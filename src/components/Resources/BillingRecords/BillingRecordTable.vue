@@ -176,7 +176,6 @@ export default {
       this.$emit('delete-details', id)
     },
     startLongClick(id) {
-        console.log('zxczxczxc');
       if (!this.timeout) {
         this.timeout = setTimeout(() => {
           this.$emit('long-click-event', id)

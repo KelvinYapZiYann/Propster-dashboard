@@ -125,13 +125,9 @@ export default {
       });
       try {
         await this.$store.dispatch('tenureContract/store', {'model': formData}).then(() => {
-          console.log('zxczxczxc');
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
-          console.log('zxczxczxc 2');
           if (parseFloat(this.resource.model.deposited_amount) > 0) {
-            console.log('zxczxczxc 3');
-            console.log(this.userResource);
             let paymentRecordModel = {
               recipient_type: "LANDLORD",
               recipient_id: this.userResource.model.landlord_ids[0],
@@ -154,9 +150,7 @@ export default {
                 paymentRecordModelFormData.append(key, value);
               }
             }
-            console.log('zxczxczxc 4');
             this.$store.dispatch('paymentRecords/store', {'model': paymentRecordModelFormData}).then(() => {
-              console.log('zxczxczxc 5');
               loader.hide();
               this.resetApiValidation();
               swal.fire({
@@ -195,7 +189,6 @@ export default {
               });
             })
           } else {
-            console.log('zxczxczxc 6');
             loader.hide();
             this.resetApiValidation();
             swal.fire({

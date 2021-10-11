@@ -230,7 +230,7 @@ export default {
         icon: "error",
       });
     },
-    addModel() {
+    addModelProcess() {
       if (this.$props.query ? !this.$props.query.tenantId : true) {
         this.$store.dispatch('asset/get').then(() => {
           if (this.$store.getters["asset/data"].total <= 0) {
@@ -339,6 +339,16 @@ export default {
             previousRoute: router.currentRoute.fullPath
           }
         });
+      }
+    },
+    addModel() {
+      if (!this.$store.getters["users/model"].landlord_ids) {
+        this.$store.dispatch('users/get', {}).then(() => {
+          this.userResource.model = Object.assign({}, this.$store.getters["users/model"]);
+          this.addModelProcess();
+        });
+      } else {
+        this.addModelProcess();
       }
     },
     async addReminder() {
