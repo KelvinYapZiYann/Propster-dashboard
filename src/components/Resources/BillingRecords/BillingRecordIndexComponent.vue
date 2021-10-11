@@ -32,6 +32,7 @@
         <div class="table-responsive">
           <billing-record-table
             :data="resource.models"
+            :rowColor="tableData.rowColor"
             v-on:show-details="showDetails"
             v-on:edit-details="editDetails"
             v-on:delete-details="deleteDetails"

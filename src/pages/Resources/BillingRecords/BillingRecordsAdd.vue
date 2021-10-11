@@ -91,6 +91,12 @@ export default {
       this.getTenureContractDetail(this.$route.query.tenureContractId);
     }
     this.getBillingRecordDetail();
+    if (this.$route.query.tenureContractId) {
+      this.$store.dispatch('tenureContract/getById', this.$route.query.tenureContractId).then(() => {
+        this.tenureContractResource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
+      })
+    }
+    
   },
   methods: {
     async getBillingRecordDetail(tenantId) {
@@ -228,7 +234,7 @@ export default {
         loader: 'spinner',
       });
       try {
-        // this.tenureContractResource.model = {};
+        this.tenureContractResource.model = {};
         await this.$store.dispatch('tenant/getTenureContracts', tenantId).then(() => {
           let tenureContractModels = this.$store.getters["tenant/tenureContractModels"];
           if (!tenureContractModels) {
@@ -299,7 +305,7 @@ export default {
               });
             } else if (result.isDenied) {
               router.push({
-                name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Payment Record" : "Add Billing Record",
+                name: router.currentRoute.matched[0].path == "/m" ? "Mobile Add Payment Record" : "Add Payment Record",
                 query: {
                   senderType: "TENANT",
                   senderId: model.get("sender_id"),
