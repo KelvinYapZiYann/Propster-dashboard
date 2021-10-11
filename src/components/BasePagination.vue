@@ -5,8 +5,17 @@
       v-if="showArrows"
       :class="{ disabled: value === 1 }"
     >
-      <a class="page-link" aria-label="Previous" @click="prevPage">
+      <a class="page-link" aria-label="Previous" @click="firstPage">
         <i class="tim-icons icon-double-left" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li
+      class="page-item prev-page"
+      v-if="showArrows"
+      :class="{ disabled: value === 1 }"
+    >
+      <a class="page-link" aria-label="Previous" @click="prevPage">
+        <i class="tim-icons icon-minimal-left" aria-hidden="true"></i>
       </a>
     </li>
     <li
@@ -23,6 +32,15 @@
       :class="{ disabled: value === totalPages }"
     >
       <a class="page-link" aria-label="Next" @click="nextPage">
+        <i class="tim-icons icon-minimal-right" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li
+      v-if="showArrows"
+      class="page-item page-pre next-page"
+      :class="{ disabled: value === totalPages }"
+    >
+      <a class="page-link" aria-label="Next" @click="lastPage">
         <i class="tim-icons icon-double-right" aria-hidden="true"></i>
       </a>
     </li>
@@ -80,6 +98,16 @@ export default {
     prevPage() {
       if (this.value > 1) {
         this.$emit("input", this.value - 1);
+      }
+    },
+    firstPage() {
+      if (this.value > 1) {
+        this.$emit("input", 1);
+      }
+    },
+    lastPage() {
+      if (this.value < this.totalPages) {
+        this.$emit("input", this.totalPages);
       }
     },
     changePage(item) {
