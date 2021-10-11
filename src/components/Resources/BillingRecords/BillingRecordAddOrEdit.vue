@@ -74,7 +74,7 @@
             >
             </base-selector-input>
             <base-input :label="$t('sidebar.tenureContract')"
-                        v-if="(query ? query.tenureContractId : false)" 
+                        v-else-if="(query ? query.tenureContractId : false)" 
                         :value="tenureContractResource.model.contract_name ? tenureContractResource.model.contract_name : ''"
                         :disabled="true"
                         >

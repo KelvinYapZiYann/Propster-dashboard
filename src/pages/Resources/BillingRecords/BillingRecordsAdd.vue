@@ -228,7 +228,7 @@ export default {
         loader: 'spinner',
       });
       try {
-        this.tenureContractResource.model = {};
+        // this.tenureContractResource.model = {};
         await this.$store.dispatch('tenant/getTenureContracts', tenantId).then(() => {
           let tenureContractModels = this.$store.getters["tenant/tenureContractModels"];
           if (!tenureContractModels) {
