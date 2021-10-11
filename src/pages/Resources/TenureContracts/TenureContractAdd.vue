@@ -84,7 +84,13 @@ export default {
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
           this.resource.selector = Object.assign({}, this.$store.getters["tenureContract/selector"])
         });
-        this.userResource.model = Object.assign({}, this.$store.getters["users/model"]);
+        if (!this.$store.getters["users/model"].landlord_ids) {
+          await this.$store.dispatch('users/get', {}).then(() => {
+            this.userResource.model = Object.assign({}, this.$store.getters["users/model"]);
+          })
+        } else {
+          this.userResource.model = Object.assign({}, this.$store.getters["users/model"]);
+        }
       } catch (e) {
         if (!errorHandlingService.checkIfActionAuthorized(e)) {
           swal.fire({
@@ -119,9 +125,13 @@ export default {
       });
       try {
         await this.$store.dispatch('tenureContract/store', {'model': formData}).then(() => {
+          console.log('zxczxczxc');
           this.resource.model = Object.assign({}, this.$store.getters["tenureContract/model"])
           this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"])
+          console.log('zxczxczxc 2');
           if (parseFloat(this.resource.model.deposited_amount) > 0) {
+            console.log('zxczxczxc 3');
+            console.log(this.userResource);
             let paymentRecordModel = {
               recipient_type: "LANDLORD",
               recipient_id: this.userResource.model.landlord_ids[0],
@@ -144,7 +154,10 @@ export default {
                 paymentRecordModelFormData.append(key, value);
               }
             }
+            console.log('zxczxczxc 4');
             this.$store.dispatch('paymentRecords/store', {'model': paymentRecordModelFormData}).then(() => {
+              console.log('zxczxczxc 5');
+              loader.hide();
               this.resetApiValidation();
               swal.fire({
                 title: this.$t('alert.tenureContractSuccessfullyAdded'),
@@ -182,6 +195,8 @@ export default {
               });
             })
           } else {
+            console.log('zxczxczxc 6');
+            loader.hide();
             this.resetApiValidation();
             swal.fire({
               title: this.$t('alert.tenureContractSuccessfullyAdded'),
@@ -220,14 +235,14 @@ export default {
           }
         });
       } catch (e) {
+        console.log(e);
+        loader.hide();
         this.$notify({
           message: errorHandlingService.displayAlertFromServer(e),
           icon: 'tim-icons icon-bell-55',
           type: 'danger'
         });
         this.setApiValidation(e.response.data.errors)
-      } finally {
-        loader.hide();
       }
     },
     async handleCancel() {

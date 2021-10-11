@@ -197,7 +197,6 @@ export default {
       }
     },
     stopLongClick() {
-        console.log('stop');
       if (this.timeout) {
         clearTimeout(this.timeout);
         this.timeout = null;

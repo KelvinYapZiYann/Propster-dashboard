@@ -88,6 +88,7 @@
                       :placeholder="$t('property.monthlyRentalAmount')"
                       v-model="resource.model.monthly_rental_amount"
                       :disabled="addOrEdit == 'Edit'"
+                      type="number"
                       :error="tmpApiValidationErrors.monthly_rental_amount ? tmpApiValidationErrors.monthly_rental_amount[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.monthly_rental_amount"/> -->
@@ -98,6 +99,7 @@
                       :placeholder="$t('property.depositedAmount')"
                       v-model="resource.model.deposited_amount"
                       :disabled="addOrEdit == 'Edit'"
+                      type="number"
                       :error="tmpApiValidationErrors.deposited_amount ? tmpApiValidationErrors.deposited_amount[0] : ''">
           </base-input>
           <!-- <validation-error :errorsArray="tmpApiValidationErrors.deposited_amount"/> -->
@@ -327,7 +329,6 @@ export default {
 
       if (this.resource.model.file) {
         formData.append('file', this.resource.model.file);
-        console.log('appending file');
       }
 
       for (const [key, value] of Object.entries(this.translateModel())) {
@@ -335,6 +336,8 @@ export default {
           formData.append(key, value);
         }
       }
+
+      console.log(formData.entries());
 
       this.$emit('submit', formData)
     },
