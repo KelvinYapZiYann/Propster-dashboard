@@ -166,7 +166,7 @@ export default {
     tableData: {
       type: Object,
       required: true,
-      default: () => {
+      default: {
         rowColor: []
       }
     },
@@ -364,50 +364,53 @@ export default {
             await this.$store.dispatch('tenant/getTenureContracts', param).then(() => {
               this.resource.models = this.$store.getters["tenant/tenureContractModels"];
               this.resource.data = Object.assign({}, this.$store.getters["tenant/tenureContractData"]);
-              let tmpRowColor = [];
-              let today = new Date();
-              for (let i = 0; i < this.resource.models.length; i++) {
-                let date = new Date(this.resource.models[i].tenure_end_date);
-                if (date > today) {
-                  tmpRowColor.push({});
-                } else {
-                  tmpRowColor.push({'backgroundColor': '#00000011'});
-                }
-              }
-              this.tableData.rowColor = tmpRowColor;
+              // let tmpRowColor = [];
+              // let today = new Date();
+              // for (let i = 0; i < this.resource.models.length; i++) {
+              //   let date = new Date(this.resource.models[i].tenure_end_date);
+              //   if (date > today) {
+              //     tmpRowColor.push({});
+              //   } else {
+              //     tmpRowColor.push({'backgroundColor': '#00000011'});
+              //   }
+              // }
+              // this.tableData.rowColor = tmpRowColor;
+              this.determineRowColor();
             });
           } else {
             await this.$store.dispatch('tenureContract/get', pageId).then(() => {
               this.resource.models = this.$store.getters["tenureContract/models"];
               this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"]);
-              let tmpRowColor = [];
-              let today = new Date();
-              for (let i = 0; i < this.resource.models.length; i++) {
-                let date = new Date(this.resource.models[i].tenure_end_date);
-                if (date > today) {
-                  tmpRowColor.push({});
-                } else {
-                  tmpRowColor.push({'backgroundColor': '#00000011'});
-                }
-              }
-              this.tableData.rowColor = tmpRowColor;
+              // let tmpRowColor = [];
+              // let today = new Date();
+              // for (let i = 0; i < this.resource.models.length; i++) {
+              //   let date = new Date(this.resource.models[i].tenure_end_date);
+              //   if (date > today) {
+              //     tmpRowColor.push({});
+              //   } else {
+              //     tmpRowColor.push({'backgroundColor': '#00000011'});
+              //   }
+              // }
+              // this.tableData.rowColor = tmpRowColor;
+              this.determineRowColor();
             });
           }
         } else {
           await this.$store.dispatch('tenureContract/get', pageId).then(() => {
             this.resource.models = this.$store.getters["tenureContract/models"];
             this.resource.data = Object.assign({}, this.$store.getters["tenureContract/data"]);
-            let tmpRowColor = [];
-            let today = new Date();
-            for (let i = 0; i < this.resource.models.length; i++) {
-              let date = new Date(this.resource.models[i].tenure_end_date);
-              if (date > today) {
-                tmpRowColor.push({});
-              } else {
-                tmpRowColor.push({'backgroundColor': '#00000011'});
-              }
-            }
-            this.tableData.rowColor = tmpRowColor;
+            this.determineRowColor();
+            // let tmpRowColor = [];
+            // let today = new Date();
+            // for (let i = 0; i < this.resource.models.length; i++) {
+            //   let date = new Date(this.resource.models[i].tenure_end_date);
+            //   if (date > today) {
+            //     tmpRowColor.push({});
+            //   } else {
+            //     tmpRowColor.push({'backgroundColor': '#00000011'});
+            //   }
+            // }
+            // this.tableData.rowColor = tmpRowColor;
           });
         }
         // await this.$store.dispatch('tenureContract/create', pageId).then(() => {
@@ -422,6 +425,19 @@ export default {
       } finally {
         loader.hide();
       }
+    },
+    determineRowColor() {
+      let tmpRowColor = [];
+      let today = new Date();
+      for (let i = 0; i < this.resource.models.length; i++) {
+        let date = new Date(this.resource.models[i].tenure_end_date);
+        if (date > today) {
+          tmpRowColor.push({});
+        } else {
+          tmpRowColor.push({'backgroundColor': '#00000011'});
+        }
+      }
+      this.tableData.rowColor = tmpRowColor;
     },
     filterAssetId(value) {
       console.log('filtering by asset id');

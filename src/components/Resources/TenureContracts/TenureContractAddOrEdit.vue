@@ -337,8 +337,6 @@ export default {
         }
       }
 
-      console.log(formData.entries());
-
       this.$emit('submit', formData)
     },
     async handleCancel() {
@@ -397,9 +395,7 @@ export default {
       return false;
     },
     sendingFile(file, xhr, formData) {
-      console.log('sendingFile');
       this.resource.model.file = file;
-      console.log(this.resource.model.file);
     },
     maxFileExceeded() {
       this.$notify({
