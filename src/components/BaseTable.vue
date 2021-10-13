@@ -12,7 +12,12 @@
     <tbody :class="tbodyClasses">
     <tr v-for="(item, index) in data" :key="index" :class="[{viewableRow: !disableView}, {unselectable: $store.getters['mobileLayout/isMobileLayout']}]" :style="rowColor[index]" >
       <td v-if="!disableIndex && !$store.getters['mobileLayout/isMobileLayout']">
-        {{((paginationPage - 1) * 10) + (index + 1)}}.
+        <span v-if="paginationStartId > 0">
+          {{paginationStartId + index}}.
+        </span>
+        <span v-else>
+          {{((paginationPage - 1) * 10) + (index + 1)}}.
+        </span>
       </td>
       <td v-if="!$store.getters['mobileLayout/isMobileLayout']">
         <base-button
@@ -154,7 +159,11 @@ export default {
     paginationPage: {
       type: Number,
       default: 1
-    }
+    },
+    paginationStartId: {
+      type: Number,
+      default: 0
+    },
   },
   computed: {
     tableClass() {

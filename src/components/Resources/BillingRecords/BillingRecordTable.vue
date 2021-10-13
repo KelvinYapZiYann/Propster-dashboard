@@ -3,7 +3,12 @@
     <tbody :class="tbodyClasses">
     <tr v-for="(item, index) in data" :key="index" :class="[{unselectable: true}]" :style="rowColor[index]" >
       <td>
-        {{((paginationPage - 1) * 10) + (index + 1)}}.
+        <span v-if="paginationStartId > 0">
+          {{paginationStartId + index}}.
+        </span>
+        <span v-else>
+          {{((paginationPage - 1) * 10) + (index + 1)}}.
+        </span>
       </td>
       <slot :row="item">
           <td
@@ -92,7 +97,11 @@ export default {
     paginationPage: {
       type: Number,
       default: 1
-    }
+    },
+    paginationStartId: {
+      type: Number,
+      default: 0
+    },
   },
   methods: {
     itemValue(item, column) {

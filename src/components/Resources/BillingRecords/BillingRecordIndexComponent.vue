@@ -38,6 +38,7 @@
             v-on:delete-details="deleteDetails"
             v-on:long-click-event="longClickEvent"
             :paginationPage="paginationPage"
+            :paginationStartId="paginationStartId"
             v-if="$router.currentRoute.matched[0].path == '/m'"
           >
           </billing-record-table>
@@ -53,6 +54,7 @@
             v-on:delete-details="deleteDetails"
             v-on:long-click-event="longClickEvent"
             :paginationPage="paginationPage"
+            :paginationStartId="paginationStartId"
             v-else
           >
           <!-- :disableEdit="true" -->
@@ -158,7 +160,8 @@ export default {
       userResource: {
         model: {},
       },
-      paginationPage: 1
+      paginationPage: 1,
+      paginationStartId: 0
     };
   },
   props: {
@@ -423,6 +426,7 @@ export default {
             await this.$store.dispatch('tenureContract/getBillingRecords', param).then(() => {
               this.resource.models = this.$store.getters["tenureContract/billingRecordModels"];
               this.resource.data = Object.assign({}, this.$store.getters["tenureContract/billingRecordData"]);
+              this.paginationStartId = this.resource.data.from;
               let tmpRowColor = [];
               let today = new Date();
               for (let i = 0; i < this.resource.models.length; i++) {
@@ -442,8 +446,8 @@ export default {
             }
             await this.$store.dispatch('tenant/getBillingRecords', param).then(() => {
               this.resource.models = this.$store.getters["tenant/billingRecordModels"];
-              this.resource.data = Object.assign({}, this.$store.getters["tenant/billingRecordData"])
-              ;
+              this.resource.data = Object.assign({}, this.$store.getters["tenant/billingRecordData"]);
+              this.paginationStartId = this.resource.data.from;
               let tmpRowColor = [];
               let today = new Date();
               for (let i = 0; i < this.resource.models.length; i++) {
@@ -460,6 +464,7 @@ export default {
             await this.$store.dispatch('billingRecords/get', pageId).then(() => {
               this.resource.models = this.$store.getters["billingRecords/models"];
               this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"]);
+              this.paginationStartId = this.resource.data.from;
               let tmpRowColor = [];
               let today = new Date();
               for (let i = 0; i < this.resource.models.length; i++) {
@@ -477,6 +482,7 @@ export default {
           await this.$store.dispatch('billingRecords/get', pageId).then(() => {
             this.resource.models = this.$store.getters["billingRecords/models"];
             this.resource.data = Object.assign({}, this.$store.getters["billingRecords/data"]);
+            this.paginationStartId = this.resource.data.from;
             let tmpRowColor = [];
             let today = new Date();
             for (let i = 0; i < this.resource.models.length; i++) {
