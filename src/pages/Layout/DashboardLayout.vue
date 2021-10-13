@@ -94,6 +94,12 @@
             }"
           > 
           </sidebar-link> -->
+          <li>
+            <a href="https://propster.io/tutorial" target="_blank" class="nav-link ">
+              <span class="sidebar-mini-icon">R</span>
+              <span class="sidebar-normal">{{$t('tutorial.title')}}</span>
+            </a>
+          </li>
         </sidebar-link>
         <!-- <li class="align-bottom">
           <a href="javascript:void(0)" class="nav-link " @click="logout">
@@ -148,31 +154,30 @@ export default {
         this.$sidebar.displaySidebar(false);
       }
     },
-    async logout() {
-      swal.fire({
-        title: this.$t('topbar.logout'),
-        text: this.$t('alert.logoutText'),
-        buttonsStyling: false,
-        showCancelButton: true,
-        confirmButtonText: this.$t('topbar.logout'),
-        cancelButtonText: this.$t('component.cancel'),
-        cancelButtonClass: "btn btn-info btn-fill",
-        confirmButtonClass: "btn btn-neutral btn-fill",
-        icon: "warning",
-      }).then((result) => {
-        if (result.value) {
-          try {
-            this.$store.dispatch("logout");
-          } catch (error) {
-            this.$notify({
-              type: "danger",
-              message: "Oops, something went wrong!",
-            });
-          }
-        }
-      });
-      
-    },
+    // async logout() {
+    //   swal.fire({
+    //     title: this.$t('topbar.logout'),
+    //     text: this.$t('alert.logoutText'),
+    //     buttonsStyling: false,
+    //     showCancelButton: true,
+    //     confirmButtonText: this.$t('topbar.logout'),
+    //     cancelButtonText: this.$t('component.cancel'),
+    //     cancelButtonClass: "btn btn-info btn-fill",
+    //     confirmButtonClass: "btn btn-neutral btn-fill",
+    //     icon: "warning",
+    //   }).then((result) => {
+    //     if (result.value) {
+    //       try {
+    //         this.$store.dispatch("logout");
+    //       } catch (error) {
+    //         this.$notify({
+    //           type: "danger",
+    //           message: "Oops, something went wrong!",
+    //         });
+    //       }
+    //     }
+    //   });
+    // },
   }
 };
 </script>

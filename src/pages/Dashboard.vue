@@ -217,18 +217,24 @@
         @getResource="getResource"
       ></assets-rental-rate-index-component>
 
-      <tutorial-component></tutorial-component>
+      <tutorial-component
+        v-if="$router.currentRoute.matched[0].path != '/m'"
+      ></tutorial-component>
     </div>
 
     <div v-if="!doesAssetExist && !doesTenantExist">
-      <tutorial-component></tutorial-component>
+      <tutorial-component
+        v-if="$router.currentRoute.matched[0].path != '/m'"
+      ></tutorial-component>
       <asset-empty
         :resource="resource.assetsValueList"
       >
       </asset-empty>
     </div>
     <div v-if="doesAssetExist && !doesTenantExist">
-      <tutorial-component></tutorial-component>
+      <tutorial-component
+        v-if="$router.currentRoute.matched[0].path != '/m'"
+      ></tutorial-component>
       <tenant-empty
         :resource="resource.tenants"
       >
