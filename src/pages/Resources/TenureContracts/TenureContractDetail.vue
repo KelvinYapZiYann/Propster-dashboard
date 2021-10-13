@@ -56,7 +56,8 @@
             assetId: resource.model.asset ? resource.model.asset.id : null,
             tenureContractId: resource.model.id,
           }"
-          :tableData="{'rowColor': rowColor}"
+          :tableData="billingRecordTableData"
+          @getResource="getResource"
         ></billing-record-index-component>
 
         <base-button slot="footer" type="neutral" @click="handleBack()" fill>{{$t('component.back')}}</base-button>
@@ -84,7 +85,9 @@ export default {
         model: {},
         data: {}
       },
-      rowColor: [],
+      billingRecordTableData: {
+        rowColor: []
+      },
       billingRecordResource: {
         models: [{}],
         data: {},
@@ -150,16 +153,17 @@ export default {
         await this.$store.dispatch('tenureContract/getBillingRecords', this.tenureContractId).then(() => {
           this.billingRecordResource.models = this.$store.getters["tenureContract/billingRecordModels"]
           this.billingRecordResource.data = Object.assign({}, this.$store.getters["tenureContract/billingRecordData"])
-          this.rowColor = [];
+          let tmpRowColor = [];
           let today = new Date();
           for (let i = 0; i < this.billingRecordResource.models.length; i++) {
             let date = new Date(this.billingRecordResource.models[i].billing_end_at);
             if (date > today) {
-              this.rowColor.push({});
+              tmpRowColor.push({});
             } else {
-              this.rowColor.push({'backgroundColor': '#00000011'});
+              tmpRowColor.push({'backgroundColor': '#00000011'});
             }
           }
+          this.billingRecordTableData = Object.assign({}, {'rowColor': tmpRowColor});
         })
       } catch (e) {
         this.$notify({
