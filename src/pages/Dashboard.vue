@@ -286,8 +286,19 @@ export default {
   data() {
     return {
       resource: {
-        general: {},
-        rental: {},
+        general: {
+          overdue_income: '0',
+          upcoming_income: '0',
+          overdue_expenses: '0',
+          upcoming_expenses: '0',
+          projected_monthly_income: '0',
+          projected_monthly_expenses: '0',
+        },
+        rental: {
+          collected_rent: '0',
+          overdue_rent: '0',
+          upcoming_rent: '0',
+        },
         overdueTenantList: {
           models: [],
           data: {}
